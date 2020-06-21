@@ -12,14 +12,12 @@ class ThirdPV: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
 
     //MARK: IBAction
     @IBAction func getStartedOnboarding(_ sender: UIButton) {
-        let story = UIStoryboard.init(name: "Main", bundle: nil)
-        let vc = story.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        let vc = DesignManager.loadViewControllerFromMainStoryBoard(identifier: "LoginVC") as! LoginVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

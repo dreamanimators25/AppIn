@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="roboto_medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Web ViewVC-->
+        <scene sceneID="JZk-lN-ctk">
+            <objects>
+                <viewController storyboardIdentifier="WebViewVC" id="uHR-nY-kKJ" customClass="WebViewVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6im-WX-g1Z">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="acK-nT-m1D">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <subviews>
+                                    <progressView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BJm-vW-hH0">
+                                        <rect key="frame" x="0.0" y="42" width="320" height="2"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="Zv7-FR-uWB"/>
+                                        </constraints>
+                                        <color key="progressTintColor" red="0.29061779380000002" green="0.13657647370000001" blue="0.7277496457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </progressView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2FR-yh-PPf">
+                                        <rect key="frame" x="5" y="2" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="BSV-Nh-EcE"/>
+                                            <constraint firstAttribute="height" constant="40" id="ScY-55-sVh"/>
+                                        </constraints>
+                                        <state key="normal" image="back"/>
+                                        <connections>
+                                            <action selector="backBtnClicked:" destination="uHR-nY-kKJ" eventType="touchUpInside" id="cs9-i0-x5j"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evF-P7-Veq">
+                                        <rect key="frame" x="145" y="12" width="30" height="20"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="15"/>
+                                        <color key="textColor" red="0.29061779380000002" green="0.13657647370000001" blue="0.7277496457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="BJm-vW-hH0" secondAttribute="bottom" id="Bou-Y1-bL6"/>
+                                    <constraint firstAttribute="trailing" secondItem="BJm-vW-hH0" secondAttribute="trailing" id="Gh9-ez-XP6"/>
+                                    <constraint firstItem="evF-P7-Veq" firstAttribute="centerX" secondItem="acK-nT-m1D" secondAttribute="centerX" id="gcy-Xj-3SP"/>
+                                    <constraint firstItem="2FR-yh-PPf" firstAttribute="leading" secondItem="acK-nT-m1D" secondAttribute="leading" constant="5" id="jkn-gd-fVO"/>
+                                    <constraint firstAttribute="height" constant="44" id="lGY-Qw-AFD"/>
+                                    <constraint firstItem="evF-P7-Veq" firstAttribute="centerY" secondItem="acK-nT-m1D" secondAttribute="centerY" id="p8c-cE-xYW"/>
+                                    <constraint firstItem="BJm-vW-hH0" firstAttribute="leading" secondItem="acK-nT-m1D" secondAttribute="leading" id="peI-kj-PAy"/>
+                                    <constraint firstItem="2FR-yh-PPf" firstAttribute="centerY" secondItem="acK-nT-m1D" secondAttribute="centerY" id="tUy-AH-jyf"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bCP-9g-dlC">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="LD3-YV-xFb" firstAttribute="trailing" secondItem="bCP-9g-dlC" secondAttribute="trailing" id="9Wd-op-TlE"/>
+                            <constraint firstItem="LD3-YV-xFb" firstAttribute="bottom" secondItem="bCP-9g-dlC" secondAttribute="bottom" id="IHE-lf-ddq"/>
+                            <constraint firstItem="bCP-9g-dlC" firstAttribute="leading" secondItem="LD3-YV-xFb" secondAttribute="leading" id="Ky9-F4-uAa"/>
+                            <constraint firstItem="acK-nT-m1D" firstAttribute="top" secondItem="LD3-YV-xFb" secondAttribute="top" id="WRP-J6-hpX"/>
+                            <constraint firstItem="bCP-9g-dlC" firstAttribute="top" secondItem="acK-nT-m1D" secondAttribute="bottom" id="akm-T5-oSG"/>
+                            <constraint firstItem="acK-nT-m1D" firstAttribute="leading" secondItem="LD3-YV-xFb" secondAttribute="leading" id="dAn-W0-Wh2"/>
+                            <constraint firstItem="LD3-YV-xFb" firstAttribute="trailing" secondItem="acK-nT-m1D" secondAttribute="trailing" id="van-8x-F0J"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="LD3-YV-xFb"/>
+                    </view>
+                    <connections>
+                        <outlet property="titleLbl" destination="evF-P7-Veq" id="3e6-60-EVE"/>
+                        <outlet property="viewForWeb" destination="bCP-9g-dlC" id="MHY-qM-rtq"/>
+                        <outlet property="webViewProgress" destination="BJm-vW-hH0" id="Zxd-4h-6kp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LHH-Cu-IZR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-36" y="117"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="back" width="20" height="20"/>
+    </resources>
+</document>
