@@ -28,8 +28,7 @@ class CreateAccountVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.backBtn.layer.cornerRadius = btnCornerRadius
-        self.nextBtn.layer.cornerRadius = btnCornerRadius
+        self.SetCornerRadius()
         
         DispatchQueue.main.async {
             self.mainViewHeightConstraint.constant = 305
@@ -137,6 +136,11 @@ class CreateAccountVC: UIViewController {
     }
     
     //MARK: Custom Methods
+    func SetCornerRadius() {
+        self.backBtn.layer.cornerRadius = btnCornerRadius
+        self.nextBtn.layer.cornerRadius = btnCornerRadius
+    }
+    
     func firstValidation() -> Bool
     {
         if txtFieldFirstName.text!.isEmpty {

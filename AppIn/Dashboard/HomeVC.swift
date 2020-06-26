@@ -8,6 +8,8 @@
 
 import UIKit
 
+var enableTabBarItems : (() -> (Void))?
+
 class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var latestContentCollectionView: UICollectionView!
@@ -18,12 +20,36 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        enableTabBarItems = {
+            if let items = self.tabBarController?.tabBar.items {
+                items.forEach { $0.isEnabled = true }
+            }
+        }
+        
+    }
+    
     //MARK: IBAction
     @IBAction func searchBtnClicked(_ sender: UIButton) {
         
     }
     
     @IBAction func addBtnClicked(_ sender: UIButton) {
+        
+        DispatchQueue.main.async {
+            let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "AddChannelPopUpVC") as! AddChannelPopUpVC
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            
+            self.present(vc, animated: true) {
+                if let items = self.tabBarController?.tabBar.items {
+                    items.forEach { $0.isEnabled = false }
+                }
+            }
+            
+        }
         
     }
     

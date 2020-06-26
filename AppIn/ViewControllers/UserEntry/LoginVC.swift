@@ -20,9 +20,11 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.logInBtn.layer.cornerRadius = btnCornerRadius
-        self.forgotPasswordBtn.layer.cornerRadius = btnCornerRadius
-        self.createAccountBtn.layer.cornerRadius = btnCornerRadius
+        self.SetCornerRadius()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
     }
     
@@ -45,6 +47,12 @@ class LoginVC: UIViewController {
     }
     
     //MARK: Custom Methods
+    func SetCornerRadius() {
+        self.logInBtn.layer.cornerRadius = btnCornerRadius
+        self.forgotPasswordBtn.layer.cornerRadius = btnCornerRadius
+        self.createAccountBtn.layer.cornerRadius = btnCornerRadius
+    }
+    
     func Validation() -> Bool
     {
         if txtFEmail.text!.isEmpty {

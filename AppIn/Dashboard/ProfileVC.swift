@@ -21,7 +21,8 @@ class ProfileVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: IBAction
     @IBAction func editBtnClicked(_ sender: UIButton) {
-        print("Edit Button Trigger")
+        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "EditProfileVC") as! EditProfileVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK: UITableView DataSource & Delegates
