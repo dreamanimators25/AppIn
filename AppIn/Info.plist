@@ -79,5 +79,7 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>To Capture User Profile Picture</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To Save &amp; Share User Images</string>
 </dict>
 </plist>

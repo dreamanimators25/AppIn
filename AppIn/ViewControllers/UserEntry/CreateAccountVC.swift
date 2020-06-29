@@ -141,8 +141,8 @@ class CreateAccountVC: UIViewController {
         self.nextBtn.layer.cornerRadius = btnCornerRadius
     }
     
-    func firstValidation() -> Bool
-    {
+    func firstValidation() -> Bool {
+        
         if txtFieldFirstName.text!.isEmpty {
             Alert.showAlert(strTitle: "", strMessage: "Please Enter First Name", Onview: self)
             return false
@@ -159,8 +159,8 @@ class CreateAccountVC: UIViewController {
         return true
     }
     
-    func secondValidation() -> Bool
-    {
+    func secondValidation() -> Bool {
+        
         if txtFieldEmail.text!.isEmpty {
             Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
             return false

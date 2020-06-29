@@ -38,7 +38,8 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func forgotBtnClicked(_ sender: UIButton) {
-        
+        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "ForgotPasswordVC") as! ForgotPasswordVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func createBtnClicked(_ sender: UIButton) {
@@ -53,8 +54,8 @@ class LoginVC: UIViewController {
         self.createAccountBtn.layer.cornerRadius = btnCornerRadius
     }
     
-    func Validation() -> Bool
-    {
+    func Validation() -> Bool {
+        
         if txtFEmail.text!.isEmpty {
             Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
             return false

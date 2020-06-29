@@ -83,7 +83,9 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
+        let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "ContentVC") as! ContentVC
+        vc.strTitle = "CB Test Channel"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

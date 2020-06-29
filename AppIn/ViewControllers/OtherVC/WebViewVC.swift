@@ -28,9 +28,17 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         if let str = isComeFrom {
             self.titleLbl.text = str
         }
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: IBAction

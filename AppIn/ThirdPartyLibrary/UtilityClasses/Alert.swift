@@ -113,6 +113,12 @@ class DesignManager: NSObject {
         return controller
     }
     
+    class func loadViewControllerFromContentStoryBoard(identifier: String) -> Any {
+        let storyBoard = UIStoryboard(name: "Content", bundle: Bundle.main)
+        let controller = storyBoard.instantiateViewController(withIdentifier: identifier)
+        return controller
+    }
+    
 }
 
 extension UIViewController {

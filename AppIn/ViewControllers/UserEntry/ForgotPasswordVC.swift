@@ -9,6 +9,8 @@
 import UIKit
 
 class ForgotPasswordVC: UIViewController {
+    
+    @IBOutlet weak var txtFEmail: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,20 @@ class ForgotPasswordVC: UIViewController {
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func submitBtnClicked(_ sender: UIButton) {
+        
+        if txtFEmail.text!.isEmpty {
+            Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
+        }
+        else if(!Alert.isValidEmail(testStr: txtFEmail.text!)) {
+            Alert.showAlert(strTitle: "", strMessage: "Please Enter Valid E-mail Address", Onview: self)
+        }
+        else {
+            print("Call Forgot Password Api")
+        }
+        
     }
     
     // MARK: - Navigation

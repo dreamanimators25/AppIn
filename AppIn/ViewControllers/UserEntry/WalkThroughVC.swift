@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class WalkThroughVC: UIViewController {
     
     @IBOutlet weak var onboardingContainer: UIView!
 

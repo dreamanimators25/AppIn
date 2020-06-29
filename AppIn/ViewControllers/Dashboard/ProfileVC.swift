@@ -54,6 +54,11 @@ class ProfileVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        guard indexPath.row != 2 else {
+            return 0
+        }
+       
         return UITableView.automaticDimension
     }
     
@@ -63,7 +68,10 @@ class ProfileVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         case 0:
             print("Profile")
         case 1:
-            print("Change Password")
+            let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "ChangePasswordVC") as! ChangePasswordVC
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+            break
         case 2:
             DispatchQueue.main.async {
                 Alert.showAlertWithTowButton("", message: "Do you really want to opt out?", alertButtonTitles: ["NO","YES"], alertButtonStyles: [.default,.default], vc: self) { (index) in

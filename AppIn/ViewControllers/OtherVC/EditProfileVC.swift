@@ -11,10 +11,24 @@ import UIKit
 class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var lblUserEmail: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: IBAction
@@ -22,14 +36,36 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func findEnableDisableBtnClicked(_ sender: UIButton) {
+    @IBAction func changeNameBtnClicked(_ sender: UIButton) {
         
-        if sender.isSelected {
-            sender.isSelected = !sender.isSelected
-            sender.setImage(#imageLiteral(resourceName: "editUnselect"), for: .normal)
-        }else {
-            sender.isSelected = !sender.isSelected
-            sender.setImage(#imageLiteral(resourceName: "editSelect"), for: .normal)
+        DispatchQueue.main.async {
+            let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "ProfileChangePopVC") as! ProfileChangePopVC
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            vc.isComeFor = "Name"
+            
+            vc.setEnteredText = { val in
+                self.lblUserName.text = val
+            }
+            
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+    }
+    
+    @IBAction func changeEmailBtnClicked(_ sender: UIButton) {
+        
+        DispatchQueue.main.async {
+            let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "ProfileChangePopVC") as! ProfileChangePopVC
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            vc.isComeFor = "Email"
+            
+            vc.setEnteredText = { val in
+                self.lblUserEmail.text = val
+            }
+            
+            self.present(vc, animated: true, completion: nil)
         }
         
     }

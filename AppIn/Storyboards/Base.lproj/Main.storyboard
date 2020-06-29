@@ -27,17 +27,17 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vT7-iH-pYz" kind="relationship" relationship="rootViewController" id="gIj-rh-z3e"/>
+                        <segue destination="vT7-iH-pYz" kind="relationship" relationship="rootViewController" id="epb-Qn-wAY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YMR-UE-1WK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-733" y="117"/>
         </scene>
-        <!--View Controller-->
+        <!--Walk ThroughVC-->
         <scene sceneID="NpO-fm-wNc">
             <objects>
-                <viewController id="vT7-iH-pYz" customClass="ViewController" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WalkThroughVC" id="vT7-iH-pYz" customClass="WalkThroughVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JqC-QI-H2Z">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ki-xO-uJ9" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="24" y="116"/>
+            <point key="canvasLocation" x="68" y="116"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="pte-Q5-gg8">
@@ -144,7 +144,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="12" navigationOrientation="horizontal" spineLocation="none" id="Hj2-Go-CLE" customClass="OnboardingViewController" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0i-MZ-Ss7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="761" y="99"/>
+            <point key="canvasLocation" x="818" y="98"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="qf8-cE-UnJ">
@@ -224,21 +224,21 @@
                                         <rect key="frame" x="32" y="93" width="240" height="166"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="NOTIFICATIONS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oDf-RG-xJV">
-                                        <rect key="frame" x="61" y="309" width="182" height="33"/>
+                                        <rect key="frame" x="59.5" y="309" width="185" height="29.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="25"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="-0.5" height="-0.5"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get notifications when your favourite brands put new content." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXp-Cf-If1" userLabel="Description">
-                                        <rect key="frame" x="10" y="352" width="284" height="42.5"/>
+                                        <rect key="frame" x="10" y="348.5" width="284" height="37.5"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                         <size key="shadowOffset" width="-0.5" height="-0.5"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfA-HB-iT4">
-                                        <rect key="frame" x="77" y="437" width="150" height="45"/>
+                                        <rect key="frame" x="75" y="437" width="154" height="45"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="C5P-H7-6Dg"/>
