@@ -32,7 +32,18 @@ class AddChannelPopUpVC: UIViewController {
     //MARK: IBAction
     @IBAction func addBtnClicked(_ sender: UIButton) {
         self.view.endEditing(true)
-        print("Call Api for Channel Add")
+        
+        if txtFieldChannelCode.text!.isEmpty {
+            Alert.showAlert(strTitle: "", strMessage: "Please Enter Channel Code", Onview: self)
+        }else {
+            self.dismiss(animated: true) {
+                if let block = enableTabBarItems {
+                    print("Call Api for Channel Add")
+                    block()
+                }
+            }
+        }
+        
     }
 
     // MARK: - Navigation

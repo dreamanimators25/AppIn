@@ -13,6 +13,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var contentCollectionView: UICollectionView!
     @IBOutlet weak var lblContentTitle: UILabel!
     
+    var documentInteractionController : UIDocumentInteractionController!
     var strTitle : String?
 
     override func viewDidLoad() {
@@ -47,19 +48,46 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
     @IBAction func shareContentImageBtnClicked(_ sender: UIButton) {
         
+        // text to share
+        let sharedText = "Shared via AppIn! Download AppIn Now from Apple App Store and Google Play Store!"
+        
         // image to share
-        let image = #imageLiteral(resourceName: "logo_white")
+        //let sharedImage = #imageLiteral(resourceName: "logo_white")
+        let sharedImage = UIView().takeScreenshot(captureView: self.contentCollectionView)
         
         // set up activity view controller
-        let imageToShare = [ image ]
-        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        let sharedData = [ sharedImage ?? UIImage() , sharedText] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: sharedData, applicationActivities: nil)
+        
+        // so that iPads won't crash
+        activityViewController.popoverPresentationController?.sourceView = self.view
         
         // exclude some activity types from the list (optional)
-        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.postToVimeo, UIActivity.ActivityType.mail, UIActivity.ActivityType.postToTwitter ]
+        activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.copyToPasteboard, UIActivity.ActivityType.message, UIActivity.ActivityType.openInIBooks, UIActivity.ActivityType.postToTencentWeibo, UIActivity.ActivityType.postToWeibo, UIActivity.ActivityType.postToFlickr ]
         
         // present the view controller
         self.present(activityViewController, animated: true, completion: nil)
+        
+        
+        
+        /*
+        let sharedImage = UIView().takeScreenshot(captureView: self.contentCollectionView) ?? UIImage()
+
+        if let imageData = sharedImage.jpegData(compressionQuality: 1.0) {
+            let tempFile = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents/whatsAppTmp.wai")!
+            do {
+                try imageData.write(to: tempFile, options: .atomic)
+                self.documentInteractionController = UIDocumentInteractionController(url: tempFile)
+                //self.documentInteractionController.uti = "net.whatsapp.image"
+                self.documentInteractionController.uti = "Shared via AppIn! Download AppIn Now from Apple App Store and Google Play Store!"
+                
+                self.documentInteractionController.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
+            } catch {
+                print(error)
+            }
+        }
+        */
+        
         
     }
     

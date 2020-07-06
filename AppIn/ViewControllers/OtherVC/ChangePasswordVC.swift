@@ -13,10 +13,12 @@ class ChangePasswordVC: UIViewController {
     @IBOutlet weak var txtFOldPassword: UITextField!
     @IBOutlet weak var txtFNewPassword: UITextField!
     @IBOutlet weak var txtFConfirmPassword: UITextField!
+    @IBOutlet weak var btnSubmit: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.SetCornerRadius()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,9 +52,26 @@ class ChangePasswordVC: UIViewController {
             Alert.showAlert(strTitle: "", strMessage: "Password Doesn't Match!", Onview: self)
         }
         else {
-            print("Call Change Password Api")
+            
+            UserManager.sharedInstance.changePsw(txtFOldPassword.text!, txtFNewPassword.text!, onSuccess: {
+                
+                self.txtFOldPassword.text = ""
+                self.txtFNewPassword.text = ""
+                self.txtFConfirmPassword.text = ""
+                
+                Alert.showAlert(strTitle: "", strMessage: "Password has been successfully changed", Onview: self)
+                
+            }, onError: {
+                Alert.showAlert(strTitle: "Error", strMessage: "Wrong old password", Onview: self)
+            })
+            
         }
         
+    }
+    
+    //MARK: Custom Methods
+    func SetCornerRadius() {
+        self.btnSubmit.layer.cornerRadius = btnCornerRadius
     }
 
     // MARK: - Navigation

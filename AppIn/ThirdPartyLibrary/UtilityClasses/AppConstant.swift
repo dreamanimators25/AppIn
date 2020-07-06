@@ -8,6 +8,9 @@
 
 import UIKit
 
+//let newBaseURL = "http://104.42.144.12:5000/api/" // Live Server Url
+let newBaseURL = "http://40.112.131.121:5000/api/" // Test Server Url
+
 let apdel = UIApplication.shared.delegate as! AppDelegate
 
 let AppThemeColor = #colorLiteral(red: 0.2906177938, green: 0.1365764737, blue: 0.7277496457, alpha: 1)

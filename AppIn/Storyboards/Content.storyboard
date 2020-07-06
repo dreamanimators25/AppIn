@@ -17,7 +17,7 @@
         <!--ContentVC-->
         <scene sceneID="36R-jQ-Xb3">
             <objects>
-                <viewController storyboardIdentifier="ContentVC" id="DNt-ze-0Se" customClass="ContentVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContentVC" id="DNt-ze-0Se" customClass="ContentVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SmE-mH-vT9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

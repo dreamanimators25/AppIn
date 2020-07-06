@@ -11,10 +11,12 @@ import UIKit
 class ForgotPasswordVC: UIViewController {
     
     @IBOutlet weak var txtFEmail: UITextField!
+    @IBOutlet weak var btnSubmit: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.SetCornerRadius()
     }
     
     //MARK: IBAction
@@ -31,9 +33,25 @@ class ForgotPasswordVC: UIViewController {
             Alert.showAlert(strTitle: "", strMessage: "Please Enter Valid E-mail Address", Onview: self)
         }
         else {
-            print("Call Forgot Password Api")
+            
+            UserManager.sharedInstance.restorePasswordWithEmail(self.txtFEmail.text!) { (res, error, info) in
+                if error != nil {
+                    self.showErr(str: "Server error")
+                } else if let info = info {
+                    self.showErr(str: info)
+                } else {
+                    self.showErr(str: "An email has been sent")
+                    self.txtFEmail.text = ""
+                }
+            }
+            
         }
         
+    }
+    
+    //MARK: Custom Methods
+    func SetCornerRadius() {
+        self.btnSubmit.layer.cornerRadius = btnCornerRadius
     }
     
     // MARK: - Navigation

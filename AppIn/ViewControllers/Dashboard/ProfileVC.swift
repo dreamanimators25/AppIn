@@ -89,9 +89,36 @@ class ProfileVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 }
             }
         default:
-            apdel.navigateToHomeScreen()
+            Alert.showAlertWithTowButton("", message: "Do you want to logout?", alertButtonTitles: ["NO","YES"], alertButtonStyles: [.destructive,.default], vc: self) { (index) in
+                if index == 1 {
+                    
+                    DispatchQueue.main.async {
+                        self.logoutUser()
+                    }
+                }
+            }
         }
         
+    }
+    
+    //MARK: Custom Methods
+    fileprivate func logoutUser() {
+        UserManager.sharedInstance.logoutUserWithCompletion {
+            
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                
+                appDelegate.navigateToLoginScreen()
+                OAuth2Handler.sharedInstance.clearAccessToken()
+                
+                CustomUserDefault.removeUserId()
+                CustomUserDefault.removeLoginData()
+                CustomUserDefault.removeUserName()
+                CustomUserDefault.removeUserPassword()
+                CustomUserDefault.removeTokenTime()
+                
+                print(OAuth2Handler.hasAccessToken)
+            }
+        }
     }
 
     // MARK: - Navigation

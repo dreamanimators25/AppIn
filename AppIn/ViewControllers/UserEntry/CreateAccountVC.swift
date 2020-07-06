@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseInstanceID
 
 class CreateAccountVC: UIViewController {
     
@@ -93,10 +94,43 @@ class CreateAccountVC: UIViewController {
             guard self.secondValidation() else {
                 return
             }
+                        
+            var params = [String : String]()
+            params = ["first_name" : self.txtFieldFirstName.text!,
+                      "last_name" : self.txtFieldLastName.text!,
+                      "company_name" : self.txtFieldCompanyName.text!,
+                      "email" : self.txtFieldEmail.text!,
+                      "password" : self.txtFieldPassword.text!,
+                      "gender" : "unspecified"]
             
-            print("SignUp Api Call")
+            print("parass = \(params)")
             
-            apdel.navigateToDashboardScreen()
+            UserManager.sharedInstance.registerWithUsername(params) { [weak self] (user, error, exist) in
+                
+                guard let self = self else { return }
+                
+                if error != nil {
+                    self.showErr(str: "Server error")
+                } else if exist {
+                    self.showErr(str: "Email address already in use")
+                } else {
+                    if user == nil {
+                        self.showErr(str: "Server error")
+                    } else {
+                        AppDelegate.userId = user?.id
+                        
+                        self.updatePushToken()
+                        
+                        DispatchQueue.main.async(execute: {
+                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                appDelegate.navigateToDashboardScreen()
+                            }
+                        })
+                        
+                    }
+                }
+                
+            }
             
         }
         
@@ -186,6 +220,22 @@ class CreateAccountVC: UIViewController {
         }
         
         return true
+    }
+    
+    //MARK: - Updating Push Notification Token -
+    
+    fileprivate func updatePushToken() {
+        InstanceID.instanceID().instanceID(handler: { (result, error) in
+            
+            AppDelegate.token = result?.token
+            
+            if let id = UserManager.sharedInstance.user?.id, let token = AppDelegate.token {
+                let router = UserRouter(endpoint: .updatePushToken(token: token, userId: "\(id)"))
+                UserManager.sharedInstance.performRequest(withRouter: router) { (data) in
+                    print("👍", String(describing: type(of: self)),":", #function, " ", data)
+                }
+            }
+        })
     }
 
     // MARK: - Navigation

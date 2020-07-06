@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseInstanceID
 
 class LoginVC: UIViewController {
     
@@ -20,6 +21,7 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
         self.SetCornerRadius()
     }
     
@@ -31,9 +33,25 @@ class LoginVC: UIViewController {
     //MARK: IBAction
     @IBAction func loginBtnClicked(_ sender: UIButton) {
         if Validation() {
-            print("Login Api Call")
             
-            apdel.navigateToDashboardScreen()
+            UserManager.sharedInstance.authenticateWithUsername(self.txtFEmail.text!, password: self.txtFPassword.text!) { (user, error, text) in
+                
+                if text != nil {
+                    self.showErr(str: text!)
+                } else if error != nil {
+                    self.showErr(str: "Server error")
+                } else {
+                    AppDelegate.userId = user?.id
+                    
+                    CustomUserDefault.saveUserData(modal: user ?? User())
+                    CustomUserDefault.saveUserName(name: self.txtFEmail.text!)
+                    CustomUserDefault.saveUserPassword(password: self.txtFPassword.text!)
+
+                    self.handleSuccessfullyAuthenticatedWithUser()
+                }
+                
+            }
+            
         }
     }
     
@@ -48,6 +66,61 @@ class LoginVC: UIViewController {
     }
     
     //MARK: Custom Methods
+    func handleSuccessfullyAuthenticatedWithUser() {
+        print("The login was successful, so navigating to the application.")
+        
+        self.updatePushToken()
+        
+        DispatchQueue.main.async(execute: {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                appDelegate.navigateToDashboardScreen()
+            }
+        })
+    }
+    
+    //MARK: - Updating Push Notification Token -
+    fileprivate func updatePushToken() {
+        InstanceID.instanceID().instanceID(handler: { (result, error) in
+            
+            AppDelegate.token = result?.token
+            
+            if let id = UserManager.sharedInstance.user?.id, let token = AppDelegate.token {
+                
+                let router = UserRouter(endpoint: .updatePushToken(token: token, userId: "\(id)"))
+                UserManager.sharedInstance.performRequest(withRouter: router) { (data) in
+                    print("👍", String(describing: type(of: self)),":", #function, " ", data)
+                }
+                
+            }
+        })
+    }
+        
+    func setStatusBarColor() {
+        
+        if #available(iOS 13.0, *) {
+            let app = UIApplication.shared
+            let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+            
+            let statusbarView = UIView()
+            statusbarView.backgroundColor = AppThemeColor
+            view.addSubview(statusbarView)
+          
+            statusbarView.translatesAutoresizingMaskIntoConstraints = false
+            statusbarView.heightAnchor
+                .constraint(equalToConstant: statusBarHeight).isActive = true
+            statusbarView.widthAnchor
+                .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+            statusbarView.topAnchor
+                .constraint(equalTo: view.topAnchor).isActive = true
+            statusbarView.centerXAnchor
+                .constraint(equalTo: view.centerXAnchor).isActive = true
+          
+        } else {
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.backgroundColor = AppThemeColor
+        }
+    }
+    
     func SetCornerRadius() {
         self.logInBtn.layer.cornerRadius = btnCornerRadius
         self.forgotPasswordBtn.layer.cornerRadius = btnCornerRadius

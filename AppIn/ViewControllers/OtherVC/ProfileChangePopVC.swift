@@ -22,9 +22,11 @@ class ProfileChangePopVC: UIViewController {
         if isComeFor == "Email" {
             self.lblTitle.text = "Enter E-Mail"
             self.txtFNewItem.placeholder = "Please Enter E-Mail"
+            self.txtFNewItem.keyboardType = .emailAddress
         }else {
             self.lblTitle.text = "Enter Name"
             self.txtFNewItem.placeholder = "Please Enter Name"
+            self.txtFNewItem.keyboardType = .default
         }
 
     }
