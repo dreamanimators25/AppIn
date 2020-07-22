@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Crashlytics
+import AVFoundation
+import MobileCoreServices
 
 class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -14,6 +17,34 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     @IBOutlet weak var lblChannelTitle: UILabel!
     
     var strTitle : String?
+    
+    static var ambassadorId: Int?
+    var contentArray = [Content]()
+    
+    // MARK: Data
+    var ambassadorship: Ambassadorship? {
+        didSet {
+            if let ambassadorship = ambassadorship {
+                ContentVC.ambassadorId = ambassadorship.id
+                updateContentWithId(ambassadorship.id)
+            }
+        }
+    }
+    
+    var contents: [Content]? {
+        didSet {
+            
+        }
+    }
+    
+    var user: User? {
+        didSet {
+            print("USER HAS BEEN SET")
+            guard user != nil else { return }
+            //updateContentWithContentId(user.id)
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +67,74 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    //MARK: Custom Methods
+    func createThumbnailForVideo(atURL videoURL: URL , completion : @escaping (UIImage?)->Void) {
+        
+        let asset = AVAsset(url: videoURL)
+        let assetImgGenerate = AVAssetImageGenerator(asset: asset)
+        assetImgGenerate.appliesPreferredTrackTransform = true
+        let time = CMTimeMakeWithSeconds(1, preferredTimescale: 60)
+        let times = [NSValue(time: time)]
+        
+        assetImgGenerate.generateCGImagesAsynchronously(forTimes: times, completionHandler: {  _, image, _, _, _ in
+            if let image = image {
+                let uiImage = UIImage(cgImage: image)
+                completion(uiImage)
+            } else {
+                completion(nil)
+            }
+        })
+    }
+    
+    //MARK: - Content Web Service
+    
+    func updateContentWithId(_ id: Int) {
+        ContentManager.sharedInstance.getContentForId(id) { (contents, error) in
+            if let contents = contents {
+                self.contentArray += contents
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    self.updateContentWithContentId((self.user?.id)!)
+                })
+                
+                print("Added contents from channel to array")
+                
+//                DispatchQueue.main.async(execute: {
+//                    self.contentTableView.reloadData()
+//                })
+                
+            } else if let error = error {
+                Crashlytics.sharedInstance().recordError(error)
+            }
+        }
+    }
+    
+    func updateContentWithContentId(_ id: Int) {
+        ContentManager.sharedInstance.getSharedContent(id, completion: {contents, error in
+            if let contents = contents {
+                
+                self.contentArray += contents
+                self.contents = self.contentArray
+                                
+                print("Just added contents from other user to array")
+                
+                DispatchQueue.main.async(execute: {
+                
+                    self.contentTableView.reloadData()
+                    
+//                    self.contentTableView.performBatchUpdates({
+//                        print("Loaded done")
+//                    }, completion: { (bool) in
+//
+//                    })
+                    
+                })
+            } else if let error = error {
+                Crashlytics.sharedInstance().recordError(error)
+            }
+        })
+    }
+    
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
@@ -47,13 +146,15 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        return self.contents?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let contentTVCell = tableView.dequeueReusableCell(withIdentifier: "ContentTVCell", for: indexPath) as! ContentTVCell
         
-        contentTVCell.lblContentTitle.text = "Sameer"
+        contentTVCell.lblContentTitle.text = self.contents?[indexPath.row].title
+        contentTVCell.contentCollectionView.tag = indexPath.row
+        contentTVCell.contentCollectionView.reloadData()
                 
         return contentTVCell
     }
@@ -72,17 +173,62 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return self.contents?[collectionView.tag].pages.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let contentCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentCVCell", for: indexPath) as! ContentCVCell
         
-        //contentCVCell.lblContentHeader.text = "Sameer"
+        let contentItem = self.contents?[collectionView.tag]
+        let pageItem = contentItem?.pages[indexPath.row]
+        let backGroundItem = pageItem?.backgrounds
         
-        indexPath.row % 2 == 1 ? (contentCVCell.lblContentFooter.text = "Sameer") : (contentCVCell.lblContentFooter.text = "Sameer khan")
         
-        indexPath.row % 2 == 1 ? (contentCVCell.contentImageView.backgroundColor = AppThemeColor) : (contentCVCell.contentImageView.backgroundColor = UIColor.green)
+        if backGroundItem?.type == .Image {
+            
+            OperationQueue.main.addOperation {
+                guard contentCVCell.contentImageView.image == nil else {
+                    return
+                }
+                
+                if let url = URL(string: backGroundItem?.file_url ?? "") {
+                    contentCVCell.contentImageView.af_setImage(withURL: url)
+                    contentCVCell.contentImageView.backgroundColor = Color.backgroundColorFadedDark()
+                } else {
+                    contentCVCell.contentImageView.backgroundColor = Color.backgroundColorFadedDark()
+                }
+                
+            }
+            
+        }else {
+            if let url = URL(string: backGroundItem?.file_url ?? "") {
+                
+                DispatchQueue.global().async {
+                    
+                    OperationQueue.main.addOperation {
+                        guard contentCVCell.contentImageView.image == nil else {
+                            return
+                        }
+                    }
+                    
+                    self.createThumbnailForVideo(atURL: url) { (thumbnail) in
+                        
+                        //DispatchQueue.main.async {
+                        OperationQueue.main.addOperation {
+                            contentCVCell.contentImageView.image = thumbnail
+                            contentCVCell.contentImageView.backgroundColor = Color.backgroundColorFadedDark()
+                        }
+                        
+                    }
+            }
+                
+            } else {
+                contentCVCell.contentImageView.backgroundColor = Color.backgroundColorFadedDark()
+            }
+        }
+        
+        contentCVCell.lblContentFooter.text = pageItem?.identity
         
         return contentCVCell
     }
@@ -90,6 +236,7 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "ShowContentsVC") as! ShowContentsVC
         vc.strTitle = "CAMERA"
+        vc.contents = self.contents
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

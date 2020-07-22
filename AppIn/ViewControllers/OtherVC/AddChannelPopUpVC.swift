@@ -23,7 +23,7 @@ class AddChannelPopUpVC: UIViewController {
         
         self.dismiss(animated: true) {
             if let block = enableTabBarItems {
-                block()
+                block(self.txtFieldChannelCode.text ?? "")
             }
         }
         
@@ -34,12 +34,12 @@ class AddChannelPopUpVC: UIViewController {
         self.view.endEditing(true)
         
         if txtFieldChannelCode.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Channel Code", Onview: self)
+            Alert.showAlert(strTitle: "", strMessage: "Please Enter Referrel code!", Onview: self)
         }else {
             self.dismiss(animated: true) {
                 if let block = enableTabBarItems {
                     print("Call Api for Channel Add")
-                    block()
+                    block(self.txtFieldChannelCode.text ?? "")
                 }
             }
         }

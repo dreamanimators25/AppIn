@@ -140,6 +140,7 @@ class CreateAccountVC: UIViewController {
         let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - User Agreement"
         vc.loadableUrlStr = "http://www.jokk.app/agreementsv"
+        //vc.loadableUrlStr = "http://haldidhana.com/chinabasin.html"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

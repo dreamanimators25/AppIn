@@ -15,6 +15,31 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
     var documentInteractionController : UIDocumentInteractionController!
     var strTitle : String?
+    
+    static var ambassadorId: Int?
+    var contentId: Int?
+    
+    // MARK: Data
+    var ambassadorship: Ambassadorship? {
+        didSet {
+            if let ambassadorship = ambassadorship {
+                ShowContentsVC.ambassadorId = ambassadorship.id
+            }
+        }
+    }
+    
+    var contents: [Content]? {
+        didSet {
+            
+        }
+    }
+    
+    var user: User? {
+        didSet {
+            print("USER HAS BEEN SET")
+            guard let user = user else { return }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +122,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return contents?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -106,7 +131,11 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
         indexPath.row % 2 == 1 ? (multiPageCVCell.multiPageCollectionView.backgroundColor = #colorLiteral(red: 0.1581287384, green: 0.6885935664, blue: 0.237049073, alpha: 1)) : (multiPageCVCell.multiPageCollectionView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1))
         
-        indexPath.row % 2 == 1 ? (multiPageCVCell.content = 3) : (multiPageCVCell.content = 5)
+        //indexPath.row % 2 == 1 ? (multiPageCVCell.content = 7) : (multiPageCVCell.content = 6)
+        
+        //from Old Code
+        let content = contents?[indexPath.row]
+        multiPageCVCell.content = content
         
         return multiPageCVCell
     }
@@ -117,6 +146,11 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.contentCollectionView.frame.size.width, height: self.contentCollectionView.frame.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        print(indexPath.row)
     }
 
     // MARK: - Navigation
