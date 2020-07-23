@@ -1,5 +1,5 @@
 //
-//  ContentSoundCVCell.swift
+//  ContentImageCVCell.swift
 //  AppIn
 //
 //  Created by sameer khan on 23/07/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContentSoundCVCell: UICollectionViewCell {
+class ContentImageCVCell: UICollectionViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -129,10 +129,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
         let multiPageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiPageCVCell", for: indexPath) as! MultiPageCVCell
     
-        indexPath.row % 2 == 1 ? (multiPageCVCell.multiPageCollectionView.backgroundColor = #colorLiteral(red: 0.1581287384, green: 0.6885935664, blue: 0.237049073, alpha: 1)) : (multiPageCVCell.multiPageCollectionView.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1))
-        
-        //indexPath.row % 2 == 1 ? (multiPageCVCell.content = 7) : (multiPageCVCell.content = 6)
-        
         //from Old Code
         let content = contents?[indexPath.row]
         multiPageCVCell.content = content

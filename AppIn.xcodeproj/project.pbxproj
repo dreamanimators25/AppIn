@@ -23,12 +23,17 @@
 		590AC07C24AB4CC60074572D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590AC07B24AB4CC60074572D /* Extensions.swift */; };
 		590E6628249CCBE3001443BF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E6627249CCBE2001443BF /* Alert.swift */; };
 		590E662B249CCE3A001443BF /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E662A249CCE3A001443BF /* AppConstant.swift */; };
-		590FC10924B8D5D400B37CA7 /* ContentImageVCCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FC10824B8D5D400B37CA7 /* ContentImageVCCell.swift */; };
-		590FC10B24B8D5F500B37CA7 /* ContentTextCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FC10A24B8D5F500B37CA7 /* ContentTextCVCell.swift */; };
-		590FC10D24B8D61300B37CA7 /* ContentVideoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FC10C24B8D61300B37CA7 /* ContentVideoCVCell.swift */; };
-		590FC10F24B8D62900B37CA7 /* ContentSoundCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FC10E24B8D62900B37CA7 /* ContentSoundCVCell.swift */; };
-		590FC11124B8D64100B37CA7 /* ContentEmbedCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FC11024B8D64100B37CA7 /* ContentEmbedCVCell.swift */; };
 		590FD4A824A26EB7000C71E1 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FD4A724A26EB7000C71E1 /* ForgotPasswordVC.swift */; };
+		59146C3124C996BA007F91E8 /* ContentImageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C2F24C996BA007F91E8 /* ContentImageCVCell.swift */; };
+		59146C3224C996BA007F91E8 /* ContentImageCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C3024C996BA007F91E8 /* ContentImageCVCell.xib */; };
+		59146C3524C996D8007F91E8 /* ContentTextCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3324C996D8007F91E8 /* ContentTextCVCell.swift */; };
+		59146C3624C996D8007F91E8 /* ContentTextCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C3424C996D8007F91E8 /* ContentTextCVCell.xib */; };
+		59146C3924C99751007F91E8 /* ContentVideoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3724C99751007F91E8 /* ContentVideoCVCell.swift */; };
+		59146C3A24C99751007F91E8 /* ContentVideoCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C3824C99751007F91E8 /* ContentVideoCVCell.xib */; };
+		59146C3D24C99763007F91E8 /* ContentSoundCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3B24C99763007F91E8 /* ContentSoundCVCell.swift */; };
+		59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C3C24C99763007F91E8 /* ContentSoundCVCell.xib */; };
+		59146C4124C9977A007F91E8 /* ContentEmbedCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */; };
+		59146C4224C9977A007F91E8 /* ContentEmbedCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
 		5965181A24A6643600264AE1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* ProfileVC.swift */; };
 		5965181B24A6643600264AE1 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181724A6643500264AE1 /* SettingsVC.swift */; };
@@ -184,12 +189,17 @@
 		590AC07B24AB4CC60074572D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		590E6627249CCBE2001443BF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		590E662A249CCE3A001443BF /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
-		590FC10824B8D5D400B37CA7 /* ContentImageVCCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentImageVCCell.swift; sourceTree = "<group>"; };
-		590FC10A24B8D5F500B37CA7 /* ContentTextCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTextCVCell.swift; sourceTree = "<group>"; };
-		590FC10C24B8D61300B37CA7 /* ContentVideoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVideoCVCell.swift; sourceTree = "<group>"; };
-		590FC10E24B8D62900B37CA7 /* ContentSoundCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSoundCVCell.swift; sourceTree = "<group>"; };
-		590FC11024B8D64100B37CA7 /* ContentEmbedCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEmbedCVCell.swift; sourceTree = "<group>"; };
 		590FD4A724A26EB7000C71E1 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
+		59146C2F24C996BA007F91E8 /* ContentImageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentImageCVCell.swift; sourceTree = "<group>"; };
+		59146C3024C996BA007F91E8 /* ContentImageCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentImageCVCell.xib; sourceTree = "<group>"; };
+		59146C3324C996D8007F91E8 /* ContentTextCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTextCVCell.swift; sourceTree = "<group>"; };
+		59146C3424C996D8007F91E8 /* ContentTextCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentTextCVCell.xib; sourceTree = "<group>"; };
+		59146C3724C99751007F91E8 /* ContentVideoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVideoCVCell.swift; sourceTree = "<group>"; };
+		59146C3824C99751007F91E8 /* ContentVideoCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentVideoCVCell.xib; sourceTree = "<group>"; };
+		59146C3B24C99763007F91E8 /* ContentSoundCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSoundCVCell.swift; sourceTree = "<group>"; };
+		59146C3C24C99763007F91E8 /* ContentSoundCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentSoundCVCell.xib; sourceTree = "<group>"; };
+		59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEmbedCVCell.swift; sourceTree = "<group>"; };
+		59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentEmbedCVCell.xib; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		5965181624A6643500264AE1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		5965181724A6643500264AE1 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -404,11 +414,16 @@
 		590FC10724B8D55500B37CA7 /* All Contents Cell */ = {
 			isa = PBXGroup;
 			children = (
-				590FC10824B8D5D400B37CA7 /* ContentImageVCCell.swift */,
-				590FC10A24B8D5F500B37CA7 /* ContentTextCVCell.swift */,
-				590FC10C24B8D61300B37CA7 /* ContentVideoCVCell.swift */,
-				590FC10E24B8D62900B37CA7 /* ContentSoundCVCell.swift */,
-				590FC11024B8D64100B37CA7 /* ContentEmbedCVCell.swift */,
+				59146C2F24C996BA007F91E8 /* ContentImageCVCell.swift */,
+				59146C3024C996BA007F91E8 /* ContentImageCVCell.xib */,
+				59146C3324C996D8007F91E8 /* ContentTextCVCell.swift */,
+				59146C3424C996D8007F91E8 /* ContentTextCVCell.xib */,
+				59146C3724C99751007F91E8 /* ContentVideoCVCell.swift */,
+				59146C3824C99751007F91E8 /* ContentVideoCVCell.xib */,
+				59146C3B24C99763007F91E8 /* ContentSoundCVCell.swift */,
+				59146C3C24C99763007F91E8 /* ContentSoundCVCell.xib */,
+				59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */,
+				59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */,
 			);
 			path = "All Contents Cell";
 			sourceTree = "<group>";
@@ -896,12 +911,17 @@
 				59A84841249E402E00734157 /* rubik_medium.ttf in Resources */,
 				59DDC65E24962CE1007D1A51 /* Assets.xcassets in Resources */,
 				590ABAFF249FC4DF0053BCC7 /* Web.storyboard in Resources */,
+				59146C3A24C99751007F91E8 /* ContentVideoCVCell.xib in Resources */,
 				59DDC65C24962CDF007D1A51 /* Main.storyboard in Resources */,
 				5999208E24B33E7F00E76898 /* promo.mp4 in Resources */,
+				59146C4224C9977A007F91E8 /* ContentEmbedCVCell.xib in Resources */,
 				59A84834249E26AA00734157 /* Dashboard.storyboard in Resources */,
 				5905097824A89029008BF45F /* Content.storyboard in Resources */,
 				59A84840249E402E00734157 /* roboto_bold.ttf in Resources */,
+				59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */,
+				59146C3224C996BA007F91E8 /* ContentImageCVCell.xib in Resources */,
 				59A8483F249E402E00734157 /* roboto_medium.ttf in Resources */,
+				59146C3624C996D8007F91E8 /* ContentTextCVCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,6 +990,7 @@
 			files = (
 				5999208C24B33E7F00E76898 /* PromoVideoView.swift in Sources */,
 				5905097B24A890BC008BF45F /* ContentVC.swift in Sources */,
+				59146C3524C996D8007F91E8 /* ContentTextCVCell.swift in Sources */,
 				5999208324B33DC900E76898 /* Button.swift in Sources */,
 				5999205E24B33DC900E76898 /* Brand.swift in Sources */,
 				5999204F24B33DC900E76898 /* Connection.swift in Sources */,
@@ -980,7 +1001,6 @@
 				59DDC65924962CDF007D1A51 /* WalkThroughVC.swift in Sources */,
 				5999208124B33DC900E76898 /* Font.swift in Sources */,
 				59DDC69A2496404F007D1A51 /* TPKeyboardAvoidingTableView.m in Sources */,
-				590FC10924B8D5D400B37CA7 /* ContentImageVCCell.swift in Sources */,
 				59991FD324B33DAC00E76898 /* BlurView.swift in Sources */,
 				5999206D24B33DC900E76898 /* DateHelper.swift in Sources */,
 				5999206524B33DC900E76898 /* UIButton+Extensions.swift in Sources */,
@@ -990,7 +1010,6 @@
 				5999207424B33DC900E76898 /* InfoButton.swift in Sources */,
 				59DDC6992496404F007D1A51 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				5905097D24A89663008BF45F /* ContentTVCell.swift in Sources */,
-				590FC10D24B8D61300B37CA7 /* ContentVideoCVCell.swift in Sources */,
 				59DDC65524962CDF007D1A51 /* AppDelegate.swift in Sources */,
 				5999205924B33DC900E76898 /* MPCacher.swift in Sources */,
 				5999204B24B33DC900E76898 /* RewardPage.swift in Sources */,
@@ -1006,8 +1025,10 @@
 				5999207624B33DC900E76898 /* Definitions.swift in Sources */,
 				5965181C24A6643600264AE1 /* HomeVC.swift in Sources */,
 				5999204C24B33DC900E76898 /* RewardPageComponent.swift in Sources */,
+				59146C4124C9977A007F91E8 /* ContentEmbedCVCell.swift in Sources */,
 				5999207B24B33DC900E76898 /* TableView.swift in Sources */,
 				5999205F24B33DC900E76898 /* AmbassadorStatistic.swift in Sources */,
+				59146C3924C99751007F91E8 /* ContentVideoCVCell.swift in Sources */,
 				590E6628249CCBE3001443BF /* Alert.swift in Sources */,
 				5999206424B33DC900E76898 /* UIViewController+Extensions.swift in Sources */,
 				5999204724B33DC900E76898 /* RewardsRouter.swift in Sources */,
@@ -1017,6 +1038,7 @@
 				59DDC69B2496404F007D1A51 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				5965181D24A6643600264AE1 /* TabBarViewController.swift in Sources */,
 				5999205724B33DC900E76898 /* ContentConsumeData.swift in Sources */,
+				59146C3D24C99763007F91E8 /* ContentSoundCVCell.swift in Sources */,
 				5999207924B33DC900E76898 /* SearchBar.swift in Sources */,
 				5905098124A8B1CB008BF45F /* ShowContentsVC.swift in Sources */,
 				5999203C24B33DC900E76898 /* OAuth2Handler.swift in Sources */,
@@ -1046,7 +1068,6 @@
 				5999207124B33DC900E76898 /* Label.swift in Sources */,
 				5999204024B33DC900E76898 /* UserRouter.swift in Sources */,
 				5999208424B33DC900E76898 /* Color.swift in Sources */,
-				590FC10B24B8D5F500B37CA7 /* ContentTextCVCell.swift in Sources */,
 				59DDC68C24963949007D1A51 /* ThirdPV.swift in Sources */,
 				59DDC6982496404F007D1A51 /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				59DDC68824962DE9007D1A51 /* CardView.swift in Sources */,
@@ -1055,6 +1076,7 @@
 				590ABAFD249FC3E00053BCC7 /* WebViewVC.swift in Sources */,
 				5999206F24B33DC900E76898 /* BackgroundImageView.swift in Sources */,
 				5999205524B33DC900E76898 /* AmbassadorshipContentConsumeData.swift in Sources */,
+				59146C3124C996BA007F91E8 /* ContentImageCVCell.swift in Sources */,
 				5999207524B33DC900E76898 /* Localization.swift in Sources */,
 				5999203924B33DC900E76898 /* RewardManager.swift in Sources */,
 				5999207324B33DC900E76898 /* QRCodeReader.swift in Sources */,
@@ -1066,7 +1088,6 @@
 				5999205A24B33DC900E76898 /* Content.swift in Sources */,
 				5999206A24B33DC900E76898 /* UIScrollView+Extensions.swift in Sources */,
 				5999208D24B33E7F00E76898 /* DTImageView.swift in Sources */,
-				590FC11124B8D64100B37CA7 /* ContentEmbedCVCell.swift in Sources */,
 				59991FD424B33DAC00E76898 /* Checkbox.swift in Sources */,
 				5999203824B33DC900E76898 /* BaseManager.swift in Sources */,
 				5999205324B33DC900E76898 /* GroupList.swift in Sources */,
@@ -1081,7 +1102,6 @@
 				5999205124B33DC900E76898 /* Backgrounds.swift in Sources */,
 				5999205D24B33DC900E76898 /* Activity.swift in Sources */,
 				5905097F24A89949008BF45F /* ContentCVCell.swift in Sources */,
-				590FC10F24B8D62900B37CA7 /* ContentSoundCVCell.swift in Sources */,
 				5999206324B33DC900E76898 /* UIImageView+Extension.swift in Sources */,
 				590AC07C24AB4CC60074572D /* Extensions.swift in Sources */,
 				5999205224B33DC900E76898 /* ContentPageBackground.swift in Sources */,

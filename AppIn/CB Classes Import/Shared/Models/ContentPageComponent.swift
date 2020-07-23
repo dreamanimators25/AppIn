@@ -115,6 +115,7 @@ open class ContentPageComponent {
             var BGBoxBool = ""
             var text = ""
             var opacty : CGFloat = 0.0
+            
             if let metaDataText = meta[kAPIKeyMetaText] as? String {
                 text = metaDataText
             }
