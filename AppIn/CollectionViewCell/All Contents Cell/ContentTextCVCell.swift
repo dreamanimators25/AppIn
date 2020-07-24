@@ -18,6 +18,7 @@ class ContentTextCVCell: UICollectionViewCell {
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
+    var backgroundVideoView: ContentVideo?
     var stickerImageView = UIImageView()
     
     var background: ContentPageBackground? {
@@ -56,7 +57,7 @@ extension ContentTextCVCell {
             return
         }
         
-        print("tiiii = \(background.type)")
+        print("BackGround Type = \(background.type)")
         switch background.type {
         case .Color:
             if let meta = background.meta, let color = meta["color"] as? String {
@@ -64,10 +65,10 @@ extension ContentTextCVCell {
             }
         case .Video:
             if let fileUrl = background.file_url {
-                //setBackgroundVideo(fileUrl)
+                setBackgroundVideo(fileUrl)
                 
             } else if let file = background.file {
-                //setBackgroundVideo(file)
+                setBackgroundVideo(file)
             }
         case .Image:
             if let fileurl = background.file_url {
@@ -119,7 +120,6 @@ extension ContentTextCVCell {
     }
     
     // MARK: - Video Background
-    /*
     func setBackgroundVideo(_ file: String) {
         if let backgroundVideoView = backgroundVideoView {
             backgroundVideoView.play(muted: true)
@@ -128,7 +128,7 @@ extension ContentTextCVCell {
             addBackgroundSubview(pageBackgroundView, subview: backgroundVideoView!)
             backgroundVideoView?.play(muted: true)
         }
-    }*/
+    }
     
     // MARK: - Background Zoom
     

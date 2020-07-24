@@ -76,7 +76,6 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             
         case .Text:
             let textCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentTextCVCell", for: indexPath) as! ContentTextCVCell
-            textCVCell.backgroundColor = .brown
             
             if let backGround = page?.backgrounds {
                 textCVCell.background = backGround
@@ -95,11 +94,8 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             if let alpa = meta0?.background_opacity, alpa != 0.0, meta0?.bgColor != .clear {
                 textCVCell.headerTextLbl?.backgroundColor = meta0?.bgColor.withAlphaComponent(alpa)
             }else {
-                textCVCell.headerTextLbl?.backgroundColor = UIColor.init(ciColor: CIColor.init(color: meta0?.bgColor ?? .clear)) == .white ? .clear : meta0?.bgColor
-                
-                //textCVCell.headerTextLbl?.backgroundColor = meta0?.bgColor
+                textCVCell.headerTextLbl?.backgroundColor = meta0?.bgColor
             }
-            
             
             //CONTENT TEXT
             textCVCell.contentTextLbl?.text = meta1?.text ?? ""
@@ -112,7 +108,6 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             }else {
                 textCVCell.contentTextLbl?.backgroundColor = meta1?.bgColor
             }
-            
             
             return textCVCell
         case .Video:
