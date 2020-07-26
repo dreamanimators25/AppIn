@@ -71,128 +71,112 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "06F73ABE-2CE3-4C30-BF6C-21D33C32633F"
+            uuid = "64EB700F-5C4E-4419-B9F8-9AD8290DD092"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/All Contents Cell/ContentTextCVCell.swift"
+            filePath = "AppIn/Components/ContentMusic.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "setBackgroundVideo(_:)"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "reset()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B600D6BB-CD57-45C0-85D7-445CE62AE1EC"
+            uuid = "1316E417-892F-4AC6-9028-00ADB9CF4E52"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/All Contents Cell/ContentTextCVCell.swift"
+            filePath = "AppIn/CollectionViewCell/All Contents Cell/ContentSoundCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "setBackgroundVideo(_:)"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "pauseMedia()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "46CF9B6B-E68A-41BC-B1A4-05C93AEF08F0"
+            uuid = "F88C94E2-52B7-4EE0-A10C-8BBE21C11A65"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/All Contents Cell/ContentTextCVCell.swift"
+            filePath = "AppIn/CollectionViewCell/All Contents Cell/ContentSoundCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "backgroundUpdated(_:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "pauseMedia()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "239FC636-DF4F-492D-9458-ECE76D7C2B64"
+            uuid = "A4C53F2F-6399-415E-982E-63E3BAF059D5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            filePath = "AppIn/ViewControllers/Channel/ShowContentsVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "closeChannel()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BF32DECB-7715-4988-80CC-A9A6B0A09E6F"
+            uuid = "375FB212-865D-433E-894F-58C9F8029F71"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            filePath = "AppIn/Components/ContentVideo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "play(muted:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1C87D96C-E658-4153-9BC1-0316F10F8BFB"
+            uuid = "89026164-D5E6-415D-B274-E939657C35B9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            filePath = "AppIn/Components/ContentVideo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "play(muted:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "283CA5A6-C89C-4485-BB41-DE5CE85D5506"
+            uuid = "563FF408-D987-4562-B2B4-1F69DF719CEC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            filePath = "AppIn/Components/ContentVideo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "collectionView(_:cellForItemAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ABF9D768-C8B9-4D9E-BFEA-A2CDC2BE606D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "reset()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

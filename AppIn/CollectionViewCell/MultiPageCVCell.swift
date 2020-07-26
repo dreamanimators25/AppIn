@@ -70,7 +70,16 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             
         case .Image:
             let imageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentImageCVCell", for: indexPath) as! ContentImageCVCell
-            imageCVCell.backgroundColor = .green
+
+            imageCVCell.component = component1
+            
+            if let backGround = page?.backgrounds {
+                imageCVCell.background = backGround
+            }
+            
+            if let strSticker = content?.pages[indexPath.row].frameUrl {
+                imageCVCell.stickerURL = strSticker
+            }
             
             return imageCVCell
             
@@ -117,7 +126,16 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             return videoCVCell
         case .Sound:
             let soundCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentSoundCVCell", for: indexPath) as! ContentSoundCVCell
-            soundCVCell.backgroundColor = .gray
+            
+            soundCVCell.component = component1
+            
+            if let backGround = page?.backgrounds {
+                soundCVCell.background = backGround
+            }
+            
+            if let strSticker = content?.pages[indexPath.row].frameUrl {
+                soundCVCell.stickerURL = strSticker
+            }
             
             return soundCVCell
         case .Embed:
@@ -177,6 +195,29 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
     }
     
     //MARK: Custom Methods
+    func reset() {
+        if let content = content, content.pages.count > 0 {
+            multiPageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+        }
+        pauseCells()
+    }
+    
+    func pauseCells() {
+        
+        if let cells = multiPageCollectionView.visibleCells as? [ContentSoundCVCell] {
+            for cell in cells {
+                cell.pauseMedia()
+            }
+        }
+        
+        if let cells = multiPageCollectionView.visibleCells as? [ContentVideoCVCell] {
+            for cell in cells {
+                //cell.pauseMedia()
+            }
+        }
+        
+    }
+    
     func handlePageButtons(_ page: Int) {
         
         if currentPage != page {

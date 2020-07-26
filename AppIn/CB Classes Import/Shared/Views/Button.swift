@@ -37,7 +37,8 @@ class Button: UIButton {
     fileprivate func setup() {
         backgroundColor = Color.purpleColor()
         titleColor = Color.whiteColor()
-        titleLabel?.font = Font.titleFont(FontSize.Large)
+        //titleLabel?.font = Font.titleFont(FontSize.Large)
+        titleLabel?.font = Font.normalFont(FontSize.Large)
         
         layer.cornerRadius = CornerRadius.Default
         

@@ -9,7 +9,7 @@
 import AVFoundation
 import UIKit
 
-class ContentVideo: UIView {
+class ContentVideo: UIView, ContentView {
     
     var topMarginPercent: CGFloat = 0.0
     var horizontalMarginPercent: CGFloat = 0.0
@@ -26,21 +26,21 @@ class ContentVideo: UIView {
     var inlinePlayer = false
     var inlinePlayerIsedPaused = false
     
-    var cent: CGPoint! //Sameer 6/5/2020
+    var cent: CGPoint! 
 
     lazy var button : Button = {
         let button = Button(frame: self.frame)
         button.addTarget(self, action:#selector(play), for: .touchUpInside)
         button.backgroundColor = UIColor.clear
-        button.setImage(UIImage(named: "play-button"), for: UIControl.State())
+        button.setImage(UIImage(named: "play"), for: UIControl.State())
         return button
     }()
     
-    //Sameer 6/5/2020 CNTR Added for center
     init(frame: CGRect, file: String, inlinePlayer: Bool = false) {
         super.init(frame: frame)
         self.inlinePlayer = inlinePlayer
-        self.backgroundColor = UIColor.black 
+        self.backgroundColor = UIColor.black
+        
         if let item = MPCacher.sharedInstance.getObjectForKey(file) as? Player {
             setThumb(item, file: file)
         } else {

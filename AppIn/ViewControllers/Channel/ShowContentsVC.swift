@@ -62,12 +62,24 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    func closeChannel() {
+        let cells = contentCollectionView.visibleCells
+        
+        for cell in cells {
+            if let cell = cell as? MultiPageCVCell {
+                cell.reset()
+            }
+        }
+    }
+    
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
+        self.closeChannel()        
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func againBackBtnClicked(_ sender: UIButton) {
+        self.closeChannel()
         _ = self.navigationController?.popViewController(animated: true)
     }
     
@@ -145,8 +157,11 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+                
+        if let cell = cell as? MultiPageCVCell {
+            cell.reset()
+        }
         
-        print(indexPath.row)
     }
 
     // MARK: - Navigation
@@ -157,4 +172,16 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         // Pass the selected object to the new view controller.
     }
 
+}
+
+protocol ContentView {
+    var view: UIView {get}
+    var topMarginPercent: CGFloat {get set}
+    var horizontalMarginPercent: CGFloat {get set}
+    var bottomMarginPercent: CGFloat {get set}
+    var marginEdgePercentage: CGFloat {get set}
+    var height: CGFloat {get}
+    var width: CGFloat {get}
+    
+    func prepareForReuse()
 }

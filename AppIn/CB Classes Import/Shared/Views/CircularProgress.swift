@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-
-// MARK: - CircularProgress
+// MARK: - Circular Progress
 class CircularProgress: UIView {
 
     var backgroundLayer: CAShapeLayer!
@@ -49,20 +48,52 @@ class CircularProgress: UIView {
         layer.addSublayer(strokeLayer)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) {
+        //fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        
+        self.backgroundColor = UIColor.clear
+        let circleCenter = CGPoint(x: self.frame.size.width / 2.0, y: self.frame.size.height / 2.0)
+        let start = CGFloat(-Double.pi / 2)
+        let end = CGFloat(Double.pi) * 2.0
+        let circlePath = UIBezierPath(arcCenter: circleCenter, radius: self.frame.size.width/2, startAngle: start, endAngle: end, clockwise: true)
+        backgroundLayer = CAShapeLayer()
+        backgroundLayer.rasterizationScale = 4 * UIScreen.main.scale
+        backgroundLayer.shouldRasterize = true
+        backgroundLayer.path = circlePath.cgPath
+        backgroundLayer.fillColor = UIColor.clear.cgColor
+        backgroundLayer.strokeColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.7).cgColor
+        backgroundLayer.lineWidth = lineWidth
+        
+        backgroundLayer.strokeEnd = 1.0
+        
+        strokeLayer = CAShapeLayer()
+        strokeLayer.rasterizationScale = 2 * UIScreen.main.scale
+        strokeLayer.shouldRasterize = true
+        strokeLayer.path = circlePath.cgPath
+        strokeLayer.fillColor = UIColor.clear.cgColor
+        strokeLayer.strokeColor = Color.blueColor().cgColor
+        strokeLayer.lineWidth = lineWidth
+        
+        strokeLayer.strokeEnd = 0.0
+        
+        layer.addSublayer(backgroundLayer)
+        layer.addSublayer(strokeLayer)
+        
     }
+    
     var progress: Double = 0.0 {
         didSet(newValue) {
             let clipProgress = max( min(newValue, 1.0), 0.0)
             self.updateProgress(clipProgress)
-
         }
     }
+    
     func updateProgress(_ progress: Double) {
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         self.strokeLayer.strokeEnd = CGFloat(progress)
         CATransaction.commit()
     }
+    
 }

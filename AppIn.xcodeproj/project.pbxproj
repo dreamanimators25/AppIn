@@ -35,6 +35,7 @@
 		59146C4124C9977A007F91E8 /* ContentEmbedCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */; };
 		59146C4224C9977A007F91E8 /* ContentEmbedCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */; };
 		5915A42E24CB55AA00CF72FF /* ContentVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5915A42D24CB55AA00CF72FF /* ContentVideo.swift */; };
+		59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59233C4524CDAE42009BBB8B /* ContentMusic.swift */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
 		5965181A24A6643600264AE1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* ProfileVC.swift */; };
 		5965181B24A6643600264AE1 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181724A6643500264AE1 /* SettingsVC.swift */; };
@@ -202,6 +203,7 @@
 		59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEmbedCVCell.swift; sourceTree = "<group>"; };
 		59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentEmbedCVCell.xib; sourceTree = "<group>"; };
 		5915A42D24CB55AA00CF72FF /* ContentVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentVideo.swift; sourceTree = "<group>"; };
+		59233C4524CDAE42009BBB8B /* ContentMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMusic.swift; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		5965181624A6643500264AE1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		5965181724A6643500264AE1 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 		5915A42C24CB559700CF72FF /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				59233C4524CDAE42009BBB8B /* ContentMusic.swift */,
 				5915A42D24CB55AA00CF72FF /* ContentVideo.swift */,
 			);
 			path = Components;
@@ -1127,6 +1130,7 @@
 				5999207D24B33DC900E76898 /* CircularProgress.swift in Sources */,
 				5999207724B33DC900E76898 /* RoundCornerView.swift in Sources */,
 				5999206724B33DC900E76898 /* UIImage+Extensions.swift in Sources */,
+				59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */,
 				5999203524B33DC900E76898 /* UserManager.swift in Sources */,
 				59DDC65724962CDF007D1A51 /* SceneDelegate.swift in Sources */,
 			);
