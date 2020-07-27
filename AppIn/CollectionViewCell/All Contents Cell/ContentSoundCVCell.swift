@@ -17,6 +17,8 @@ class ContentSoundCVCell: UICollectionViewCell {
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
+    var backgroundVideoView: ContentVideo?
+    var stickerImageView = UIImageView()
     var componentViews = [ContentView]()
     
     var background: ContentPageBackground? {
@@ -33,10 +35,6 @@ class ContentSoundCVCell: UICollectionViewCell {
             setStickerFromString(stickerURL ?? "")
         }
     }
-    
-    var backgroundVideoView: ContentVideo?
-    var stickerImageView = UIImageView()
-
     
     var component : ContentPageComponent? {
         didSet {

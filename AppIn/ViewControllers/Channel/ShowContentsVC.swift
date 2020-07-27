@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import HCVimeoVideoExtractor
+import AVFoundation
+import AVKit
+
+var loadVimeoPlayer : ((_ url:String)-> (Void))?
 
 class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -54,6 +59,11 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         super.viewWillAppear(animated)
         
         self.tabBarController?.tabBar.isHidden = true
+        
+        loadVimeoPlayer = { vimURL in
+            self.showVimeoPlayer(vimURL)
+        }
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -170,6 +180,40 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    }
+    
+    func showVimeoPlayer(_ link: String) {
+        
+        let linkUrl = URL.init(string: link)
+        
+        HCVimeoVideoExtractor.fetchVideoURLFrom(url: linkUrl!, completion: { ( video:HCVimeoVideo?, error:Error?) -> Void in
+            
+            if let err = error {
+                print("Error = \(err.localizedDescription)")
+                return
+            }
+            
+            guard let vid = video else {
+                print("Invalid video object")
+                return
+            }
+                        
+            var vidUrl : HCVimeoVideoQuality!
+            for item in vid.videoURL {
+                vidUrl = item.key
+            }
+                        
+            if let videoURL = vid.videoURL[vidUrl] {
+                
+                let player = AVPlayer(url: videoURL)
+                let playerController = AVPlayerViewController()
+                playerController.player = player
+                self.present(playerController, animated: true) {
+                    player.play()
+                }
+                
+            }
+        })
     }
 
 }

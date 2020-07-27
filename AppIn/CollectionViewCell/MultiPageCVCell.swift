@@ -28,7 +28,8 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                 self.multiPageCollectionView.register(UINib(nibName: "ContentTextCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentTextCVCell")
                 self.multiPageCollectionView.register(UINib(nibName: "ContentVideoCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentVideoCVCell")
                 self.multiPageCollectionView.register(UINib(nibName: "ContentSoundCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentSoundCVCell")
-                self.multiPageCollectionView.register(UINib(nibName: "ContentEmbedCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentEmbedCVCell")
+                self.multiPageCollectionView.register(UINib(nibName: "ContentYoutubeCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentYoutubeCVCell")
+                self.multiPageCollectionView.register(UINib(nibName: "ContentVimeoCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentVimeoCVCell")
 
                 if multiPageCollectionView.dataSource == nil {
                     multiPageCollectionView.delegate = self
@@ -42,6 +43,12 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+        
+    }
         
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -54,119 +61,130 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let page = self.content?.pages[indexPath.row]
-        let comp = page?.components
-        
-        
-        let component0 = comp?.first
-        let meta0 = component0?.meta
-        //print(meta0?.text ?? "no first")
-        
-        let component1 = comp?[1]
-        let meta1 = component1?.meta
-        //print(meta1?.text ?? "no last")
-        
-        switch component1?.type {
+        autoreleasepool {
             
-        case .Image:
-            let imageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentImageCVCell", for: indexPath) as! ContentImageCVCell
+            let page = self.content?.pages[indexPath.row]
+            let comp = page?.components
+            
+            let component0 = comp?.first
+            let component1 = comp?[1]
+            
+            
+            switch component1?.type {
+                
+            case .Image:
+                let imageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentImageCVCell", for: indexPath) as! ContentImageCVCell
+                
+                imageCVCell.component = component1
+                
+                if let backGround = page?.backgrounds {
+                    imageCVCell.background = backGround
+                }
+                
+                if let strSticker = content?.pages[indexPath.row].frameUrl {
+                    imageCVCell.stickerURL = strSticker
+                }
+                
+                return imageCVCell
+                
+            case .Text:
+                let textCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentTextCVCell", for: indexPath) as! ContentTextCVCell
+                
+                textCVCell.component0 = component0
+                textCVCell.component1 = component1
+                
+                if let backGround = page?.backgrounds {
+                    textCVCell.background = backGround
+                }
+                
+                if let strSticker = content?.pages[indexPath.row].frameUrl {
+                    textCVCell.stickerURL = strSticker
+                }
+                
+                return textCVCell
+            case .Video:
+                let videoCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentVideoCVCell", for: indexPath) as! ContentVideoCVCell
+                
+                videoCVCell.component = component1
+                
+                if let backGround = page?.backgrounds {
+                    videoCVCell.background = backGround
+                }
+                
+                if let strSticker = content?.pages[indexPath.row].frameUrl {
+                    videoCVCell.stickerURL = strSticker
+                }
+                
+                return videoCVCell
+            case .Sound:
+                let soundCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentSoundCVCell", for: indexPath) as! ContentSoundCVCell
+                
+                soundCVCell.component = component1
+                
+                if let backGround = page?.backgrounds {
+                    soundCVCell.background = backGround
+                }
+                
+                if let strSticker = content?.pages[indexPath.row].frameUrl {
+                    soundCVCell.stickerURL = strSticker
+                }
+                
+                return soundCVCell
+            case .Embed:
+                
+                if component1?.embedType == "youtube" {
+                    
+                    let youtubeCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentYoutubeCVCell", for: indexPath) as! ContentYoutubeCVCell
 
-            imageCVCell.component = component1
-            
-            if let backGround = page?.backgrounds {
-                imageCVCell.background = backGround
-            }
-            
-            if let strSticker = content?.pages[indexPath.row].frameUrl {
-                imageCVCell.stickerURL = strSticker
-            }
-            
-            return imageCVCell
-            
-        case .Text:
-            let textCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentTextCVCell", for: indexPath) as! ContentTextCVCell
-            
-            if let backGround = page?.backgrounds {
-                textCVCell.background = backGround
-            }
-            
-            if let strSticker = content?.pages[indexPath.row].frameUrl {
-                textCVCell.stickerURL = strSticker
-            }
-            
-            //HEADER TEXT
-            textCVCell.headerTextLbl?.text = meta0?.text ?? ""
-            textCVCell.headerTextLbl?.font = meta0?.font
-            textCVCell.headerTextLbl?.textColor = meta0?.color
-            textCVCell.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
-                        
-            if let alpa = meta0?.background_opacity, alpa != 0.0, meta0?.bgColor != .clear {
-                textCVCell.headerTextLbl?.backgroundColor = meta0?.bgColor.withAlphaComponent(alpa)
-            }else {
-                textCVCell.headerTextLbl?.backgroundColor = meta0?.bgColor
-            }
-            
-            //CONTENT TEXT
-            textCVCell.contentTextLbl?.text = meta1?.text ?? ""
-            textCVCell.contentTextLbl?.font = meta1?.font
-            textCVCell.contentTextLbl?.textColor = meta1?.color
-            textCVCell.contentTextLbl?.textAlignment = meta1?.textAlignment ?? NSTextAlignment.center
-            
-            if let alpa = meta1?.background_opacity, alpa != 0.0, meta1?.bgColor != .clear {
-                textCVCell.contentTextLbl?.backgroundColor = meta1?.bgColor.withAlphaComponent(alpa)
-            }else {
-                textCVCell.contentTextLbl?.backgroundColor = meta1?.bgColor
-            }
-            
-            return textCVCell
-        case .Video:
-            let videoCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentVideoCVCell", for: indexPath) as! ContentVideoCVCell
-            videoCVCell.backgroundColor = .purple
-            
-            return videoCVCell
-        case .Sound:
-            let soundCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentSoundCVCell", for: indexPath) as! ContentSoundCVCell
-            
-            soundCVCell.component = component1
-            
-            if let backGround = page?.backgrounds {
-                soundCVCell.background = backGround
-            }
-            
-            if let strSticker = content?.pages[indexPath.row].frameUrl {
-                soundCVCell.stickerURL = strSticker
-            }
-            
-            return soundCVCell
-        case .Embed:
-            
-            if component1?.embedType == "youtube" {
-                print("youtube")
+                    youtubeCVCell.component = component1
+
+                    if let backGround = page?.backgrounds {
+                        youtubeCVCell.background = backGround
+                    }
+
+                    if let strSticker = content?.pages[indexPath.row].frameUrl {
+                        youtubeCVCell.stickerURL = strSticker
+                    }
+
+                    return youtubeCVCell
+                                        
+                }else if component1?.embedType == "vimeo" {
+                    
+                    let vimeoCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentVimeoCVCell", for: indexPath) as! ContentVimeoCVCell
+                    
+                    vimeoCVCell.component = component1
+                    
+                    if let backGround = page?.backgrounds {
+                        vimeoCVCell.background = backGround
+                    }
+                    
+                    if let strSticker = content?.pages[indexPath.row].frameUrl {
+                        vimeoCVCell.stickerURL = strSticker
+                    }
+                    
+                    return vimeoCVCell
+                }
                 
-                let embedCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentEmbedCVCell", for: indexPath) as! ContentEmbedCVCell
-                embedCVCell.backgroundColor = .yellow
-                
-                return embedCVCell
-                
-            }else if component1?.embedType == "vimeo" {
-                print("vimeo")
-                
-                let embedCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentEmbedCVCell", for: indexPath) as! ContentEmbedCVCell
-                embedCVCell.backgroundColor = .red
-                
-                return embedCVCell
+            case .none:
+                print("image")
             }
             
-        case .none:
-            print("image")
+            return UICollectionViewCell()
         }
-        
-        return UICollectionViewCell()
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+                
+        if let cell = cell as? ContentSoundCVCell {
+            cell.pauseMedia()
+        }
+        
+        if let cell = cell as? ContentVideoCVCell {
+            cell.pauseMedia()
+        }
         
     }
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
@@ -191,7 +209,145 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
     
     //MARK: IBActions
     @IBAction func goThereButtonClicked(_ sender: UIButton) {
-        
+        /*
+        print("testTap = \(currentPage)")
+                
+        if let idin = content?.pages[currentPage].identity, let action = content?.pages[currentPage].consumeAction {
+            
+            print("--- IDIN --- \(idin) ----- ACTION ----- \(action)")
+            
+            switch action {
+                
+            case 1:
+                
+                //print("id = \(ContentSetupViewController.ambassadorId)")
+                
+                if let id = content?.pages[currentPage].id {
+                    UserManager.sharedInstance.useCoupon("\(ContentSetupViewController.ambassadorId!)", pageId: "\(id)") { (count, unlim, error) in
+                        //print("test = \(self.content?.pages[self.currentPage].unlim)")
+                        let isUnlim = self.content?.pages[self.currentPage].unlim
+                        let mess = isUnlim! ? nil : "Number of Uses left: \(count)"
+                        
+                        if isUnlim! || count > 0 {
+                            self.delegate?.showGift("Are you sure you want to use this content?", mess: mess, res: { ok in
+                                UserManager.sharedInstance.tryCoupon("\(ContentSetupViewController.ambassadorId!)", pageId: "\(id)", completion: { (count, unlim, error) in
+                                    
+                                })
+                            })
+                        } else {
+                            self.delegate?.showMessage("No more uses!", "")
+                        }
+                    }
+                }
+            case 3:
+                
+                DispatchQueue.main.async {
+                    self.delegate?.showMessage("This is your code", idin)
+                }
+                
+            case 5:
+                
+                DispatchQueue.main.async {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(URL(string : idin)!, options: [:], completionHandler: { (status) in })
+                    } else {
+                        UIApplication.shared.openURL(URL(string : idin)!)
+                    }
+                    
+                    
+                    let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                    vc.isComeFrom = "APPIN"
+                    vc.loadableUrlStr = idin
+                    self.navigationController.pushViewController(vc, animated: true)
+                    
+                }
+                
+            case 4:
+                AmbassadorshipManager.sharedInstance.requestAmbassadorhipWithCode(idin) { (ambassadorship, error, code) in
+                    var message = ""
+                    print("code = \(code)")
+                    
+                    if error != nil {
+                        message = "Server error"
+                    } else if ambassadorship == nil {
+                        message = "You are already an ambassador for this brand"
+                        //self.presentUseAlert("You are already an ambassador for this brand", "")
+                        
+                        return
+                    } else if code == 200 || code == 201 {
+                        let name = ambassadorship?.brand.name == nil ? "" : ambassadorship!.brand.name
+                        message = "You have successfully connected to \(name)"
+                    } else {
+                        message = "An error has occurred"
+                        return
+                    }
+                    //self.delegate?.showDialog(message)
+                    DispatchQueue.main.async {
+                        self.delegate?.showContentViewController(ambassadorship!)
+                    }
+                    
+                }
+            case 2:
+                
+                DispatchQueue.main.async {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(URL(string : idin)!, options: [:], completionHandler: { (status) in })
+                    } else {
+                        UIApplication.shared.openURL(URL(string : idin)!)
+                    }
+                }
+                
+            case 6:
+                
+                DispatchQueue.main.async {
+                    guard let number = URL(string: "tel://\(idin)") else { return }
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(number, options: [:], completionHandler: { (status) in })
+                    } else {
+                        UIApplication.shared.openURL(number)
+                    }
+                }
+                
+            case 7:
+                
+                DispatchQueue.main.async {
+                    self.delegatePaser?.showNewLink(link: idin)
+                }
+               
+            case 8:
+                
+                Downloader.load(url: URL.init(string: idin)!, to: (content?.pages[currentPage].id)!) { (msg) in
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.delegate?.showAlertForIndexOnCell("", message: msg, alertButtonTitles: ["OK"], alertButtonStyles: [.default], vc: UIViewController(), completion: { (index) in
+                            
+                            DispatchQueue.main.async {
+                                guard let url = URL(string: idin) else { return }
+                                
+                                if #available(iOS 10.0, *) {
+                                    UIApplication.shared.open(url, options: [:], completionHandler: { (status) in })
+                                } else {
+                                    UIApplication.shared.openURL(url)
+                                }
+                            }
+                            
+                        })
+                    }
+                }
+                
+            case 9:
+                print("9")
+                
+            case 10:
+                print("10")
+                
+            default:
+                break
+            }
+            
+        }
+        */
     }
     
     //MARK: Custom Methods
@@ -212,7 +368,7 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
         
         if let cells = multiPageCollectionView.visibleCells as? [ContentVideoCVCell] {
             for cell in cells {
-                //cell.pauseMedia()
+                cell.pauseMedia()
             }
         }
         
@@ -401,6 +557,57 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             
         }
         
+    }
+    
+}
+
+class Downloader {
+    class func load(url: URL, to localFileName: Int, completion: @escaping (_ msg:String) -> ()) {
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        let request = try! URLRequest(url: url, method: .get)
+        
+        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+            if let _ = tempLocalUrl, error == nil {
+                
+                // Success
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    print("Success: \(statusCode)")
+                }
+                
+                let fileName = "\(localFileName).xls"
+                
+                let path = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+                let documentDirectoryPath:String = path[0]
+                let fileManager = FileManager()
+                                
+                var destinationURLForFile = URL(fileURLWithPath: documentDirectoryPath)
+                
+                do {
+                    //try fileManager.createDirectory(at: destinationURLForFile, withIntermediateDirectories: true, attributes: nil)
+                    destinationURLForFile.appendPathComponent(String(describing: fileName))
+                    
+                    if fileManager.fileExists(atPath: destinationURLForFile.path) {
+                        completion("File Already Exist!")
+                    }else {
+                        
+                        try fileManager.moveItem(at: tempLocalUrl ?? URL.init(string: "")!, to: destinationURLForFile)
+                        
+                        completion("File Download & Save!")
+                        
+                    }
+                    
+                }catch(let error){
+                    print(error)
+                    completion("File Download but Unable Save!")
+                }
+                
+            } else {
+                print("Failure: %@", error?.localizedDescription ?? "")
+                completion("File Download Failed!")
+            }
+        }
+        task.resume()
     }
     
 }

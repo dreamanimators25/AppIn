@@ -18,7 +18,6 @@ class ContentImageCVCell: UICollectionViewCell {
     
     var backgroundVideoView: ContentVideo?
     var stickerImageView = UIImageView()
-    
     var componentViews = [ContentView]()
     
     var background: ContentPageBackground? {
@@ -45,6 +44,8 @@ class ContentImageCVCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        self.pauseMedia()
     }
     
     func pauseMedia() {

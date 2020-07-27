@@ -1,20 +1,22 @@
 //
-//  ContentTextCVCell.swift
+//  ContentYoutubeCVCell.swift
 //  AppIn
 //
-//  Created by sameer khan on 23/07/20.
+//  Created by sameer khan on 27/07/20.
 //  Copyright © 2020 Sameer khan. All rights reserved.
 //
 
 import UIKit
+import Crashlytics
 import Alamofire
 import AlamofireImage
+import YouTubePlayer
+import AVFoundation
+import AVKit
 
-class ContentTextCVCell: UICollectionViewCell {
+class ContentYoutubeCVCell: UICollectionViewCell {
     
-    @IBOutlet weak var headerTextLbl: UILabel?
-    @IBOutlet weak var contentTextLbl: UILabel?
-    
+    @IBOutlet weak var videoPlayer: YouTubePlayerView!
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -37,42 +39,19 @@ class ContentTextCVCell: UICollectionViewCell {
         }
     }
     
-    var component0 : ContentPageComponent? {
+    var component : ContentPageComponent? {
         didSet {
-            let meta0 = component0?.meta
-            
-            //HEADER TEXT
-            self.headerTextLbl?.text = meta0?.text ?? ""
-            self.headerTextLbl?.font = meta0?.font
-            self.headerTextLbl?.textColor = meta0?.color
-            self.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
-                        
-            if let alpa = meta0?.background_opacity, alpa != 0.0, meta0?.bgColor != .clear {
-                self.headerTextLbl?.backgroundColor = meta0?.bgColor.withAlphaComponent(alpa)
-            }else {
-                self.headerTextLbl?.backgroundColor = meta0?.bgColor
+            if let url = component?.youtubeUrl {
+                let split = url.split(separator: "/")
+                
+                if let embed = split.last {
+                    let id = String.init(embed).replacingOccurrences(of: "\"", with: "")
+                    videoPlayer.loadVideoID(id)
+                }
             }
         }
     }
 
-    var component1 : ContentPageComponent? {
-        didSet {
-            //CONTENT TEXT
-            let meta1 = component1?.meta
-            
-            self.contentTextLbl?.text = meta1?.text ?? ""
-            self.contentTextLbl?.font = meta1?.font
-            self.contentTextLbl?.textColor = meta1?.color
-            self.contentTextLbl?.textAlignment = meta1?.textAlignment ?? NSTextAlignment.center
-            
-            if let alpa = meta1?.background_opacity, alpa != 0.0, meta1?.bgColor != .clear {
-                self.contentTextLbl?.backgroundColor = meta1?.bgColor.withAlphaComponent(alpa)
-            }else {
-                self.contentTextLbl?.backgroundColor = meta1?.bgColor
-            }
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -80,7 +59,7 @@ class ContentTextCVCell: UICollectionViewCell {
 
 }
 
-extension ContentTextCVCell {
+extension ContentYoutubeCVCell {
     
     // MARK: - Set Backgrounds
     

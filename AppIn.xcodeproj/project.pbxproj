@@ -14,7 +14,6 @@
 		5905097F24A89949008BF45F /* ContentCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905097E24A89949008BF45F /* ContentCVCell.swift */; };
 		5905098124A8B1CB008BF45F /* ShowContentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905098024A8B1CB008BF45F /* ShowContentsVC.swift */; };
 		5905098324A8BBEA008BF45F /* MultiPageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */; };
-		5905098524A8BBFB008BF45F /* SinglePageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905098424A8BBFB008BF45F /* SinglePageCVCell.swift */; };
 		5905163C2496954A00092E98 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905163B2496954A00092E98 /* CreateAccountVC.swift */; };
 		590ABAF9249F749B0053BCC7 /* LatestContentCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAF8249F749B0053BCC7 /* LatestContentCVCell.swift */; };
 		590ABAFB249F76830053BCC7 /* MyChannelCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */; };
@@ -32,9 +31,11 @@
 		59146C3A24C99751007F91E8 /* ContentVideoCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C3824C99751007F91E8 /* ContentVideoCVCell.xib */; };
 		59146C3D24C99763007F91E8 /* ContentSoundCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3B24C99763007F91E8 /* ContentSoundCVCell.swift */; };
 		59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C3C24C99763007F91E8 /* ContentSoundCVCell.xib */; };
-		59146C4124C9977A007F91E8 /* ContentEmbedCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */; };
-		59146C4224C9977A007F91E8 /* ContentEmbedCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */; };
 		5915A42E24CB55AA00CF72FF /* ContentVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5915A42D24CB55AA00CF72FF /* ContentVideo.swift */; };
+		59165CC124CEDB6B004389D2 /* ContentYoutubeCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59165CBF24CEDB6B004389D2 /* ContentYoutubeCVCell.swift */; };
+		59165CC224CEDB6B004389D2 /* ContentYoutubeCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59165CC024CEDB6B004389D2 /* ContentYoutubeCVCell.xib */; };
+		59165CC524CEDB8B004389D2 /* ContentVimeoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59165CC324CEDB8B004389D2 /* ContentVimeoCVCell.swift */; };
+		59165CC624CEDB8B004389D2 /* ContentVimeoCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59165CC424CEDB8B004389D2 /* ContentVimeoCVCell.xib */; };
 		59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59233C4524CDAE42009BBB8B /* ContentMusic.swift */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
 		5965181A24A6643600264AE1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* ProfileVC.swift */; };
@@ -182,7 +183,6 @@
 		5905097E24A89949008BF45F /* ContentCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentCVCell.swift; sourceTree = "<group>"; };
 		5905098024A8B1CB008BF45F /* ShowContentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContentsVC.swift; sourceTree = "<group>"; };
 		5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPageCVCell.swift; sourceTree = "<group>"; };
-		5905098424A8BBFB008BF45F /* SinglePageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageCVCell.swift; sourceTree = "<group>"; };
 		5905163B2496954A00092E98 /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
 		590ABAF8249F749B0053BCC7 /* LatestContentCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestContentCVCell.swift; sourceTree = "<group>"; };
 		590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelCVCell.swift; sourceTree = "<group>"; };
@@ -200,9 +200,11 @@
 		59146C3824C99751007F91E8 /* ContentVideoCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentVideoCVCell.xib; sourceTree = "<group>"; };
 		59146C3B24C99763007F91E8 /* ContentSoundCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentSoundCVCell.swift; sourceTree = "<group>"; };
 		59146C3C24C99763007F91E8 /* ContentSoundCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentSoundCVCell.xib; sourceTree = "<group>"; };
-		59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentEmbedCVCell.swift; sourceTree = "<group>"; };
-		59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentEmbedCVCell.xib; sourceTree = "<group>"; };
 		5915A42D24CB55AA00CF72FF /* ContentVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentVideo.swift; sourceTree = "<group>"; };
+		59165CBF24CEDB6B004389D2 /* ContentYoutubeCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentYoutubeCVCell.swift; sourceTree = "<group>"; };
+		59165CC024CEDB6B004389D2 /* ContentYoutubeCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentYoutubeCVCell.xib; sourceTree = "<group>"; };
+		59165CC324CEDB8B004389D2 /* ContentVimeoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVimeoCVCell.swift; sourceTree = "<group>"; };
+		59165CC424CEDB8B004389D2 /* ContentVimeoCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentVimeoCVCell.xib; sourceTree = "<group>"; };
 		59233C4524CDAE42009BBB8B /* ContentMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMusic.swift; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		5965181624A6643500264AE1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
@@ -392,7 +394,6 @@
 				590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */,
 				5905097E24A89949008BF45F /* ContentCVCell.swift */,
 				5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */,
-				5905098424A8BBFB008BF45F /* SinglePageCVCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -426,8 +427,10 @@
 				59146C3824C99751007F91E8 /* ContentVideoCVCell.xib */,
 				59146C3B24C99763007F91E8 /* ContentSoundCVCell.swift */,
 				59146C3C24C99763007F91E8 /* ContentSoundCVCell.xib */,
-				59146C3F24C9977A007F91E8 /* ContentEmbedCVCell.swift */,
-				59146C4024C9977A007F91E8 /* ContentEmbedCVCell.xib */,
+				59165CBF24CEDB6B004389D2 /* ContentYoutubeCVCell.swift */,
+				59165CC024CEDB6B004389D2 /* ContentYoutubeCVCell.xib */,
+				59165CC324CEDB8B004389D2 /* ContentVimeoCVCell.swift */,
+				59165CC424CEDB8B004389D2 /* ContentVimeoCVCell.xib */,
 			);
 			path = "All Contents Cell";
 			sourceTree = "<group>";
@@ -928,9 +931,10 @@
 				59146C3A24C99751007F91E8 /* ContentVideoCVCell.xib in Resources */,
 				59DDC65C24962CDF007D1A51 /* Main.storyboard in Resources */,
 				5999208E24B33E7F00E76898 /* promo.mp4 in Resources */,
-				59146C4224C9977A007F91E8 /* ContentEmbedCVCell.xib in Resources */,
 				59A84834249E26AA00734157 /* Dashboard.storyboard in Resources */,
 				5905097824A89029008BF45F /* Content.storyboard in Resources */,
+				59165CC624CEDB8B004389D2 /* ContentVimeoCVCell.xib in Resources */,
+				59165CC224CEDB6B004389D2 /* ContentYoutubeCVCell.xib in Resources */,
 				59A84840249E402E00734157 /* roboto_bold.ttf in Resources */,
 				59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */,
 				59146C3224C996BA007F91E8 /* ContentImageCVCell.xib in Resources */,
@@ -1039,7 +1043,6 @@
 				5999207624B33DC900E76898 /* Definitions.swift in Sources */,
 				5965181C24A6643600264AE1 /* HomeVC.swift in Sources */,
 				5999204C24B33DC900E76898 /* RewardPageComponent.swift in Sources */,
-				59146C4124C9977A007F91E8 /* ContentEmbedCVCell.swift in Sources */,
 				5999207B24B33DC900E76898 /* TableView.swift in Sources */,
 				5999205F24B33DC900E76898 /* AmbassadorStatistic.swift in Sources */,
 				59146C3924C99751007F91E8 /* ContentVideoCVCell.swift in Sources */,
@@ -1059,11 +1062,11 @@
 				5999205824B33DC900E76898 /* Influencer.swift in Sources */,
 				5999208524B33DC900E76898 /* ShadowLabel.swift in Sources */,
 				5999204524B33DC900E76898 /* AmbassadorshipRouter.swift in Sources */,
+				59165CC524CEDB8B004389D2 /* ContentVimeoCVCell.swift in Sources */,
 				5999207A24B33DC900E76898 /* PolygonBackgroundView.swift in Sources */,
 				5999207224B33DC900E76898 /* CircularImageView.swift in Sources */,
 				5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */,
 				59EF508724AA561E00B9F44A /* ProfileChangePopVC.swift in Sources */,
-				5905098524A8BBFB008BF45F /* SinglePageCVCell.swift in Sources */,
 				5999203E24B33DC900E76898 /* ModalTransitioningDelegate.swift in Sources */,
 				59DDC68924962DE9007D1A51 /* OnboardingViewController.swift in Sources */,
 				5999208B24B33E7F00E76898 /* UIImage+Ext.swift in Sources */,
@@ -1128,6 +1131,7 @@
 				5999204924B33DC900E76898 /* RewardList.swift in Sources */,
 				5999203A24B33DC900E76898 /* AmbassadorshipManager.swift in Sources */,
 				5999207D24B33DC900E76898 /* CircularProgress.swift in Sources */,
+				59165CC124CEDB6B004389D2 /* ContentYoutubeCVCell.swift in Sources */,
 				5999207724B33DC900E76898 /* RoundCornerView.swift in Sources */,
 				5999206724B33DC900E76898 /* UIImage+Extensions.swift in Sources */,
 				59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */,
