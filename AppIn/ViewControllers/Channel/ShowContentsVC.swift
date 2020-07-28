@@ -10,11 +10,13 @@ import UIKit
 import HCVimeoVideoExtractor
 import AVFoundation
 import AVKit
+import MessageUI
 
 var loadVimeoPlayer : ((_ url:String)-> (Void))?
 
 class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    @IBOutlet weak var captureView: UIView!
     @IBOutlet weak var contentCollectionView: UICollectionView!
     @IBOutlet weak var lblContentTitle: UILabel!
     
@@ -98,9 +100,25 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         // text to share
         let sharedText = "Shared via AppIn! Download AppIn Now from Apple App Store and Google Play Store!"
         
+        //To Hide GoThereButton
+        var btnStt = false
+        let cells = contentCollectionView.visibleCells
+        for cell in cells {
+            if let cell = cell as? MultiPageCVCell {
+                btnStt = cell.goThereBtn.isHidden
+                cell.goThereBtn.isHidden = true
+            }
+        }
+        
         // image to share
-        //let sharedImage = #imageLiteral(resourceName: "logo_white")
-        let sharedImage = UIView().takeScreenshot(captureView: self.contentCollectionView)
+        let sharedImage = UIView().takeScreenshot(captureView: self.captureView)
+        
+        //To Show GoThereButton After capture image of whole view
+        for cell in cells {
+            if let cell = cell as? MultiPageCVCell {
+                cell.goThereBtn.isHidden = btnStt
+            }
+        }
         
         // set up activity view controller
         let sharedData = [ sharedImage ?? UIImage() , sharedText] as [Any]
@@ -114,28 +132,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
         // present the view controller
         self.present(activityViewController, animated: true, completion: nil)
-        
-        
-        
-        /*
-        let sharedImage = UIView().takeScreenshot(captureView: self.contentCollectionView) ?? UIImage()
-
-        if let imageData = sharedImage.jpegData(compressionQuality: 1.0) {
-            let tempFile = NSURL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("Documents/whatsAppTmp.wai")!
-            do {
-                try imageData.write(to: tempFile, options: .atomic)
-                self.documentInteractionController = UIDocumentInteractionController(url: tempFile)
-                //self.documentInteractionController.uti = "net.whatsapp.image"
-                self.documentInteractionController.uti = "Shared via AppIn! Download AppIn Now from Apple App Store and Google Play Store!"
-                
-                self.documentInteractionController.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
-            } catch {
-                print(error)
-            }
-        }
-        */
-        
-        
     }
     
     //MARK: UICollectionView DataSource & Delegates
@@ -151,9 +147,10 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
         let multiPageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiPageCVCell", for: indexPath) as! MultiPageCVCell
     
-        //from Old Code
+        //From Old Code
         let content = contents?[indexPath.row]
         multiPageCVCell.content = content
+        multiPageCVCell.delegate = self
         
         return multiPageCVCell
     }
@@ -162,18 +159,29 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.contentCollectionView.frame.size.width, height: self.contentCollectionView.frame.size.height)
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
                 
         if let cell = cell as? MultiPageCVCell {
             cell.reset()
         }
-        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.contentCollectionView.frame.size.width, height: self.contentCollectionView.frame.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
     }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -229,3 +237,139 @@ protocol ContentView {
     
     func prepareForReuse()
 }
+
+extension ShowContentsVC: MultiPageDelegate {
+    func presentUseAlert(_ title: String, _ message: String) {
+        
+    }
+    
+    func showAlertOnCell(_ title: String, _ message: String) {
+        
+    }
+    
+    func showAlertForIndexOnCell(_ title: String, message: String, alertButtonTitles: [String], alertButtonStyles: [UIAlertAction.Style], vc: UIViewController, completion: @escaping (Int) -> Void) {
+        
+    }
+    
+    func shareFacebook(_ imageView: UIImageView, isBack: Bool, page: Int) {
+        
+    }
+    
+    func shareInstagram(_ imageView: UIImageView) {
+        
+    }
+    
+    func shareTwitter(_ imageView: UIImageView, isBack: Bool, page: Int) {
+        
+    }
+    
+    func shareFacebookLink(_ link: String) {
+        
+    }
+    
+    func shareTwitterLink(_ link: String) {
+        
+    }
+    
+    func openEmailLink(link: String) {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposerVC = MFMailComposeViewController()
+            mailComposerVC.mailComposeDelegate = self
+            mailComposerVC.setToRecipients([link])
+            
+            self.present(mailComposerVC, animated: true, completion: nil)
+        } else {
+            let coded = "mailto:\(link)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
+            if let emailURL = coded
+            {
+                self.openLinkInAppInWebView(link: emailURL)
+            }
+        }
+    }
+    
+    func openLinkInAppInWebView(link : String) {
+        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
+        vc.isComeFrom = "APPIN"
+        vc.loadableUrlStr = link
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func showContentViewController(_ amb: Ambassadorship) {
+        
+        let contentViewController = UIStoryboard(name: "Content", bundle: nil).instantiateViewController(withIdentifier: "ShowContentsVC") as! ShowContentsVC
+        
+        contentViewController.ambassadorship = amb
+        contentViewController.user = user
+        
+        self.navigationController?.pushViewController(contentViewController, animated: true)
+    }
+    
+    func showGift(_ title: String, mess: String?, res: @escaping (Bool) -> ()) {
+        let alertController = UIAlertController(title: title, message: mess, preferredStyle: UIAlertController.Style.actionSheet)
+        
+        alertController.addAction(UIAlertAction(title:  "Yes", style: UIAlertAction.Style.destructive, handler: { (alertAction: UIAlertAction) in
+            res(true)
+        }))
+        
+        alertController.addAction(UIAlertAction(title:  "No", style: UIAlertAction.Style.cancel, handler: { (alertAction: UIAlertAction) in
+            res(false)
+            alertController.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
+    func showMessage(_ title: String, _ message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showDialog(_ message: String) {
+        let alert = UIAlertController(title: "Message", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func currentSubPage(_ page: Int) {
+        //currentSubPage = page
+        //print("curr sub page = \(currentSubPage)")
+    }
+
+    func currentPage(_ page: Int) {
+        //addDuration()
+        //print("curr page = \(ContentSetupViewController.currentPage)")
+        //ContentSetupViewController.currentPage = page
+    }
+    
+    func shareContent(_ id: Int) {
+        //showShare(id)
+    }
+    
+    func shareContentOutbound(_ id: Int) {
+        //showShareOutbound(id)
+    }
+    
+    func vertical(_ verticalPage: Int) {
+        
+    }
+    
+    func retrieveImage(_ url: String) {
+        
+    }
+    
+    // TODO: Put this functionality in MultiPage, once done remove notifications. handleContentButtons func must switch delegate
+    
+    func shareButtons(_ contentNumber: Int?, _ subPageNumber: Int?) {
+        
+    }
+ 
+}
+
+extension ShowContentsVC: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+

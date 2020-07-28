@@ -50,13 +50,18 @@ extension UIView {
 
     func takeScreenshot(captureView: UIView) -> UIImage? {
         
-        UIGraphicsBeginImageContextWithOptions(captureView.bounds.size, captureView.isOpaque, 0.0)
-        defer { UIGraphicsEndImageContext() }
-        if let context = UIGraphicsGetCurrentContext() {
-            captureView.layer.render(in: context)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            return image
+        //Create the UIImage
+        UIGraphicsBeginImageContext(captureView.frame.size)
+        captureView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        if (image != nil)
+        {
+            return image!
         }
-        return nil
+        
+        return UIImage()
+        
     }
 }

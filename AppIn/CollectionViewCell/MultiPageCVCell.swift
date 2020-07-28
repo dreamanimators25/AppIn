@@ -8,14 +8,44 @@
 
 import UIKit
 
+protocol MultiPageDelegate {
+    func currentSubPage(_ page: Int)
+    func currentPage(_ page: Int)
+    func shareContent(_ id: Int)
+    func shareContentOutbound(_ id: Int)
+    func presentUseAlert(_ title: String, _ message: String)
+    func showAlertOnCell(_ title: String, _ message: String)
+    func showAlertForIndexOnCell(_ title: String, message: String, alertButtonTitles: [String], alertButtonStyles: [UIAlertAction.Style], vc: UIViewController, completion: @escaping (Int)->Void) -> Void
+    func shareFacebook(_ imageView: UIImageView, isBack: Bool, page: Int)
+    func shareInstagram(_ imageView: UIImageView)
+    func shareTwitter(_ imageView: UIImageView, isBack: Bool, page: Int)
+    func shareFacebookLink(_ link: String)
+    func shareTwitterLink(_ link: String)
+    func showDialog(_ message: String)
+    func showContentViewController(_ amb: Ambassadorship)
+    func showMessage(_ title: String, _ message: String)
+    func showGift(_ title: String, mess: String?, res: @escaping (_ ok: Bool) -> ())
+    
+    func openLinkInAppInWebView(link: String)
+    func openEmailLink(link: String)
+}
+
 class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var multiPageCollectionView: UICollectionView!
     @IBOutlet weak var goThereBtn: UIButton!
     
+    var delegate: MultiPageDelegate?
+    
     var currentPage: Int = 0 {
         didSet {
-            //delegate?.currentPage(currentPage)
+            delegate?.currentPage(currentPage)
+        }
+    }
+    
+    var currentSubPage: Int = 0 {
+        didSet {
+            delegate?.currentSubPage(currentSubPage)
         }
     }
                 
@@ -47,7 +77,6 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
     }
         
     //MARK: UICollectionView DataSource & Delegates
@@ -184,7 +213,6 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
         }
         
     }
-
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
@@ -209,9 +237,9 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
     
     //MARK: IBActions
     @IBAction func goThereButtonClicked(_ sender: UIButton) {
-        /*
+        
         print("testTap = \(currentPage)")
-                
+        
         if let idin = content?.pages[currentPage].identity, let action = content?.pages[currentPage].consumeAction {
             
             print("--- IDIN --- \(idin) ----- ACTION ----- \(action)")
@@ -223,7 +251,7 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                 //print("id = \(ContentSetupViewController.ambassadorId)")
                 
                 if let id = content?.pages[currentPage].id {
-                    UserManager.sharedInstance.useCoupon("\(ContentSetupViewController.ambassadorId!)", pageId: "\(id)") { (count, unlim, error) in
+                   /* UserManager.sharedInstance.useCoupon("\(ContentSetupViewController.ambassadorId!)", pageId: "\(id)") { (count, unlim, error) in
                         //print("test = \(self.content?.pages[self.currentPage].unlim)")
                         let isUnlim = self.content?.pages[self.currentPage].unlim
                         let mess = isUnlim! ? nil : "Number of Uses left: \(count)"
@@ -237,32 +265,23 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                         } else {
                             self.delegate?.showMessage("No more uses!", "")
                         }
-                    }
+                    }*/
                 }
+                
+            case 2:
+
+                DispatchQueue.main.async {
+                    self.delegate?.openLinkInAppInWebView(link: idin)
+                }
+                
             case 3:
                 
                 DispatchQueue.main.async {
                     self.delegate?.showMessage("This is your code", idin)
                 }
                 
-            case 5:
-                
-                DispatchQueue.main.async {
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(URL(string : idin)!, options: [:], completionHandler: { (status) in })
-                    } else {
-                        UIApplication.shared.openURL(URL(string : idin)!)
-                    }
-                    
-                    
-                    let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
-                    vc.isComeFrom = "APPIN"
-                    vc.loadableUrlStr = idin
-                    self.navigationController.pushViewController(vc, animated: true)
-                    
-                }
-                
             case 4:
+                
                 AmbassadorshipManager.sharedInstance.requestAmbassadorhipWithCode(idin) { (ambassadorship, error, code) in
                     var message = ""
                     print("code = \(code)")
@@ -287,14 +306,11 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                     }
                     
                 }
-            case 2:
+                
+            case 5:
                 
                 DispatchQueue.main.async {
-                    if #available(iOS 10.0, *) {
-                        UIApplication.shared.open(URL(string : idin)!, options: [:], completionHandler: { (status) in })
-                    } else {
-                        UIApplication.shared.openURL(URL(string : idin)!)
-                    }
+                    self.delegate?.openLinkInAppInWebView(link: idin)
                 }
                 
             case 6:
@@ -311,9 +327,9 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             case 7:
                 
                 DispatchQueue.main.async {
-                    self.delegatePaser?.showNewLink(link: idin)
+                    self.delegate?.openEmailLink(link: idin)
                 }
-               
+                
             case 8:
                 
                 Downloader.load(url: URL.init(string: idin)!, to: (content?.pages[currentPage].id)!) { (msg) in
@@ -347,7 +363,7 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
             }
             
         }
-        */
+        
     }
     
     //MARK: Custom Methods
