@@ -251,21 +251,21 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                 //print("id = \(ContentSetupViewController.ambassadorId)")
                 
                 if let id = content?.pages[currentPage].id {
-                   /* UserManager.sharedInstance.useCoupon("\(ContentSetupViewController.ambassadorId!)", pageId: "\(id)") { (count, unlim, error) in
+                    UserManager.sharedInstance.useCoupon("\(ContentVC.ambassadorId!)", pageId: "\(id)") { (count, unlim, error) in
                         //print("test = \(self.content?.pages[self.currentPage].unlim)")
                         let isUnlim = self.content?.pages[self.currentPage].unlim
                         let mess = isUnlim! ? nil : "Number of Uses left: \(count)"
                         
                         if isUnlim! || count > 0 {
                             self.delegate?.showGift("Are you sure you want to use this content?", mess: mess, res: { ok in
-                                UserManager.sharedInstance.tryCoupon("\(ContentSetupViewController.ambassadorId!)", pageId: "\(id)", completion: { (count, unlim, error) in
+                                UserManager.sharedInstance.tryCoupon("\(ContentVC.ambassadorId!)", pageId: "\(id)", completion: { (count, unlim, error) in
                                     
                                 })
                             })
                         } else {
                             self.delegate?.showMessage("No more uses!", "")
                         }
-                    }*/
+                    }
                 }
                 
             case 2:
@@ -339,13 +339,7 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                         self.delegate?.showAlertForIndexOnCell("", message: msg, alertButtonTitles: ["OK"], alertButtonStyles: [.default], vc: UIViewController(), completion: { (index) in
                             
                             DispatchQueue.main.async {
-                                guard let url = URL(string: idin) else { return }
-                                
-                                if #available(iOS 10.0, *) {
-                                    UIApplication.shared.open(url, options: [:], completionHandler: { (status) in })
-                                } else {
-                                    UIApplication.shared.openURL(url)
-                                }
+                                self.delegate?.openLinkInAppInWebView(link: idin)
                             }
                             
                         })

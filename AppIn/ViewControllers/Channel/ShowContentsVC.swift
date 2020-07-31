@@ -37,7 +37,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
     var contents: [Content]? {
         didSet {
-            
+            self.setupStatistics(self.contents ?? [])
         }
     }
     
@@ -47,6 +47,16 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
             guard let user = user else { return }
         }
     }
+    
+    static var currentContent = 0
+    static var currentPage: Int = 0
+    
+    // MARK: - Statistics
+    var statistics: AmbassadorStatistic?
+    var statsTimer = Timer()
+    var startTime = TimeInterval()
+    var secondsOnPage: Int = 0
+    var clicksOnPage: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +84,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    //MARK: Custom Methods
     func closeChannel() {
         let cells = contentCollectionView.visibleCells
         
@@ -82,6 +93,81 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
                 cell.reset()
             }
         }
+        
+        self.endStats()
+    }
+    
+    // MARK: - Statistics
+    func setupStatistics(_ contents: [Content]) {
+        backgroundThread(0.0, background: {
+            var contentIds = [Int]()
+            var pageIds = [Int:[Int]]()
+            var i = 0
+            for content in contents {
+                contentIds.append(content.id)
+                var ids = [Int]()
+                for page in content.pages {
+                    ids.append(page.id)
+                }
+                pageIds[i] = ids
+                i += 1
+            }
+            var statId = 0
+            if let id = self.contentId {
+                statId = id
+            } else if let ambassadorship = self.ambassadorship {
+                statId = ambassadorship.id
+            }
+            self.statistics = AmbassadorStatistic(id: statId, contentIds: contentIds, pageIds: pageIds)
+            }, completion: {
+                self.resetTimer()
+                self.startTimer()
+        })
+    }
+    
+    func resetTimer() {
+        statsTimer.invalidate()
+    }
+    
+    func startTimer() {
+        if !statsTimer.isValid {
+            statsTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+            startTime = Date.timeIntervalSinceReferenceDate
+        }
+    }
+    
+    @objc func updateTime() {
+        let currentTime = Date.timeIntervalSinceReferenceDate
+        var elapsedTime: TimeInterval = currentTime - startTime
+        let minutes = round(elapsedTime / 60.0)
+        
+        elapsedTime -= (TimeInterval(minutes) * 60)
+        let seconds = round(elapsedTime)
+        
+        secondsOnPage = Int(seconds)
+    }
+    
+    func endStats() {
+        if let statis = statistics {
+            statis.addPageDuration(ShowContentsVC.currentContent, page: ShowContentsVC.currentPage, seconds: secondsOnPage)
+            StatisticsManager.sharedInstance.sendAmbassadorStatistics(statis, completion: { success, error in
+                 debugPrint("Error: \(String(describing: error))")
+            })
+        }
+    }
+    
+    func addClickCount() {
+        if let stats = statistics {
+            stats.addPageClicks(ShowContentsVC.currentContent, page: ShowContentsVC.currentPage, clicks: 1)
+        }
+    }
+    
+    func addDuration() {
+        resetTimer()
+        if let stats = statistics {
+            stats.addPageDuration(ShowContentsVC.currentContent, page: ShowContentsVC.currentPage, seconds: secondsOnPage)
+        }
+        startTimer()
     }
     
     //MARK: IBAction

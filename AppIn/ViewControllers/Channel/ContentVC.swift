@@ -43,7 +43,6 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
             guard user != nil else { return }
             //updateContentWithContentId(user.id)
         }
-        
     }
 
     override func viewDidLoad() {
@@ -119,7 +118,7 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                 print("Just added contents from other user to array")
                 
                 DispatchQueue.main.async(execute: {
-                
+                                    
                     self.contentTableView.reloadData()
                     
 //                    self.contentTableView.performBatchUpdates({
