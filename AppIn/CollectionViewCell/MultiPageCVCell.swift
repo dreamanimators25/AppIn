@@ -30,12 +30,15 @@ protocol MultiPageDelegate {
     func openEmailLink(link: String)
 }
 
-class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var multiPageCollectionView: UICollectionView!
     @IBOutlet weak var goThereBtn: UIButton!
     
     var delegate: MultiPageDelegate?
+    
+    var arrContentID = [String]()
+    var arrPageID = [String]()
     
     var currentPage: Int = 0 {
         didSet {
@@ -67,7 +70,17 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                 }
                 
                 multiPageCollectionView.reloadData()
-                
+                multiPageCollectionView.performBatchUpdates({
+                    print("Loaded done")
+                }) { (result) in
+                    print(result)
+                    
+                    if let raw = selectedRaw {
+                        
+                        self.multiPageCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
+                    }
+                }
+                                                
                 self.handlePageButtons(0)
             }
             
@@ -78,7 +91,7 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
         super.awakeFromNib()
         // Initialization code
     }
-        
+    
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -233,6 +246,18 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
     }
     
     //MARK: IBActions
@@ -395,6 +420,21 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
         if let idin = isIdentity, let action = content?.pages[page].consumeAction {
             print("connect = \(idin)")
             print("connect1 = \(action)")
+            
+            if action == 10 {
+                let strArray = idin.components(separatedBy: ",")
+                for (index,item) in strArray.enumerated() {
+                    if index % 2 == 0 {
+                        if item != "" {
+                            self.arrContentID.append(item)
+                        }
+                    }else {
+                        if item != "" {
+                            self.arrPageID.append(item)
+                        }
+                    }
+                }
+            }
          
             
             switch action {
@@ -555,8 +595,7 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                         }
                     }
                 }
-                
-                
+
             }
             
         } else {
@@ -565,6 +604,48 @@ class MultiPageCVCell: UICollectionViewCell,UICollectionViewDataSource,UICollect
                 self.goThereBtn.isHidden = true
             }
             
+        }
+        
+    }
+
+    func scrollToSelectedContent(_ raw : Int, _ sec : Int) {
+        
+        guard arrContentID.count > sec else {
+            return
+        }
+        
+        let contId = arrContentID[sec]
+        let pageId = arrPageID[raw]
+        
+        let indexOfContentID = actualContents.firstIndex(where: { $0.id == Int(contId) })
+        print(indexOfContentID ?? 0)
+        
+        let indexOfPageID = self.content?.pages.firstIndex(where: { $0.id == Int(pageId) })
+        print(indexOfPageID ?? 0)
+        
+        if let load = loadCollectionView {
+            load(IndexPath.init(row: indexOfContentID ?? 0, section: indexOfPageID ?? 0))
+        }
+        
+    }
+    
+    @objc func btnClickedInAppLink(_ sender : UIButton) {
+        
+        guard arrContentID.count > sender.tag else {
+            return
+        }
+        
+        let contId = arrContentID[sender.tag]
+        let pageId = arrPageID[sender.tag]
+        
+        let indexOfContentID = actualContents.firstIndex(where: { $0.id == Int(contId) })
+        print(indexOfContentID ?? 0)
+        
+        let indexOfPageID = self.content?.pages.firstIndex(where: { $0.id == Int(pageId) })
+        print(indexOfPageID ?? 0)
+        
+        if let load = loadCollectionView {
+            load(IndexPath.init(row: indexOfContentID ?? 0, section: indexOfPageID ?? 0))
         }
         
     }

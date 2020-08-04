@@ -13,6 +13,8 @@ import AVKit
 import MessageUI
 
 var loadVimeoPlayer : ((_ url:String)-> (Void))?
+var loadCollectionView : ((_ index:IndexPath)-> (Void))?
+var actualContents = [Content]()
 
 class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -25,6 +27,8 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
     static var ambassadorId: Int?
     var contentId: Int?
+    
+    var selectedInd = 0
     
     // MARK: Data
     var ambassadorship: Ambassadorship? {
@@ -57,14 +61,15 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     var startTime = TimeInterval()
     var secondsOnPage: Int = 0
     var clicksOnPage: Int = 0
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let str = strTitle {
             self.lblContentTitle.text = str
         }
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +81,23 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
             self.showVimeoPlayer(vimURL)
         }
         
+        loadCollectionView = { ind in
+            self.contentCollectionView.reloadData()
+            
+            self.contentCollectionView.scrollToItem(at: IndexPath.init(row: ind.row, section: ind.section), at: [.centeredHorizontally,.centeredVertically], animated: false)
+        }
+        
+        self.contentCollectionView.performBatchUpdates({
+            print("Loaded Done!")
+        }) { (result) in
+            print(result)
+            
+            self.contentCollectionView.reloadData()
+            
+            self.contentCollectionView.scrollToItem(at: IndexPath.init(row: selectedSection ?? 0, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
+            selectedRaw = self.selectedInd
+        }
+                
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -233,11 +255,21 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
         let multiPageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiPageCVCell", for: indexPath) as! MultiPageCVCell
     
-        //From Old Code
-        let content = contents?[indexPath.row]
-        multiPageCVCell.content = content
-        multiPageCVCell.delegate = self
-        
+        //if let sec = selectedSection {
+            //From Old Code
+            let content = contents?[indexPath.row]
+            multiPageCVCell.content = content
+            multiPageCVCell.delegate = self
+            
+//        }else {
+//            //From Old Code
+//            let content = contents?[sec]
+//            multiPageCVCell.content = content
+//            multiPageCVCell.delegate = self
+//
+//            selectedSection = nil
+//        }
+                
         return multiPageCVCell
     }
     
@@ -266,6 +298,19 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        selectedRaw = nil
+        selectedSection = nil
     }
     
     // MARK: - Navigation

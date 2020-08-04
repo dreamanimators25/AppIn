@@ -114,6 +114,8 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                 
                 self.contentArray += contents
                 self.contents = self.contentArray
+                
+                actualContents = self.contentArray
                                 
                 print("Just added contents from other user to array")
                 
@@ -236,6 +238,11 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "ShowContentsVC") as! ShowContentsVC
         vc.strTitle = "CAMERA"
         vc.contents = self.contents
+        
+        //selectedRaw = indexPath.row
+        vc.selectedInd = indexPath.row
+        selectedSection = collectionView.tag
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

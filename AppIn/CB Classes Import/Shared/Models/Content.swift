@@ -59,12 +59,9 @@ open class Content {
     var longitude: Double?
     var latitude: Double?
     
-   
     
     init(dictionary: [String:Any]) {
-        
-
-        
+                
         if let id = dictionary[kAPIKeyId] as? Int {
             self.id = id
         }

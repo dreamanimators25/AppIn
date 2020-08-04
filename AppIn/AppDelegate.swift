@@ -8,6 +8,12 @@
 
 import UIKit
 
+var isComeFromPush = false
+var contentIdPush = 0
+var channelIdPush = 0
+var selectedRaw : Int?
+var selectedSection : Int?
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
