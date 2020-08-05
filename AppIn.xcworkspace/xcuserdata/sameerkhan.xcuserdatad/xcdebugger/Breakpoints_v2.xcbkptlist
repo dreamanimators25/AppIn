@@ -23,182 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "97FA21C4-2B41-4824-A0D2-EF1DD0264DB1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "658"
-            endingLineNumber = "658"
-            landmarkName = "load(url:to:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1809C1DB-D570-4AC5-BB59-BC2D1E8A5300"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "663"
-            endingLineNumber = "663"
-            landmarkName = "load(url:to:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "477FE8D5-BAA6-4F01-8B84-C78C36860934"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
-            landmarkName = "handlePageButtons(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "477FE8D5-BAA6-4F01-8B84-C78C36860934 - a06abf6cb060539b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AppIn.MultiPageCVCell.handlePageButtons(Swift.Int) -&gt; ()"
-                  moduleName = "AppIn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/4:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "603"
-                  endingLineNumber = "603"
-                  offsetFromSymbolStart = "11028">
-               </Location>
-               <Location
-                  uuid = "477FE8D5-BAA6-4F01-8B84-C78C36860934 - d6fbf8058ba186d5"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #20 () -&gt; () in AppIn.MultiPageCVCell.handlePageButtons(Swift.Int) -&gt; ()"
-                  moduleName = "AppIn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/4:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "604"
-                  endingLineNumber = "604"
-                  offsetFromSymbolStart = "64">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7E6BB632-B387-40DE-BABD-26A24B34D7B4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
-            landmarkName = "goThereButtonClicked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "19151A8F-45DE-4D05-820D-0C89B4FAE281"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "307"
-            endingLineNumber = "307"
-            landmarkName = "goThereButtonClicked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CCD5F90F-6E8E-4987-BF57-6827E55C02DB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
-            landmarkName = "goThereButtonClicked(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "CCD5F90F-6E8E-4987-BF57-6827E55C02DB - 74f5d69a9f7dc0a1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AppIn.MultiPageCVCell.goThereButtonClicked(__C.UIButton) -&gt; ()"
-                  moduleName = "AppIn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/4:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "360"
-                  endingLineNumber = "360"
-                  offsetFromSymbolStart = "4936">
-               </Location>
-               <Location
-                  uuid = "CCD5F90F-6E8E-4987-BF57-6827E55C02DB - 74f5d69a9f7dc0a1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "AppIn.MultiPageCVCell.goThereButtonClicked(__C.UIButton) -&gt; ()"
-                  moduleName = "AppIn"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/4:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "360"
-                  endingLineNumber = "360"
-                  offsetFromSymbolStart = "6084">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5445B1B8-33DF-4C64-AB91-8AB454A9E9F9"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "goThereButtonClicked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "EDFA4B83-F7A9-4CA6-91AA-854BC6BD9ABD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -215,111 +39,94 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D16D4707-7E18-4851-968D-6080781C22C0"
+            uuid = "77CBFD5E-A2A3-4993-86F9-971BDD1CAE98"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
-            landmarkName = "goThereButtonClicked(_:)"
+            startingLineNumber = "1135"
+            endingLineNumber = "1135"
+            landmarkName = "scrollToSelectedContent(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6C0B72AB-EA75-464C-A62D-7023B344D72B"
+            uuid = "B31B2397-97B4-4D29-9C3C-FD358F4A5C8C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "goThereButtonClicked(_:)"
+            startingLineNumber = "1125"
+            endingLineNumber = "1125"
+            landmarkName = "scrollToSelectedContent(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AE33099D-9F8B-472F-803E-62D14E36ADC0"
+            uuid = "4AAC78D4-2583-40F8-8719-88C3C589BC92"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
-            landmarkName = "goThereButtonClicked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2B2F4DF8-1601-414E-8C9C-A1116A710F35"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
-            landmarkName = "goThereButtonClicked(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "490987B2-8814-4E8F-8A45-9EB102DB4AC0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "342"
-            endingLineNumber = "342"
-            landmarkName = "goThereButtonClicked(_:)"
+            startingLineNumber = "1031"
+            endingLineNumber = "1031"
+            landmarkName = "btnClickedMultiLink(_:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "490987B2-8814-4E8F-8A45-9EB102DB4AC0 - 74f5d69a9f7dc0a1"
+                  uuid = "4AAC78D4-2583-40F8-8719-88C3C589BC92 - a8435e9e5805a2c6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "AppIn.MultiPageCVCell.goThereButtonClicked(__C.UIButton) -&gt; ()"
+                  symbolName = "AppIn.MultiPageCVCell.btnClickedMultiLink(__C.UIButton) -&gt; ()"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/4:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/5:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "343"
-                  endingLineNumber = "343"
-                  offsetFromSymbolStart = "4304">
+                  startingLineNumber = "1031"
+                  endingLineNumber = "1031"
+                  offsetFromSymbolStart = "100">
                </Location>
                <Location
-                  uuid = "490987B2-8814-4E8F-8A45-9EB102DB4AC0 - 770e4a1b08e9fab0"
+                  uuid = "4AAC78D4-2583-40F8-8719-88C3C589BC92 - a8435e9e5805a2c6"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #6 () -&gt; () in AppIn.MultiPageCVCell.goThereButtonClicked(__C.UIButton) -&gt; ()"
+                  symbolName = "AppIn.MultiPageCVCell.btnClickedMultiLink(__C.UIButton) -&gt; ()"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/4:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/5:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "344"
-                  endingLineNumber = "344"
-                  offsetFromSymbolStart = "208">
+                  startingLineNumber = "1031"
+                  endingLineNumber = "1031"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "4AAC78D4-2583-40F8-8719-88C3C589BC92 - a8435e9e5805a2c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppIn.MultiPageCVCell.btnClickedMultiLink(__C.UIButton) -&gt; ()"
+                  moduleName = "AppIn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/5:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1031"
+                  endingLineNumber = "1031"
+                  offsetFromSymbolStart = "1824">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -327,65 +134,97 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D12A697A-2356-4610-AA1A-C6460EA32145"
+            uuid = "BF9C9C66-646B-4125-AF22-A48703D0D485"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "433"
-            endingLineNumber = "433"
+            startingLineNumber = "649"
+            endingLineNumber = "649"
+            landmarkName = "addMultiLinkOnView(page:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D511215E-DD1E-414B-87AE-16E40CE71E55"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "551"
+            endingLineNumber = "551"
             landmarkName = "handlePageButtons(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D511215E-DD1E-414B-87AE-16E40CE71E55 - 498fd08f9fd82b6a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AppIn.MultiPageCVCell.handlePageButtons(Swift.Int) -&gt; ()"
+                  moduleName = "AppIn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/5:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "552"
+                  endingLineNumber = "552"
+                  offsetFromSymbolStart = "8636">
+               </Location>
+               <Location
+                  uuid = "D511215E-DD1E-414B-87AE-16E40CE71E55 - 4793b7b247e9a427"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #10 () -&gt; () in AppIn.MultiPageCVCell.handlePageButtons(Swift.Int) -&gt; ()"
+                  moduleName = "AppIn"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/August-20/5:8:20/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "553"
+                  endingLineNumber = "553"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "54EF5ADA-AF5B-4B14-855C-808247162887"
+            uuid = "D516032B-EB8B-4053-A017-42B061ACBB25"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "handlePageButtons(_:)"
-            landmarkType = "7">
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "content"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EEE9234A-26B8-4997-B72A-709B4055E0E6"
+            uuid = "9413BD50-CA34-4B13-A43E-4AB13CBD565C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
-            landmarkName = "scrollToSelectedContent(_:_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "130CE417-4FB6-4B41-88AA-B90B22EA860C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "613"
-            endingLineNumber = "613"
-            landmarkName = "scrollToSelectedContent(_:_:)"
-            landmarkType = "7">
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "content"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

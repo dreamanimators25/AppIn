@@ -194,11 +194,19 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
+        selectedRaw = nil
+        selectedSection = nil
+        
+        
         self.closeChannel()        
         _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func againBackBtnClicked(_ sender: UIButton) {
+        selectedRaw = nil
+        selectedSection = nil
+        
+        
         self.closeChannel()
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -298,14 +306,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

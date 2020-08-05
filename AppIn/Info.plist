@@ -87,9 +87,9 @@
 	<string>To Save &amp; Share User Images</string>
 	<key>iListAPI</key>
 	<dict>
-		<key>API_URL-Test</key>
-		<string>http://40.112.131.121:5000/api/</string>
 		<key>API_URL</key>
+		<string>http://40.112.131.121:5000/api/</string>
+		<key>API_URL-LIVE</key>
 		<string>http://104.42.144.12:5000/api/</string>
 		<key>Authorization</key>
 		<dict>
