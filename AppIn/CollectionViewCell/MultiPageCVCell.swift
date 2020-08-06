@@ -42,7 +42,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     var arrContentID = [String]()
     var arrPageID = [String]()
     var click = true
-    var baseView = UIView()
+    var inAppLinkBaseView = UIView()
     var multiLinkBaseView = UIStackView()
     var base1 = UIView()
     var base2 = UIView()
@@ -247,6 +247,9 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
+        self.inAppLinkBaseView.removeFromSuperview()
+        self.contentView.superview?.willRemoveSubview(inAppLinkBaseView)
+        
         self.multiLinkBaseView.removeFromSuperview()
         self.contentView.superview?.willRemoveSubview(multiLinkBaseView)
         
@@ -277,10 +280,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
     }
     
     //MARK: IBActions
@@ -460,8 +459,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             }
          
             //To handle case of MultiLink & InAppLink
-            self.baseView.removeFromSuperview()
-            self.contentView.superview?.willRemoveSubview(baseView)
+            self.inAppLinkBaseView.removeFromSuperview()
+            self.contentView.superview?.willRemoveSubview(inAppLinkBaseView)
             
             self.multiLinkBaseView.removeFromSuperview()
             self.contentView.superview?.willRemoveSubview(multiLinkBaseView)
@@ -646,6 +645,17 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     func addMultiLinkOnView(page : ContentPage) {
         
+        self.multiLinkBaseView.removeFromSuperview()
+        self.contentView.superview?.willRemoveSubview(multiLinkBaseView)
+        self.base1.removeFromSuperview()
+        self.contentView.superview?.willRemoveSubview(base1)
+        self.base2.removeFromSuperview()
+        self.contentView.superview?.willRemoveSubview(base2)
+        self.base3.removeFromSuperview()
+        self.contentView.superview?.willRemoveSubview(base3)
+        
+        
+        
         multiLinkBaseView = UIStackView.init(frame: CGRect.init(x: 10, y: (self.contentView.frame.height * 20)/100, width: self.contentView.frame.size.width - 20, height: ((self.contentView.frame.width/4)*3.2)))
         
         multiLinkBaseView.axis = .vertical
@@ -654,7 +664,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         multiLinkBaseView.spacing = 15.0
         
         
-        //base1 = UIView.init(frame: CGRect.init(x: 20, y: (self.contentView.frame.height * 20)/100, width: (self.contentView.frame.width - 40), height: (self.contentView.frame.width/4)))
         base1 = UIView.init(frame: CGRect.init(x: 20, y: 10, width: (self.contentView.frame.width - 40), height: (self.contentView.frame.width/4)))
         let img1 = UIImageView.init(frame: CGRect.init(x: 20, y: 15, width: (base1.frame.width/3 - 50), height: (base1.frame.width/3 - 50)))
         let lbl1 = UILabel.init(frame: CGRect.init(x: img1.frame.origin.x + img1.frame.size.width + 10, y: base1.frame.size.height/4 - 10, width: base1.frame.size.width/2 + 80, height: img1.frame.size.height))
@@ -666,9 +675,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         if let txt = page.components[3].meta?.text {
             lbl1.text = txt
         }
-        //        if let bg = page.components[3].meta?.bgColor {
-        //            lbl1.backgroundColor = bg
-        //        }
+        
         if let col = page.components[3].meta?.color {
             lbl1.textColor = col
         }
@@ -687,8 +694,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             }else {
                 link1 = "http://\(link)"
             }
-            
-            //link1 = link
         }
         
         
@@ -698,7 +703,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         btn1.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
         
         
-        //base2 = UIView.init(frame: CGRect.init(x: 20, y: base1.frame.origin.y + base1.frame.size.height + 15, width: (self.contentView.frame.width - 40), height: (self.contentView.frame.width/4)))
         base2 = UIView.init(frame: CGRect.init(x: 20, y: base1.frame.origin.y + base1.frame.size.height + 15, width: (self.contentView.frame.width - 40), height: (self.contentView.frame.width/4)))
         
         let img2 = UIImageView.init(frame: CGRect.init(x: 20, y: 15, width: (base2.frame.width/3 - 50), height: (base2.frame.width/3 - 50)))
@@ -711,9 +715,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         if let txt = page.components[5].meta?.text {
             lbl2.text = txt
         }
-        //        if let bg = page.components[5].meta?.bgColor {
-        //            lbl2.backgroundColor = bg
-        //        }
         if let col = page.components[5].meta?.color {
             lbl2.textColor = col
         }
@@ -740,7 +741,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         btn2.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
         
         
-        //base3 = UIView.init(frame: CGRect.init(x: 20, y: base2.frame.origin.y + base2.frame.size.height + 15, width: (self.contentView.frame.width - 40), height: (self.contentView.frame.width/4)))
         base3 = UIView.init(frame: CGRect.init(x: 20, y: base2.frame.origin.y + base2.frame.size.height + 15, width: (self.contentView.frame.width - 40), height: (self.contentView.frame.width/4)))
         
         let img3 = UIImageView.init(frame: CGRect.init(x: 20, y: 15, width: (base3.frame.width/3 - 50), height: (base3.frame.width/3 - 50)))
@@ -753,9 +753,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         if let txt = page.components[7].meta?.text {
             lbl3.text = txt
         }
-        //        if let bg = page.components[7].meta?.bgColor {
-        //            lbl3.backgroundColor = bg
-        //        }
+       
         if let col = page.components[7].meta?.color {
             lbl3.textColor = col
         }
@@ -787,23 +785,19 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         base1.addSubview(btn1)
         base1.backgroundColor = #colorLiteral(red: 0.4117647059, green: 0.4156862745, blue: 0.4274509804, alpha: 1)
         self.multiLinkBaseView.addArrangedSubview(base1)
-        //self.contentView.superview?.addSubview(base1)
         
         base2.addSubview(img2)
         base2.addSubview(lbl2)
         base2.addSubview(btn2)
         base2.backgroundColor = #colorLiteral(red: 0.4117647059, green: 0.4156862745, blue: 0.4274509804, alpha: 1)
         self.multiLinkBaseView.addArrangedSubview(base2)
-        //self.contentView.superview?.addSubview(base2)
         
         base3.addSubview(img3)
         base3.addSubview(lbl3)
         base3.addSubview(btn3)
         base3.backgroundColor = #colorLiteral(red: 0.4117647059, green: 0.4156862745, blue: 0.4274509804, alpha: 1)
         self.multiLinkBaseView.addArrangedSubview(base3)
-        //self.contentView.superview?.addSubview(base3)
         
-        //self.contentView.superview?.addSubview(multiLinkBaseView)
         self.addSubview(multiLinkBaseView)
         
         
@@ -956,7 +950,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         }
         
         if let txt = page.components[5].meta?.text {
-            //lbl2.text = txt
             
             if txt != "" {
                 img2.isHidden = false
@@ -984,7 +977,6 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         }
         
         if let txt = page.components[7].meta?.text {
-            //lbl3.text = txt
             
             if txt != "" {
                 img3.isHidden = false
@@ -1023,29 +1015,22 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             self.multiLinkBaseView.frame.size.height = 0
         }
         
-        //self.contentView.superview?.addSubview(multiLinkBaseView)
     }
     
     @objc func btnClickedMultiLink(_ sender : UIButton) {
         
         switch sender.tag {
         case 1:
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string : link1)!, options: [:], completionHandler: { (status) in })
-            } else {
-                UIApplication.shared.openURL(URL(string : link1)!)
+            DispatchQueue.main.async {
+                self.delegate?.openLinkInAppInWebView(link: self.link1)
             }
         case 2:
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string : link2)!, options: [:], completionHandler: { (status) in })
-            } else {
-                UIApplication.shared.openURL(URL(string : link2)!)
+            DispatchQueue.main.async {
+                self.delegate?.openLinkInAppInWebView(link: self.link2)
             }
         default:
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string : link3)!, options: [:], completionHandler: { (status) in })
-            } else {
-                UIApplication.shared.openURL(URL(string : link3)!)
+            DispatchQueue.main.async {
+                self.delegate?.openLinkInAppInWebView(link: self.link3)
             }
         }
     
@@ -1053,7 +1038,14 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     func addInAppLinkOnView() {
         
-        baseView = UIView.init(frame: CGRect.init(x: 10, y: 10, width: self.contentView.frame.size.width - 20, height: self.contentView.frame.size.height - 20))
+        //To handle case of MultiLink & InAppLink
+        self.inAppLinkBaseView.removeFromSuperview()
+        self.contentView.superview?.willRemoveSubview(inAppLinkBaseView)
+        
+        
+        
+        
+        inAppLinkBaseView = UIView.init(frame: CGRect.init(x: 10, y: 10, width: self.contentView.frame.size.width - 20, height: self.contentView.frame.size.height - 20))
         
         let btn1 = UIButton.init(frame: CGRect.init(x: 20, y: (self.contentView.frame.height * 17)/100, width: self.contentView.frame.size.width - 40, height: (self.contentView.frame.height * 12)/100))
         btn1.tag = 0
@@ -1085,14 +1077,15 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         btn5.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
         btn5.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
-        baseView.addSubview(btn1)
-        baseView.addSubview(btn2)
-        baseView.addSubview(btn3)
-        baseView.addSubview(btn4)
-        baseView.addSubview(btn5)
+        inAppLinkBaseView.addSubview(btn1)
+        inAppLinkBaseView.addSubview(btn2)
+        inAppLinkBaseView.addSubview(btn3)
+        inAppLinkBaseView.addSubview(btn4)
+        inAppLinkBaseView.addSubview(btn5)
+
+        //self.contentView.superview?.addSubview(baseView)
+        self.addSubview(inAppLinkBaseView)
         
-        self.contentView.superview?.addSubview(baseView)
-    
     }
     
     @objc func btnClickedInAppLink(_ sender : UIButton) {
@@ -1141,6 +1134,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
 }
 
 extension MultiPageCVCell : UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        
+    }
    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         calculateCurrentPageNumber()
