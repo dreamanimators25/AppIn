@@ -39,64 +39,96 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C853E84F-BB74-4709-8945-F16665ECC1EA"
+            uuid = "2DAEA1AF-D656-44A3-9070-1FF9902193FA"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            filePath = "AppIn/CollectionViewCell/All Contents Cell/ContentTextCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1154"
-            endingLineNumber = "1154"
-            landmarkName = "calculateCurrentPageNumber()"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
+            landmarkName = "btnClickedMultiLink(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9493E9F7-6514-4279-A107-8CBAC6FDD2C3"
+            uuid = "770CA6B7-E795-4E6F-A968-75EAD62673C5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "462"
-            endingLineNumber = "462"
-            landmarkName = "handlePageButtons(_:)"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "awakeFromNib()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "59032540-6C9F-421A-A3FD-4BF94F813BF8"
+            uuid = "C6DAAAA4-C6FC-4F43-B87F-AA131FEBCA5A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "657"
-            endingLineNumber = "657"
-            landmarkName = "addMultiLinkOnView(page:)"
-            landmarkType = "7">
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "content"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A2FF9459-48FD-496D-A089-C277CE6FC116"
+            uuid = "E4AA8ACA-8076-4D6C-A7A4-22C675655FB1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "currentSubPage"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C684B42C-2F1B-48D5-BC70-A9B5A02B13E9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "currentPage"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7236C9B5-141E-4E42-BED1-392D8B837916"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/CollectionViewCell/MultiPageCVCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "awakeFromNib()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
