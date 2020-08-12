@@ -11,6 +11,7 @@ import HCVimeoVideoExtractor
 import AVFoundation
 import AVKit
 import MessageUI
+import Crashlytics
 
 var loadVimeoPlayer : ((_ url:String)-> (Void))?
 var loadCollectionView : ((_ index:IndexPath)-> (Void))?
@@ -21,6 +22,8 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     @IBOutlet weak var captureView: UIView!
     @IBOutlet weak var contentCollectionView: UICollectionView!
     @IBOutlet weak var lblContentTitle: UILabel!
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var leftButton: UIButton!
     
     var documentInteractionController : UIDocumentInteractionController!
     var strTitle : String?
@@ -35,10 +38,13 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         didSet {
             if let ambassadorship = ambassadorship {
                 ShowContentsVC.ambassadorId = ambassadorship.id
+                
+                updateContentWithId(ambassadorship.id)
             }
         }
     }
     
+    var contentArray = [Content]()
     var contents: [Content]? {
         didSet {
             self.setupStatistics(self.contents ?? [])
@@ -53,6 +59,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     static var currentContent = 0
+    var currentSubPage = 0
     static var currentPage: Int = 0
     
     // MARK: - Statistics
@@ -92,10 +99,14 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         }) { (result) in
             print(result)
             
-            self.contentCollectionView.reloadData()
-            
-            self.contentCollectionView.scrollToItem(at: IndexPath.init(row: selectedSection ?? 0, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
-            selectedRaw = self.selectedInd
+            if let sec = selectedSection {
+                
+                self.contentCollectionView.reloadData()
+                
+                self.contentCollectionView.scrollToItem(at: IndexPath.init(row: sec, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
+                selectedRaw = self.selectedInd
+                selectedSection = nil
+            }
         }
                 
     }
@@ -106,7 +117,56 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    // MARK: - Content WebService
+    
+    func updateContentWithId(_ id: Int) {
+        ContentManager.sharedInstance.getContentForId(id) { (contents, error) in
+            if let contents = contents {
+                self.contentArray += contents
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                    self.updateContentWithContentId((self.user?.id)!)
+                })
+                
+                print("Added contents from channel to array")
+                DispatchQueue.main.async(execute: {
+                    
+                    self.setupStatistics(contents)
+                    self.handleContentButtons()
+                    //self.contentCollectionView.reloadData()
+                    
+                })
+            } else if let error = error {
+                Crashlytics.sharedInstance().recordError(error)
+            }
+        }
+    }
+    
+    func updateContentWithContentId(_ id: Int) {
+        ContentManager.sharedInstance.getSharedContent(id, completion: {contents, error in
+            if let contents = contents {
+                
+                self.contentArray += contents
+                self.contents = self.contentArray
+                
+                actualContents = self.contentArray
+                
+                print("Just added contents from other user to array")
+                DispatchQueue.main.async(execute: {
+                    
+                    self.setupStatistics(self.contents ?? [])
+                    self.handleContentButtons()
+                    self.contentCollectionView.reloadData()
+                    
+                })
+            } else if let error = error {
+                Crashlytics.sharedInstance().recordError(error)
+            }
+        })
+    }
+    
     //MARK: Custom Methods
+    
     func closeChannel() {
         let cells = contentCollectionView.visibleCells
         
@@ -193,6 +253,18 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     //MARK: IBAction
+    @IBAction func leftButtonPressed(_ sender: UIButton) {
+        scrollContent(-1)
+    }
+    
+    @IBAction func rightButtonPressed(_ sender: UIButton) {
+        scrollContent(1)
+    }
+    
+    func scrollContent(_ direction: Int) {
+        contentCollectionView.scrollHorizontal(ShowContentsVC.currentContent + direction, animated: true)
+    }
+    
     @IBAction func backBtnClicked(_ sender: UIButton) {
         selectedRaw = nil
         selectedSection = nil
@@ -282,6 +354,10 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
     }
     
@@ -464,14 +540,14 @@ extension ShowContentsVC: MultiPageDelegate {
     }
     
     func currentSubPage(_ page: Int) {
-        //currentSubPage = page
-        //print("curr sub page = \(currentSubPage)")
+        currentSubPage = page
+        print("curr sub page = \(currentSubPage)")
     }
 
     func currentPage(_ page: Int) {
-        //addDuration()
-        //print("curr page = \(ContentSetupViewController.currentPage)")
-        //ContentSetupViewController.currentPage = page
+        addDuration()
+        print("curr page = \(ShowContentsVC.currentPage)")
+        ShowContentsVC.currentPage = page
     }
     
     func shareContent(_ id: Int) {
@@ -496,6 +572,62 @@ extension ShowContentsVC: MultiPageDelegate {
         
     }
  
+}
+
+extension ShowContentsVC : UIScrollViewDelegate {
+    
+    // MARK: - UIScrollViewDelegate
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        var scrollOffset = scrollView.contentOffset.x
+        let contentWidht = contentCollectionView.contentSize.width - contentCollectionView.frame.size.width
+        
+        var indexPath:IndexPath?
+        //print("Cell indexPath is:-\(indexPath.row)")
+        
+        if scrollOffset < 0 {
+            indexPath = IndexPath(row: 0, section: 0)
+        } else if scrollOffset > contentWidht {
+            indexPath = IndexPath(row: contentCollectionView.numberOfHorizontalPages()-1, section: 0)
+            print("Cell indexPath is:-\(indexPath?.row ?? 0)")
+            scrollOffset = scrollOffset - contentWidht
+        }
+        if let indexPath = indexPath {
+            if let cell = contentCollectionView.cellForItem(at: indexPath) as? MultiPageCVCell {
+                cell.zoomBackground(scrollOffset, y: 0)
+            }
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        calculateCurrentContentNumber()
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        calculateCurrentContentNumber()
+    }
+    
+    func calculateCurrentContentNumber() {
+        addDuration()
+        handleContentButtons()
+    }
+    
+    func handleContentButtons() {
+        guard let scroll = contentCollectionView else { return }
+        
+        ShowContentsVC.currentContent = scroll.currentHorizontalPage()
+        print("curr = \(ShowContentsVC.currentContent)")
+        
+        shareButtons(ShowContentsVC.currentContent, 0)
+        if let contents = contents, !contents.isEmpty {
+            leftButton.isHidden = ShowContentsVC.currentContent == 0
+            rightButton.isHidden = contents.count - 1 == ShowContentsVC.currentContent
+        } else {
+            leftButton.isHidden = true
+            rightButton.isHidden = true
+        }
+    }
+    
 }
 
 extension ShowContentsVC: MFMailComposeViewControllerDelegate {

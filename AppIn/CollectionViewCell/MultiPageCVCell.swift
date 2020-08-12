@@ -36,9 +36,12 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     @IBOutlet weak var multiPageCollectionView: UICollectionView!
     @IBOutlet weak var goThereBtn: UIButton!
+    @IBOutlet weak var downButton: BounchingButton!
+    @IBOutlet weak var upButton: UIButton!
     
     var delegate: MultiPageDelegate?
     
+    static var currPage = 0
     
     var currentPage: Int = 0 {
         didSet {
@@ -56,6 +59,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         didSet {
             
             if (content != nil) {
+                
+                currentPage = 0
                 
                 self.multiPageCollectionView.register(UINib(nibName: "ContentImageCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentImageCVCell")
                 self.multiPageCollectionView.register(UINib(nibName: "ContentTextCVCell", bundle: nil), forCellWithReuseIdentifier: "ContentTextCVCell")
@@ -80,6 +85,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                         self.multiPageCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
                         
                         self.handlePageButtons(raw)
+                        
+                        selectedRaw = nil
                     }
                 }
                             
@@ -275,6 +282,56 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     }
     
     //MARK: IBActions
+    @IBAction func upButtonPressed(_ sender: UIButton) {
+        scrollPage(-1)
+    }
+    
+    @IBAction func downButtonPressed(_ sender: UIButton) {
+        scrollPage(1)
+    }
+    
+    @IBAction func shareButtonPressed(_ sender: AnyObject) {
+        if let content = content {
+            delegate?.shareContent(content.id)
+        }
+    }
+    
+    @IBAction func outboundShareButtonPressed(_ sender: Any) {
+        if let content = content {
+            delegate?.shareContentOutbound(content.id)
+        }
+    }
+    
+    // Problem?
+    func scrollPage(_ direction: Int) {
+        currentSubPage += direction
+        multiPageCollectionView.scrollVertical(currentPage + direction, animated: true)
+    }
+    
+    // MARK: - Animations
+    
+    func zoomBackground(_ x: CGFloat, y: CGFloat) {
+        let indexPath = IndexPath(row: currentPage, section: 0)
+        if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentImageCVCell {
+            cell.zoomBackground(x, y: y)
+        }
+        if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentTextCVCell {
+            cell.zoomBackground(x, y: y)
+        }
+        if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentVideoCVCell {
+            cell.zoomBackground(x, y: y)
+        }
+        if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentSoundCVCell {
+            cell.zoomBackground(x, y: y)
+        }
+        if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentYoutubeCVCell {
+            cell.zoomBackground(x, y: y)
+        }
+        if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentVimeoCVCell {
+            cell.zoomBackground(x, y: y)
+        }
+    }
+    
     @IBAction func goThereButtonClicked(_ sender: UIButton) {
         
         print("testTap = \(currentPage)")
@@ -606,6 +663,13 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             
         }
         
+        MultiPageCVCell.currPage = page
+        currentPage = page
+        if let content = content {
+            upButton.isHidden = page == 0
+            downButton.isHidden = content.pages.count - 1 == page
+        }
+        
     }
 
     
@@ -614,7 +678,44 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
 extension MultiPageCVCell : UIScrollViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        selectedRaw = nil
+        selectedSection = nil
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
+        OperationQueue.main.addOperation {
+            self.goThereBtn.isHidden = true
+        }
+        
+        var scrollOffset = scrollView.contentOffset.y
+        let contentHeight = multiPageCollectionView.contentSize.height - multiPageCollectionView.frame.size.height
+        var indexPath:IndexPath?
+        if scrollOffset < 0 {
+            indexPath = IndexPath(row: 0, section: 0)
+        } else if scrollOffset > contentHeight {
+            indexPath = IndexPath(row: multiPageCollectionView.numberOfVerticalPages()-1, section: 0)
+            scrollOffset = scrollOffset - contentHeight
+        }
+        if let indexPath = indexPath {
+            if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? MultiPageCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            } else if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentImageCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            }else if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentTextCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            }else if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentVideoCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            }else if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentSoundCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            }else if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentYoutubeCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            }else if let cell = multiPageCollectionView.cellForItem(at: indexPath) as? ContentVimeoCVCell {
+                cell.zoomBackground(0, y: scrollOffset)
+            }
+        }
+
     }
    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

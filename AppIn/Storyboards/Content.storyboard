@@ -9,11 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Rubik-Medium.ttf">
+            <string>Rubik-Medium</string>
+        </array>
         <array key="roboto_medium.ttf">
             <string>Roboto-Medium</string>
-        </array>
-        <array key="rubik_medium.ttf">
-            <string>Rubik-Medium</string>
         </array>
     </customFonts>
     <scenes>
@@ -216,7 +216,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rw3-98-FXd">
-                                        <rect key="frame" x="60" y="11" width="34" height="22.5"/>
+                                        <rect key="frame" x="60" y="12" width="32" height="20"/>
                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
                                         <color key="textColor" red="0.29061779380000002" green="0.13657647370000001" blue="0.7277496457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -269,7 +269,7 @@
                                     <constraint firstItem="7a2-BB-kum" firstAttribute="leading" secondItem="8AF-tj-OUg" secondAttribute="leading" constant="5" id="zPn-Fn-gMN"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZE-tj-P2K">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZE-tj-P2K">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mmf-xi-7BF">
@@ -326,20 +326,46 @@
                                                                 <action selector="goThereButtonClicked:" destination="AD8-bX-bLo" eventType="touchUpInside" id="14v-9h-c4j"/>
                                                             </connections>
                                                         </button>
+                                                        <button hidden="YES" opaque="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hEL-sH-L33">
+                                                            <rect key="frame" x="147.5" y="15" width="25" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="IOV-ye-8Q7"/>
+                                                                <constraint firstAttribute="width" constant="25" id="v0j-WZ-XPH"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <action selector="upButtonPressed:" destination="AD8-bX-bLo" eventType="touchUpInside" id="pl4-A3-MoC"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button hidden="YES" opaque="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Atk-g4-tsg" customClass="BounchingButton" customModule="AppIn" customModuleProvider="target">
+                                                            <rect key="frame" x="147.5" y="494" width="25" height="15"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="15" id="b0B-EY-Q7U"/>
+                                                                <constraint firstAttribute="width" constant="25" id="gcU-Uq-R4F"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <action selector="downButtonPressed:" destination="AD8-bX-bLo" eventType="touchUpInside" id="MOj-ve-g1N"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                 </view>
                                                 <constraints>
                                                     <constraint firstItem="iwO-P6-oXg" firstAttribute="top" secondItem="AD8-bX-bLo" secondAttribute="top" id="8A4-bV-ujp"/>
                                                     <constraint firstAttribute="trailing" secondItem="iwO-P6-oXg" secondAttribute="trailing" id="BvD-L4-KHC"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Atk-g4-tsg" secondAttribute="bottom" constant="15" id="F4s-6X-IEM"/>
                                                     <constraint firstItem="iwO-P6-oXg" firstAttribute="leading" secondItem="AD8-bX-bLo" secondAttribute="leading" id="TrM-uv-Mhq"/>
                                                     <constraint firstAttribute="bottom" secondItem="iwO-P6-oXg" secondAttribute="bottom" id="VBz-Xs-jEB"/>
+                                                    <constraint firstItem="Atk-g4-tsg" firstAttribute="centerX" secondItem="AD8-bX-bLo" secondAttribute="centerX" id="Yc4-Bh-Y8w"/>
+                                                    <constraint firstItem="hEL-sH-L33" firstAttribute="top" secondItem="AD8-bX-bLo" secondAttribute="top" constant="15" id="he7-4f-aPH"/>
                                                     <constraint firstItem="isW-im-RrM" firstAttribute="centerX" secondItem="AD8-bX-bLo" secondAttribute="centerX" id="kBc-uP-Un2"/>
+                                                    <constraint firstItem="hEL-sH-L33" firstAttribute="centerX" secondItem="AD8-bX-bLo" secondAttribute="centerX" id="kXi-zB-eZB"/>
                                                     <constraint firstAttribute="bottom" secondItem="isW-im-RrM" secondAttribute="bottom" constant="30" id="u7a-wh-6v9"/>
                                                 </constraints>
                                                 <size key="customSize" width="320" height="524"/>
                                                 <connections>
+                                                    <outlet property="downButton" destination="Atk-g4-tsg" id="cqa-Do-k4L"/>
                                                     <outlet property="goThereBtn" destination="isW-im-RrM" id="5Ww-dr-wiC"/>
                                                     <outlet property="multiPageCollectionView" destination="iwO-P6-oXg" id="edr-al-NBu"/>
+                                                    <outlet property="upButton" destination="hEL-sH-L33" id="xTL-C6-w9u"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -348,14 +374,39 @@
                                             <outlet property="delegate" destination="TqC-JE-Eng" id="Kv6-41-7D3"/>
                                         </connections>
                                     </collectionView>
+                                    <button hidden="YES" opaque="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySF-jY-LFq">
+                                        <rect key="frame" x="12" y="249.5" width="15" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="15" id="5or-D3-RaS"/>
+                                            <constraint firstAttribute="height" constant="25" id="8Jr-Cd-OX5"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="leftButtonPressed:" destination="TqC-JE-Eng" eventType="touchUpInside" id="oX5-D3-OfT"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9a-WQ-b9R">
+                                        <rect key="frame" x="290" y="249.5" width="15" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="Okq-Vv-7Jx"/>
+                                            <constraint firstAttribute="width" constant="15" id="isi-L6-ATa"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="rightButtonPressed:" destination="TqC-JE-Eng" eventType="touchUpInside" id="E7A-CE-XLH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
+                                    <constraint firstItem="C9a-WQ-b9R" firstAttribute="centerY" secondItem="YZE-tj-P2K" secondAttribute="centerY" id="1vu-Da-Wgi"/>
                                     <constraint firstAttribute="bottom" secondItem="mmf-xi-7BF" secondAttribute="bottom" id="8RO-de-YJB"/>
                                     <constraint firstItem="mmf-xi-7BF" firstAttribute="leading" secondItem="YZE-tj-P2K" secondAttribute="leading" id="TN2-EI-jmv"/>
+                                    <constraint firstItem="Omm-50-Gbo" firstAttribute="trailing" secondItem="C9a-WQ-b9R" secondAttribute="trailing" constant="15" id="cW8-hh-2GH"/>
                                     <constraint firstAttribute="trailing" secondItem="mmf-xi-7BF" secondAttribute="trailing" id="hYK-Rr-cQY"/>
+                                    <constraint firstItem="ySF-jY-LFq" firstAttribute="leading" secondItem="Omm-50-Gbo" secondAttribute="leading" constant="12" id="jWj-rT-dcB"/>
+                                    <constraint firstItem="ySF-jY-LFq" firstAttribute="centerY" secondItem="YZE-tj-P2K" secondAttribute="centerY" id="pPW-d7-VvJ"/>
                                     <constraint firstItem="mmf-xi-7BF" firstAttribute="top" secondItem="YZE-tj-P2K" secondAttribute="top" id="sSb-YA-Vfg"/>
                                 </constraints>
+                                <viewLayoutGuide key="safeArea" id="Omm-50-Gbo"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -374,6 +425,8 @@
                         <outlet property="captureView" destination="YZE-tj-P2K" id="g4z-kX-Axz"/>
                         <outlet property="contentCollectionView" destination="mmf-xi-7BF" id="2Lu-4D-llP"/>
                         <outlet property="lblContentTitle" destination="Rw3-98-FXd" id="UPs-BY-Mdb"/>
+                        <outlet property="leftButton" destination="ySF-jY-LFq" id="tkC-Uw-6MO"/>
+                        <outlet property="rightButton" destination="C9a-WQ-b9R" id="Drg-dJ-zn2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gud-Q9-Yvj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

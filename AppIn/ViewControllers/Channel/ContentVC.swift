@@ -238,6 +238,7 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "ShowContentsVC") as! ShowContentsVC
         vc.strTitle = "CAMERA"
         vc.contents = self.contents
+        vc.user = self.user
         
         //selectedRaw = indexPath.row
         vc.selectedInd = indexPath.row
