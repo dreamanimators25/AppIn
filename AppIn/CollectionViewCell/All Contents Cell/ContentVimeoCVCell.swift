@@ -138,6 +138,17 @@ class ContentVimeoCVCell: UICollectionViewCell {
         // Initialization code
     }
     
+    func pauseMedia() {
+        backgroundVideoView?.reset()
+        for component in componentViews {
+            if let component = component as? ContentMusic {
+                component.reset()
+            } else if let component = component as? ContentVideo {
+                component.reset()
+            }
+        }
+    }
+    
     //MARK: IBAction
     @IBAction func playVimeoButtonClicked(_ sender: UIButton) {
         if let vim = loadVimeoPlayer {

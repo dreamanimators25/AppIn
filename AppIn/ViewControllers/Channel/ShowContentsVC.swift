@@ -446,16 +446,39 @@ protocol ContentView {
 }
 
 extension ShowContentsVC: MultiPageDelegate {
+    
     func presentUseAlert(_ title: String, _ message: String) {
         
     }
     
     func showAlertOnCell(_ title: String, _ message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
+        let ok = UIAlertAction(title: "OK", style: .default) { action in
+            
+        }
+        alert.addAction(ok)
+        present(alert, animated: true)
     }
     
     func showAlertForIndexOnCell(_ title: String, message: String, alertButtonTitles: [String], alertButtonStyles: [UIAlertAction.Style], vc: UIViewController, completion: @escaping (Int) -> Void) {
+        let alert = UIAlertController(title: title,message: message,preferredStyle: UIAlertController.Style.alert)
         
+        for title in alertButtonTitles {
+            let actionObj = UIAlertAction(title: title,style: alertButtonStyles[alertButtonTitles.firstIndex(of: title)!], handler: { action in
+                completion(alertButtonTitles.firstIndex(of: action.title!)!)
+            })
+            
+            alert.addAction(actionObj)
+        }
+        
+        //alert.view.tintColor = Utility.themeColor
+        
+        //vc will be the view controller on which you will present your alert as you cannot use self because this method is static.
+        //vc.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
+        
+        //UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
     func shareFacebook(_ imageView: UIImageView, isBack: Bool, page: Int) {

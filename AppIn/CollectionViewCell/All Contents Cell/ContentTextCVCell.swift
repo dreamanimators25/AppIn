@@ -160,6 +160,17 @@ class ContentTextCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    func pauseMedia() {
+        backgroundVideoView?.reset()
+        for component in componentViews {
+            if let component = component as? ContentMusic {
+                component.reset()
+            } else if let component = component as? ContentVideo {
+                component.reset()
+            }
+        }
+    }
 
 }
 

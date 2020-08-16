@@ -246,11 +246,27 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
                 
-        if let cell = cell as? ContentSoundCVCell {
+        if let cell = cell as? ContentImageCVCell {
+            cell.pauseMedia()
+        }
+        
+        if let cell = cell as? ContentTextCVCell {
             cell.pauseMedia()
         }
         
         if let cell = cell as? ContentVideoCVCell {
+            cell.pauseMedia()
+        }
+        
+        if let cell = cell as? ContentSoundCVCell {
+            cell.pauseMedia()
+        }
+        
+        if let cell = cell as? ContentYoutubeCVCell {
+            cell.pauseMedia()
+        }
+        
+        if let cell = cell as? ContentVimeoCVCell {
             cell.pauseMedia()
         }
         
@@ -342,9 +358,12 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             
             switch action {
                 
+            case 0:
+                print("0 - Information")
+                
             case 1:
                 
-                //print("id = \(ContentSetupViewController.ambassadorId)")
+                print("1 - Consumable")
                 
                 if let id = content?.pages[currentPage].id {
                     UserManager.sharedInstance.useCoupon("\(ContentVC.ambassadorId!)", pageId: "\(id)") { (count, unlim, error) in
@@ -365,18 +384,21 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 }
                 
             case 2:
-
+                print("2 - link")
+                
                 DispatchQueue.main.async {
                     self.delegate?.openLinkInAppInWebView(link: idin)
                 }
                 
             case 3:
+                print("3 - Code")
                 
                 DispatchQueue.main.async {
                     self.delegate?.showMessage("This is your code", idin)
                 }
                 
             case 4:
+                print("4 - Affiliate")
                 
                 AmbassadorshipManager.sharedInstance.requestAmbassadorhipWithCode(idin) { (ambassadorship, error, code) in
                     var message = ""
@@ -404,12 +426,14 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 }
                 
             case 5:
+                print("5 - Document")
                 
                 DispatchQueue.main.async {
                     self.delegate?.openLinkInAppInWebView(link: idin)
                 }
                 
             case 6:
+                print("6 - phone")
                 
                 DispatchQueue.main.async {
                     guard let number = URL(string: "tel://\(idin)") else { return }
@@ -421,12 +445,14 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 }
                 
             case 7:
+                print("7 - email")
                 
                 DispatchQueue.main.async {
                     self.delegate?.openEmailLink(link: idin)
                 }
                 
             case 8:
+                print("8 - Excel")
                 
                 Downloader.load(url: URL.init(string: idin)!, to: (content?.pages[currentPage].id)!) { (msg) in
                     
@@ -443,11 +469,11 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 }
                 
             case 9:
-                print("9")
+                print("9 - MultiLink")
                 
             case 10:
-                print("10")
-                
+                print("10 - InAppLink")
+
             default:
                 break
             }
@@ -485,6 +511,25 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         if currentPage != page {
             //let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "PageCell", for: IndexPath(row: currentPage, section: 0)) as! SinglePage
             //cell.pauseMedia()
+            
+            if let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "ContentImageCVCell", for: IndexPath(row: currentPage, section: 0)) as? ContentImageCVCell {
+                cell.pauseMedia()
+            }
+            if let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "ContentTextCVCell", for: IndexPath(row: currentPage, section: 0)) as? ContentTextCVCell {
+                cell.pauseMedia()
+            }
+            if let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "ContentVideoCVCell", for: IndexPath(row: currentPage, section: 0)) as? ContentVideoCVCell {
+                cell.pauseMedia()
+            }
+            if let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "ContentSoundCVCell", for: IndexPath(row: currentPage, section: 0)) as? ContentSoundCVCell {
+                cell.pauseMedia()
+            }
+            if let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "ContentYoutubeCVCell", for: IndexPath(row: currentPage, section: 0)) as? ContentYoutubeCVCell {
+                cell.pauseMedia()
+            }
+            if let cell = multiPageCollectionView.dequeueReusableCell(withReuseIdentifier: "ContentVimeoCVCell", for: IndexPath(row: currentPage, section: 0)) as? ContentVimeoCVCell {
+                cell.pauseMedia()
+            }
         }
         
         let isIdentity = content?.pages[page].identity
