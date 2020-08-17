@@ -140,8 +140,9 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 
             case .Image:
                 let imageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentImageCVCell", for: indexPath) as! ContentImageCVCell
-                
-                imageCVCell.component = component1
+                                
+                imageCVCell.component0 = component0
+                imageCVCell.component1 = component1
                 
                 if let backGround = page?.backgrounds {
                     imageCVCell.background = backGround
@@ -150,6 +151,9 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 if let strSticker = content?.pages[indexPath.row].frameUrl {
                     imageCVCell.stickerURL = strSticker
                 }
+                
+                imageCVCell.content = self.content
+                imageCVCell.pageNo = indexPath.row
                 
                 return imageCVCell
                 
@@ -168,15 +172,14 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 }
                 
                 textCVCell.content = self.content
-                textCVCell.pageNo = indexPath.row
-                
-                
+                textCVCell.pageNo = indexPath.row                
                 
                 return textCVCell
             case .Video:
                 let videoCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentVideoCVCell", for: indexPath) as! ContentVideoCVCell
                 
-                videoCVCell.component = component1
+                videoCVCell.component0 = component0
+                videoCVCell.component1 = component1
                 
                 if let backGround = page?.backgrounds {
                     videoCVCell.background = backGround
@@ -186,11 +189,15 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     videoCVCell.stickerURL = strSticker
                 }
                 
+                videoCVCell.content = self.content
+                videoCVCell.pageNo = indexPath.row
+                
                 return videoCVCell
             case .Sound:
                 let soundCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentSoundCVCell", for: indexPath) as! ContentSoundCVCell
                 
-                soundCVCell.component = component1
+                soundCVCell.component0 = component0
+                soundCVCell.component1 = component1
                 
                 if let backGround = page?.backgrounds {
                     soundCVCell.background = backGround
@@ -200,6 +207,9 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     soundCVCell.stickerURL = strSticker
                 }
                 
+                soundCVCell.content = self.content
+                soundCVCell.pageNo = indexPath.row
+                
                 return soundCVCell
             case .Embed:
                 
@@ -207,7 +217,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     
                     let youtubeCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentYoutubeCVCell", for: indexPath) as! ContentYoutubeCVCell
 
-                    youtubeCVCell.component = component1
+                    youtubeCVCell.component0 = component0
+                    youtubeCVCell.component1 = component1
 
                     if let backGround = page?.backgrounds {
                         youtubeCVCell.background = backGround
@@ -216,6 +227,9 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     if let strSticker = content?.pages[indexPath.row].frameUrl {
                         youtubeCVCell.stickerURL = strSticker
                     }
+                    
+                    youtubeCVCell.content = self.content
+                    youtubeCVCell.pageNo = indexPath.row
 
                     return youtubeCVCell
                                         
@@ -223,7 +237,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     
                     let vimeoCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentVimeoCVCell", for: indexPath) as! ContentVimeoCVCell
                     
-                    vimeoCVCell.component = component1
+                    vimeoCVCell.component0 = component0
+                    vimeoCVCell.component1 = component1
                     
                     if let backGround = page?.backgrounds {
                         vimeoCVCell.background = backGround
@@ -232,6 +247,9 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     if let strSticker = content?.pages[indexPath.row].frameUrl {
                         vimeoCVCell.stickerURL = strSticker
                     }
+                    
+                    vimeoCVCell.content = self.content
+                    vimeoCVCell.pageNo = indexPath.row
                     
                     return vimeoCVCell
                 }

@@ -20,14 +20,16 @@ private let kAPIKeyCreated = "created"
 private let kAPIKeyUpdated = "updated"
 private let kAPIKeyOrder = "order"
 
-private let kAPIKeyColor = "color"
-private let kAPIKeyRounded_box = "rounded_box"
-private let kAPIKeyBackground_box = "background_box"
-private let kAPIKeyText_align = "text_align"
-private let kAPIKeyText = "text"
-private let kAPIKeyOpacity = "opacity"
-private let kAPIKeyFont_size = "font_size"
-private let kAPIKeyBox_color = "box_color"
+//Consume Action
+private let kAPIKeyCABackgroundBox = "background_box"
+private let kAPIKeyCABoxColor = "box_color"
+private let kAPIKeyCAColor = "color"
+private let kAPIKeyCAFontSize = "font_size"
+private let kAPIKeyCAOpacity = "opacity"
+private let kAPIKeyCARoundedBox = "rounded_box"
+private let kAPIKeyCAText = "text"
+private let kAPIKeyCATextAlign = "text_align"
+
 
 open class ContentPageBackground {
     
@@ -97,41 +99,48 @@ open class ContentPageBackground {
 
 open class ConsumeActionComponents {
     
-    var color : String?
-    var roundedBox : String?
     var backGroundBox : String?
-    var textAlign : String?
-    var text : String?
-    var opacity : String?
-    var fontSize : String?
     var boxColor : String?
-    
+    var roundedBox : String?
+    var color : String?
+    var text : String?
+    var textAlign : String?
+    var opacity : String?
+    var fontSize : String?    
     
     init(dictionary: [String:Any]) {
-        if let col = dictionary[kAPIKeyColor] as? String {
-            self.color = col
-        }
-        if let roundBoc = dictionary[kAPIKeyRounded_box] as? String {
-            self.roundedBox = roundBoc
-        }
-        if let backBox = dictionary[kAPIKeyBackground_box] as? String {
+        if let backBox = dictionary[kAPIKeyCABackgroundBox] as? String {
             self.backGroundBox = backBox
         }
-        if let txtAlign = dictionary[kAPIKeyText_align] as? String {
-            self.textAlign = txtAlign
-        }
-        if let txt = dictionary[kAPIKeyText] as? String {
-            self.text = txt
-        }
-        if let opct = dictionary[kAPIKeyOpacity] as? String {
-            self.opacity = opct
-        }
-        if let fntSize = dictionary[kAPIKeyFont_size] as? String {
-            self.fontSize = fntSize
-        }
-        if let boccolor = dictionary[kAPIKeyBox_color] as? String {
+        
+        if let boccolor = dictionary[kAPIKeyCABoxColor] as? String {
             self.boxColor = boccolor
         }
+        
+        if let col = dictionary[kAPIKeyCAColor] as? String {
+            self.color = col
+        }
+        
+        if let roundBoc = dictionary[kAPIKeyCARoundedBox] as? String {
+            self.roundedBox = roundBoc
+        }
+        
+        if let txt = dictionary[kAPIKeyCAText] as? String {
+            self.text = txt
+        }
+        
+        if let txtAlign = dictionary[kAPIKeyCATextAlign] as? String {
+            self.textAlign = txtAlign
+        }
+        
+        if let opct = dictionary[kAPIKeyCAOpacity] as? String {
+            self.opacity = opct
+        }
+        
+        if let fntSize = dictionary[kAPIKeyCAFontSize] as? String {
+            self.fontSize = fntSize
+        }
+        
     }
 
 }

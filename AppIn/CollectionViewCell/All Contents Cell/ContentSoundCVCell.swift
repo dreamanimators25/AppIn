@@ -14,6 +14,7 @@ import AlamofireImage
 
 class ContentSoundCVCell: UICollectionViewCell {
     
+    @IBOutlet weak var headerTextLbl: UILabel?
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
@@ -36,6 +37,78 @@ class ContentSoundCVCell: UICollectionViewCell {
     var link3 = String()
     
     var delegate: MultiPageDelegate?
+    
+    
+    var content:Content? {
+        didSet {
+            
+            if (content != nil) {
+                OperationQueue.main.addOperation {
+                    self.inAppLinkBaseView.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.inAppLinkBaseView)
+                    
+                    self.multiLinkBaseView.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.multiLinkBaseView)
+                    
+                    self.base1.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base1)
+                    self.base2.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base2)
+                    self.base3.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base3)
+                }
+            }
+            
+        }
+    }
+    
+    var component0 : ContentPageComponent? {
+        didSet {
+            let meta0 = component0?.meta
+            
+            //HEADER TEXT
+            //self.headerTextLbl?.text = meta0?.text ?? ""
+            self.headerTextLbl?.text = " \(meta0?.text ?? "") "
+            self.headerTextLbl?.font = meta0?.font
+            self.headerTextLbl?.textColor = meta0?.color
+            self.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
+                        
+            if let alpa = meta0?.bgBoxOpacity, alpa != 0.0, meta0?.bgBoxColor != .clear {
+                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor.withAlphaComponent(alpa)
+            }else {
+                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor
+            }
+        }
+    }
+    
+    var component1 : ContentPageComponent? {
+        didSet {
+            let width = 0.75*SCREENSIZE.width
+            let music = ContentMusic(frame: CGRect(x: 0, y: 0,width: width, height: width*0.95), file: component1?.file ?? "", thumb: component1?.thumb, CNTR: CGPoint.init(x: self.contentView.frame.midX, y: self.contentView.frame.midY))
+            self.componentViews.append(music)
+            
+            music.center = self.center
+            addSubview(music)
+        }
+    }
+    
+    var background: ContentPageBackground? {
+        didSet {
+            self.stickerImageView.image = nil
+            self.stickerImageView.removeFromSuperview()
+            
+            self.backgroundImageView.image = nil
+            self.backgroundVideoView = nil
+            
+            backgroundUpdated(background)
+        }
+    }
+    
+    var stickerURL: String? {
+        didSet {
+            setStickerFromString(stickerURL ?? "")
+        }
+    }
     
     var pageNo : Int? {
         didSet {
@@ -79,56 +152,6 @@ class ContentSoundCVCell: UICollectionViewCell {
                     
                 }
             }
-        }
-    }
-    
-    var content:Content? {
-        didSet {
-            
-            if (content != nil) {
-                OperationQueue.main.addOperation {
-                    self.inAppLinkBaseView.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.inAppLinkBaseView)
-                    
-                    self.multiLinkBaseView.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.multiLinkBaseView)
-                    
-                    self.base1.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base1)
-                    self.base2.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base2)
-                    self.base3.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base3)
-                }
-            }
-            
-        }
-    }
-    
-    
-    var background: ContentPageBackground? {
-        didSet {
-            self.stickerImageView.image = nil
-            self.stickerImageView.removeFromSuperview()
-            
-            backgroundUpdated(background)
-        }
-    }
-    
-    var stickerURL: String? {
-        didSet {
-            setStickerFromString(stickerURL ?? "")
-        }
-    }
-    
-    var component : ContentPageComponent? {
-        didSet {
-            let width = 0.75*SCREENSIZE.width
-            let music = ContentMusic(frame: CGRect(x: 0, y: 0,width: width, height: width*0.95), file: component?.file ?? "", thumb: component?.thumb, CNTR: CGPoint.init(x: self.contentView.frame.midX, y: self.contentView.frame.midY))
-            self.componentViews.append(music)
-            
-            music.center = self.center
-            addSubview(music)
         }
     }
  
@@ -288,9 +311,9 @@ extension ContentSoundCVCell {
         if let col = page.components[3].meta?.color {
             lbl1.textColor = col
         }
-        if let size = page.components[3].meta?.size {
-            lbl1.font = lbl1.font.withSize(size)
-        }
+//        if let size = page.components[3].meta?.size {
+//            lbl1.font = lbl1.font.withSize(size)
+//        }
         if let font = page.components[3].meta?.font {
             lbl1.font = font
         }
@@ -327,9 +350,9 @@ extension ContentSoundCVCell {
         if let col = page.components[5].meta?.color {
             lbl2.textColor = col
         }
-        if let size = page.components[5].meta?.size {
-            lbl2.font = lbl2.font.withSize(size)
-        }
+//        if let size = page.components[5].meta?.size {
+//            lbl2.font = lbl2.font.withSize(size)
+//        }
         if let font = page.components[5].meta?.font {
             lbl2.font = font
         }
@@ -365,9 +388,9 @@ extension ContentSoundCVCell {
         if let col = page.components[7].meta?.color {
             lbl3.textColor = col
         }
-        if let size = page.components[7].meta?.size {
-            lbl3.font = lbl3.font.withSize(size)
-        }
+//        if let size = page.components[7].meta?.size {
+//            lbl3.font = lbl3.font.withSize(size)
+//        }
         if let font = page.components[7].meta?.font {
             lbl3.font = font
         }

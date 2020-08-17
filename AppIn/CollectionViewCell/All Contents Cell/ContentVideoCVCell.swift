@@ -12,6 +12,7 @@ import AlamofireImage
 
 class ContentVideoCVCell: UICollectionViewCell {
 
+    @IBOutlet weak var headerTextLbl: UILabel?
     @IBOutlet weak var contentVideoView: UIView!
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -36,6 +37,80 @@ class ContentVideoCVCell: UICollectionViewCell {
     
     var delegate: MultiPageDelegate?
     
+    
+    var content:Content? {
+        didSet {
+            
+            if (content != nil) {
+                OperationQueue.main.addOperation {
+                    self.inAppLinkBaseView.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.inAppLinkBaseView)
+                    
+                    self.multiLinkBaseView.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.multiLinkBaseView)
+                    
+                    self.base1.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base1)
+                    self.base2.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base2)
+                    self.base3.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base3)
+                }
+            }
+            
+        }
+    }
+    
+    var component0 : ContentPageComponent? {
+        didSet {
+            let meta0 = component0?.meta
+            
+            //HEADER TEXT
+            //self.headerTextLbl?.text = meta0?.text ?? ""
+            self.headerTextLbl?.text = " \(meta0?.text ?? "") "
+            self.headerTextLbl?.font = meta0?.font
+            self.headerTextLbl?.textColor = meta0?.color
+            self.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
+                        
+            if let alpa = meta0?.bgBoxOpacity, alpa != 0.0, meta0?.bgBoxColor != .clear {
+                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor.withAlphaComponent(alpa)
+            }else {
+                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor
+            }
+        }
+    }
+    
+    var component1 : ContentPageComponent? {
+        didSet {
+            if let file = component1?.file {
+                DispatchQueue.main.async {
+                    let video = ContentVideo(frame: CGRect(x: 0, y: 0,width: self.contentVideoView.bounds.width, height: self.contentVideoView.bounds.height), file: file, inlinePlayer: true)
+                    self.componentViews.append(video)
+                    
+                    self.contentVideoView.addSubview(video)
+                }
+            }
+        }
+    }
+    
+    var background: ContentPageBackground? {
+        didSet {
+            self.stickerImageView.image = nil
+            self.stickerImageView.removeFromSuperview()
+            
+            self.backgroundImageView.image = nil
+            self.backgroundVideoView = nil
+            
+            backgroundUpdated(background)
+        }
+    }
+    
+    var stickerURL: String? {
+        didSet {
+            setStickerFromString(stickerURL ?? "")
+        }
+    }
+
     var pageNo : Int? {
         didSet {
             
@@ -76,58 +151,6 @@ class ContentVideoCVCell: UICollectionViewCell {
                         self.addInAppLinkOnView()
                     }
                     
-                }
-            }
-        }
-    }
-    
-    var content:Content? {
-        didSet {
-            
-            if (content != nil) {
-                OperationQueue.main.addOperation {
-                    self.inAppLinkBaseView.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.inAppLinkBaseView)
-                    
-                    self.multiLinkBaseView.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.multiLinkBaseView)
-                    
-                    self.base1.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base1)
-                    self.base2.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base2)
-                    self.base3.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base3)
-                }
-            }
-            
-        }
-    }
-    
-    
-    var background: ContentPageBackground? {
-        didSet {
-            self.stickerImageView.image = nil
-            self.stickerImageView.removeFromSuperview()
-            
-            backgroundUpdated(background)
-        }
-    }
-    
-    var stickerURL: String? {
-        didSet {
-            setStickerFromString(stickerURL ?? "")
-        }
-    }
-
-    var component : ContentPageComponent? {
-        didSet {
-            if let file = component?.file {
-                DispatchQueue.main.async {
-                    let video = ContentVideo(frame: CGRect(x: 0, y: 0,width: self.contentVideoView.bounds.width, height: self.contentVideoView.bounds.height), file: file, inlinePlayer: true)
-                    self.componentViews.append(video)
-                    
-                    self.contentVideoView.addSubview(video)
                 }
             }
         }
@@ -286,9 +309,9 @@ extension ContentVideoCVCell {
         if let col = page.components[3].meta?.color {
             lbl1.textColor = col
         }
-        if let size = page.components[3].meta?.size {
-            lbl1.font = lbl1.font.withSize(size)
-        }
+//        if let size = page.components[3].meta?.size {
+//            lbl1.font = lbl1.font.withSize(size)
+//        }
         if let font = page.components[3].meta?.font {
             lbl1.font = font
         }
@@ -325,9 +348,9 @@ extension ContentVideoCVCell {
         if let col = page.components[5].meta?.color {
             lbl2.textColor = col
         }
-        if let size = page.components[5].meta?.size {
-            lbl2.font = lbl2.font.withSize(size)
-        }
+//        if let size = page.components[5].meta?.size {
+//            lbl2.font = lbl2.font.withSize(size)
+//        }
         if let font = page.components[5].meta?.font {
             lbl2.font = font
         }
@@ -363,9 +386,9 @@ extension ContentVideoCVCell {
         if let col = page.components[7].meta?.color {
             lbl3.textColor = col
         }
-        if let size = page.components[7].meta?.size {
-            lbl3.font = lbl3.font.withSize(size)
-        }
+//        if let size = page.components[7].meta?.size {
+//            lbl3.font = lbl3.font.withSize(size)
+//        }
         if let font = page.components[7].meta?.font {
             lbl3.font = font
         }

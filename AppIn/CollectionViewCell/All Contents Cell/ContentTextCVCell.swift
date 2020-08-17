@@ -13,7 +13,8 @@ import AlamofireImage
 class ContentTextCVCell: UICollectionViewCell {
     
     @IBOutlet weak var headerTextLbl: UILabel?
-    @IBOutlet weak var contentTextLbl: UILabel?
+    //@IBOutlet weak var contentTextLbl: UILabel?
+    @IBOutlet weak var contentTextView: UITextView?
     
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
@@ -35,7 +36,131 @@ class ContentTextCVCell: UICollectionViewCell {
     var link1 = String()
     var link2 = String()
     var link3 = String()
-        
+    
+    
+    var content:Content? {
+        didSet {
+            
+            if (content != nil) {
+                OperationQueue.main.addOperation {
+                    self.inAppLinkBaseView.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.inAppLinkBaseView)
+                    
+                    self.multiLinkBaseView.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.multiLinkBaseView)
+                    
+                    self.base1.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base1)
+                    self.base2.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base2)
+                    self.base3.removeFromSuperview()
+                    self.contentView.superview?.willRemoveSubview(self.base3)
+                }
+            }
+            
+        }
+    }
+    
+    var component0 : ContentPageComponent? {
+        didSet {
+            let meta0 = component0?.meta
+            
+            //HEADER TEXT
+            //self.headerTextLbl?.text = meta0?.text ?? ""
+            self.headerTextLbl?.text = " \(meta0?.text ?? "") "
+            self.headerTextLbl?.font = meta0?.font
+            self.headerTextLbl?.textColor = meta0?.color
+            self.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
+            
+            /*
+            meta0?.background_box
+            meta0?.bgBoxColor
+            meta0?.bgBoxOpacity
+            meta0?.bgBoxRound
+            
+            meta0?.text
+            meta0?.color
+            meta0?.textAlignment
+            meta0?.font
+            meta0?.height
+            meta0?.width
+            */
+              
+            /*
+            if let alpa = meta0?.bgBoxOpacity, alpa != 0.0, meta0?.bgBoxColor != .clear {
+                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor.withAlphaComponent(alpa)
+            }else {
+                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor
+            }*/
+            
+            if let bgBox = meta0?.background_box, bgBox == "true" {
+                if let alpa = meta0?.bgBoxOpacity, alpa != 0.0 {
+                    self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor.withAlphaComponent(alpa)
+                }else {
+                    self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor
+                }
+                
+                if let layer = meta0?.bgBoxRound, layer == "true" {
+                    self.headerTextLbl?.layer.cornerRadius = contentCornerRadius
+                }
+            }else {
+                self.headerTextLbl?.backgroundColor = .clear
+            }
+            
+        }
+    }
+
+    var component1 : ContentPageComponent? {
+        didSet {
+            //CONTENT TEXT
+            let meta1 = component1?.meta
+            
+            self.contentTextView?.text = meta1?.text ?? ""
+            self.contentTextView?.font = meta1?.font
+            self.contentTextView?.textColor = meta1?.color
+            self.contentTextView?.textAlignment = meta1?.textAlignment ?? NSTextAlignment.center
+            
+//            if let alpa = meta1?.bgBoxOpacity, alpa != 0.0, meta1?.bgBoxColor != .clear {
+//                self.contentTextView?.backgroundColor = meta1?.bgBoxColor.withAlphaComponent(alpa)
+//            }else {
+//                self.contentTextView?.backgroundColor = meta1?.bgBoxColor
+//            }
+            
+            if let bgBox = meta1?.background_box, bgBox == "true" {
+                if let alpa = meta1?.bgBoxOpacity, alpa != 0.0 {
+                    self.contentTextView?.backgroundColor = meta1?.bgBoxColor.withAlphaComponent(alpa)
+                }else {
+                    self.contentTextView?.backgroundColor = meta1?.bgBoxColor
+                }
+                
+                if let layer = meta1?.bgBoxRound, layer == "true" {
+                    self.contentTextView?.layer.cornerRadius = contentCornerRadius
+                }
+            }else {
+                self.contentTextView?.backgroundColor = .clear
+            }
+            
+        }
+    }
+    
+    var background: ContentPageBackground? {
+        didSet {
+            self.stickerImageView.image = nil
+            self.stickerImageView.removeFromSuperview()
+            
+            self.backgroundImageView.image = nil
+            self.backgroundVideoView = nil
+            
+            backgroundUpdated(background)
+        }
+    }
+    
+    var stickerURL: String? {
+        didSet {
+            setStickerFromString(stickerURL ?? "")
+        }
+    }
+    
     var pageNo : Int? {
         didSet {
             
@@ -77,81 +202,6 @@ class ContentTextCVCell: UICollectionViewCell {
                     }
                     
                 }
-            }
-        }
-    }
-    
-    var content:Content? {
-        didSet {
-            
-            if (content != nil) {
-                OperationQueue.main.addOperation {
-                    self.inAppLinkBaseView.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.inAppLinkBaseView)
-                    
-                    self.multiLinkBaseView.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.multiLinkBaseView)
-                    
-                    self.base1.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base1)
-                    self.base2.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base2)
-                    self.base3.removeFromSuperview()
-                    self.contentView.superview?.willRemoveSubview(self.base3)
-                }
-            }
-            
-        }
-    }
-    
-    
-    var background: ContentPageBackground? {
-        didSet {
-            self.stickerImageView.image = nil
-            self.stickerImageView.removeFromSuperview()
-            
-            backgroundUpdated(background)
-        }
-    }
-    
-    var stickerURL: String? {
-        didSet {
-            setStickerFromString(stickerURL ?? "")
-        }
-    }
-    
-    var component0 : ContentPageComponent? {
-        didSet {
-            let meta0 = component0?.meta
-            
-            //HEADER TEXT
-            self.headerTextLbl?.text = meta0?.text ?? ""
-            self.headerTextLbl?.font = meta0?.font
-            self.headerTextLbl?.textColor = meta0?.color
-            self.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
-                        
-            if let alpa = meta0?.background_opacity, alpa != 0.0, meta0?.bgColor != .clear {
-                self.headerTextLbl?.backgroundColor = meta0?.bgColor.withAlphaComponent(alpa)
-            }else {
-                self.headerTextLbl?.backgroundColor = meta0?.bgColor
-            }
-        }
-    }
-
-    var component1 : ContentPageComponent? {
-        didSet {
-            //CONTENT TEXT
-            let meta1 = component1?.meta
-            
-            self.contentTextLbl?.text = meta1?.text ?? ""
-            self.contentTextLbl?.font = meta1?.font
-            self.contentTextLbl?.textColor = meta1?.color
-            self.contentTextLbl?.textAlignment = meta1?.textAlignment ?? NSTextAlignment.center
-            
-            if let alpa = meta1?.background_opacity, alpa != 0.0, meta1?.bgColor != .clear {
-                self.contentTextLbl?.backgroundColor = meta1?.bgColor.withAlphaComponent(alpa)
-            }else {
-                self.contentTextLbl?.backgroundColor = meta1?.bgColor
             }
         }
     }
@@ -311,9 +361,9 @@ extension ContentTextCVCell {
         if let col = page.components[3].meta?.color {
             lbl1.textColor = col
         }
-        if let size = page.components[3].meta?.size {
-            lbl1.font = lbl1.font.withSize(size)
-        }
+//        if let size = page.components[3].meta?.size {
+//            lbl1.font = lbl1.font.withSize(size)
+//        }
         if let font = page.components[3].meta?.font {
             lbl1.font = font
         }
@@ -350,9 +400,9 @@ extension ContentTextCVCell {
         if let col = page.components[5].meta?.color {
             lbl2.textColor = col
         }
-        if let size = page.components[5].meta?.size {
-            lbl2.font = lbl2.font.withSize(size)
-        }
+//        if let size = page.components[5].meta?.size {
+//            lbl2.font = lbl2.font.withSize(size)
+//        }
         if let font = page.components[5].meta?.font {
             lbl2.font = font
         }
@@ -388,9 +438,9 @@ extension ContentTextCVCell {
         if let col = page.components[7].meta?.color {
             lbl3.textColor = col
         }
-        if let size = page.components[7].meta?.size {
-            lbl3.font = lbl3.font.withSize(size)
-        }
+//        if let size = page.components[7].meta?.size {
+//            lbl3.font = lbl3.font.withSize(size)
+//        }
         if let font = page.components[7].meta?.font {
             lbl3.font = font
         }
