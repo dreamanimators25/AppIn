@@ -656,10 +656,23 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             //New Functionality For GoThereButton
             if let consumeActionComp = content?.pages[page].consumeActionComponent {
                 
-                if let col = consumeActionComp.color {
-                    
-                    OperationQueue.main.addOperation {
-                        self.goThereBtn.setTitleColor(UIColor.init(hexString: col), for: .normal)
+                if let backBox = consumeActionComp.backGroundBox {
+                    if backBox == "true" {
+                        
+                        if let bxCol = consumeActionComp.boxColor {
+                            OperationQueue.main.addOperation {
+                                self.goThereBtn.backgroundColor = UIColor.init(hexString: bxCol)
+                            }
+                        }else {
+                            OperationQueue.main.addOperation {
+                                self.goThereBtn.backgroundColor = UIColor.clear
+                            }
+                        }
+                        
+                    }else {
+                        OperationQueue.main.addOperation {
+                            self.goThereBtn.backgroundColor = UIColor.clear
+                        }
                     }
                 }
                 
@@ -668,31 +681,14 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                         OperationQueue.main.addOperation {
                             self.goThereBtn.layer.cornerRadius = 10.0
                         }
-                    }
-                }
-                
-                if let backBox = consumeActionComp.backGroundBox {
-                    if backBox == "true" {
-                        OperationQueue.main.addOperation {
-                            
-                        }
                     }else {
                         OperationQueue.main.addOperation {
-                            self.goThereBtn.backgroundColor = UIColor.clear
+                            self.goThereBtn.layer.cornerRadius = 0.0
                         }
                     }
-                }
-                
-                if let txt = consumeActionComp.text {
+                }else {
                     OperationQueue.main.addOperation {
-                        /////self.goThereBtn.titleLabel?.text = txt
-                        self.goThereBtn.setTitle(txt, for: .normal)
-                    }
-                }
-                
-                if let bxCol = consumeActionComp.boxColor {
-                    OperationQueue.main.addOperation {
-                        self.goThereBtn.backgroundColor = UIColor.init(hexString: bxCol)
+                        self.goThereBtn.layer.cornerRadius = 0.0
                     }
                 }
                 
@@ -703,6 +699,19 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                             
                             self.goThereBtn.backgroundColor = self.goThereBtn.backgroundColor?.withAlphaComponent(opacty)
                         }
+                    }
+                }
+                
+                
+                if let txt = consumeActionComp.text {
+                    OperationQueue.main.addOperation {
+                        self.goThereBtn.setTitle(txt, for: .normal)
+                    }
+                }
+                
+                if let col = consumeActionComp.color {
+                    OperationQueue.main.addOperation {
+                        self.goThereBtn.setTitleColor(UIColor.init(hexString: col), for: .normal)
                     }
                 }
                 

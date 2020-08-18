@@ -16,6 +16,7 @@ private let kAPIKeyContent = "content"
 private let kAPIKeyCreated = "created"
 private let kAPIKeyUpdated = "updated"
 private let kAPIKeyIdentity = "identity"
+private let kAPIKeyBackgroundSoundUrl = "background_sound_url"
 
 open class ContentPage {
     
@@ -26,6 +27,7 @@ open class ContentPage {
     //var backgrounds: [Backgrounds]?
     
     var consumeActionComponent: ConsumeActionComponents?
+    var BackSoundUrl : String?
     
     var frameUrl : String?  //Sameer 25/4/2020
     
@@ -55,8 +57,8 @@ open class ContentPage {
         
         if let identity = dictionary[kAPIKeyIdentity] as? String {
             self.identity = identity
-            print("sks = \(self.identity)")
         }
+        
         if let id = dictionary[kAPIKeyId] as? Int {
             self.id = id
         }
@@ -75,6 +77,11 @@ open class ContentPage {
         //Sameer 11/6/2020
         if let consumeActComp = dictionary["consume_action_component"] as? [String:Any] {
             self.consumeActionComponent = ConsumeActionComponents.init(dictionary: consumeActComp)
+        }
+        
+        //Sameer 18/8/2020
+        if let backSound = dictionary[kAPIKeyBackgroundSoundUrl] as? String {
+            self.BackSoundUrl = backSound
         }
         
         if self.consumeAction == 9 {

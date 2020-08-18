@@ -26,7 +26,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QOk-7o-JrX">
-                        <rect key="frame" x="150" y="40" width="0.0" height="0.0"/>
+                        <rect key="frame" x="30" y="40" width="240" height="0.0"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
@@ -42,13 +42,12 @@
             <constraints>
                 <constraint firstItem="Uw7-dm-w4s" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="15y-bJ-t1K"/>
                 <constraint firstAttribute="bottom" secondItem="h2k-g6-73f" secondAttribute="bottom" id="8jL-gA-5qA"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QOk-7o-JrX" secondAttribute="trailing" constant="30" id="9mA-5M-QtF"/>
-                <constraint firstItem="QOk-7o-JrX" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="30" id="CeA-BX-oBf"/>
+                <constraint firstAttribute="trailing" secondItem="QOk-7o-JrX" secondAttribute="trailing" constant="30" id="9mA-5M-QtF"/>
+                <constraint firstItem="QOk-7o-JrX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="30" id="CeA-BX-oBf"/>
                 <constraint firstItem="QOk-7o-JrX" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="40" id="JpZ-a4-Qtl"/>
                 <constraint firstItem="h2k-g6-73f" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="N6F-zB-4Fb"/>
                 <constraint firstAttribute="trailing" secondItem="Uw7-dm-w4s" secondAttribute="trailing" id="ZSu-bY-eZU"/>
                 <constraint firstAttribute="bottom" secondItem="Uw7-dm-w4s" secondAttribute="bottom" id="eEC-Yg-maI"/>
-                <constraint firstItem="QOk-7o-JrX" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="jqp-Ag-sBD"/>
                 <constraint firstItem="h2k-g6-73f" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="pHm-Qa-GR8"/>
                 <constraint firstItem="Uw7-dm-w4s" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="u06-oL-8hl"/>
                 <constraint firstAttribute="trailing" secondItem="h2k-g6-73f" secondAttribute="trailing" id="yvM-BD-uBZ"/>

@@ -37,6 +37,7 @@ private let kAPIKeyMetaFontSize = "font_size"
 
 //Font Weights
 private let bold = "bold"
+private let normal = "normal"
 private let italic = "italic"
 private let semiTitle = "semi-title"
 private let title = "title"
@@ -160,23 +161,36 @@ open class ContentPageComponent {
                 fontSize = CGFloat(NSString(string: metaDataFontSize).floatValue)
             }
             
-            var font = Font.normalFont(fontSize)
+            var fontStyle = ""
             if let fntStyle = meta[kAPIKeyMetaFontStyle] as? String {
-                switch fntStyle {
-                case bold:
-                    font = Font.boldFont(fontSize)
-                case italic:
-                    font = Font.italicFont(fontSize)
-                case semiTitle:
-                    font = Font.semiTitleFont(fontSize)
-                case title:
-                    font = Font.titleFont(fontSize)
-                default:
-                    break
-                }
+                 fontStyle = fntStyle
+            }
+            var fontWeight = ""
+            if let metaDataFontWeight = meta[kAPIKeyMetaFontWeight] as? String {
+                fontWeight = metaDataFontWeight
+            }
+            
+            var font = Font.normalFont(fontSize)
+            if fontWeight == normal && fontStyle == normal {
+                font = Font.normalFont(fontSize)
+            }else if fontWeight == normal && fontStyle == "" {
+                font = Font.normalFont(fontSize)
+            }else if fontWeight == "" && fontStyle == "" {
+                font = Font.normalFont(fontSize)
+            }else if fontWeight == bold && fontStyle == normal {
+                font = Font.boldFont(fontSize)
+            }else if fontWeight == bold && fontStyle == "" {
+                font = Font.boldFont(fontSize)
+            }else if fontWeight == normal && fontStyle == italic {
+                font = Font.italicFont(fontSize)
+            }else if fontWeight == "" && fontStyle == italic {
+                font = Font.italicFont(fontSize)
+            }else if fontWeight == bold && fontStyle == italic {
+                font = Font.boldItalicFont(fontSize)
             }
             
             /*
+            var font = Font.normalFont(fontSize)
             if let metaDataFontWeight = meta[kAPIKeyMetaFontWeight] as? String {
                 switch metaDataFontWeight {
                 case bold:

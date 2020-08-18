@@ -72,12 +72,24 @@ class ContentSoundCVCell: UICollectionViewCell {
             self.headerTextLbl?.font = meta0?.font
             self.headerTextLbl?.textColor = meta0?.color
             self.headerTextLbl?.textAlignment = meta0?.textAlignment ?? NSTextAlignment.center
-                        
-            if let alpa = meta0?.bgBoxOpacity, alpa != 0.0, meta0?.bgBoxColor != .clear {
-                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor.withAlphaComponent(alpa)
+            
+         
+            if let bgBox = meta0?.background_box, bgBox == "true" {
+                if let alpa = meta0?.bgBoxOpacity, alpa != 0.0 {
+                    self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor.withAlphaComponent(alpa)
+                }else {
+                    self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor
+                }
+                
+                if let layer = meta0?.bgBoxRound, layer == "true" {
+                    self.headerTextLbl?.layer.cornerRadius = contentCornerRadius
+                }else {
+                    self.headerTextLbl?.layer.cornerRadius = 0
+                }
             }else {
-                self.headerTextLbl?.backgroundColor = meta0?.bgBoxColor
+                self.headerTextLbl?.backgroundColor = .clear
             }
+            
         }
     }
     
@@ -680,31 +692,26 @@ extension ContentSoundCVCell {
         btn1.tag = 0
         btn1.addTarget(self, action: #selector(ContentTextCVCell.btnClickedInAppLink(_:)), for: .touchUpInside)
         btn1.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        btn1.backgroundColor = #colorLiteral(red: 0.1581287384, green: 0.6885935664, blue: 0.237049073, alpha: 1)
         
         let btn2 = UIButton.init(frame: CGRect.init(x: 20, y: btn1.frame.origin.y + btn1.frame.size.height + 20, width: self.contentView.frame.size.width - 40, height: (self.contentView.frame.height * 12)/100))
         btn2.tag = 1
         btn2.addTarget(self, action: #selector(ContentTextCVCell.btnClickedInAppLink(_:)), for: .touchUpInside)
         btn2.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        btn2.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
         
         let btn3 = UIButton.init(frame: CGRect.init(x: 20, y: btn2.frame.origin.y + btn2.frame.size.height + 20, width: self.contentView.frame.size.width - 40, height: (self.contentView.frame.height * 12)/100))
         btn3.tag = 2
         btn3.addTarget(self, action: #selector(ContentTextCVCell.btnClickedInAppLink(_:)), for: .touchUpInside)
         btn3.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        btn3.backgroundColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
         
         let btn4 = UIButton.init(frame: CGRect.init(x: 20, y: btn3.frame.origin.y + btn3.frame.size.height + 20, width: self.contentView.frame.size.width - 40, height: (self.contentView.frame.height * 12)/100))
         btn4.tag = 3
         btn4.addTarget(self, action: #selector(ContentTextCVCell.btnClickedInAppLink(_:)), for: .touchUpInside)
         btn4.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        btn4.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
         
         let btn5 = UIButton.init(frame: CGRect.init(x: 20, y: btn4.frame.origin.y + btn4.frame.size.height + 20, width: self.contentView.frame.size.width - 40, height: (self.contentView.frame.height * 12)/100))
         btn5.tag = 4
         btn5.addTarget(self, action: #selector(ContentTextCVCell.btnClickedInAppLink(_:)), for: .touchUpInside)
         btn5.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
-        btn5.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         inAppLinkBaseView.addSubview(btn1)
         inAppLinkBaseView.addSubview(btn2)
