@@ -22,6 +22,8 @@ class ContentSoundCVCell: UICollectionViewCell {
     var stickerImageView = UIImageView()
     var componentViews = [ContentView]()
     
+    var music : ContentMusic?
+    var audioPlayer: Player?
     
     //MultiLink & InAppLink
     var arrContentID = [String]()
@@ -96,11 +98,11 @@ class ContentSoundCVCell: UICollectionViewCell {
     var component1 : ContentPageComponent? {
         didSet {
             let width = 0.75*SCREENSIZE.width
-            let music = ContentMusic(frame: CGRect(x: 0, y: 0,width: width, height: width*0.95), file: component1?.file ?? "", thumb: component1?.thumb, CNTR: CGPoint.init(x: self.contentView.frame.midX, y: self.contentView.frame.midY))
-            self.componentViews.append(music)
+            music = ContentMusic(frame: CGRect(x: 0, y: 0,width: width, height: width*0.95), file: self.component1?.file ?? "", thumb: self.component1?.thumb, CNTR: CGPoint.init(x: self.contentView.frame.midX, y: self.contentView.frame.midY))
             
-            music.center = self.center
-            addSubview(music)
+            self.componentViews.append(music!)
+            music!.center = self.center
+            self.addSubview(music!)
         }
     }
     
@@ -119,6 +121,29 @@ class ContentSoundCVCell: UICollectionViewCell {
     var stickerURL: String? {
         didSet {
             setStickerFromString(stickerURL ?? "")
+        }
+    }
+    
+    var mp3URL : String? {
+        didSet {
+            if let audioFile = mp3URL {
+                OperationQueue.main.addOperation {
+                    self.audioPlayer = MPCacher.sharedInstance.getObjectForKey(audioFile) as? Player
+                    self.audioPlayer?.isMuted = false
+                    self.audioPlayer?.volume = 0.5
+                    self.audioPlayer?.play()
+                    
+                    //To Pause mp3 in background
+                    pauseAudio = {
+                        DispatchQueue.main.async {
+                            if let player = self.audioPlayer {
+                                player.pause()
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
     }
     
@@ -664,15 +689,28 @@ extension ContentSoundCVCell {
         switch sender.tag {
         case 1:
             DispatchQueue.main.async {
-                self.delegate?.openLinkInAppInWebView(link: self.link1)
+                //self.delegate.openLinkInAppInWebView(link: self.link1)
+                
+                if let openLink = linkOpenInWebView {
+                    openLink(self.link1)
+                }
+                
             }
         case 2:
             DispatchQueue.main.async {
-                self.delegate?.openLinkInAppInWebView(link: self.link2)
+                //self.delegate.openLinkInAppInWebView(link: self.link2)
+                
+                if let openLink = linkOpenInWebView {
+                    openLink(self.link2)
+                }
             }
         default:
             DispatchQueue.main.async {
-                self.delegate?.openLinkInAppInWebView(link: self.link3)
+                //self.delegate.openLinkInAppInWebView(link: self.link3)
+                
+                if let openLink = linkOpenInWebView {
+                    openLink(self.link3)
+                }
             }
         }
     

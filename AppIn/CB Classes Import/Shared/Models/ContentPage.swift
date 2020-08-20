@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
     
 private let kAPIKeyId = "id"
 private let kAPIKeyBackgrounds = "backgrounds"
@@ -79,9 +80,13 @@ open class ContentPage {
             self.consumeActionComponent = ConsumeActionComponents.init(dictionary: consumeActComp)
         }
         
-        //Sameer 18/8/2020
+        //Sameer 19/8/2020
         if let backSound = dictionary[kAPIKeyBackgroundSoundUrl] as? String {
             self.BackSoundUrl = backSound
+            
+            let item = AVPlayerItem(url: URL(string: backSound)!)
+            let player = Player(playerItem: item)
+            MPCacher.sharedInstance.setObjectForKey(player, key: backSound)
         }
         
         if self.consumeAction == 9 {

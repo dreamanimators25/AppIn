@@ -20,12 +20,12 @@ class ContentVimeoCVCell: UICollectionViewCell {
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
     
-    var vimeoUrl : String?
-    
     var backgroundVideoView: ContentVideo?
     var stickerImageView = UIImageView()
     var componentViews = [ContentView]()
     
+    var vimeoUrl : String?
+    var audioPlayer: Player?
     
     //MultiLink & InAppLink
     var arrContentID = [String]()
@@ -120,6 +120,29 @@ class ContentVimeoCVCell: UICollectionViewCell {
     var stickerURL: String? {
         didSet {
             setStickerFromString(stickerURL ?? "")
+        }
+    }
+    
+    var mp3URL : String? {
+        didSet {
+            if let audioFile = mp3URL {
+                OperationQueue.main.addOperation {
+                    self.audioPlayer = MPCacher.sharedInstance.getObjectForKey(audioFile) as? Player
+                    self.audioPlayer?.isMuted = false
+                    self.audioPlayer?.volume = 0.5
+                    self.audioPlayer?.play()
+                    
+                    //To Pause mp3 in background
+                    pauseAudio = {
+                        DispatchQueue.main.async {
+                            if let player = self.audioPlayer {
+                                player.pause()
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
     }
     
@@ -665,21 +688,34 @@ extension ContentVimeoCVCell {
         }
         
     }
-    
+  
     @objc func btnClickedMultiLink(_ sender : UIButton) {
         
         switch sender.tag {
         case 1:
             DispatchQueue.main.async {
-                self.delegate?.openLinkInAppInWebView(link: self.link1)
+                //self.delegate.openLinkInAppInWebView(link: self.link1)
+                
+                if let openLink = linkOpenInWebView {
+                    openLink(self.link1)
+                }
+                
             }
         case 2:
             DispatchQueue.main.async {
-                self.delegate?.openLinkInAppInWebView(link: self.link2)
+                //self.delegate.openLinkInAppInWebView(link: self.link2)
+                
+                if let openLink = linkOpenInWebView {
+                    openLink(self.link2)
+                }
             }
         default:
             DispatchQueue.main.async {
-                self.delegate?.openLinkInAppInWebView(link: self.link3)
+                //self.delegate.openLinkInAppInWebView(link: self.link3)
+                
+                if let openLink = linkOpenInWebView {
+                    openLink(self.link3)
+                }
             }
         }
     

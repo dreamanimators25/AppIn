@@ -31,6 +31,7 @@ protocol MultiPageDelegate {
 }
 
 var linkOpenInWebView : ((_ url:String)-> (Void))?
+var pauseAudio : (()-> (Void))?
 
 class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -152,6 +153,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     imageCVCell.stickerURL = strSticker
                 }
                 
+                if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                    imageCVCell.mp3URL = mp3
+                }
+                
                 imageCVCell.content = self.content
                 imageCVCell.pageNo = indexPath.row
                 
@@ -169,6 +174,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 
                 if let strSticker = content?.pages[indexPath.row].frameUrl {
                     textCVCell.stickerURL = strSticker
+                }
+                
+                if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                    textCVCell.mp3URL = mp3
                 }
                 
                 textCVCell.content = self.content
@@ -189,6 +198,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     videoCVCell.stickerURL = strSticker
                 }
                 
+                if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                    videoCVCell.mp3URL = mp3
+                }
+                
                 videoCVCell.content = self.content
                 videoCVCell.pageNo = indexPath.row
                 
@@ -196,8 +209,11 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             case .Sound:
                 let soundCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ContentSoundCVCell", for: indexPath) as! ContentSoundCVCell
                 
+                soundCVCell.music?.removeFromSuperview()
+                
                 soundCVCell.component0 = component0
                 soundCVCell.component1 = component1
+            
                 
                 if let backGround = page?.backgrounds {
                     soundCVCell.background = backGround
@@ -205,6 +221,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 
                 if let strSticker = content?.pages[indexPath.row].frameUrl {
                     soundCVCell.stickerURL = strSticker
+                }
+                
+                if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                    soundCVCell.mp3URL = mp3
                 }
                 
                 soundCVCell.content = self.content
@@ -228,6 +248,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                         youtubeCVCell.stickerURL = strSticker
                     }
                     
+                    if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                        youtubeCVCell.mp3URL = mp3
+                    }
+                    
                     youtubeCVCell.content = self.content
                     youtubeCVCell.pageNo = indexPath.row
 
@@ -246,6 +270,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     
                     if let strSticker = content?.pages[indexPath.row].frameUrl {
                         vimeoCVCell.stickerURL = strSticker
+                    }
+                    
+                    if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                        vimeoCVCell.mp3URL = mp3
                     }
                     
                     vimeoCVCell.content = self.content
@@ -295,7 +323,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+    
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -571,7 +599,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 // no action button
                 
                 OperationQueue.main.addOperation {
-                    self.goThereBtn.isHidden = true
+                    self.goThereBtn.isHidden = false
+                    self.goThereBtn.setTitle("Use Offer", for: .normal)
                 }
                 
             case 2:

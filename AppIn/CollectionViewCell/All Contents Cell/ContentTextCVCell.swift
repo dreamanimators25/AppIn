@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import AlamofireImage
+import AVFoundation
 
 class ContentTextCVCell: UICollectionViewCell {
         
@@ -23,6 +24,7 @@ class ContentTextCVCell: UICollectionViewCell {
     var stickerImageView = UIImageView()
     var componentViews = [ContentView]()
     
+    var audioPlayer: Player?
     
     //MultiLink & InAppLink
     var arrContentID = [String]()
@@ -140,6 +142,29 @@ class ContentTextCVCell: UICollectionViewCell {
         }
     }
     
+    var mp3URL : String? {
+        didSet {
+            if let audioFile = mp3URL {
+                OperationQueue.main.addOperation {
+                    self.audioPlayer = MPCacher.sharedInstance.getObjectForKey(audioFile) as? Player
+                    self.audioPlayer?.isMuted = false
+                    self.audioPlayer?.volume = 0.5
+                    self.audioPlayer?.play()
+                    
+                    //To Pause mp3 in background
+                    pauseAudio = {
+                        DispatchQueue.main.async {
+                            if let player = self.audioPlayer {
+                                player.pause()
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
     var pageNo : Int? {
         didSet {
             
@@ -191,6 +216,7 @@ class ContentTextCVCell: UICollectionViewCell {
     }
     
     func pauseMedia() {
+        
         backgroundVideoView?.reset()
         for component in componentViews {
             if let component = component as? ContentMusic {
