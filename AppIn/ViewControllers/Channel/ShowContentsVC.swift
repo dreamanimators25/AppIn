@@ -269,6 +269,14 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         selectedRaw = nil
         selectedSection = nil
         
+        //To Pause mp3 in background
+//        DispatchQueue.main.async {
+//            if let pause = pauseAudio {
+//                pause()
+//
+//                pauseAudio = nil
+//            }
+//        }
         
         self.closeChannel()        
         _ = self.navigationController?.popViewController(animated: true)
@@ -278,6 +286,14 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         selectedRaw = nil
         selectedSection = nil
         
+        //To Pause mp3 in background
+//        DispatchQueue.main.async {
+//            if let pause = pauseAudio {
+//                pause()
+//
+//                pauseAudio = nil
+//            }
+//        }
         
         self.closeChannel()
         _ = self.navigationController?.popViewController(animated: true)
@@ -334,22 +350,12 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let multiPageCVCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiPageCVCell", for: indexPath) as! MultiPageCVCell
-    
-        //if let sec = selectedSection {
-            //From Old Code
-            let content = contents?[indexPath.row]
-            multiPageCVCell.content = content
-            multiPageCVCell.delegate = self
-            
-//        }else {
-//            //From Old Code
-//            let content = contents?[sec]
-//            multiPageCVCell.content = content
-//            multiPageCVCell.delegate = self
-//
-//            selectedSection = nil
-//        }
-                
+        
+        //From Old Code
+        //let content = contents?[indexPath.row]
+        //multiPageCVCell.content = content
+        //multiPageCVCell.delegate = self
+        
         return multiPageCVCell
     }
     
@@ -358,6 +364,12 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if let cell = cell as? MultiPageCVCell {
+            let content = contents?[indexPath.row]
+            cell.content = content
+            cell.delegate = self
+        }
         
     }
     
@@ -387,6 +399,13 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         selectedRaw = nil
         selectedSection = nil
+        
+        if let cells = self.contentCollectionView.visibleCells as? [MultiPageCVCell] {
+            for cell in cells {
+                cell.pauseMp3()
+            }
+        }
+        
     }
     
     // MARK: - Navigation

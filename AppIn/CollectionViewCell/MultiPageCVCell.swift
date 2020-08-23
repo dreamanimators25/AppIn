@@ -31,7 +31,6 @@ protocol MultiPageDelegate {
 }
 
 var linkOpenInWebView : ((_ url:String)-> (Void))?
-var pauseAudio : (()-> (Void))?
 
 class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -133,10 +132,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             let component0 = comp?.first
             let component1 = comp?[1]
             
-            
-            let action = self.content?.pages[indexPath.row].consumeAction
-            print(action ?? 0)
-            
+                        
             switch component1?.type {
                 
             case .Image:
@@ -153,9 +149,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     imageCVCell.stickerURL = strSticker
                 }
                 
+                /*
                 if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
                     imageCVCell.mp3URL = mp3
-                }
+                }*/
                 
                 imageCVCell.content = self.content
                 imageCVCell.pageNo = indexPath.row
@@ -176,9 +173,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     textCVCell.stickerURL = strSticker
                 }
                 
+                /*
                 if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
                     textCVCell.mp3URL = mp3
-                }
+                }*/
                 
                 textCVCell.content = self.content
                 textCVCell.pageNo = indexPath.row                
@@ -198,9 +196,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     videoCVCell.stickerURL = strSticker
                 }
                 
+                /*
                 if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
                     videoCVCell.mp3URL = mp3
-                }
+                }*/
                 
                 videoCVCell.content = self.content
                 videoCVCell.pageNo = indexPath.row
@@ -223,9 +222,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                     soundCVCell.stickerURL = strSticker
                 }
                 
+                /*
                 if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
                     soundCVCell.mp3URL = mp3
-                }
+                }*/
                 
                 soundCVCell.content = self.content
                 soundCVCell.pageNo = indexPath.row
@@ -248,9 +248,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                         youtubeCVCell.stickerURL = strSticker
                     }
                     
+                    /*
                     if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
                         youtubeCVCell.mp3URL = mp3
-                    }
+                    }*/
                     
                     youtubeCVCell.content = self.content
                     youtubeCVCell.pageNo = indexPath.row
@@ -272,9 +273,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                         vimeoCVCell.stickerURL = strSticker
                     }
                     
+                    /*
                     if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
                         vimeoCVCell.mp3URL = mp3
-                    }
+                    }*/
                     
                     vimeoCVCell.content = self.content
                     vimeoCVCell.pageNo = indexPath.row
@@ -294,31 +296,104 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
                 
         if let cell = cell as? ContentImageCVCell {
             cell.pauseMedia()
+            
+            //To Pause mp3 in background
+            if let pause = cell.pauseImageMp3 {
+                pause()
+                cell.pauseImageMp3 = nil
+            }
+            
         }
         
         if let cell = cell as? ContentTextCVCell {
             cell.pauseMedia()
+            
+            //To Pause mp3 in background
+            if let pause = cell.pauseTextMp3 {
+                pause()
+                cell.pauseTextMp3 = nil
+            }
         }
         
         if let cell = cell as? ContentVideoCVCell {
             cell.pauseMedia()
+            
+            //To Pause mp3 in background
+            if let pause = cell.pauseVideoMp3 {
+                pause()
+                cell.pauseVideoMp3 = nil
+            }
         }
         
         if let cell = cell as? ContentSoundCVCell {
             cell.pauseMedia()
+            
+            //To Pause mp3 in background
+            if let pause = cell.pauseSoundMp3 {
+                pause()
+                cell.pauseSoundMp3 = nil
+            }
         }
         
         if let cell = cell as? ContentYoutubeCVCell {
             cell.pauseMedia()
+            
+            //To Pause mp3 in background
+            if let pause = cell.pauseYoutubeMp3 {
+                pause()
+                cell.pauseYoutubeMp3 = nil
+            }
         }
         
         if let cell = cell as? ContentVimeoCVCell {
             cell.pauseMedia()
+            
+            //To Pause mp3 in background
+            if let pause = cell.pauseVimeoMp3 {
+                pause()
+                cell.pauseVimeoMp3 = nil
+            }
         }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if let cell = cell as? ContentImageCVCell {
+            if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                cell.mp3URL = mp3
+            }
+        }
+        
+        if let cell = cell as? ContentTextCVCell {
+            if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                cell.mp3URL = mp3
+            }
+        }
+        
+        if let cell = cell as? ContentVideoCVCell {
+            if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                cell.mp3URL = mp3
+            }
+        }
+        
+        if let cell = cell as? ContentSoundCVCell {
+            if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                cell.mp3URL = mp3
+            }
+        }
+        
+        if let cell = cell as? ContentYoutubeCVCell {
+            if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                cell.mp3URL = mp3
+            }
+        }
+        
+        if let cell = cell as? ContentVimeoCVCell {
+            if let mp3 = content?.pages[indexPath.row].BackSoundUrl {
+                cell.mp3URL = mp3
+            }
+        }
         
     }
     
@@ -529,6 +604,10 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     }
     
     //MARK: Custom Methods
+    func pauseMp3() {
+        pauseCells()
+    }
+    
     func reset() {
         if let content = content, content.pages.count > 0 {
             multiPageCollectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
@@ -538,15 +617,75 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
     
     func pauseCells() {
         
-        if let cells = multiPageCollectionView.visibleCells as? [ContentSoundCVCell] {
+        if let cells = multiPageCollectionView.visibleCells as? [ContentImageCVCell] {
             for cell in cells {
                 cell.pauseMedia()
+                
+                //To Pause mp3 in background
+                if let pause = cell.pauseImageMp3 {
+                    pause()
+                    cell.pauseImageMp3 = nil
+                }
+            }
+        }
+        
+        if let cells = multiPageCollectionView.visibleCells as? [ContentTextCVCell] {
+            for cell in cells {
+                cell.pauseMedia()
+                
+                //To Pause mp3 in background
+                if let pause = cell.pauseTextMp3 {
+                    pause()
+                    cell.pauseTextMp3 = nil
+                }
             }
         }
         
         if let cells = multiPageCollectionView.visibleCells as? [ContentVideoCVCell] {
             for cell in cells {
                 cell.pauseMedia()
+                
+                //To Pause mp3 in background
+                if let pause = cell.pauseVideoMp3 {
+                    pause()
+                    cell.pauseVideoMp3 = nil
+                }
+            }
+        }
+        
+        if let cells = multiPageCollectionView.visibleCells as? [ContentSoundCVCell] {
+            for cell in cells {
+                cell.pauseMedia()
+                
+                //To Pause mp3 in background
+                if let pause = cell.pauseSoundMp3 {
+                    pause()
+                    cell.pauseSoundMp3 = nil
+                }
+            }
+        }
+        
+        if let cells = multiPageCollectionView.visibleCells as? [ContentYoutubeCVCell] {
+            for cell in cells {
+                cell.pauseMedia()
+                
+                //To Pause mp3 in background
+                if let pause = cell.pauseYoutubeMp3 {
+                    pause()
+                    cell.pauseYoutubeMp3 = nil
+                }
+            }
+        }
+        
+        if let cells = multiPageCollectionView.visibleCells as? [ContentVimeoCVCell] {
+            for cell in cells {
+                cell.pauseMedia()
+                
+                //To Pause mp3 in background
+                if let pause = cell.pauseVimeoMp3 {
+                    pause()
+                    cell.pauseVimeoMp3 = nil
+                }
             }
         }
         

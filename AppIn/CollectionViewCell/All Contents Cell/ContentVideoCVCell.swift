@@ -23,6 +23,7 @@ class ContentVideoCVCell: UICollectionViewCell {
     var componentViews = [ContentView]()
     
     var audioPlayer: Player?
+    var pauseVideoMp3 : (()-> (Void))?
     
     //MultiLink & InAppLink
     var arrContentID = [String]()
@@ -135,10 +136,13 @@ class ContentVideoCVCell: UICollectionViewCell {
                     self.audioPlayer?.play()
                     
                     //To Pause mp3 in background
-                    pauseAudio = {
+                    self.pauseVideoMp3 = {
                         DispatchQueue.main.async {
                             if let player = self.audioPlayer {
                                 player.pause()
+                                
+                                let seekTime: CMTime = CMTimeMake(value: 0, timescale: 1)
+                                player.seek(to: seekTime)
                             }
                         }
                     }
