@@ -374,10 +374,10 @@
                                             <outlet property="delegate" destination="TqC-JE-Eng" id="Kv6-41-7D3"/>
                                         </connections>
                                     </collectionView>
-                                    <button hidden="YES" opaque="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySF-jY-LFq">
-                                        <rect key="frame" x="12" y="249.5" width="15" height="25"/>
+                                    <button hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ySF-jY-LFq">
+                                        <rect key="frame" x="12" y="249.5" width="25" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="15" id="5or-D3-RaS"/>
+                                            <constraint firstAttribute="width" constant="25" id="5or-D3-RaS"/>
                                             <constraint firstAttribute="height" constant="25" id="8Jr-Cd-OX5"/>
                                         </constraints>
                                         <connections>
@@ -385,10 +385,10 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9a-WQ-b9R">
-                                        <rect key="frame" x="290" y="249.5" width="15" height="25"/>
+                                        <rect key="frame" x="280" y="249.5" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="Okq-Vv-7Jx"/>
-                                            <constraint firstAttribute="width" constant="15" id="isi-L6-ATa"/>
+                                            <constraint firstAttribute="width" constant="25" id="isi-L6-ATa"/>
                                         </constraints>
                                         <connections>
                                             <action selector="rightButtonPressed:" destination="TqC-JE-Eng" eventType="touchUpInside" id="E7A-CE-XLH"/>

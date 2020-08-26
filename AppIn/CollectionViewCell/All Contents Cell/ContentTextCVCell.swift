@@ -146,25 +146,41 @@ class ContentTextCVCell: UICollectionViewCell {
     var mp3URL : String? {
         didSet {
             if let audioFile = mp3URL {
-                OperationQueue.main.addOperation {
-                    self.audioPlayer = MPCacher.sharedInstance.getObjectForKey(audioFile) as? Player
+                //OperationQueue.main.addOperation {
+                
+                self.audioPlayer = MPCacher.sharedInstance.getObjectForKey(audioFile) as? Player
+                self.audioPlayer?.isMuted = true
+                self.audioPlayer?.volume = 0.0
+                self.audioPlayer?.play()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    // Change `2.0` to the desired number of seconds.
+                    // Code you want to be delayed
+                    
                     self.audioPlayer?.isMuted = false
                     self.audioPlayer?.volume = 0.5
-                    self.audioPlayer?.play()
-                    
-                    //To Pause mp3 in background
-                    self.pauseTextMp3 = {
-                        DispatchQueue.main.async {
-                            if let player = self.audioPlayer {
-                                player.pause()
-                                
-                                let seekTime: CMTime = CMTimeMake(value: 0, timescale: 1)
-                                player.seek(to: seekTime)
-                            }
-                        }
-                    }
-                    
                 }
+                
+                //self.audioPlayer = MPCacher.sharedInstance.getObjectForKey(audioFile) as? Player
+                //self.audioPlayer?.isMuted = false
+                //self.audioPlayer?.volume = 0.5
+                //self.audioPlayer?.play()
+                
+                //To Pause mp3 in background
+                self.pauseTextMp3 = {
+                    //DispatchQueue.main.async {
+                    if let player = self.audioPlayer {
+                        player.pause()
+                        
+                        self.pauseTextMp3 = nil
+                        
+                        let seekTime: CMTime = CMTimeMake(value: 0, timescale: 1)
+                        player.seek(to: seekTime)
+                    }
+                    //}
+                }
+                
+                //}
             }
         }
     }

@@ -100,7 +100,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
             print(result)
             
             if let sec = selectedSection {
-                
                 self.contentCollectionView.reloadData()
                 
                 self.contentCollectionView.scrollToItem(at: IndexPath.init(row: sec, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
@@ -134,7 +133,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
                     self.setupStatistics(contents)
                     self.handleContentButtons()
                     //self.contentCollectionView.reloadData()
-                    
                 })
             } else if let error = error {
                 Crashlytics.sharedInstance().recordError(error)
@@ -157,7 +155,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
                     self.setupStatistics(self.contents ?? [])
                     self.handleContentButtons()
                     self.contentCollectionView.reloadData()
-                    
                 })
             } else if let error = error {
                 Crashlytics.sharedInstance().recordError(error)
@@ -172,6 +169,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
         for cell in cells {
             if let cell = cell as? MultiPageCVCell {
+                cell.closeCell = false
                 cell.reset()
             }
         }
@@ -269,15 +267,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         selectedRaw = nil
         selectedSection = nil
         
-        //To Pause mp3 in background
-//        DispatchQueue.main.async {
-//            if let pause = pauseAudio {
-//                pause()
-//
-//                pauseAudio = nil
-//            }
-//        }
-        
         self.closeChannel()        
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -285,15 +274,6 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     @IBAction func againBackBtnClicked(_ sender: UIButton) {
         selectedRaw = nil
         selectedSection = nil
-        
-        //To Pause mp3 in background
-//        DispatchQueue.main.async {
-//            if let pause = pauseAudio {
-//                pause()
-//
-//                pauseAudio = nil
-//            }
-//        }
         
         self.closeChannel()
         _ = self.navigationController?.popViewController(animated: true)
@@ -402,7 +382,7 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
         
         if let cells = self.contentCollectionView.visibleCells as? [MultiPageCVCell] {
             for cell in cells {
-                cell.pauseMp3()
+                cell.reset()
             }
         }
         
