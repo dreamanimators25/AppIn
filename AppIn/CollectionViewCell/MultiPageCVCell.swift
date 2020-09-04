@@ -674,8 +674,8 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         
         let isIdentity = content?.pages[page].identity
         if let idin = isIdentity, let action = content?.pages[page].consumeAction {
-            print("connect = \(idin)")
-            print("connect1 = \(action)")
+            //print("connect = \(idin)")
+            //print("connect1 = \(action)")
          
             //To handle case of MultiLink & InAppLink
             

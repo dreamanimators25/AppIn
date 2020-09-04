@@ -59,7 +59,6 @@ class TabBarViewController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let indexOfTab = tabBar.items?.firstIndex(of: item)
-        print("pressed tabBar: \(String(describing: indexOfTab))")
     }
     
     // MARK: - Navigation

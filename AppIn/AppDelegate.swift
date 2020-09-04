@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var token: String?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        //sleep(3)
+        // sleep(3)
         // Override point for customization after application launch.
         
         UserManager.sharedInstance.currentAuthorizedUser { (user) in
