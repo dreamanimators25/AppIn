@@ -11,7 +11,7 @@ import UIKit
     
     //MARK: - Public properties -
     
-    @IBInspectable var imageColor: UIColor = .white{
+    @IBInspectable var imageColor: UIColor = .white {
         didSet {
             image = image?.imageWithColor(color1: imageColor)
         }

@@ -11,125 +11,115 @@ import FirebaseInstanceID
 
 class CreateAccountVC: UIViewController {
     
-    @IBOutlet weak var backBtn: UIButton!
-    @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var checkBoxBtn: UIButton!
     
-    @IBOutlet weak var txtFieldFirstName: UITextField!
-    @IBOutlet weak var txtFieldLastName: UITextField!
-    @IBOutlet weak var txtFieldCompanyName: UITextField!
-    @IBOutlet weak var txtFieldEmail: UITextField!
-    @IBOutlet weak var txtFieldPassword: UITextField!
-    @IBOutlet weak var txtFieldPasswordAgain: UITextField!
+    @IBOutlet weak var lblNameError: UILabel!
+    @IBOutlet weak var lblEmailError: UILabel!
+    @IBOutlet weak var lblVerifyEmailError: UILabel!
     
-    @IBOutlet weak var mainViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var firstViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var secondViewHeightConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var txtFieldName: UITextField!
+    @IBOutlet weak var txtFieldEmail: UITextField!
+    @IBOutlet weak var txtFieldVerifyEmail: UITextField!
+    
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var emailView: UIView!
+    @IBOutlet weak var verifyEmailView: UIView!
+    @IBOutlet weak var overlay: UIView!
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.SetCornerRadius()
-        
-        DispatchQueue.main.async {
-            self.mainViewHeightConstraint.constant = 305
-            self.secondViewHeightConstraint.constant = 0
-            
-            self.txtFieldEmail.isUserInteractionEnabled = false
-            self.txtFieldPassword.isUserInteractionEnabled = false
-            self.txtFieldPasswordAgain.isUserInteractionEnabled = false
-        }
-        
     }
     
-    //MARK: IBAction
-    @IBAction func backBtnClicked(_ sender: UIButton) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        if nextBtn.titleLabel?.text == "Next" {
-            _ = self.navigationController?.popViewController(animated: true)
-        }else {
-            DispatchQueue.main.async {
-                self.mainViewHeightConstraint.constant = 305
-                self.firstViewHeightConstraint.constant = 225
-                self.secondViewHeightConstraint.constant = 0
-                self.nextBtn.setTitle("Next", for: .normal)
-                
-                self.txtFieldFirstName.isUserInteractionEnabled = true
-                self.txtFieldLastName.isUserInteractionEnabled = true
-                self.txtFieldCompanyName.isUserInteractionEnabled = true
-                self.txtFieldEmail.isUserInteractionEnabled = false
-                self.txtFieldPassword.isUserInteractionEnabled = false
-                self.txtFieldPasswordAgain.isUserInteractionEnabled = false
-            }
+        NotificationCenter.default.addObserver(self, selector: #selector(CreateAccountVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    // MARK: Keyboard Notification methods
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if ((notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            
+            self.lblNameError.isHidden = true
+            self.lblEmailError.isHidden = true
+            self.lblVerifyEmailError.isHidden = true
+            
+            self.nameView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.emailView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.verifyEmailView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            
         }
-        
     }
 
     //MARK: IBAction
-    @IBAction func nextBtnClicked(_ sender: UIButton) {
+    @IBAction func loginBtnClicked(_ sender: UIButton) {
+        let vc = DesignManager.loadViewControllerFromMainStoryBoard(identifier: "LoginVC") as! LoginVC
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func tncBtnClicked(_ sender: UIButton) {
         
-        if sender.titleLabel?.text == "Next" {
-            
-            guard self.firstValidation() else {
-                return
-            }
-            
-            DispatchQueue.main.async {
-                self.mainViewHeightConstraint.constant = 505
-                self.firstViewHeightConstraint.constant = 0
-                self.secondViewHeightConstraint.constant = 425
-                sender.setTitle("DONE", for: .normal)
-                
-                self.txtFieldEmail.becomeFirstResponder()
-                
-                self.txtFieldFirstName.isUserInteractionEnabled = false
-                self.txtFieldLastName.isUserInteractionEnabled = false
-                self.txtFieldCompanyName.isUserInteractionEnabled = false
-                self.txtFieldEmail.isUserInteractionEnabled = true
-                self.txtFieldPassword.isUserInteractionEnabled = true
-                self.txtFieldPasswordAgain.isUserInteractionEnabled = true
-            }
+    }
+    
+    @IBAction func checkBoxBtnClicked(_ sender: UIButton) {
+        
+        if sender.isSelected {
+            self.checkBoxBtn.isSelected = !self.checkBoxBtn.isSelected
+            self.checkBoxBtn.setImage(#imageLiteral(resourceName: "checkBox_unselect"), for: .normal)
         }else {
-            
-            guard self.secondValidation() else {
-                return
-            }
-                        
-            var params = [String : String]()
-            params = ["first_name" : self.txtFieldFirstName.text!,
-                      "last_name" : self.txtFieldLastName.text!,
-                      "company_name" : self.txtFieldCompanyName.text!,
-                      "email" : self.txtFieldEmail.text!,
-                      "password" : self.txtFieldPassword.text!,
-                      "gender" : "unspecified"]
-            
-            print("parass = \(params)")
-            
-            UserManager.sharedInstance.registerWithUsername(params) { [weak self] (user, error, exist) in
+            self.checkBoxBtn.isSelected = !self.checkBoxBtn.isSelected
+            self.checkBoxBtn.setImage(#imageLiteral(resourceName: "checkBox_select"), for: .normal)
+        }
+    }
+    
+    @IBAction func registerBtnClicked(_ sender: UIButton) {
+        
+        guard self.Validation() else {
+            return
+        }
+        
+        self.overlay.isHidden = false
                 
-                guard let self = self else { return }
-                
-                if error != nil {
+        var params = [String : String]()
+        params = ["first_name" : self.txtFieldName.text!,
+                  //"last_name" : self.txtFieldLastName.text!,
+                  //"company_name" : self.txtFieldCompanyName.text!,
+                  "email" : self.txtFieldEmail.text!,
+                  //"password" : self.txtFieldPassword.text!,
+                  "gender" : "unspecified"]
+        
+        print("params = \(params)")
+        
+        UserManager.sharedInstance.registerWithUsername(params) { [weak self] (user, error, exist) in
+            
+            self?.overlay.isHidden = true
+            
+            guard let self = self else { return }
+            
+            if error != nil {
+                self.showErr(str: "Server error")
+            } else if exist {
+                self.showErr(str: "Email address already in use")
+            } else {
+                if user == nil {
                     self.showErr(str: "Server error")
-                } else if exist {
-                    self.showErr(str: "Email address already in use")
                 } else {
-                    if user == nil {
-                        self.showErr(str: "Server error")
-                    } else {
-                        AppDelegate.userId = user?.id
-                        
-                        self.updatePushToken()
-                        
-                        DispatchQueue.main.async(execute: {
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                appDelegate.navigateToDashboardScreen()
-                            }
-                        })
-                        
-                    }
+                    AppDelegate.userId = user?.id
+                    
+                    self.updatePushToken()
+                    
+                    DispatchQueue.main.async(execute: {
+                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                            appDelegate.navigateToDashboardScreen()
+                        }
+                    })
+                    
                 }
-                
             }
             
         }
@@ -158,65 +148,55 @@ class CreateAccountVC: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func checkBoxBtnClicked(_ sender: UIButton) {
-        
-        if sender.isSelected {
-            self.checkBoxBtn.isSelected = !self.checkBoxBtn.isSelected
-            self.checkBoxBtn.setImage(#imageLiteral(resourceName: "checkBox_unselect"), for: .normal)
-        }else {
-            self.checkBoxBtn.isSelected = !self.checkBoxBtn.isSelected
-            self.checkBoxBtn.setImage(#imageLiteral(resourceName: "checkBox_select"), for: .normal)
-        }
-        
-    }
-    
     //MARK: Custom Methods
-    func SetCornerRadius() {
-        self.backBtn.layer.cornerRadius = btnCornerRadius
-        self.nextBtn.layer.cornerRadius = btnCornerRadius
-    }
-    
-    func firstValidation() -> Bool {
+    func Validation() -> Bool {
         
-        if txtFieldFirstName.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter First Name", Onview: self)
+        self.view.endEditing(true)
+        
+        if txtFieldName.text!.isEmpty {
+            //Alert.showAlert(strTitle: "", strMessage: "Please Enter Name", Onview: self)
+            
+            self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblNameError.text = "Please Enter Name"
+            self.lblNameError.isHidden = false
             return false
         }
-        else if txtFieldLastName.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Last Name", Onview: self)
-            return false
-        }
-        else if txtFieldCompanyName.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Company Name", Onview: self)
-            return false
-        }
-        
-        return true
-    }
-    
-    func secondValidation() -> Bool {
-        
-        if txtFieldEmail.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
+        else if txtFieldEmail.text!.isEmpty {
+            //Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
+            
+            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblEmailError.text = "Please Enter E-mail Address"
+            self.lblEmailError.isHidden = false
             return false
         }
         else if(!Alert.isValidEmail(testStr: txtFieldEmail.text!)) {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Valid E-mail Address", Onview: self)
+            //Alert.showAlert(strTitle: "", strMessage: "Please Enter Valid E-mail Address", Onview: self)
+            
+            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblEmailError.text = "Please Enter Valid E-mail Address"
+            self.lblEmailError.isHidden = false
             return false
         }
-        else if txtFieldPassword.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Password", Onview: self)
+        else if txtFieldVerifyEmail.text!.isEmpty {
+            //Alert.showAlert(strTitle: "", strMessage: "Please Verify E-mail Address", Onview: self)
+            
+            self.verifyEmailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblVerifyEmailError.text = "Please Verify E-mail Address"
+            self.lblVerifyEmailError.isHidden = false
             return false
         }
-        else if txtFieldPasswordAgain.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Confirm Password", Onview: self)
-            return false
-        }
-        else if txtFieldPassword.text != txtFieldPasswordAgain.text {
-            Alert.showAlert(strTitle: "", strMessage: "Password Doesn't Match!", Onview: self)
+        else if txtFieldEmail.text != txtFieldVerifyEmail.text {
+            //Alert.showAlert(strTitle: "", strMessage: "E-mail Address Doesn't Match!", Onview: self)
+            
+            self.verifyEmailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblVerifyEmailError.text = "E-mail Address Doesn't Match!"
+            self.lblVerifyEmailError.isHidden = false
             return false
         }else if !self.checkBoxBtn.isSelected {
-            Alert.showAlert(strTitle: "", strMessage: "You Need To Agree With The License To Continue", Onview: self)
+            Alert.showAlert(strTitle: "", strMessage: "You Need To Agree With The Terms & Conditions", Onview: self)
+            
+            //self.lblNameError.text = "You Need To Agree With The Terms & Conditions"
+            //self.lblNameError.isHidden = false
             return false
         }
         

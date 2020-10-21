@@ -32,6 +32,8 @@
 		<string>roboto_bold.ttf</string>
 		<string>roboto_medium.ttf</string>
 		<string>rubik_medium.ttf</string>
+		<string>CircularStd-Bold.ttf</string>
+		<string>CircularStd-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

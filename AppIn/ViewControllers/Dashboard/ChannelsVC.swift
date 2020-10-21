@@ -1,5 +1,5 @@
 //
-//  HomeVC.swift
+//  ChannelsVC.swift
 //  AppIn
 //
 //  Created by sameer khan on 21/06/20.
@@ -11,10 +11,14 @@ import Crashlytics
 
 var enableTabBarItems : ((_ cod : String) -> (Void))?
 
-class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
-    @IBOutlet weak var latestContentCollectionView: UICollectionView!
-    @IBOutlet weak var myChannelCollectionView: UICollectionView!
+    @IBOutlet weak var channelTableView: UITableView!
+    @IBOutlet weak var ErrorView: UIView!
+    
+    var arrRows = ["SAS","Uber","Air bnb"]
+    
+    var arrSelectedSection = [Int]()
     
     fileprivate let user = UserManager.sharedInstance.user
     fileprivate var ambassadorships: [Ambassadorship] = []
@@ -27,7 +31,7 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.getAmbassadorshipsForUser()
+        //self.getAmbassadorshipsForUser()
         
         enableTabBarItems = { code in
             if let items = self.tabBarController?.tabBar.items {
@@ -53,12 +57,10 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
                 self.ambassadorships = ambassadorships
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.myChannelCollectionView.reloadData()
-                    self.latestContentCollectionView.reloadData()
+                    
                 }
                 
                 guard !ambassadorships.isEmpty else { return }
-    
                 
             } else if let error = error {
                 Crashlytics.sharedInstance().recordError(error)
@@ -82,8 +84,7 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
                 self.ambassadorships.append(ambassadorship)
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    self.myChannelCollectionView.reloadData()
-                    self.latestContentCollectionView.reloadData()
+
                 }
                       
             } else {
@@ -97,10 +98,11 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
     
     //MARK: IBAction
     @IBAction func searchBtnClicked(_ sender: UIButton) {
-        
+        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "SearchChannelVC") as! SearchChannelVC
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @IBAction func addBtnClicked(_ sender: UIButton) {
+    @IBAction func addChannelBtnClicked(_ sender: UIButton) {
         
         DispatchQueue.main.async {
             let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "AddChannelPopUpVC") as! AddChannelPopUpVC
@@ -117,76 +119,82 @@ class HomeVC: UIViewController,UICollectionViewDataSource,UICollectionViewDelega
         
     }
     
-    //MARK: UICollectionView DataSource & Delegates
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    //MARK: UITableView DataSource & Delegates
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.arrRows.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if collectionView == self.latestContentCollectionView {
-            return ambassadorships.count
-        }else {
-            return ambassadorships.count
+        if arrSelectedSection.contains(section) {
+            return 2
         }
-        
+        return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if collectionView == self.latestContentCollectionView {
-            let contentCell = collectionView.dequeueReusableCell(withReuseIdentifier: "contentCell", for: indexPath) as! LatestContentCVCell
+        let channelCell = tableView.dequeueReusableCell(withIdentifier: "channelCell", for: indexPath)
+        //let seperatorLbl : UILabel = channelCell.viewWithTag(30) as! UILabel
+        
+        return channelCell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let baseView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.view.bounds.width, height: 60.0))
+        
+        let headImgView = UIImageView.init(frame: CGRect.init(x: 15.0, y: 5.0, width: 50.0, height: 50.0))
+        headImgView.image = #imageLiteral(resourceName: "headSas")
+        
+        let titleLbl = UILabel.init(frame: CGRect.init(x: 80.0, y: 21.0, width: baseView.bounds.width - 90.0, height: 17.5))
+        titleLbl.text = self.arrRows[section]
+        
+        let arrowImgView = UIImageView.init(frame: CGRect.init(x: baseView.bounds.width - 30.0, y: 24.5, width: 15.0, height: 10.0))
+        arrowImgView.contentMode = .center
+        arrowImgView.image = #imageLiteral(resourceName: "upArrow")
+        
+        let sepratLbl = UILabel.init(frame: CGRect.init(x: 15.0, y: 60.0, width: baseView.bounds.width - 30.0, height: 1.0))
+        sepratLbl.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
+        
+        baseView.addSubview(headImgView)
+        baseView.addSubview(titleLbl)
+        baseView.addSubview(arrowImgView)
+        baseView.addSubview(sepratLbl)
+        
+        baseView.tag = section
+        
+        let headerTapGesture = UITapGestureRecognizer()
+        headerTapGesture.addTarget(self, action: #selector(headerTapped(_:)))
+        baseView.addGestureRecognizer(headerTapGesture)
+        
+        return baseView
+    }
+    
+    @objc func headerTapped(_ sender: UITapGestureRecognizer) {
+        
+        if self.arrSelectedSection.contains(sender.view?.tag ?? -1) {
             
-            let item = ambassadorships[indexPath.row]
-            
-            if let url = URL(string: item.brand.logotypeUrl) {
-                contentCell.contentImageView.af_setImage(withURL: url)
-                contentCell.contentImageView.backgroundColor = Color.backgroundColorFadedDark()
-            } else {
-                contentCell.contentImageView.backgroundColor = Color.backgroundColorFadedDark()
+            if let index = self.arrSelectedSection.firstIndex(of: (sender.view?.tag ?? -1)) {
+                self.arrSelectedSection.remove(at: index)
             }
-                        
-            return contentCell
+            
         }else {
-            let channelCell = collectionView.dequeueReusableCell(withReuseIdentifier: "channelCell", for: indexPath) as! MyChannelCVCell
-            
-            let item = ambassadorships[indexPath.row]
-            
-            if let url = URL(string: item.brand.logotypeUrl) {
-                channelCell.channelImageView.af_setImage(withURL: url)
-                channelCell.channelImageView.backgroundColor = Color.backgroundColorFadedDark()
-            } else {
-                channelCell.channelImageView.backgroundColor = Color.backgroundColorFadedDark()
-            }
-            
-            channelCell.channelNameLbl.text = item.brand.name
-            
-            return channelCell
+            self.arrSelectedSection.append(sender.view?.tag ?? -1)
         }
+        
+        self.channelTableView.reloadData()
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard collectionView == self.myChannelCollectionView else {
-            return
-        }
-        
-        let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "ContentVC") as! ContentVC
-        let item = ambassadorships[indexPath.row]
-        vc.strTitle = item.brand.name
-        vc.ambassadorship = ambassadorships[indexPath.row]
-        vc.user = user
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        if collectionView == self.latestContentCollectionView {
-            return CGSize.init(width: 60.0, height: 60.0)
-        }else {
-            return CGSize(width: self.myChannelCollectionView.frame.size.width/3 - 10, height: self.myChannelCollectionView.frame.size.width/2.1 - 10)
-        }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
     }
 

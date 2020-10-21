@@ -36,12 +36,19 @@
 		59165CC224CEDB6B004389D2 /* ContentYoutubeCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59165CC024CEDB6B004389D2 /* ContentYoutubeCVCell.xib */; };
 		59165CC524CEDB8B004389D2 /* ContentVimeoCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59165CC324CEDB8B004389D2 /* ContentVimeoCVCell.swift */; };
 		59165CC624CEDB8B004389D2 /* ContentVimeoCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59165CC424CEDB8B004389D2 /* ContentVimeoCVCell.xib */; };
+		591F582D253C3BD4006AC73C /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591F582C253C3BD4006AC73C /* NotificationVC.swift */; };
 		59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59233C4524CDAE42009BBB8B /* ContentMusic.swift */; };
+		59240B9C253EBE340099DE3D /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59240B9A253EBE320099DE3D /* CircularStd-Bold.ttf */; };
+		59240B9D253EBE340099DE3D /* CircularStd-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59240B9B253EBE330099DE3D /* CircularStd-Regular.ttf */; };
+		592DC4F4253F2BBC00779130 /* SearchChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
 		5965181A24A6643600264AE1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* ProfileVC.swift */; };
 		5965181B24A6643600264AE1 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181724A6643500264AE1 /* SettingsVC.swift */; };
-		5965181C24A6643600264AE1 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181824A6643500264AE1 /* HomeVC.swift */; };
+		5965181C24A6643600264AE1 /* ChannelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181824A6643500264AE1 /* ChannelsVC.swift */; };
 		5965181D24A6643600264AE1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181924A6643600264AE1 /* TabBarViewController.swift */; };
+		5965749E2537065D00FD9822 /* IntroSplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965749D2537065D00FD9822 /* IntroSplashVC.swift */; };
+		596574A025370FC400FD9822 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965749F25370FC400FD9822 /* RoundButton.swift */; };
+		597EBD4A2540A80A0080B1F0 /* ChangePWPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */; };
 		5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */; };
 		5997A1BD24A12C330091AC4A /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5997A1BC24A12C330091AC4A /* EditProfileVC.swift */; };
 		59991FD124B33DAC00E76898 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59991FCB24B33DAC00E76898 /* Player.swift */; };
@@ -205,12 +212,19 @@
 		59165CC024CEDB6B004389D2 /* ContentYoutubeCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentYoutubeCVCell.xib; sourceTree = "<group>"; };
 		59165CC324CEDB8B004389D2 /* ContentVimeoCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVimeoCVCell.swift; sourceTree = "<group>"; };
 		59165CC424CEDB8B004389D2 /* ContentVimeoCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentVimeoCVCell.xib; sourceTree = "<group>"; };
+		591F582C253C3BD4006AC73C /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		59233C4524CDAE42009BBB8B /* ContentMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMusic.swift; sourceTree = "<group>"; };
+		59240B9A253EBE320099DE3D /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
+		59240B9B253EBE330099DE3D /* CircularStd-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Regular.ttf"; sourceTree = "<group>"; };
+		592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChannelVC.swift; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		5965181624A6643500264AE1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		5965181724A6643500264AE1 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		5965181824A6643500264AE1 /* HomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		5965181824A6643500264AE1 /* ChannelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsVC.swift; sourceTree = "<group>"; };
 		5965181924A6643600264AE1 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		5965749D2537065D00FD9822 /* IntroSplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroSplashVC.swift; sourceTree = "<group>"; };
+		5965749F25370FC400FD9822 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWPopUpVC.swift; sourceTree = "<group>"; };
 		5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelPopUpVC.swift; sourceTree = "<group>"; };
 		5997A1BC24A12C330091AC4A /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		59991FCB24B33DAC00E76898 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -412,6 +426,7 @@
 				590E6627249CCBE2001443BF /* Alert.swift */,
 				590E662A249CCE3A001443BF /* AppConstant.swift */,
 				590AC07B24AB4CC60074572D /* Extensions.swift */,
+				5965749F25370FC400FD9822 /* RoundButton.swift */,
 			);
 			path = UtilityClasses;
 			sourceTree = "<group>";
@@ -447,8 +462,9 @@
 		5965181524A6643500264AE1 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				5965181824A6643500264AE1 /* HomeVC.swift */,
+				5965181824A6643500264AE1 /* ChannelsVC.swift */,
 				5965181624A6643500264AE1 /* ProfileVC.swift */,
+				591F582C253C3BD4006AC73C /* NotificationVC.swift */,
 				5965181724A6643500264AE1 /* SettingsVC.swift */,
 				5965181924A6643600264AE1 /* TabBarViewController.swift */,
 			);
@@ -673,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				59DDC65824962CDF007D1A51 /* WalkThroughVC.swift */,
+				5965749D2537065D00FD9822 /* IntroSplashVC.swift */,
 				59DDC68D24963C9E007D1A51 /* LoginVC.swift */,
 				5905163B2496954A00092E98 /* CreateAccountVC.swift */,
 				590FD4A724A26EB7000C71E1 /* ForgotPasswordVC.swift */,
@@ -685,8 +702,10 @@
 			children = (
 				590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */,
 				5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */,
+				592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */,
 				5997A1BC24A12C330091AC4A /* EditProfileVC.swift */,
 				5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */,
+				597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */,
 				59EF508624AA561E00B9F44A /* ProfileChangePopVC.swift */,
 			);
 			path = OtherVC;
@@ -695,6 +714,8 @@
 		59A8483B249E402E00734157 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				59240B9A253EBE320099DE3D /* CircularStd-Bold.ttf */,
+				59240B9B253EBE330099DE3D /* CircularStd-Regular.ttf */,
 				59A8483C249E402E00734157 /* roboto_medium.ttf */,
 				59A8483D249E402E00734157 /* roboto_bold.ttf */,
 				59A8483E249E402E00734157 /* rubik_medium.ttf */,
@@ -932,11 +953,13 @@
 				59DDC65C24962CDF007D1A51 /* Main.storyboard in Resources */,
 				5999208E24B33E7F00E76898 /* promo.mp4 in Resources */,
 				59A84834249E26AA00734157 /* Dashboard.storyboard in Resources */,
+				59240B9D253EBE340099DE3D /* CircularStd-Regular.ttf in Resources */,
 				5905097824A89029008BF45F /* Content.storyboard in Resources */,
 				59165CC624CEDB8B004389D2 /* ContentVimeoCVCell.xib in Resources */,
 				59165CC224CEDB6B004389D2 /* ContentYoutubeCVCell.xib in Resources */,
 				59A84840249E402E00734157 /* roboto_bold.ttf in Resources */,
 				59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */,
+				59240B9C253EBE340099DE3D /* CircularStd-Bold.ttf in Resources */,
 				59146C3224C996BA007F91E8 /* ContentImageCVCell.xib in Resources */,
 				59A8483F249E402E00734157 /* roboto_medium.ttf in Resources */,
 				59146C3624C996D8007F91E8 /* ContentTextCVCell.xib in Resources */,
@@ -1011,10 +1034,12 @@
 				59146C3524C996D8007F91E8 /* ContentTextCVCell.swift in Sources */,
 				5999208324B33DC900E76898 /* Button.swift in Sources */,
 				5999205E24B33DC900E76898 /* Brand.swift in Sources */,
+				592DC4F4253F2BBC00779130 /* SearchChannelVC.swift in Sources */,
 				5999204F24B33DC900E76898 /* Connection.swift in Sources */,
 				590ABAFB249F76830053BCC7 /* MyChannelCVCell.swift in Sources */,
 				5999203624B33DC900E76898 /* ContentManager.swift in Sources */,
 				5999207024B33DC900E76898 /* HexagonalImageView.swift in Sources */,
+				597EBD4A2540A80A0080B1F0 /* ChangePWPopUpVC.swift in Sources */,
 				590ABAF9249F749B0053BCC7 /* LatestContentCVCell.swift in Sources */,
 				59DDC65924962CDF007D1A51 /* WalkThroughVC.swift in Sources */,
 				5999208124B33DC900E76898 /* Font.swift in Sources */,
@@ -1029,6 +1054,7 @@
 				59DDC6992496404F007D1A51 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				5905097D24A89663008BF45F /* ContentTVCell.swift in Sources */,
 				59DDC65524962CDF007D1A51 /* AppDelegate.swift in Sources */,
+				596574A025370FC400FD9822 /* RoundButton.swift in Sources */,
 				5999205924B33DC900E76898 /* MPCacher.swift in Sources */,
 				5999204B24B33DC900E76898 /* RewardPage.swift in Sources */,
 				5999203B24B33DC900E76898 /* Keychain.swift in Sources */,
@@ -1041,7 +1067,8 @@
 				5999205C24B33DC900E76898 /* Inbox.swift in Sources */,
 				5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */,
 				5999207624B33DC900E76898 /* Definitions.swift in Sources */,
-				5965181C24A6643600264AE1 /* HomeVC.swift in Sources */,
+				5965181C24A6643600264AE1 /* ChannelsVC.swift in Sources */,
+				591F582D253C3BD4006AC73C /* NotificationVC.swift in Sources */,
 				5999204C24B33DC900E76898 /* RewardPageComponent.swift in Sources */,
 				5999207B24B33DC900E76898 /* TableView.swift in Sources */,
 				5999205F24B33DC900E76898 /* AmbassadorStatistic.swift in Sources */,
@@ -1052,6 +1079,7 @@
 				5999204D24B33DC900E76898 /* RewardPageBackground.swift in Sources */,
 				5999206624B33DC900E76898 /* String+Extensions.swift in Sources */,
 				59DDC68E24963C9E007D1A51 /* LoginVC.swift in Sources */,
+				5965749E2537065D00FD9822 /* IntroSplashVC.swift in Sources */,
 				59DDC69B2496404F007D1A51 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				5965181D24A6643600264AE1 /* TabBarViewController.swift in Sources */,
 				5999205724B33DC900E76898 /* ContentConsumeData.swift in Sources */,

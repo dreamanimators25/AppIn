@@ -17,7 +17,7 @@ class ThirdPV: UIViewController {
 
     //MARK: IBAction
     @IBAction func getStartedOnboarding(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromMainStoryBoard(identifier: "LoginVC") as! LoginVC
+        let vc = DesignManager.loadViewControllerFromMainStoryBoard(identifier: "IntroSplashVC") as! IntroSplashVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
