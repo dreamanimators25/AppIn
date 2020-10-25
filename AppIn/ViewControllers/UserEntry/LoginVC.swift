@@ -78,7 +78,7 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func forgotBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "ForgotPasswordVC") as! ForgotPasswordVC
+        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "ForgotPasswordVC") as! ForgotPasswordVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -1,0 +1,137 @@
+//
+//  ChangePasswordVC.swift
+//  AppIn
+//
+//  Created by sameer khan on 23/06/20.
+//  Copyright © 2020 Sameer khan. All rights reserved.
+//
+
+import UIKit
+
+class ChangePasswordVC: UIViewController {
+    
+    @IBOutlet weak var txtFCurrentPassword: UITextField!
+    @IBOutlet weak var txtFNewPassword: UITextField!
+    @IBOutlet weak var txtFRepeatPassword: UITextField!
+    
+    @IBOutlet weak var lblCurrentPwError: UILabel!
+    @IBOutlet weak var lblNewPwError: UILabel!
+    @IBOutlet weak var lblRepeatPwError: UILabel!
+    @IBOutlet weak var currentPwView: UIView!
+    @IBOutlet weak var newPwView: UIView!
+    @IBOutlet weak var repeatPwView: UIView!
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ChangePasswordVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    // MARK: Keyboard Notification methods
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if ((notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            
+            self.lblCurrentPwError.isHidden = true
+            self.lblNewPwError.isHidden = true
+            self.lblRepeatPwError.isHidden = true
+           
+            self.currentPwView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.newPwView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.repeatPwView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        }
+    }
+    
+    //MARK: IBAction
+    @IBAction func backBtnClicked(_ sender: UIButton) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func saveBtnClicked(_ sender: UIButton) {
+        
+        /*
+        DispatchQueue.main.async {
+            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "ChangePWPopUpVC") as! ChangePWPopUpVC
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+        return
+        */
+        
+        self.view.endEditing(true)
+        
+        if txtFCurrentPassword.text!.isEmpty {
+            //Alert.showAlert(strTitle: "", strMessage: "Please Enter Old Password", Onview: self)
+            
+            self.currentPwView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblCurrentPwError.text = "Please Enter Current Password"
+            self.lblCurrentPwError.isHidden = false
+        }else if txtFNewPassword.text!.isEmpty {
+            //Alert.showAlert(strTitle: "", strMessage: "Please Enter New Password", Onview: self)
+            
+            self.newPwView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblNewPwError.text = "Please Enter New Password"
+            self.lblNewPwError.isHidden = false
+        }
+        else if txtFRepeatPassword.text!.isEmpty {
+            //Alert.showAlert(strTitle: "", strMessage: "Please Enter Confirm Password", Onview: self)
+            
+            self.repeatPwView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblRepeatPwError.text = "Please Enter Confirm Password"
+            self.lblRepeatPwError.isHidden = false
+        }
+        else if txtFNewPassword.text != txtFRepeatPassword.text {
+            //Alert.showAlert(strTitle: "", strMessage: "Password Doesn't Match!", Onview: self)
+            
+            self.repeatPwView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblRepeatPwError.text = "Password Doesn't Match!"
+            self.lblRepeatPwError.isHidden = false
+        }
+        else {
+            
+            UserManager.sharedInstance.changePsw(txtFCurrentPassword.text!, txtFNewPassword.text!, onSuccess: {
+                
+                self.txtFCurrentPassword.text = ""
+                self.txtFNewPassword.text = ""
+                self.txtFRepeatPassword.text = ""
+                
+                Alert.showAlert(strTitle: "", strMessage: "Password has been successfully changed", Onview: self)
+                
+            }, onError: {
+                Alert.showAlert(strTitle: "Error", strMessage: "Wrong old password", Onview: self)
+            })
+            
+        }
+        
+    }
+    
+    //MARK: Custom Methods
+
+
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+
+}

@@ -127,7 +127,7 @@ class CreateAccountVC: UIViewController {
     }
     
     @IBAction func userAgreementBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
+        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - User Agreement"
         vc.loadableUrlStr = "http://www.jokk.app/agreementsv"
         //vc.loadableUrlStr = "http://haldidhana.com/chinabasin.html"
@@ -135,14 +135,14 @@ class CreateAccountVC: UIViewController {
     }
     
     @IBAction func privacyPolicyBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
+        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - Privacy Policy"
         vc.loadableUrlStr = "http://www.jokk.app/privacysv"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func GDPRAgreementBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "WebViewVC") as! WebViewVC
+        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - GDPR"
         vc.loadableUrlStr = "http://www.jokk.app/gdprsv"
         self.navigationController?.pushViewController(vc, animated: true)

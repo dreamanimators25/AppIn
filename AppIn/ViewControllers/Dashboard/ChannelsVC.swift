@@ -98,14 +98,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: IBAction
     @IBAction func searchBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "SearchChannelVC") as! SearchChannelVC
+        let vc = DesignManager.loadViewControllerFromChannelStoryBoard(identifier: "SearchChannelVC") as! SearchChannelVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func addChannelBtnClicked(_ sender: UIButton) {
         
         DispatchQueue.main.async {
-            let vc = DesignManager.loadViewControllerFromWebStoryBoard(identifier: "AddChannelPopUpVC") as! AddChannelPopUpVC
+            let vc = DesignManager.loadViewControllerFromChannelStoryBoard(identifier: "AddChannelPopUpVC") as! AddChannelPopUpVC
             vc.modalPresentationStyle = .overCurrentContext
             vc.modalTransitionStyle = .crossDissolve
             

@@ -26,6 +26,8 @@ class ForgotPasswordVC: UIViewController {
     
     @IBAction func submitBtnClicked(_ sender: UIButton) {
         
+        self.view.endEditing(true)
+        
         if txtFEmail.text!.isEmpty {
             Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
         }

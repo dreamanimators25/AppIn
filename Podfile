@@ -31,4 +31,6 @@ target 'AppIn' do
   pod 'HCVimeoVideoExtractor'
   pod 'SwiftyJSON'
 
+  pod 'DropDown'
+  
 end

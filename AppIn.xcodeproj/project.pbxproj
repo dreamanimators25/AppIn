@@ -15,10 +15,15 @@
 		5905098124A8B1CB008BF45F /* ShowContentsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905098024A8B1CB008BF45F /* ShowContentsVC.swift */; };
 		5905098324A8BBEA008BF45F /* MultiPageCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */; };
 		5905163C2496954A00092E98 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905163B2496954A00092E98 /* CreateAccountVC.swift */; };
+		590957D72544129E0014E5E2 /* MyChannelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590957D62544129E0014E5E2 /* MyChannelsVC.swift */; };
+		590957D9254413DB0014E5E2 /* EditBiographyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590957D8254413DB0014E5E2 /* EditBiographyVC.swift */; };
+		590957DB254418850014E5E2 /* Channel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 590957DA254418850014E5E2 /* Channel.storyboard */; };
+		590957DE254426C70014E5E2 /* DeleteAcPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */; };
+		590957E02544521D0014E5E2 /* MyChannelTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590957DF2544521D0014E5E2 /* MyChannelTVCell.swift */; };
 		590ABAF9249F749B0053BCC7 /* LatestContentCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAF8249F749B0053BCC7 /* LatestContentCVCell.swift */; };
 		590ABAFB249F76830053BCC7 /* MyChannelCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */; };
 		590ABAFD249FC3E00053BCC7 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */; };
-		590ABAFF249FC4DF0053BCC7 /* Web.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 590ABAFE249FC4DF0053BCC7 /* Web.storyboard */; };
+		590ABAFF249FC4DF0053BCC7 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 590ABAFE249FC4DF0053BCC7 /* Setting.storyboard */; };
 		590AC07C24AB4CC60074572D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590AC07B24AB4CC60074572D /* Extensions.swift */; };
 		590E6628249CCBE3001443BF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E6627249CCBE2001443BF /* Alert.swift */; };
 		590E662B249CCE3A001443BF /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E662A249CCE3A001443BF /* AppConstant.swift */; };
@@ -40,9 +45,10 @@
 		59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59233C4524CDAE42009BBB8B /* ContentMusic.swift */; };
 		59240B9C253EBE340099DE3D /* CircularStd-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59240B9A253EBE320099DE3D /* CircularStd-Bold.ttf */; };
 		59240B9D253EBE340099DE3D /* CircularStd-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59240B9B253EBE330099DE3D /* CircularStd-Regular.ttf */; };
+		5928535C25418B0700557420 /* InviteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5928535B25418B0700557420 /* InviteVC.swift */; };
 		592DC4F4253F2BBC00779130 /* SearchChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
-		5965181A24A6643600264AE1 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* ProfileVC.swift */; };
+		5965181A24A6643600264AE1 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* FeedVC.swift */; };
 		5965181B24A6643600264AE1 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181724A6643500264AE1 /* SettingsVC.swift */; };
 		5965181C24A6643600264AE1 /* ChannelsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181824A6643500264AE1 /* ChannelsVC.swift */; };
 		5965181D24A6643600264AE1 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181924A6643600264AE1 /* TabBarViewController.swift */; };
@@ -163,7 +169,6 @@
 		59DDC6992496404F007D1A51 /* TPKeyboardAvoidingCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DDC6932496404F007D1A51 /* TPKeyboardAvoidingCollectionView.m */; };
 		59DDC69A2496404F007D1A51 /* TPKeyboardAvoidingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DDC6962496404F007D1A51 /* TPKeyboardAvoidingTableView.m */; };
 		59DDC69B2496404F007D1A51 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 59DDC6972496404F007D1A51 /* TPKeyboardAvoidingScrollView.m */; };
-		59EF508724AA561E00B9F44A /* ProfileChangePopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59EF508624AA561E00B9F44A /* ProfileChangePopVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -191,10 +196,15 @@
 		5905098024A8B1CB008BF45F /* ShowContentsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowContentsVC.swift; sourceTree = "<group>"; };
 		5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPageCVCell.swift; sourceTree = "<group>"; };
 		5905163B2496954A00092E98 /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
+		590957D62544129E0014E5E2 /* MyChannelsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelsVC.swift; sourceTree = "<group>"; };
+		590957D8254413DB0014E5E2 /* EditBiographyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBiographyVC.swift; sourceTree = "<group>"; };
+		590957DA254418850014E5E2 /* Channel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Channel.storyboard; sourceTree = "<group>"; };
+		590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcPopUpVC.swift; sourceTree = "<group>"; };
+		590957DF2544521D0014E5E2 /* MyChannelTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelTVCell.swift; sourceTree = "<group>"; };
 		590ABAF8249F749B0053BCC7 /* LatestContentCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestContentCVCell.swift; sourceTree = "<group>"; };
 		590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelCVCell.swift; sourceTree = "<group>"; };
 		590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
-		590ABAFE249FC4DF0053BCC7 /* Web.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Web.storyboard; sourceTree = "<group>"; };
+		590ABAFE249FC4DF0053BCC7 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		590AC07B24AB4CC60074572D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		590E6627249CCBE2001443BF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		590E662A249CCE3A001443BF /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
@@ -216,9 +226,10 @@
 		59233C4524CDAE42009BBB8B /* ContentMusic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentMusic.swift; sourceTree = "<group>"; };
 		59240B9A253EBE320099DE3D /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		59240B9B253EBE330099DE3D /* CircularStd-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Regular.ttf"; sourceTree = "<group>"; };
+		5928535B25418B0700557420 /* InviteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVC.swift; sourceTree = "<group>"; };
 		592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChannelVC.swift; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
-		5965181624A6643500264AE1 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		5965181624A6643500264AE1 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		5965181724A6643500264AE1 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		5965181824A6643500264AE1 /* ChannelsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsVC.swift; sourceTree = "<group>"; };
 		5965181924A6643600264AE1 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -350,7 +361,6 @@
 		59DDC6952496404F007D1A51 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		59DDC6962496404F007D1A51 /* TPKeyboardAvoidingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingTableView.m; sourceTree = "<group>"; };
 		59DDC6972496404F007D1A51 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
-		59EF508624AA561E00B9F44A /* ProfileChangePopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileChangePopVC.swift; sourceTree = "<group>"; };
 		66CD39ECACD7478B4D067F80 /* Pods-AppIn.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppIn.release.xcconfig"; path = "Target Support Files/Pods-AppIn/Pods-AppIn.release.xcconfig"; sourceTree = "<group>"; };
 		97705B021B410056DB189655 /* Pods_AppIn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AppIn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A17568E9B638A56A5466F1 /* Pods-AppIn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppIn.debug.xcconfig"; path = "Target Support Files/Pods-AppIn/Pods-AppIn.debug.xcconfig"; sourceTree = "<group>"; };
@@ -391,11 +401,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		5905097924A89079008BF45F /* Channel */ = {
+		5905097924A89079008BF45F /* Content */ = {
 			isa = PBXGroup;
 			children = (
 				5905097A24A890BC008BF45F /* ContentVC.swift */,
 				5905098024A8B1CB008BF45F /* ShowContentsVC.swift */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		590957DC2544264F0014E5E2 /* Channel */ = {
+			isa = PBXGroup;
+			children = (
+				592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */,
+				5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */,
 			);
 			path = Channel;
 			sourceTree = "<group>";
@@ -416,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				5905097C24A89663008BF45F /* ContentTVCell.swift */,
+				590957DF2544521D0014E5E2 /* MyChannelTVCell.swift */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -463,7 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				5965181824A6643500264AE1 /* ChannelsVC.swift */,
-				5965181624A6643500264AE1 /* ProfileVC.swift */,
+				5965181624A6643500264AE1 /* FeedVC.swift */,
 				591F582C253C3BD4006AC73C /* NotificationVC.swift */,
 				5965181724A6643500264AE1 /* SettingsVC.swift */,
 				5965181924A6643600264AE1 /* TabBarViewController.swift */,
@@ -679,7 +699,8 @@
 			children = (
 				59DDC65A24962CDF007D1A51 /* Main.storyboard */,
 				59A84833249E26AA00734157 /* Dashboard.storyboard */,
-				590ABAFE249FC4DF0053BCC7 /* Web.storyboard */,
+				590ABAFE249FC4DF0053BCC7 /* Setting.storyboard */,
+				590957DA254418850014E5E2 /* Channel.storyboard */,
 				5905097724A89029008BF45F /* Content.storyboard */,
 			);
 			path = Storyboards;
@@ -697,18 +718,19 @@
 			path = UserEntry;
 			sourceTree = "<group>";
 		};
-		59A84837249E27AC00734157 /* OtherVC */ = {
+		59A84837249E27AC00734157 /* SettingVC */ = {
 			isa = PBXGroup;
 			children = (
-				590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */,
-				5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */,
-				592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */,
 				5997A1BC24A12C330091AC4A /* EditProfileVC.swift */,
 				5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */,
 				597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */,
-				59EF508624AA561E00B9F44A /* ProfileChangePopVC.swift */,
+				590957D62544129E0014E5E2 /* MyChannelsVC.swift */,
+				590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */,
+				5928535B25418B0700557420 /* InviteVC.swift */,
+				590957D8254413DB0014E5E2 /* EditBiographyVC.swift */,
+				590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */,
 			);
-			path = OtherVC;
+			path = SettingVC;
 			sourceTree = "<group>";
 		};
 		59A8483B249E402E00734157 /* Font */ = {
@@ -789,8 +811,9 @@
 			children = (
 				59A84836249E279000734157 /* UserEntry */,
 				5965181524A6643500264AE1 /* Dashboard */,
-				59A84837249E27AC00734157 /* OtherVC */,
-				5905097924A89079008BF45F /* Channel */,
+				59A84837249E27AC00734157 /* SettingVC */,
+				590957DC2544264F0014E5E2 /* Channel */,
+				5905097924A89079008BF45F /* Content */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -948,7 +971,7 @@
 				59DDC66124962CE1007D1A51 /* LaunchScreen.storyboard in Resources */,
 				59A84841249E402E00734157 /* rubik_medium.ttf in Resources */,
 				59DDC65E24962CE1007D1A51 /* Assets.xcassets in Resources */,
-				590ABAFF249FC4DF0053BCC7 /* Web.storyboard in Resources */,
+				590ABAFF249FC4DF0053BCC7 /* Setting.storyboard in Resources */,
 				59146C3A24C99751007F91E8 /* ContentVideoCVCell.xib in Resources */,
 				59DDC65C24962CDF007D1A51 /* Main.storyboard in Resources */,
 				5999208E24B33E7F00E76898 /* promo.mp4 in Resources */,
@@ -961,6 +984,7 @@
 				59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */,
 				59240B9C253EBE340099DE3D /* CircularStd-Bold.ttf in Resources */,
 				59146C3224C996BA007F91E8 /* ContentImageCVCell.xib in Resources */,
+				590957DB254418850014E5E2 /* Channel.storyboard in Resources */,
 				59A8483F249E402E00734157 /* roboto_medium.ttf in Resources */,
 				59146C3624C996D8007F91E8 /* ContentTextCVCell.xib in Resources */,
 			);
@@ -1050,6 +1074,7 @@
 				5905163C2496954A00092E98 /* CreateAccountVC.swift in Sources */,
 				5999207E24B33DC900E76898 /* TableViewStyler.swift in Sources */,
 				5999208024B33DC900E76898 /* ProfilePictureImageView.swift in Sources */,
+				590957E02544521D0014E5E2 /* MyChannelTVCell.swift in Sources */,
 				5999207424B33DC900E76898 /* InfoButton.swift in Sources */,
 				59DDC6992496404F007D1A51 /* TPKeyboardAvoidingCollectionView.m in Sources */,
 				5905097D24A89663008BF45F /* ContentTVCell.swift in Sources */,
@@ -1057,7 +1082,9 @@
 				596574A025370FC400FD9822 /* RoundButton.swift in Sources */,
 				5999205924B33DC900E76898 /* MPCacher.swift in Sources */,
 				5999204B24B33DC900E76898 /* RewardPage.swift in Sources */,
+				590957D72544129E0014E5E2 /* MyChannelsVC.swift in Sources */,
 				5999203B24B33DC900E76898 /* Keychain.swift in Sources */,
+				5928535C25418B0700557420 /* InviteVC.swift in Sources */,
 				5997A1BD24A12C330091AC4A /* EditProfileVC.swift in Sources */,
 				5999204624B33DC900E76898 /* BaseRouter.swift in Sources */,
 				5999203D24B33DC900E76898 /* iListOAuthClientCredentials.swift in Sources */,
@@ -1094,7 +1121,6 @@
 				5999207A24B33DC900E76898 /* PolygonBackgroundView.swift in Sources */,
 				5999207224B33DC900E76898 /* CircularImageView.swift in Sources */,
 				5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */,
-				59EF508724AA561E00B9F44A /* ProfileChangePopVC.swift in Sources */,
 				5999203E24B33DC900E76898 /* ModalTransitioningDelegate.swift in Sources */,
 				59DDC68924962DE9007D1A51 /* OnboardingViewController.swift in Sources */,
 				5999208B24B33E7F00E76898 /* UIImage+Ext.swift in Sources */,
@@ -1110,6 +1136,7 @@
 				5999205024B33DC900E76898 /* Rewards.swift in Sources */,
 				5999207C24B33DC900E76898 /* TextField.swift in Sources */,
 				5999204124B33DC900E76898 /* ActivitiesRouter.swift in Sources */,
+				590957D9254413DB0014E5E2 /* EditBiographyVC.swift in Sources */,
 				5999207124B33DC900E76898 /* Label.swift in Sources */,
 				5999204024B33DC900E76898 /* UserRouter.swift in Sources */,
 				5999208424B33DC900E76898 /* Color.swift in Sources */,
@@ -1130,6 +1157,7 @@
 				5999205B24B33DC900E76898 /* Ambassadorship.swift in Sources */,
 				59991FD224B33DAC00E76898 /* TapAroundBaseView.swift in Sources */,
 				5905098324A8BBEA008BF45F /* MultiPageCVCell.swift in Sources */,
+				590957DE254426C70014E5E2 /* DeleteAcPopUpVC.swift in Sources */,
 				5915A42E24CB55AA00CF72FF /* ContentVideo.swift in Sources */,
 				5999205A24B33DC900E76898 /* Content.swift in Sources */,
 				5999206A24B33DC900E76898 /* UIScrollView+Extensions.swift in Sources */,
@@ -1140,7 +1168,7 @@
 				5999208624B33DC900E76898 /* CircularView.swift in Sources */,
 				5965181B24A6643600264AE1 /* SettingsVC.swift in Sources */,
 				5999206224B33DC900E76898 /* Level.swift in Sources */,
-				5965181A24A6643600264AE1 /* ProfileVC.swift in Sources */,
+				5965181A24A6643600264AE1 /* FeedVC.swift in Sources */,
 				5999206B24B33DC900E76898 /* UICollectionView + Ext.swift in Sources */,
 				5999204A24B33DC900E76898 /* SingleRewardController.swift in Sources */,
 				5999205624B33DC900E76898 /* User.swift in Sources */,

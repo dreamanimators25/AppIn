@@ -105,8 +105,14 @@ class DesignManager: NSObject {
         return controller
     }
     
-    class func loadViewControllerFromWebStoryBoard(identifier: String) -> Any {
-        let storyBoard = UIStoryboard(name: "Web", bundle: Bundle.main)
+    class func loadViewControllerFromChannelStoryBoard(identifier: String) -> Any {
+        let storyBoard = UIStoryboard(name: "Channel", bundle: Bundle.main)
+        let controller = storyBoard.instantiateViewController(withIdentifier: identifier)
+        return controller
+    }
+    
+    class func loadViewControllerFromSettingStoryBoard(identifier: String) -> Any {
+        let storyBoard = UIStoryboard(name: "Setting", bundle: Bundle.main)
         let controller = storyBoard.instantiateViewController(withIdentifier: identifier)
         return controller
     }
