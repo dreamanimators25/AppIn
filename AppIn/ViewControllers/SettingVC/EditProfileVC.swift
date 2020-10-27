@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DropDown
 
 class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -32,16 +33,27 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     @IBOutlet weak var dateView: UIView!
     @IBOutlet weak var labelView: UIView!
     @IBOutlet weak var biographyView: UIView!
+    
+    let labelDropDown = DropDown()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.txtFDate.addTarget(self, action: #selector(tapDateField), for: .allEditingEvents)
+        self.txtFLabel.addTarget(self, action: #selector(tapLabelField), for: .allEditingEvents)
+        self.txtFBiography.addTarget(self, action: #selector(tapBioField), for: .allEditingEvents)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(CreateAccountVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        // Initialization code
+        labelDropDown.anchorView = self.txtFLabel
+        labelDropDown.dataSource = ["Young","Adult","Young Adult","Old"]
+        labelDropDown.cellConfiguration = { (index, item) in return "\(item)" }
+                
     }
     
     // MARK: Keyboard Notification methods
@@ -65,6 +77,57 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         }
     }
     
+    @objc func tapDateField() {
+        
+        DispatchQueue.main.async {
+            self.view.endEditing(true)
+            
+            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DatePopUpVC") as! DatePopUpVC
+            
+            vc.setDate = { strDate in
+                self.txtFDate.text = strDate
+            }
+            
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+    }
+    
+    @objc func tapLabelField() {
+        
+        self.view.endEditing(true)
+        
+        labelDropDown.selectionAction = { (index: Int, item: String) in
+            print("Selected item: \(item) at index: \(index)")
+            self.txtFLabel.text = item
+        }
+
+        labelDropDown.width = self.txtFLabel.bounds.width
+        labelDropDown.bottomOffset = CGPoint(x: 0, y:(labelDropDown.anchorView?.plainView.bounds.height)!)
+        labelDropDown.show()
+    
+    }
+    
+    @objc func tapBioField() {
+    
+        DispatchQueue.main.async {
+            self.view.endEditing(true)
+            
+            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "EditBiographyVC") as! EditBiographyVC
+            
+            vc.setBio = { strBio in
+                self.txtFBiography.text = strBio
+            }
+            
+            vc.modalPresentationStyle = .fullScreen
+            vc.modalTransitionStyle = .crossDissolve
+            self.present(vc, animated: true, completion: nil)
+        }
+        
+    }
+    
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
@@ -77,7 +140,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         }
         
     }
-    
+   
     @IBAction func changeProfileImageBtnClicked(_ sender: UIButton) {
         let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
         

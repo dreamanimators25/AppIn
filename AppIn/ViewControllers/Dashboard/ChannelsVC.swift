@@ -106,7 +106,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         DispatchQueue.main.async {
             let vc = DesignManager.loadViewControllerFromChannelStoryBoard(identifier: "AddChannelPopUpVC") as! AddChannelPopUpVC
-            vc.modalPresentationStyle = .overCurrentContext
+            vc.modalPresentationStyle = .fullScreen
             vc.modalTransitionStyle = .crossDissolve
             
             self.present(vc, animated: true) {

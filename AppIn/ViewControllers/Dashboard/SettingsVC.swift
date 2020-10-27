@@ -163,7 +163,7 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     
                     DispatchQueue.main.async {
                         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DeleteAcPopUpVC") as! DeleteAcPopUpVC
-                        vc.modalPresentationStyle = .overCurrentContext
+                        vc.modalPresentationStyle = .fullScreen
                         vc.modalTransitionStyle = .crossDissolve
                         
                         self.present(vc, animated: true) {

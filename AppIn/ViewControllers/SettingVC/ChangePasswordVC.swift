@@ -65,17 +65,6 @@ class ChangePasswordVC: UIViewController {
     
     @IBAction func saveBtnClicked(_ sender: UIButton) {
         
-        /*
-        DispatchQueue.main.async {
-            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "ChangePWPopUpVC") as! ChangePWPopUpVC
-            vc.modalPresentationStyle = .overCurrentContext
-            vc.modalTransitionStyle = .crossDissolve
-            self.present(vc, animated: true, completion: nil)
-        }
-        
-        return
-        */
-        
         self.view.endEditing(true)
         
         if txtFCurrentPassword.text!.isEmpty {

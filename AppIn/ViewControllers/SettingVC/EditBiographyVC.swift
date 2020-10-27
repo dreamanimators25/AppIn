@@ -11,6 +11,8 @@ import UIKit
 class EditBiographyVC: UIViewController {
     
     @IBOutlet weak var txtViewBiography: UITextView!
+    
+    var setBio : ((_ bio : String) -> (Void))?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +21,21 @@ class EditBiographyVC: UIViewController {
     
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
-        _ = self.navigationController?.popViewController(animated: true)
+        self.view.endEditing(true)
+        
+        self.dismiss(animated: true) {
+            
+        }
     }
     
     @IBAction func saveBtnClicked(_ sender: UIButton) {
+        self.view.endEditing(true)
         
+        self.dismiss(animated: true) {
+            if let bio = self.setBio {
+                bio(self.txtViewBiography.text ?? "")
+            }
+        }
     }
     
     // MARK: - Navigation
