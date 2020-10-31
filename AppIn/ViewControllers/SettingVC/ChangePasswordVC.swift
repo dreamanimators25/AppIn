@@ -102,10 +102,28 @@ class ChangePasswordVC: UIViewController {
                 self.txtFNewPassword.text = ""
                 self.txtFRepeatPassword.text = ""
                 
-                Alert.showAlert(strTitle: "", strMessage: "Password has been successfully changed", Onview: self)
+                //Alert.showAlert(strTitle: "", strMessage: "Password has been successfully changed", Onview: self)
+                
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                vc.img = #imageLiteral(resourceName: "successTick")
+                vc.lbl = "Success message"
+                vc.btn = ""
+                
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true, completion: nil)
                 
             }, onError: {
-                Alert.showAlert(strTitle: "Error", strMessage: "Wrong old password", Onview: self)
+                //Alert.showAlert(strTitle: "Error", strMessage: "Wrong old password", Onview: self)
+                
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                vc.img = #imageLiteral(resourceName: "errorClose")
+                vc.lbl = "Error"
+                vc.btn = ""
+                
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true, completion: nil)
             })
             
         }

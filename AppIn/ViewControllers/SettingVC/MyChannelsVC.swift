@@ -34,6 +34,8 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 
                 break
             case 1:
+                let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "AboutSasVC") as! AboutSasVC
+                self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
             case 2:

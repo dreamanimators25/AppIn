@@ -74,8 +74,8 @@ class oldGradientView: UIView {
 }
 
 @IBDesignable class GradientView: UIView {
-    @IBInspectable var firstColor: UIColor = #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
-    @IBInspectable var secondColor: UIColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.6784313725, alpha: 1)
+    @IBInspectable var firstColor: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+    @IBInspectable var secondColor: UIColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
 
     @IBInspectable var vertical: Bool = true
 

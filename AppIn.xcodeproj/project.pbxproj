@@ -48,6 +48,8 @@
 		5928535C25418B0700557420 /* InviteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5928535B25418B0700557420 /* InviteVC.swift */; };
 		5929A6942546D38300E161F1 /* DatePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5929A6932546D38300E161F1 /* DatePopUpVC.swift */; };
 		592DC4F4253F2BBC00779130 /* SearchChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */; };
+		5950EFE7254D72C2005CB112 /* BottomViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950EFE6254D72C2005CB112 /* BottomViewVC.swift */; };
+		5950EFE9254DA99D005CB112 /* AboutSasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950EFE8254DA99D005CB112 /* AboutSasVC.swift */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
 		5965181A24A6643600264AE1 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181624A6643500264AE1 /* FeedVC.swift */; };
 		5965181B24A6643600264AE1 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965181724A6643500264AE1 /* SettingsVC.swift */; };
@@ -230,6 +232,8 @@
 		5928535B25418B0700557420 /* InviteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVC.swift; sourceTree = "<group>"; };
 		5929A6932546D38300E161F1 /* DatePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopUpVC.swift; sourceTree = "<group>"; };
 		592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChannelVC.swift; sourceTree = "<group>"; };
+		5950EFE6254D72C2005CB112 /* BottomViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomViewVC.swift; sourceTree = "<group>"; };
+		5950EFE8254DA99D005CB112 /* AboutSasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSasVC.swift; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
 		5965181624A6643500264AE1 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		5965181724A6643500264AE1 /* SettingsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
@@ -408,6 +412,7 @@
 			children = (
 				5905097A24A890BC008BF45F /* ContentVC.swift */,
 				5905098024A8B1CB008BF45F /* ShowContentsVC.swift */,
+				5950EFE8254DA99D005CB112 /* AboutSasVC.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -732,6 +737,7 @@
 				590957D8254413DB0014E5E2 /* EditBiographyVC.swift */,
 				590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */,
 				5929A6932546D38300E161F1 /* DatePopUpVC.swift */,
+				5950EFE6254D72C2005CB112 /* BottomViewVC.swift */,
 			);
 			path = SettingVC;
 			sourceTree = "<group>";
@@ -1142,6 +1148,7 @@
 				5999204124B33DC900E76898 /* ActivitiesRouter.swift in Sources */,
 				590957D9254413DB0014E5E2 /* EditBiographyVC.swift in Sources */,
 				5999207124B33DC900E76898 /* Label.swift in Sources */,
+				5950EFE7254D72C2005CB112 /* BottomViewVC.swift in Sources */,
 				5999204024B33DC900E76898 /* UserRouter.swift in Sources */,
 				5999208424B33DC900E76898 /* Color.swift in Sources */,
 				59DDC68C24963949007D1A51 /* ThirdPV.swift in Sources */,
@@ -1154,6 +1161,7 @@
 				5999205524B33DC900E76898 /* AmbassadorshipContentConsumeData.swift in Sources */,
 				59146C3124C996BA007F91E8 /* ContentImageCVCell.swift in Sources */,
 				5999207524B33DC900E76898 /* Localization.swift in Sources */,
+				5950EFE9254DA99D005CB112 /* AboutSasVC.swift in Sources */,
 				5999203924B33DC900E76898 /* RewardManager.swift in Sources */,
 				5999207324B33DC900E76898 /* QRCodeReader.swift in Sources */,
 				5999204424B33DC900E76898 /* ContentRouter.swift in Sources */,

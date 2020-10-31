@@ -41,6 +41,16 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     return
                 }
                 self.addChannel(Code: code)
+                
+                
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                vc.img = #imageLiteral(resourceName: "successTick")
+                vc.lbl = "Channel was added"
+                vc.btn = ""
+                
+                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalTransitionStyle = .crossDissolve
+                self.present(vc, animated: true, completion: nil)
             }
         }
         

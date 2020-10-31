@@ -23,7 +23,7 @@
         <scene sceneID="0oU-YH-OyI">
             <objects>
                 <viewController storyboardIdentifier="AddChannelPopUpVC" id="QcQ-xi-hIO" customClass="AddChannelPopUpVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Idk-mQ-jc8">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Idk-mQ-jc8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

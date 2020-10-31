@@ -35,7 +35,14 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     }
     
     @IBAction func copyBtnClicked(_ sender: UIButton) {
-    
+        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+        vc.img = #imageLiteral(resourceName: "successTick")
+        vc.lbl = "Access code has been copied to clipboard"
+        vc.btn = ""
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func addEmailBtnClicked(_ sender: UIButton) {
@@ -62,6 +69,16 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         self.arrEmailInvited = []
         self.emailTableView.reloadData()
+        
+        
+        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+        vc.img = #imageLiteral(resourceName: "successTick")
+        vc.lbl = "Invites has been sent"
+        vc.btn = ""
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func removeEmailBtnClicked(_ sender: UIButton) {
