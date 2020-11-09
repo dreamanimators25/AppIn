@@ -43,12 +43,12 @@ class MyChannelTVCell: UITableViewCell {
         cellDropDown.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             
-            if let selectedIndex = dropDownIndex {
+            if let selectedIndex = TVDropDownIndex {
                 selectedIndex(index)
             }
         }
 
-        cellDropDown.width = 150
+        cellDropDown.width = 130
         cellDropDown.bottomOffset = CGPoint(x: 0, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
         cellDropDown.show()
     }

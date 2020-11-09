@@ -8,7 +8,7 @@
 
 import UIKit
 
-var dropDownIndex : ((_ ind : Int) -> (Void))?
+var TVDropDownIndex : ((_ ind : Int) -> (Void))?
 
 class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
@@ -26,7 +26,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                         
-        dropDownIndex = { index in
+        TVDropDownIndex = { index in
             switch index {
             case 0:
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "InviteVC") as! InviteVC

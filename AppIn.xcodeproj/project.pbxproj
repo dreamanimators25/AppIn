@@ -48,6 +48,8 @@
 		5928535C25418B0700557420 /* InviteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5928535B25418B0700557420 /* InviteVC.swift */; };
 		5929A6942546D38300E161F1 /* DatePopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5929A6932546D38300E161F1 /* DatePopUpVC.swift */; };
 		592DC4F4253F2BBC00779130 /* SearchChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */; };
+		592E9F60254EE26000951754 /* MultiPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592E9F5F254EE26000951754 /* MultiPageCell.swift */; };
+		592E9F62254EE27C00951754 /* SinglePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592E9F61254EE27C00951754 /* SinglePageCell.swift */; };
 		5950EFE7254D72C2005CB112 /* BottomViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950EFE6254D72C2005CB112 /* BottomViewVC.swift */; };
 		5950EFE9254DA99D005CB112 /* AboutSasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950EFE8254DA99D005CB112 /* AboutSasVC.swift */; };
 		5965180C24A6579B00264AE1 /* ChangePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */; };
@@ -232,6 +234,8 @@
 		5928535B25418B0700557420 /* InviteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteVC.swift; sourceTree = "<group>"; };
 		5929A6932546D38300E161F1 /* DatePopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePopUpVC.swift; sourceTree = "<group>"; };
 		592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChannelVC.swift; sourceTree = "<group>"; };
+		592E9F5F254EE26000951754 /* MultiPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPageCell.swift; sourceTree = "<group>"; };
+		592E9F61254EE27C00951754 /* SinglePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageCell.swift; sourceTree = "<group>"; };
 		5950EFE6254D72C2005CB112 /* BottomViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomViewVC.swift; sourceTree = "<group>"; };
 		5950EFE8254DA99D005CB112 /* AboutSasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSasVC.swift; sourceTree = "<group>"; };
 		5965180B24A6579B00264AE1 /* ChangePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVC.swift; sourceTree = "<group>"; };
@@ -434,6 +438,8 @@
 				590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */,
 				5905097E24A89949008BF45F /* ContentCVCell.swift */,
 				5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */,
+				592E9F5F254EE26000951754 /* MultiPageCell.swift */,
+				592E9F61254EE27C00951754 /* SinglePageCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -1075,6 +1081,7 @@
 				597EBD4A2540A80A0080B1F0 /* ChangePWPopUpVC.swift in Sources */,
 				590ABAF9249F749B0053BCC7 /* LatestContentCVCell.swift in Sources */,
 				59DDC65924962CDF007D1A51 /* WalkThroughVC.swift in Sources */,
+				592E9F62254EE27C00951754 /* SinglePageCell.swift in Sources */,
 				5999208124B33DC900E76898 /* Font.swift in Sources */,
 				59DDC69A2496404F007D1A51 /* TPKeyboardAvoidingTableView.m in Sources */,
 				59991FD324B33DAC00E76898 /* BlurView.swift in Sources */,
@@ -1100,6 +1107,7 @@
 				5929A6942546D38300E161F1 /* DatePopUpVC.swift in Sources */,
 				5999204824B33DC900E76898 /* BrandsRouter.swift in Sources */,
 				5999206124B33DC900E76898 /* ContentPageComponent.swift in Sources */,
+				592E9F60254EE26000951754 /* MultiPageCell.swift in Sources */,
 				5999203724B33DC900E76898 /* ActivitiesManager.swift in Sources */,
 				5999205C24B33DC900E76898 /* Inbox.swift in Sources */,
 				5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */,

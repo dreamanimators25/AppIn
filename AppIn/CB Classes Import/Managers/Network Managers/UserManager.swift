@@ -63,8 +63,8 @@ open class UserManager: BaseManager {
     }
     
     fileprivate func updatePushNotificationsInfo() {
-        let notificationSettings = UIUserNotificationSettings(types: [.sound, .badge, .alert], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        //let notificationSettings = UIUserNotificationSettings(types: [.sound, .badge, .alert], categories: nil)
+        //UIApplication.shared.registerUserNotificationSettings(notificationSettings)
     }
     
     func currentAuthorizedUser(_ completion: @escaping (_ user: User?) -> ()) {
@@ -79,9 +79,9 @@ open class UserManager: BaseManager {
                 }
             }
             
-        } else if FBSDKAccessToken.current() != nil {
+        } else if AccessToken.current != nil {
             print("Authenticating with facebook token")
-            authenticateWithFacebookToken(FBSDKAccessToken.current().tokenString, facebookResult: nil, completion: { (user, error) in
+            authenticateWithFacebookToken(AccessToken.current?.tokenString ?? "", facebookResult: nil, completion: { (user, error) in
                 if let user = user {
                     completion(user)
                 } else if error != nil {
@@ -145,6 +145,7 @@ open class UserManager: BaseManager {
     }
     
     func newAuthenticateWithFacebookToken(_ facebookToken: String, facebookResult: Any?, completion: @escaping LoginResponseBlock) {
+        
         let parameters = [
             "backend": "facebook",
             "token" : facebookToken,
@@ -152,6 +153,7 @@ open class UserManager: BaseManager {
             "client_id" : BaseManager.credentials.clientId,
             "client_secret" : BaseManager.credentials.clientSecret
         ]
+        
         let router = UserRouter(endpoint: UserEndpoint.facebookLogin(params: parameters))
         Alamofire.request(router)
             .responseJSON { response in
@@ -172,10 +174,10 @@ open class UserManager: BaseManager {
                         print("Assigning dictionary values failed")
                         return
                 }
+                
                 print("Updating access tokens")
                 OAuth2Handler.sharedInstance.update(accessToken: accessToken, refreshToken: refreshToken)
                 completion(refreshToken, accessToken, scope, tokenType, expiresIn)
-                
                 
                 return
         }
@@ -200,6 +202,7 @@ open class UserManager: BaseManager {
             }
         })
     }
+    
     //http://89.46.81.53/api/brands-nearme/?lat=49.98198198198198&long=36.230583973911365
     func nearbyBrands(lat: String, long: String, success: @escaping (([Brand])->Void)) {
         var router = UserRouter(endpoint: UserEndpoint.nearbyBrands(lat: lat, long: long))
@@ -283,14 +286,15 @@ open class UserManager: BaseManager {
     func fetchFacebookUserInfo(_ completion: @escaping UserResponseBlock) {
         
         let parameters = ["fields" : "id, first_name, last_name, picture, email"]
-        FBSDKGraphRequest.init(graphPath: "me", parameters: parameters).start { (connection: FBSDKGraphRequestConnection?, result: Any?, error: Error?) in
+        GraphRequest.init(graphPath: "me", parameters: parameters).start { (connection: GraphRequestConnection?, result: Any?, error: Error?) in
             
             if let error = error {
                 debugPrint("FB Users info Error: \( error.localizedDescription )")
             } else {
-                let accessToken: FBSDKAccessToken = FBSDKAccessToken.current()
+                let accessToken: AccessToken = AccessToken.current!
                 //print("Facebook authentication done, updating FB access token with: \(accessToken.tokenString)")
-                FBSDKAccessToken.setCurrent(accessToken)
+                //AccessToken.setCurrent(accessToken)
+            
                
                 //ADAMS
                 self.newAuthenticateWithFacebookToken(accessToken.tokenString, facebookResult: result, completion: { refreshToken, accessToken, scope, tokenType, expiresIn in
@@ -347,7 +351,7 @@ open class UserManager: BaseManager {
         connections = nil
         connectionRequests = nil
         
-        let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+        let loginManager: LoginManager = LoginManager()
         loginManager.logOut()
         
         if let completion = completion {
@@ -466,7 +470,6 @@ open class UserManager: BaseManager {
         let imageFileName = "\(user.id)-\(dateString.removeWhitespace()).png"
         
         let router = UserRouter(endpoint: .uploadNewProfilePic(userId: user.id))
-
         
         var request: URLRequest?
         do {

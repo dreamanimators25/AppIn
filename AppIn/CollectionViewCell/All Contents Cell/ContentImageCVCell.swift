@@ -14,9 +14,9 @@ import AVFoundation
 class ContentImageCVCell: UICollectionViewCell {
     
     @IBOutlet weak var headerTextLbl: UILabel?
-    @IBOutlet weak var contentImageView: UIImageView!
     @IBOutlet weak var pageBackgroundView: UIView!
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var contentImageView: UIImageView!
     
     var backgroundVideoView: ContentVideo?
     var stickerImageView = UIImageView()
