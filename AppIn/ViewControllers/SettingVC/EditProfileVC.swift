@@ -8,6 +8,8 @@
 
 import UIKit
 import DropDown
+import Alamofire
+import SwiftyJSON
 
 class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
@@ -88,8 +90,8 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 self.txtFDate.text = strDate
             }
             
-            vc.modalPresentationStyle = .fullScreen
-            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overCurrentContext
+            //vc.modalTransitionStyle = .crossDissolve
             self.present(vc, animated: true, completion: nil)
         }
         
@@ -121,8 +123,8 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 self.txtFBiography.text = strBio
             }
             
-            vc.modalPresentationStyle = .fullScreen
-            vc.modalTransitionStyle = .crossDissolve
+            vc.modalPresentationStyle = .overCurrentContext
+            //vc.modalTransitionStyle = .crossDissolve
             self.present(vc, animated: true, completion: nil)
         }
         
@@ -256,6 +258,48 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         }
         
         return true
+    }
+    
+    //MARK: Web Service
+    func cllEditProfileWebService() {
+        
+        var params = [String : String]()
+        params = ["user_id" : "",
+                  "name" : "",
+                  "username" : "",
+                  "contactNo" : "",
+                  "email" : "",
+                  "address" : "",
+                  "country" : "",
+                  "gender" : "",
+                  "profileBio" : "",
+                  "birthDate" : "",
+                  ]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kEditProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                if let data = responseData.result.value {
+                    let json = JSON(data)
+                    print(json)
+                    
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
 
     // MARK: - Navigation

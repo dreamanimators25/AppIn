@@ -7,16 +7,37 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ForgotPasswordVC: UIViewController {
     
     @IBOutlet weak var txtFEmail: UITextField!
-    @IBOutlet weak var btnSubmit: UIButton!
+    @IBOutlet weak var lblEmailError: UILabel!
+    @IBOutlet weak var emailView: UIView!
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.SetCornerRadius()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    // MARK: Keyboard Notification methods
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if ((notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            self.lblEmailError.isHidden = true
+            
+            self.emailView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        }
     }
     
     //MARK: IBAction
@@ -28,32 +49,58 @@ class ForgotPasswordVC: UIViewController {
         
         self.view.endEditing(true)
         
-        if txtFEmail.text!.isEmpty {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
-        }
-        else if(!Alert.isValidEmail(testStr: txtFEmail.text!)) {
-            Alert.showAlert(strTitle: "", strMessage: "Please Enter Valid E-mail Address", Onview: self)
-        }
-        else {
+        if Validation() {
+        
+            var params = [String : String]()
+            params = ["username" : self.txtFEmail.text!
+                      ]
             
-            UserManager.sharedInstance.restorePasswordWithEmail(self.txtFEmail.text!) { (res, error, info) in
-                if error != nil {
-                    self.showErr(str: "Server error")
-                } else if let info = info {
-                    self.showErr(str: info)
-                } else {
-                    self.showErr(str: "An email has been sent")
-                    self.txtFEmail.text = ""
+            print("params = \(params)")
+            
+            Alamofire.request(kForgetPasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                            
+                switch responseData.result {
+                case .success:
+                    if let data = responseData.result.value {
+                        let json = JSON(data)
+                        print(json)
+                                
+                        self.txtFEmail.text = ""
+                    }
+                case .failure(let error):
+                    
+                    if error.localizedDescription.contains("Internet connection appears to be offline"){
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                    }else{
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    }
                 }
+                
             }
             
         }
-        
+     
     }
     
     //MARK: Custom Methods
-    func SetCornerRadius() {
-        self.btnSubmit.layer.cornerRadius = btnCornerRadius
+    func Validation() -> Bool {
+        
+        self.view.endEditing(true)
+        
+        if txtFEmail.text!.isEmpty {
+            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblEmailError.text = "Please Enter E-mail Address"
+            self.lblEmailError.isHidden = false
+            return false
+        }
+        else if(!Alert.isValidEmail(testStr: txtFEmail.text!)) {
+            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblEmailError.text = "Please Enter Valid E-mail Address"
+            self.lblEmailError.isHidden = false
+            return false
+        }
+        
+        return true
     }
     
     // MARK: - Navigation

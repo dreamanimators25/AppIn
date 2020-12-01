@@ -163,8 +163,13 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     
                     DispatchQueue.main.async {
                         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DeleteAcPopUpVC") as! DeleteAcPopUpVC
-                        vc.modalPresentationStyle = .fullScreen
-                        vc.modalTransitionStyle = .crossDissolve
+                        
+                        vc.modalPresentationStyle = .overCurrentContext
+                        //vc.modalTransitionStyle = .crossDissolve
+                        
+                        vc.strTitle = "Delete account"
+                        vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
+                        vc.btnTitle = "Yes, delete my account"
                         
                         self.present(vc, animated: true) {
                             

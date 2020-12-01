@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseInstanceID
+import Alamofire
+import SwiftyJSON
 
 class LoginVC: UIViewController {
     
@@ -54,6 +56,75 @@ class LoginVC: UIViewController {
             
             self.overlay.isHidden = false
             
+            let currentDate = Date()
+            // 1) Create a DateFormatter() object.
+            let format = DateFormatter()
+            // 2) Set the current timezone to .current, or America/Chicago.
+            format.timeZone = .current
+            // 3) Set the format of the altered date.
+            format.dateFormat = "yyyy-mm-dd"
+            // 4) Set the current date, altered by timezone.
+            let dateString = format.string(from: currentDate)
+            
+            var countryName = ""
+            if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+                print(countryCode)
+                countryName = countryCode
+            }
+                    
+            var params = [String : Any]()
+            
+            params = ["username" : self.txtFEmail.text!,
+                      "password" : self.txtFPassword.text!,
+                      "country" : countryName,
+                      "deviceMeta" : UIDevice.modelName,
+                      "os" : UIDevice.current.systemVersion,
+                      "deviceID" : UIDevice.current.identifierForVendor!.uuidString,
+                      "timezone" : dateString
+                      ]
+            
+            print("params = \(params)")
+            
+            Alamofire.request(kLoginURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                
+                self.overlay.isHidden = true
+                
+                switch responseData.result {
+                case .success:
+                    if let data = responseData.result.value {
+                        let json = JSON(data)
+                        print(json)
+                        
+                        let responsModal = RegisterBaseClass.init(json: json)
+                        
+                        if responsModal.status == "success" {
+                            UserDefaults.saveUserData(modal: responsModal.data!)
+                            
+                            DispatchQueue.main.async(execute: {
+                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                    appDelegate.navigateToDashboardScreen()
+                                    
+                                }
+                            })
+                            
+                        }else{
+                            Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        }
+                    }
+                    
+                case .failure(let error):
+                    
+                    if error.localizedDescription.contains("Internet connection appears to be offline"){
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                    }else{
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    }
+                }
+                
+            }
+            
+            
+            /*
             UserManager.sharedInstance.authenticateWithUsername(self.txtFEmail.text!, password: self.txtFPassword.text!) { (user, error, text) in
                 
                 self.overlay.isHidden = true
@@ -72,13 +143,13 @@ class LoginVC: UIViewController {
                     self.handleSuccessfullyAuthenticatedWithUser()
                 }
                 
-            }
+            }*/
             
         }
     }
     
     @IBAction func forgotBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "ForgotPasswordVC") as! ForgotPasswordVC
+        let vc = DesignManager.loadViewControllerFromMainStoryBoard(identifier: "ForgotPasswordVC") as! ForgotPasswordVC
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

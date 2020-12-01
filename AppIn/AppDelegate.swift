@@ -27,6 +27,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // sleep(3)
         // Override point for customization after application launch.
         
+        let userData = UserDefaults.getUserData()
+        if userData != nil {
+            DispatchQueue.main.async(execute: {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    appDelegate.navigateToDashboardScreen()
+                }
+            })
+        }else {
+            
+            DispatchQueue.main.async(execute: {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                    appDelegate.navigateToLoginScreen()
+                }
+            })
+        
+        }
+        
+        /*
         UserManager.sharedInstance.currentAuthorizedUser { (user) in
             print("Checking if a user exists")
             
@@ -71,7 +89,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.navigateToHomeScreen()
                 }
             }
-        }
+        }*/
         
         return true
     }
@@ -101,7 +119,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: Custom Methods
     func navigateToHomeScreen() {
         let  story = UIStoryboard.init(name: "Main", bundle: nil)
-        self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Home_Nav")
+        //self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Home_Nav")
+        self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Login_Nav")
     }
     
     func navigateToLoginScreen() {

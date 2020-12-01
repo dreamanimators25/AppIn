@@ -18,6 +18,10 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>whatsapp</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -25,6 +29,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>To Capture User Profile Picture</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To Save &amp; Share User Images</string>
 	<key>Status Bar Style</key>
 	<string>Light</string>
 	<key>UIAppFonts</key>
@@ -75,18 +83,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>whatsapp</string>
-	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSCameraUsageDescription</key>
-	<string>To Capture User Profile Picture</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>To Save &amp; Share User Images</string>
 	<key>iListAPI</key>
 	<dict>
 		<key>API_URL</key>

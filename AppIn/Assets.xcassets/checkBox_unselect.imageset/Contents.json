@@ -2,15 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "checkBox_unselect.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Checkbox-2.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Checkbox-1.png",
       "scale" : "3x"
     }
   ],

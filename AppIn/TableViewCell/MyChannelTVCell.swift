@@ -12,6 +12,7 @@ import DropDown
 class MyChannelTVCell: UITableViewCell {
     
     @IBOutlet weak var channelImgView: UIImageView!
+    @IBOutlet weak var channelSubNameLbl: UILabel!
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var notificationBtn: UIButton!
     @IBOutlet weak var moreBtn: UIButton!
@@ -49,7 +50,7 @@ class MyChannelTVCell: UITableViewCell {
         }
 
         cellDropDown.width = 130
-        cellDropDown.bottomOffset = CGPoint(x: 0, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
+        cellDropDown.bottomOffset = CGPoint(x: -20, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
         cellDropDown.show()
     }
     

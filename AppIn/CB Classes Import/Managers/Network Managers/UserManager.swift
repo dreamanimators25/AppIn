@@ -63,8 +63,8 @@ open class UserManager: BaseManager {
     }
     
     fileprivate func updatePushNotificationsInfo() {
-        //let notificationSettings = UIUserNotificationSettings(types: [.sound, .badge, .alert], categories: nil)
-        //UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        let notificationSettings = UIUserNotificationSettings(types: [.sound, .badge, .alert], categories: nil)
+        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
     }
     
     func currentAuthorizedUser(_ completion: @escaping (_ user: User?) -> ()) {
@@ -251,6 +251,7 @@ open class UserManager: BaseManager {
     
     func authenticateWithFacebookToken(_ facebookToken: String, facebookResult: Any?, completion: @escaping UserResponseBlock) {
         // We need to set this because email login might change heimdallr token URL
+        
         let parameters = [
             "backend": "facebook",
             "token" : facebookToken,
@@ -258,6 +259,7 @@ open class UserManager: BaseManager {
             "client_id" : BaseManager.credentials.clientId,
             "client_secret" : BaseManager.credentials.clientSecret
         ]
+        
         let router = UserRouter(endpoint: UserEndpoint.facebookLogin(params: parameters))
         performRequest(withRouter: router, { (response: DataResponse<Any>) in
             switch response.result {
@@ -294,7 +296,6 @@ open class UserManager: BaseManager {
                 let accessToken: AccessToken = AccessToken.current!
                 //print("Facebook authentication done, updating FB access token with: \(accessToken.tokenString)")
                 //AccessToken.setCurrent(accessToken)
-            
                
                 //ADAMS
                 self.newAuthenticateWithFacebookToken(accessToken.tokenString, facebookResult: result, completion: { refreshToken, accessToken, scope, tokenType, expiresIn in

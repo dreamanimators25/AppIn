@@ -65,3 +65,36 @@ extension UIView {
         
     }
 }
+
+extension UserDefaults {
+    
+    //MARK:- Save Data
+    
+    static func saveUserData(modal : RegisterData) {
+        let encodedData = NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation())
+        //let encodedData = NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation(), requiringSecureCoding: true)
+        UserDefaults.standard.set(encodedData, forKey: "UserData")
+        UserDefaults.standard.synchronize()
+    }
+        
+    //MARK:- Get Data
+    static func getUserData() -> RegisterData? {
+        if let data = UserDefaults.standard.data(forKey: "UserData"),
+            let myLoginData = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Any] {
+            let loginData = RegisterData.init(object: myLoginData)
+            UserDefaults.standard.synchronize()
+            return loginData
+        } else {
+            UserDefaults.standard.synchronize()
+            return nil
+        }
+    }
+    
+    //Remove Login Data
+    static func removeLoginData() {
+        UserDefaults.standard.removeObject(forKey: "UserData")
+        
+        UserDefaults.standard.synchronize()
+    }
+    
+}

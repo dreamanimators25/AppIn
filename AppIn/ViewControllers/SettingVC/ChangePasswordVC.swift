@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class ChangePasswordVC: UIViewController {
     
@@ -96,6 +98,54 @@ class ChangePasswordVC: UIViewController {
         }
         else {
             
+            var params = [String : String]()
+            params = ["user_id" : self.txtFNewPassword.text!,
+                      "oldPassword" : self.txtFNewPassword.text!,
+                      "newPassword1" : self.txtFNewPassword.text!,
+                      "newPassword2" : self.txtFNewPassword.text!
+                      ]
+            
+            print("params = \(params)")
+            
+            Alamofire.request(kChangePasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                            
+                self.txtFCurrentPassword.text = ""
+                self.txtFNewPassword.text = ""
+                self.txtFRepeatPassword.text = ""
+                
+                switch responseData.result {
+                case .success:
+                    if let data = responseData.result.value {
+                        let json = JSON(data)
+                        print(json)
+                                
+                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                        vc.img = #imageLiteral(resourceName: "successTick")
+                        vc.lbl = "Success message"
+                        vc.btn = ""
+                        vc.modalPresentationStyle = .overCurrentContext
+                        //vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true, completion: nil)
+                        
+                    }
+                case .failure(let error):
+                    
+                    if error.localizedDescription.contains("Internet connection appears to be offline"){
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                    }else{
+                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                        vc.img = #imageLiteral(resourceName: "errorInfo")
+                        vc.lbl = "Error"
+                        vc.btn = ""
+                        vc.modalPresentationStyle = .overCurrentContext
+                        //vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
+                
+            }
+            
+            /*
             UserManager.sharedInstance.changePsw(txtFCurrentPassword.text!, txtFNewPassword.text!, onSuccess: {
                 
                 self.txtFCurrentPassword.text = ""
@@ -110,21 +160,24 @@ class ChangePasswordVC: UIViewController {
                 vc.btn = ""
                 
                 vc.modalPresentationStyle = .overCurrentContext
-                vc.modalTransitionStyle = .crossDissolve
+                //vc.modalTransitionStyle = .crossDissolve
+                
                 self.present(vc, animated: true, completion: nil)
                 
             }, onError: {
                 //Alert.showAlert(strTitle: "Error", strMessage: "Wrong old password", Onview: self)
                 
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
-                vc.img = #imageLiteral(resourceName: "errorClose")
+                vc.img = #imageLiteral(resourceName: "errorInfo")
                 vc.lbl = "Error"
                 vc.btn = ""
                 
                 vc.modalPresentationStyle = .overCurrentContext
-                vc.modalTransitionStyle = .crossDissolve
+                //vc.modalTransitionStyle = .crossDissolve
+                
                 self.present(vc, animated: true, completion: nil)
             })
+            */
             
         }
         

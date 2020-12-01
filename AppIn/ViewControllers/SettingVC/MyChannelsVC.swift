@@ -77,10 +77,40 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         switch indexPath.section {
         case 0:
             MyChannelTVCell.channelNameLbl.text = arrSec1[indexPath.row]
+            
+            if indexPath.row == self.arrSec1.count - 1 {
+                MyChannelTVCell.seperatorLbl.isHidden = false
+                MyChannelTVCell.channelSubNameLbl.isHidden = false
+                MyChannelTVCell.channelSubNameLbl.text = "Partner"
+            }else {
+                MyChannelTVCell.seperatorLbl.isHidden = true
+                MyChannelTVCell.channelSubNameLbl.isHidden = true
+            }
+            
         case 1:
             MyChannelTVCell.channelNameLbl.text = arrSec2[indexPath.row]
+            
+            if indexPath.row == self.arrSec2.count - 1 {
+                MyChannelTVCell.seperatorLbl.isHidden = false
+                MyChannelTVCell.channelSubNameLbl.isHidden = false
+                MyChannelTVCell.channelSubNameLbl.text = "Partner"
+            }else {
+                MyChannelTVCell.seperatorLbl.isHidden = true
+                MyChannelTVCell.channelSubNameLbl.isHidden = true
+            }
+            
         default:
             MyChannelTVCell.channelNameLbl.text = arrSec3[indexPath.row]
+            
+            if indexPath.row == self.arrSec3.count - 1 {
+                MyChannelTVCell.seperatorLbl.isHidden = false
+                MyChannelTVCell.channelSubNameLbl.isHidden = false
+                MyChannelTVCell.channelSubNameLbl.text = "Partner"
+            }else {
+                MyChannelTVCell.seperatorLbl.isHidden = true
+                MyChannelTVCell.channelSubNameLbl.isHidden = true
+            }
+            
         }
         
         return MyChannelTVCell

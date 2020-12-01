@@ -15,7 +15,7 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     
    @IBOutlet weak var multiPageCollectionView: UICollectionView!
                 
-    var content : Int = 0 {
+   var content : Int = 0 {
         didSet {
             
             //self.multiPageCollectionView.register(UINib(nibName: "SinglePageCell", bundle: nil), forCellWithReuseIdentifier: "SinglePageCell")
@@ -43,6 +43,7 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let SinglePageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageCell", for: indexPath) as! SinglePageCell
+        SinglePageCell.goThereBtn.tag = indexPath.row
         
         return SinglePageCell
     }

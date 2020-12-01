@@ -15,6 +15,7 @@ import DropDown
 class SinglePageCell: UICollectionViewCell {
     
     @IBOutlet weak var moreBtn: UIButton!
+    @IBOutlet weak var goThereBtn: UIButton!
     
     let cellDropDown = DropDown()
     
@@ -40,6 +41,13 @@ class SinglePageCell: UICollectionViewCell {
         cellDropDown.width = 130
         cellDropDown.bottomOffset = CGPoint(x: 0, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
         cellDropDown.show()
+    }
+    
+    @IBAction func goThereBtnClicked(_ sender: UIButton) {
+    
+        if let selectedIndex = CVgoThereIndex {
+            selectedIndex(sender.tag)
+        }
     }
     
 }

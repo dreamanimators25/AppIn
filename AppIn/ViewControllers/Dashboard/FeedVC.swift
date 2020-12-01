@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import HCVimeoVideoExtractor
+import AVFoundation
+import AVKit
 
 var CVDropDownIndex : ((_ ind : Int) -> (Void))?
+var CVgoThereIndex : ((_ ind : Int) -> (Void))?
 
 class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -27,10 +31,10 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             case 0:
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "InviteVC") as! InviteVC
                 self.navigationController?.pushViewController(vc, animated: true)
-                
+                                
                 break
             case 1:
-                let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "AboutSasVC") as! AboutSasVC
+                let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "InformationVC") as! InformationVC
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
@@ -40,6 +44,34 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 
                 break
             }
+        }
+        
+        
+        CVgoThereIndex = { index in
+            
+            switch index {
+            case 0:
+                self.showVimeoPlayer("https://player.vimeo.com/281116099")
+                                
+                break
+            case 1:
+                let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "InformationVC") as! InformationVC
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+                break
+            default:
+                DispatchQueue.main.async {
+                    guard let number = URL(string: "tel://\(9982689220)") else { return }
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(number, options: [:], completionHandler: { (status) in })
+                    } else {
+                        UIApplication.shared.openURL(number)
+                    }
+                }
+                
+                break
+            }
+            
         }
         
     }
@@ -105,5 +137,41 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
+    
+    func showVimeoPlayer(_ link: String) {
+        
+        let linkUrl = URL.init(string: link)
+        
+        HCVimeoVideoExtractor.fetchVideoURLFrom(url: linkUrl!, completion: { ( video:HCVimeoVideo?, error:Error?) -> Void in
+            
+            if let err = error {
+                print("Error = \(err.localizedDescription)")
+                return
+            }
+            
+            guard let vid = video else {
+                print("Invalid video object")
+                return
+            }
+                        
+            var vidUrl : HCVimeoVideoQuality!
+            for item in vid.videoURL {
+                vidUrl = item.key
+            }
+                        
+            if let videoURL = vid.videoURL[vidUrl] {
+                
+                let player = AVPlayer(url: videoURL)
+                let playerController = AVPlayerViewController()
+                playerController.player = player
+                self.present(playerController, animated: true) {
+                    player.play()
+                }
+                
+            }
+        })
+    }
 
 }
+
+

@@ -16,6 +16,8 @@ class EditBiographyVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.txtViewBiography.becomeFirstResponder()
 
     }
     
@@ -23,9 +25,14 @@ class EditBiographyVC: UIViewController {
     @IBAction func backBtnClicked(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        self.dismiss(animated: true) {
+        Alert.showAlertWithTowButton("", message: "Do you want to?", alertButtonTitles: ["SAVE","DISCARD"], alertButtonStyles: [.destructive,.default], vc: self) { (index) in
+            
+            DispatchQueue.main.async {
+                self.dismiss(animated: true) { }
+            }
             
         }
+        
     }
     
     @IBAction func saveBtnClicked(_ sender: UIButton) {

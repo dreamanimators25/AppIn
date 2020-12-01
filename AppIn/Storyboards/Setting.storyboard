@@ -197,10 +197,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eiG-QZ-3UU">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCx-GM-mqR">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bCx-GM-mqR">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -261,10 +261,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqs-Li-YeI">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2f-Xe-pAG">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Surname" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2f-Xe-pAG">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -325,10 +325,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h00-cA-jN6">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UKi-lr-5h0">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UKi-lr-5h0">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -389,10 +389,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ege-lT-dey">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8AF-Pj-Ohe">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8AF-Pj-Ohe">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -460,10 +460,10 @@
                                                                             <constraint firstAttribute="height" constant="20" id="wKF-Qf-fR4"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mFa-rQ-gTl">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Select Label" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mFa-rQ-gTl">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -526,10 +526,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkk-xj-of1">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R0o-AH-61D">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Biography" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R0o-AH-61D">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -747,10 +747,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HER-fX-Dwp">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nz2-r9-Rrz">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Current Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nz2-r9-Rrz">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -811,10 +811,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JYB-m1-V0h">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hOq-rW-hON">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hOq-rW-hON">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -875,10 +875,10 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfs-j3-C21">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Repeat Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-jS-u7s">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Repeat Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GZZ-jS-u7s">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                                     </textField>
@@ -1188,10 +1188,9 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feN-FS-Dmj">
                                                         <rect key="frame" x="0.0" y="23" width="220" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Access Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ALw-UY-SMO">
+                                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3443jaf" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ALw-UY-SMO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="220" height="40"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                             </textField>
@@ -1262,10 +1261,10 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HAK-eZ-Vbc">
                                                         <rect key="frame" x="0.0" y="33" width="280" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" clipsSubviews="YES" alpha="0.30000001192092896" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gnh-oE-I5Y">
+                                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gnh-oE-I5Y">
                                                                 <rect key="frame" x="7" y="0.0" width="273" height="40"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="textColor" red="0.12941176470588234" green="0.19607843137254902" blue="0.22745098039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="15"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                             </textField>
@@ -1538,7 +1537,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHC-0y-ThI">
-                                        <rect key="frame" x="10" y="2" width="40" height="40"/>
+                                        <rect key="frame" x="0.0" y="2" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="7eh-3I-RWQ"/>
                                             <constraint firstAttribute="width" constant="40" id="nEc-eZ-off"/>
@@ -1549,7 +1548,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Channels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2H-XN-htJ">
-                                        <rect key="frame" x="60" y="12.5" width="91.5" height="19"/>
+                                        <rect key="frame" x="50" y="13.5" width="88" height="17.5"/>
                                         <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="15"/>
                                         <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1570,7 +1569,7 @@
                                     <constraint firstAttribute="bottom" secondItem="eOV-ua-ciU" secondAttribute="bottom" id="0VG-1c-MdB"/>
                                     <constraint firstItem="R2H-XN-htJ" firstAttribute="leading" secondItem="DHC-0y-ThI" secondAttribute="trailing" constant="10" id="8or-kD-6h5"/>
                                     <constraint firstAttribute="height" constant="44" id="DAc-OA-e9Z"/>
-                                    <constraint firstItem="DHC-0y-ThI" firstAttribute="leading" secondItem="KKI-yq-YDB" secondAttribute="leading" constant="10" id="FZ4-QU-nNs"/>
+                                    <constraint firstItem="DHC-0y-ThI" firstAttribute="leading" secondItem="KKI-yq-YDB" secondAttribute="leading" id="FZ4-QU-nNs"/>
                                     <constraint firstItem="R2H-XN-htJ" firstAttribute="centerY" secondItem="KKI-yq-YDB" secondAttribute="centerY" id="ZDt-2g-tOB"/>
                                     <constraint firstItem="DHC-0y-ThI" firstAttribute="centerY" secondItem="KKI-yq-YDB" secondAttribute="centerY" id="hZ6-e6-VRC"/>
                                     <constraint firstItem="eOV-ua-ciU" firstAttribute="leading" secondItem="KKI-yq-YDB" secondAttribute="leading" id="rTF-9f-QTe"/>
@@ -1588,18 +1587,29 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uber" translatesAutoresizingMaskIntoConstraints="NO" id="ben-fs-FYJ">
-                                                    <rect key="frame" x="15" y="5" width="50" height="62"/>
+                                                    <rect key="frame" x="15" y="8" width="50" height="56"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="aGB-sF-2I6"/>
                                                         <constraint firstAttribute="width" constant="50" id="jqV-jd-ycE"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAS" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ob1-ln-FnI">
-                                                    <rect key="frame" x="80" y="27" width="28.5" height="18.5"/>
-                                                    <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="15"/>
-                                                    <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dfo-Nh-aPb">
+                                                    <rect key="frame" x="80" y="22" width="155" height="28.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAS" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojv-Z1-iDC">
+                                                            <rect key="frame" x="0.0" y="0.0" width="155" height="12"/>
+                                                            <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="10"/>
+                                                            <color key="textColor" red="0.70588235290000001" green="0.73725490199999999" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAS" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ob1-ln-FnI">
+                                                            <rect key="frame" x="0.0" y="12" width="155" height="16.5"/>
+                                                            <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
+                                                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                                 <button opaque="NO" clipsSubviews="YES" tag="30" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbZ-bd-HZE">
                                                     <rect key="frame" x="240" y="21" width="30" height="30"/>
                                                     <constraints>
@@ -1618,7 +1628,7 @@
                                                         <constraint firstAttribute="width" constant="30" id="NmH-Eh-zin"/>
                                                         <constraint firstAttribute="height" constant="30" id="ewt-tN-XPu"/>
                                                     </constraints>
-                                                    <state key="normal" image="changePassword"/>
+                                                    <state key="normal" image="more"/>
                                                     <connections>
                                                         <action selector="moreBtnClicked:" destination="Hbh-cM-9Rb" eventType="touchUpInside" id="iNJ-7w-C5Z"/>
                                                     </connections>
@@ -1635,15 +1645,16 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="TAd-1a-clc" firstAttribute="top" secondItem="ben-fs-FYJ" secondAttribute="bottom" constant="5" id="84w-d1-UIh"/>
-                                                <constraint firstItem="Ob1-ln-FnI" firstAttribute="centerY" secondItem="ben-fs-FYJ" secondAttribute="centerY" id="Eyx-oa-pR4"/>
-                                                <constraint firstItem="ben-fs-FYJ" firstAttribute="top" secondItem="R0L-q7-LUP" secondAttribute="top" constant="5" id="JKq-Af-oSi"/>
-                                                <constraint firstItem="Ob1-ln-FnI" firstAttribute="leading" secondItem="ben-fs-FYJ" secondAttribute="trailing" constant="15" id="Mhi-zh-kqb"/>
+                                                <constraint firstItem="TAd-1a-clc" firstAttribute="top" secondItem="ben-fs-FYJ" secondAttribute="bottom" constant="8" id="84w-d1-UIh"/>
+                                                <constraint firstItem="dfo-Nh-aPb" firstAttribute="leading" secondItem="ben-fs-FYJ" secondAttribute="trailing" constant="15" id="Cgl-r2-pb5"/>
+                                                <constraint firstItem="ben-fs-FYJ" firstAttribute="top" secondItem="R0L-q7-LUP" secondAttribute="top" constant="8" id="JKq-Af-oSi"/>
                                                 <constraint firstAttribute="bottom" secondItem="TAd-1a-clc" secondAttribute="bottom" id="O9Y-M7-wlz"/>
                                                 <constraint firstItem="U67-Yt-C4o" firstAttribute="leading" secondItem="cbZ-bd-HZE" secondAttribute="trailing" constant="5" id="Tgu-WT-VTm"/>
                                                 <constraint firstAttribute="trailing" secondItem="TAd-1a-clc" secondAttribute="trailing" constant="15" id="Xr2-Ql-hyO"/>
+                                                <constraint firstItem="dfo-Nh-aPb" firstAttribute="centerY" secondItem="ben-fs-FYJ" secondAttribute="centerY" id="Z8j-Zp-h9R"/>
                                                 <constraint firstItem="ben-fs-FYJ" firstAttribute="leading" secondItem="R0L-q7-LUP" secondAttribute="leading" constant="15" id="bDB-nD-d8z"/>
-                                                <constraint firstItem="cbZ-bd-HZE" firstAttribute="centerY" secondItem="Ob1-ln-FnI" secondAttribute="centerY" id="dK4-fU-9O3"/>
+                                                <constraint firstItem="cbZ-bd-HZE" firstAttribute="leading" secondItem="dfo-Nh-aPb" secondAttribute="trailing" constant="5" id="bGC-8c-Dxr"/>
+                                                <constraint firstItem="cbZ-bd-HZE" firstAttribute="centerY" secondItem="dfo-Nh-aPb" secondAttribute="centerY" id="roN-nr-oQS"/>
                                                 <constraint firstItem="TAd-1a-clc" firstAttribute="leading" secondItem="R0L-q7-LUP" secondAttribute="leading" constant="15" id="ru8-sY-SYf"/>
                                                 <constraint firstItem="U67-Yt-C4o" firstAttribute="centerY" secondItem="cbZ-bd-HZE" secondAttribute="centerY" id="vnA-tU-0NU"/>
                                                 <constraint firstAttribute="trailing" secondItem="U67-Yt-C4o" secondAttribute="trailing" constant="15" id="wNz-h0-eUF"/>
@@ -1652,6 +1663,7 @@
                                         <connections>
                                             <outlet property="channelImgView" destination="ben-fs-FYJ" id="owg-BC-Pfp"/>
                                             <outlet property="channelNameLbl" destination="Ob1-ln-FnI" id="LdK-hb-chF"/>
+                                            <outlet property="channelSubNameLbl" destination="ojv-Z1-iDC" id="8y7-Xe-8pd"/>
                                             <outlet property="moreBtn" destination="U67-Yt-C4o" id="gbz-CK-rzi"/>
                                             <outlet property="notificationBtn" destination="cbZ-bd-HZE" id="ZzX-Hd-7Zh"/>
                                             <outlet property="seperatorLbl" destination="TAd-1a-clc" id="avl-XV-CLv"/>
@@ -1817,8 +1829,8 @@
         <!--Delete Ac Pop UpVC-->
         <scene sceneID="ywm-Ph-rI8">
             <objects>
-                <viewController storyboardIdentifier="DeleteAcPopUpVC" id="AiX-jX-vo5" customClass="DeleteAcPopUpVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="viQ-ee-K3W">
+                <viewController storyboardIdentifier="DeleteAcPopUpVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="AiX-jX-vo5" customClass="DeleteAcPopUpVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="viQ-ee-K3W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1934,6 +1946,11 @@
                         <viewLayoutGuide key="safeArea" id="fuz-Z6-yWD"/>
                     </view>
                     <navigationItem key="navigationItem" id="tqA-JR-k1f"/>
+                    <connections>
+                        <outlet property="contentLbl" destination="zP7-nF-gcn" id="3ME-UN-Yaw"/>
+                        <outlet property="okBtn" destination="OEA-oC-ir6" id="Gy4-Cy-IaZ"/>
+                        <outlet property="titleLbl" destination="R60-hI-1so" id="RZe-Qj-jlx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l6e-ZO-Z6Y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2093,8 +2110,8 @@
         <image name="NotificationUnselect" width="24" height="24"/>
         <image name="arrow_drop_down" width="24" height="24"/>
         <image name="backArrow" width="24" height="24"/>
-        <image name="changePassword" width="24" height="24"/>
         <image name="copyIcon" width="50" height="50"/>
+        <image name="more" width="18" height="4"/>
         <image name="picChange" width="24" height="24"/>
         <image name="qrCode" width="177" height="185"/>
         <image name="remove" width="24" height="24"/>

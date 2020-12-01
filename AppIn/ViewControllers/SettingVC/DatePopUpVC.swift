@@ -20,7 +20,7 @@ class DatePopUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateFormatter.dateFormat = "DD/MM/YYYY"
+        dateFormatter.dateFormat = "yyyy-mm-dd"
         dateFormatter.dateStyle = DateFormatter.Style.short
         let strDate = dateFormatter.string(from: datePicker.date)
         txtFDate.text = strDate

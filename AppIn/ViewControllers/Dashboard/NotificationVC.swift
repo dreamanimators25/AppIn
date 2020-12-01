@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
@@ -18,6 +20,18 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.callNotificationWebService()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let tabItems = tabBarController?.tabBar.items {
+            // In this case we want to modify the badge number of the third tab:
+            let tabItem = tabItems[2]
+            tabItem.badgeValue = nil
+        }
+        
     }
     
     //MARK: UITableView DataSource & Delegates
@@ -53,6 +67,38 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    //MARK: Web Service
+    func callNotificationWebService() {
+        
+        var params = [String : String]()
+        params = ["user_id" : ""]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kGetAllNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                if let data = responseData.result.value {
+                    let json = JSON(data)
+                    print(json)
+                    
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
 
     // MARK: - Navigation

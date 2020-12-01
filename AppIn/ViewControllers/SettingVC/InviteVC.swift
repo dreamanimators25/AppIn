@@ -41,7 +41,8 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         vc.btn = ""
         
         vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
+        //vc.modalTransitionStyle = .crossDissolve
+        
         self.present(vc, animated: true, completion: nil)
     }
     
@@ -77,7 +78,8 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         vc.btn = ""
         
         vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
+        //vc.modalTransitionStyle = .crossDissolve
+        
         self.present(vc, animated: true, completion: nil)
     }
     

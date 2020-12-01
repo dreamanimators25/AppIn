@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class AddChannelPopUpVC: UIViewController {
     
@@ -45,7 +47,7 @@ class AddChannelPopUpVC: UIViewController {
         }
         
     }
-
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

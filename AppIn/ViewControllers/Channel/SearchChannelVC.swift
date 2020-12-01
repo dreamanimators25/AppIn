@@ -28,6 +28,7 @@ class SearchChannelVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.txtFieldSearchChannel.delegate = self
         self.tabBarController?.tabBar.isHidden = true
     }
