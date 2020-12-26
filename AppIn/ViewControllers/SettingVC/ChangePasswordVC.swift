@@ -100,15 +100,17 @@ class ChangePasswordVC: UIViewController {
             
             var params = [String : String]()
             params = ["user_id" : self.txtFNewPassword.text!,
-                      "oldPassword" : self.txtFNewPassword.text!,
+                      "oldPassword" : self.txtFCurrentPassword.text!,
                       "newPassword1" : self.txtFNewPassword.text!,
-                      "newPassword2" : self.txtFNewPassword.text!
+                      "newPassword2" : self.txtFRepeatPassword.text!
                       ]
             
             print("params = \(params)")
             
             Alamofire.request(kChangePasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                             
+                print(responseData)
+                
                 self.txtFCurrentPassword.text = ""
                 self.txtFNewPassword.text = ""
                 self.txtFRepeatPassword.text = ""
@@ -118,14 +120,22 @@ class ChangePasswordVC: UIViewController {
                     if let data = responseData.result.value {
                         let json = JSON(data)
                         print(json)
-                                
-                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
-                        vc.img = #imageLiteral(resourceName: "successTick")
-                        vc.lbl = "Success message"
-                        vc.btn = ""
-                        vc.modalPresentationStyle = .overCurrentContext
-                        //vc.modalTransitionStyle = .crossDissolve
-                        self.present(vc, animated: true, completion: nil)
+                        
+                        let responsModal = RegisterBaseClass.init(json: json)
+                        
+                        if responsModal.status == "success" {
+                            
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "successTick")
+                            vc.lbl = "Success message"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }else{
+                            Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        }
                         
                     }
                 case .failure(let error):

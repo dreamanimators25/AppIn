@@ -372,14 +372,14 @@
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - d1df2b4a7c810ffd"
+                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - 863a5ff22824e274"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "AppIn.ContentTextCVCell.mp3URL.didset : Swift.Optional&lt;Swift.String&gt;"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/December-2020/1:12:20/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/December-2020/25:12:20/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "170"
@@ -387,14 +387,14 @@
                   offsetFromSymbolStart = "1880">
                </Location>
                <Location
-                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - 5dc5861e2cbec848"
+                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - a20f2a6781b25c1"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 () -&gt; () in AppIn.ContentTextCVCell.mp3URL.didset : Swift.Optional&lt;Swift.String&gt;"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Volumes/Sam%20HD/AppIn/December-2020/1:12:20/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
+                  urlString = "file:///Volumes/Sam%20HD/AppIn/December-2020/25:12:20/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "172"
@@ -407,64 +407,80 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "CDDC82C9-633A-4967-B0E6-A7155DFE6A60"
+            uuid = "95068E9A-BCE6-496F-810C-45F84FE0C03F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/ViewControllers/UserEntry/LoginVC.swift"
+            filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "loginBtnClicked(_:)"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
+            landmarkName = "callEditProfileWebService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "944571B5-DE0B-4C1D-9791-211784066E31"
+            uuid = "C1D98C17-7A6B-4A5C-9806-BC71DA2C15BF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/ViewControllers/UserEntry/LoginVC.swift"
+            filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "loginBtnClicked(_:)"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
+            landmarkName = "callEditProfileWebService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "16E3AB56-5611-4367-AF1A-0F53FDFE8BD1"
+            uuid = "BB350743-90D5-4B34-A0FB-C66F7D58B23C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/ViewControllers/UserEntry/LoginVC.swift"
+            filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "loginBtnClicked(_:)"
+            startingLineNumber = "430"
+            endingLineNumber = "430"
+            landmarkName = "callChangeProfilePicWebService(imgStr:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A86EF3F2-6E10-45E1-9858-274288DF3120"
+            uuid = "222B0071-1C88-4D7C-9B98-33F326727F9B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AppIn/ViewControllers/UserEntry/LoginVC.swift"
+            filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "loginBtnClicked(_:)"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
+            landmarkName = "callChangeProfilePicWebService(imgStr:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1855E45A-9E0F-474E-9777-3396E08AD2B5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

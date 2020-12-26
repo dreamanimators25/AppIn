@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import AVFoundation
+import SwiftyJSON
 
 class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -48,6 +49,11 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
         return SinglePageCell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        self.callViewContentWebService()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
     }
@@ -67,6 +73,50 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    //MARK: Web Service
+    func callViewContentWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["pageId" : "0"]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kViewContentURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    //Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    //Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
     
 }

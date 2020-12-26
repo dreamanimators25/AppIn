@@ -150,6 +150,9 @@
                                                                             <constraint firstAttribute="height" constant="40" id="gZE-Sa-Pwm"/>
                                                                         </constraints>
                                                                         <state key="normal" image="share_white"/>
+                                                                        <connections>
+                                                                            <action selector="shareBtnClicked:" destination="dMG-XR-l5b" eventType="touchUpInside" id="RXL-io-mEy"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </view>

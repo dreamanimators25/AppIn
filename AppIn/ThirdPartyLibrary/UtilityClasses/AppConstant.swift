@@ -19,8 +19,8 @@ let contentCornerRadius = CGFloat(5.0)
 
 let kBaseURL = "https://dreamanimators.com/AppIn/api/v1/api.php?rquest="
 
-let kLoginURL = kBaseURL + "login"
-let kRegisterURL = kBaseURL + "register"
+let kLoginURL = kBaseURL + "login"                                      // DONE
+let kRegisterURL = kBaseURL + "register"                                // DONE
 let kChangePasswordURL = kBaseURL + "changePassword"
 let kGetMyChannelsURL = kBaseURL + "getMyChannels"
 let kGetMyProfileURL = kBaseURL + "getMyProfile"
@@ -37,4 +37,9 @@ let kChangeProfilePictureURL = kBaseURL + "changeProfilePicture"
 let kAddChannelWithCodeURL = kBaseURL + "addChannelWithCode"
 let kForgetPasswordURL = kBaseURL + "forgetPassword"
 let kInviteUsersURL = kBaseURL + "inviteUsers"
+let kGetPageURL = kBaseURL + "getPage"
 let kGetContentsURL = kBaseURL + "getContents"
+let kGetAllChannelsURL = kBaseURL + "getAllChannels"
+let kGetFeaturedChannelURL = kBaseURL + "getFeaturedChannel"
+
+

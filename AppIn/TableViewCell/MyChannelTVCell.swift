@@ -38,9 +38,14 @@ class MyChannelTVCell: UITableViewCell {
 
     @IBAction func notificationBtnClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        
+        if let selectedIndex = TVNotificationIndex {
+            selectedIndex(sender.tag)
+        }
     }
     
     @IBAction func moreBtnClicked(_ sender: UIButton) {
+        
         cellDropDown.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             

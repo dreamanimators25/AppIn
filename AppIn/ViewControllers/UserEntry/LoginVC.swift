@@ -66,6 +66,9 @@ class LoginVC: UIViewController {
             // 4) Set the current date, altered by timezone.
             let dateString = format.string(from: currentDate)
             
+            //let locale = NSLocale.current.languageCode
+            let lang = Locale.preferredLanguages[0]
+            
             var countryName = ""
             if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
                 print(countryCode)
@@ -74,13 +77,14 @@ class LoginVC: UIViewController {
                     
             var params = [String : Any]()
             
-            params = ["username" : self.txtFEmail.text!,
+            params = ["email" : self.txtFEmail.text!,
                       "password" : self.txtFPassword.text!,
                       "country" : countryName,
                       "deviceMeta" : UIDevice.modelName,
                       "os" : UIDevice.current.systemVersion,
                       "deviceID" : UIDevice.current.identifierForVendor!.uuidString,
-                      "timezone" : dateString
+                      "timezone" : dateString,
+                      "language" : lang
                       ]
             
             print("params = \(params)")
@@ -103,7 +107,6 @@ class LoginVC: UIViewController {
                             DispatchQueue.main.async(execute: {
                                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                                     appDelegate.navigateToDashboardScreen()
-                                    
                                 }
                             })
                             
@@ -122,29 +125,7 @@ class LoginVC: UIViewController {
                 }
                 
             }
-            
-            
-            /*
-            UserManager.sharedInstance.authenticateWithUsername(self.txtFEmail.text!, password: self.txtFPassword.text!) { (user, error, text) in
-                
-                self.overlay.isHidden = true
-                
-                if text != nil {
-                    self.showErr(str: text!)
-                } else if error != nil {
-                    self.showErr(str: "Server error")
-                } else {
-                    AppDelegate.userId = user?.id
-                    
-                    CustomUserDefault.saveUserData(modal: user ?? User())
-                    CustomUserDefault.saveUserName(name: self.txtFEmail.text!)
-                    CustomUserDefault.saveUserPassword(password: self.txtFPassword.text!)
-
-                    self.handleSuccessfullyAuthenticatedWithUser()
-                }
-                
-            }*/
-            
+        
         }
     }
     

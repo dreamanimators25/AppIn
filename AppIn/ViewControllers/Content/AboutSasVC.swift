@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
+import SwiftyJSON
 
 class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -16,6 +19,7 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.callGetChannelInfoWebService()
     }
     
     //MARK: IBAction
@@ -65,6 +69,51 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    func callGetChannelInfoWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["pageId" : "0"]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kGetChannelInfoURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
     
     // MARK: - Navigation

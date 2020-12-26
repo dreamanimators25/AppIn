@@ -37,9 +37,14 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     @IBOutlet weak var biographyView: UIView!
     
     let labelDropDown = DropDown()
+    
+    var strImageSendToServer = ""
+    var selectedImage:UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.callGetMyProfileWebService()
 
         self.txtFDate.addTarget(self, action: #selector(tapDateField), for: .allEditingEvents)
         self.txtFLabel.addTarget(self, action: #selector(tapLabelField), for: .allEditingEvents)
@@ -49,13 +54,21 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.tabBarController?.tabBar.isHidden = true
+        
         NotificationCenter.default.addObserver(self, selector: #selector(CreateAccountVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         // Initialization code
         labelDropDown.anchorView = self.txtFLabel
-        labelDropDown.dataSource = ["Young","Adult","Young Adult","Old"]
+        labelDropDown.dataSource = ["Male","Female"]
         labelDropDown.cellConfiguration = { (index, item) in return "\(item)" }
                 
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: Keyboard Notification methods
@@ -137,8 +150,19 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     
     @IBAction func saveBtnClicked(_ sender: UIButton) {
         
-        guard self.Validation() else {
-            return
+//        guard self.Validation() else {
+//            return
+//        }
+        
+        self.view.endEditing(true)
+        
+        if txtFName.text!.isEmpty {
+            
+            self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblNameError.text = "Please Enter Name"
+            self.lblNameError.isHidden = false
+        }else {
+            self.callEditProfileWebService()
         }
         
     }
@@ -193,10 +217,19 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     //MARK:- image picker delegate
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-        self.profileImageView.image = image
+        //let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
+        //self.profileImageView.image = image
         
-        dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        let imageData:NSData = image.jpegData(compressionQuality: 0.50)! as NSData
+        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        self.strImageSendToServer = strBase64
+        
+        self.selectedImage = image
+        
+        dismiss(animated: true) {
+            self.callChangeProfilePicWebService(imgStr: self.strImageSendToServer)
+        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -261,31 +294,49 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     }
     
     //MARK: Web Service
-    func cllEditProfileWebService() {
+    func callGetMyProfileWebService() {
+        
+        //let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        params = ["user_id" : "",
-                  "name" : "",
-                  "username" : "",
-                  "contactNo" : "",
-                  "email" : "",
-                  "address" : "",
-                  "country" : "",
-                  "gender" : "",
-                  "profileBio" : "",
-                  "birthDate" : "",
-                  ]
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["user_id" : "3302"]
         
         print("params = \(params)")
         
-        Alamofire.request(kEditProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            print(responseData)
+            
             switch responseData.result {
             case .success:
+                
                 if let data = responseData.result.value {
+                    
                     let json = JSON(data)
                     print(json)
                     
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        if let profileData = responsModal.data {
+                            self.txtFName.text = profileData.userName
+                            self.txtFSurName.text = profileData.name
+                            self.txtFEmail.text = profileData.email
+                            self.txtFDate.text = profileData.birthDate
+                            self.txtFLabel.text = profileData.gender
+                            self.txtFBiography.text = profileData.profileBio
+                            
+                            if let url = URL(string: profileData.profileImage ?? "") {
+                                 self.profileImageView.af_setImage(withURL: url)
+                            }
+                            
+                        }
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
                     
                 }
                 
@@ -301,7 +352,150 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         }
         
     }
-
+    
+    func callEditProfileWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        params = ["user_id" : "3302",
+                  "name" : self.txtFName.text!,
+                  "username" : self.txtFName.text!,
+                  "contactNo" : "",
+                  "email" : self.txtFEmail.text!,
+                  "address" : "",
+                  "country" : "",
+                  "gender" : self.txtFLabel.text!,
+                  "profileBio" : self.txtFBiography.text!,
+                  "birthDate" : self.txtFDate.text!,
+                  ]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kEditProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+    }
+    
+    //MARK: Web Service
+    func callChangeProfilePicWebService(imgStr : String) {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["user_id"     : "3302",
+                  "profile_pic" : imgStr]
+        
+        //print("params = \(params)")
+        
+        Alamofire.request(kChangeProfilePictureURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        self.profileImageView.image = self.selectedImage
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+        
+        
+        /*
+        let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
+        
+        //To Upload MultiPart Data using Alamofire
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(jsonData, withName: "json")
+                
+                if let image = self.selectedImage {
+                    
+                    multipartFormData.append(image.jpegData(compressionQuality: 1)!, withName: "file", fileName: "file.jpeg", mimeType: "image/jpeg")
+                }
+        },
+            to: "\(kChangeProfilePictureURL)",
+            method: HTTPMethod.post,
+            headers: nil,
+            encodingCompletion: { encodingResult in
+                
+                switch encodingResult {
+                    
+                case .success(let upload,_,_ ):
+                    upload.responseJSON { response in
+                        
+                        if let data = response.result.value {
+                            let json = JSON(data)
+                            print(json)
+                            
+                        }
+                    }
+                    
+                case .failure(let encodingError):
+                    
+                    if encodingError.localizedDescription.contains("Internet connection appears to be offline"){
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                    }else{
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    }
+                    
+                }
+        }
+        )*/
+        
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

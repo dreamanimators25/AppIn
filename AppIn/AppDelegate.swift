@@ -25,71 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // sleep(3)
-        // Override point for customization after application launch.
-        
-        let userData = UserDefaults.getUserData()
-        if userData != nil {
-            DispatchQueue.main.async(execute: {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                    appDelegate.navigateToDashboardScreen()
-                }
-            })
-        }else {
-            
-            DispatchQueue.main.async(execute: {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                    appDelegate.navigateToLoginScreen()
-                }
-            })
-        
-        }
-        
-        /*
-        UserManager.sharedInstance.currentAuthorizedUser { (user) in
-            print("Checking if a user exists")
-            
-            if user?.id != 0 && user != nil {
-                AppDelegate.userId = user?.id
-                print("User exists, so navigating to application, user id is: \(String(describing: user?.id))")
-                self.navigateToDashboardScreen()
-            }else {
-                
-                if let userData = CustomUserDefault.getUserData() {
-                    if userData.id != 0 {
-                        
-                        OAuth2Handler.sharedInstance.refreshExpiredToken { (bool, acc_token, ref_token) in
-                            
-                            if bool {
-                                OAuth2Handler.sharedInstance.update(accessToken: acc_token ?? "", refreshToken: ref_token ?? "")
-                                
-                                UserManager.sharedInstance.storeUserData(userData)
-                                AppDelegate.userId = userData.id
-                                print("User exists, so navigating to application, user id is: \(String(describing: userData.id))")
-                                                                
-                                DispatchQueue.main.async(execute: {
-                                    if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                        appDelegate.navigateToDashboardScreen()
-                                    }
-                                })
-                                
-                            }else {
-                                print("User id is 0, so going to login method")
-                                OAuth2Handler.sharedInstance.clearAccessToken()
-                                self.navigateToLoginScreen()
-                            }
-                        }
-                    }else {
-                        print("User id is 0, so going to login method")
-                        OAuth2Handler.sharedInstance.clearAccessToken()
-                        self.navigateToLoginScreen()
-                    }
-                }else {
-                    print("User id is 0, so going to login method")
-                    OAuth2Handler.sharedInstance.clearAccessToken()
-                    self.navigateToHomeScreen()
-                }
-            }
-        }*/
         
         return true
     }
@@ -129,8 +64,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func navigateToDashboardScreen() {
-        let  story = UIStoryboard.init(name: "Dashboard", bundle: nil)
-        self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Dashboard_Nav")
+        DispatchQueue.main.async {
+            let  story = UIStoryboard.init(name: "Dashboard", bundle: nil)
+            self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Dashboard_Nav")
+        }
     }
 
     // MARK: UISceneSession Lifecycle

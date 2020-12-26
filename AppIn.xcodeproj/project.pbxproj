@@ -53,6 +53,9 @@
 		592DC4F4253F2BBC00779130 /* SearchChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */; };
 		592E9F60254EE26000951754 /* MultiPageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592E9F5F254EE26000951754 /* MultiPageCell.swift */; };
 		592E9F62254EE27C00951754 /* SinglePageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592E9F61254EE27C00951754 /* SinglePageCell.swift */; };
+		5937E8302590B430005001D6 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5937E82F2590B42F005001D6 /* SplashVC.swift */; };
+		594073E7258E1C9200C3CAE9 /* GetAllNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594073E5258E1C9100C3CAE9 /* GetAllNotifications.swift */; };
+		594073E8258E1C9200C3CAE9 /* NotiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 594073E6258E1C9200C3CAE9 /* NotiData.swift */; };
 		5950EFE7254D72C2005CB112 /* BottomViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950EFE6254D72C2005CB112 /* BottomViewVC.swift */; };
 		5950EFE9254DA99D005CB112 /* AboutSasVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5950EFE8254DA99D005CB112 /* AboutSasVC.swift */; };
 		595BFDB6256BEACF00A6C245 /* InformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 595BFDB5256BEACF00A6C245 /* InformationVC.swift */; };
@@ -243,6 +246,9 @@
 		592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChannelVC.swift; sourceTree = "<group>"; };
 		592E9F5F254EE26000951754 /* MultiPageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPageCell.swift; sourceTree = "<group>"; };
 		592E9F61254EE27C00951754 /* SinglePageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageCell.swift; sourceTree = "<group>"; };
+		5937E82F2590B42F005001D6 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		594073E5258E1C9100C3CAE9 /* GetAllNotifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetAllNotifications.swift; sourceTree = "<group>"; };
+		594073E6258E1C9200C3CAE9 /* NotiData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotiData.swift; sourceTree = "<group>"; };
 		5950EFE6254D72C2005CB112 /* BottomViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomViewVC.swift; sourceTree = "<group>"; };
 		5950EFE8254DA99D005CB112 /* AboutSasVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutSasVC.swift; sourceTree = "<group>"; };
 		595BFDB5256BEACF00A6C245 /* InformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationVC.swift; sourceTree = "<group>"; };
@@ -505,6 +511,8 @@
 		59278EB42572526A00546A07 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				594073E4258E1B2B00C3CAE9 /* GetAllNotificationModel */,
+				594073D9258E173F00C3CAE9 /* GetMyChannelsModel */,
 				59278EB52572529B00546A07 /* RegisterModel */,
 			);
 			path = DataModels;
@@ -517,6 +525,22 @@
 				59278EB7257252B300546A07 /* RegisterData.swift */,
 			);
 			path = RegisterModel;
+			sourceTree = "<group>";
+		};
+		594073D9258E173F00C3CAE9 /* GetMyChannelsModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = GetMyChannelsModel;
+			sourceTree = "<group>";
+		};
+		594073E4258E1B2B00C3CAE9 /* GetAllNotificationModel */ = {
+			isa = PBXGroup;
+			children = (
+				594073E6258E1C9200C3CAE9 /* NotiData.swift */,
+				594073E5258E1C9100C3CAE9 /* GetAllNotifications.swift */,
+			);
+			path = GetAllNotificationModel;
 			sourceTree = "<group>";
 		};
 		5965181524A6643500264AE1 /* Dashboard */ = {
@@ -750,6 +774,7 @@
 			isa = PBXGroup;
 			children = (
 				59DDC65824962CDF007D1A51 /* WalkThroughVC.swift */,
+				5937E82F2590B42F005001D6 /* SplashVC.swift */,
 				5965749D2537065D00FD9822 /* IntroSplashVC.swift */,
 				59DDC68D24963C9E007D1A51 /* LoginVC.swift */,
 				5905163B2496954A00092E98 /* CreateAccountVC.swift */,
@@ -1141,6 +1166,7 @@
 				59278EB8257252B300546A07 /* RegisterBaseClass.swift in Sources */,
 				5999205C24B33DC900E76898 /* Inbox.swift in Sources */,
 				5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */,
+				5937E8302590B430005001D6 /* SplashVC.swift in Sources */,
 				5999207624B33DC900E76898 /* Definitions.swift in Sources */,
 				5965181C24A6643600264AE1 /* ChannelsVC.swift in Sources */,
 				591F582D253C3BD4006AC73C /* NotificationVC.swift in Sources */,
@@ -1153,6 +1179,7 @@
 				5999204724B33DC900E76898 /* RewardsRouter.swift in Sources */,
 				5999204D24B33DC900E76898 /* RewardPageBackground.swift in Sources */,
 				5999206624B33DC900E76898 /* String+Extensions.swift in Sources */,
+				594073E7258E1C9200C3CAE9 /* GetAllNotifications.swift in Sources */,
 				59DDC68E24963C9E007D1A51 /* LoginVC.swift in Sources */,
 				5965749E2537065D00FD9822 /* IntroSplashVC.swift in Sources */,
 				59DDC69B2496404F007D1A51 /* TPKeyboardAvoidingScrollView.m in Sources */,
@@ -1180,6 +1207,7 @@
 				590FD4A824A26EB7000C71E1 /* ForgotPasswordVC.swift in Sources */,
 				5999208224B33DC900E76898 /* GradientView.swift in Sources */,
 				5999204224B33DC900E76898 /* NotificationsRouter.swift in Sources */,
+				594073E8258E1C9200C3CAE9 /* NotiData.swift in Sources */,
 				5999204324B33DC900E76898 /* StatisticsRouter.swift in Sources */,
 				590E662B249CCE3A001443BF /* AppConstant.swift in Sources */,
 				5999205024B33DC900E76898 /* Rewards.swift in Sources */,

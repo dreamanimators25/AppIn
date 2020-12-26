@@ -151,6 +151,7 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         }else {
             
             switch indexPath.row {
+                
             case 2,3:
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
                 vc.isComeFrom = self.arrTitle[indexPath.row - 2]
@@ -158,6 +159,7 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
+                
             case 4:
                 DispatchQueue.main.async {
                     
@@ -176,25 +178,11 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                         }
                     }
                     
-                    
-                    /*
-                    Alert.showAlertWithTowButton("", message: "Do you really want to opt out?", alertButtonTitles: ["NO","YES"], alertButtonStyles: [.default,.default], vc: self) { (index) in
-                        if index == 1 {
-                            
-                            DispatchQueue.main.async {
-                                Alert.showAlertWithTowButton("", message: "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement.", alertButtonTitles: ["NO","YES"], alertButtonStyles: [.default,.default], vc: self) { (index) in
-                                    if index == 1 {
-                                        print("Call Api")
-                                    }
-                                }
-                            }
-                            
-                        }
-                    }*/
                 }
                 
                 break
             case 5:
+                
                 Alert.showAlertWithTowButton("", message: "Do you want to logout?", alertButtonTitles: ["NO","YES"], alertButtonStyles: [.destructive,.default], vc: self) { (index) in
                     if index == 1 {
                         

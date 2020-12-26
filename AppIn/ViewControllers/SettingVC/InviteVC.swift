@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
@@ -68,19 +70,7 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBAction func sendInvitationBtnClicked(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        self.arrEmailInvited = []
-        self.emailTableView.reloadData()
-        
-        
-        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
-        vc.img = #imageLiteral(resourceName: "successTick")
-        vc.lbl = "Invites has been sent"
-        vc.btn = ""
-        
-        vc.modalPresentationStyle = .overCurrentContext
-        //vc.modalTransitionStyle = .crossDissolve
-        
-        self.present(vc, animated: true, completion: nil)
+        self.callInviteUsersWebService()
     }
     
     @IBAction func removeEmailBtnClicked(_ sender: UIButton) {
@@ -120,6 +110,64 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    //MARK: Web Service
+    func callInviteUsersWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : Any]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["user_id" : "3302",
+                  "shortCode" : self.txtFAccessCode.text ?? "",
+                  "email" : self.arrEmailInvited]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kInviteUsersURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        self.arrEmailInvited = []
+                        self.emailTableView.reloadData()
+                        
+                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                        vc.img = #imageLiteral(resourceName: "successTick")
+                        vc.lbl = "Invites has been sent"
+                        vc.btn = ""
+                        
+                        vc.modalPresentationStyle = .overCurrentContext
+                        //vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true, completion: nil)
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
 
     // MARK: - Navigation

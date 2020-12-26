@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 var TVDropDownIndex : ((_ ind : Int) -> (Void))?
+var TVNotificationIndex : ((_ ind : Int) -> (Void))?
 
 class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
@@ -21,10 +24,13 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.callMyChannelWebService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
                         
         TVDropDownIndex = { index in
             switch index {
@@ -39,14 +45,26 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 
                 break
             case 2:
+                self.callRemoveChannelWebService()
                 
                 break
             default:
+                self.callShareContentWebService()
                 
                 break
             }
         }
         
+        TVNotificationIndex = { index in
+            self.callUpdateChannelNotificationWebService(channelId: index)
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: IBAction
@@ -118,6 +136,186 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    //MARK: Web Service
+    func callMyChannelWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["user_id" : "3302"]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+    }
+    
+    func callUpdateChannelNotificationWebService(channelId : Int) {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : Any]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        
+        params = ["user_id" : "3302",
+                  "channel_id" : channelId,
+                  "sendPush" : "1"]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kUpdateChannelNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = GetAllNotifications.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                     
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+    }
+    
+    func callRemoveChannelWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["user_id" : "3302",
+                  "channel_id" : "",
+                  "isDeleted" : ""]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kRemoveChannelURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+    }
+    
+    func callShareContentWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["pageId" : "0"]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kShareContentURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    //Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    //Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
     
     // MARK: - Navigation

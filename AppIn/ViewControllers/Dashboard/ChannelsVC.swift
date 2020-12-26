@@ -238,10 +238,11 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //MARK: Web Service
     func callMyChannelWebService() {
         
-        let userData = UserDefaults.getUserData()
+        //let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        params = ["user_id" : userData?.UserId ?? ""]
+        //params = ["user_id" : userData?.UserId ?? ""]
+        params = ["user_id" : "3302"]
         
         print("params = \(params)")
         
@@ -249,11 +250,19 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                         
             switch responseData.result {
             case .success:
+                
                 if let data = responseData.result.value {
+                    
                     let json = JSON(data)
                     print(json)
                     
+                    let responsModal = RegisterBaseClass.init(json: json)
                     
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
                     
                 }
                 
@@ -272,10 +281,13 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     private func addChannel(Code:String) {
         
-        let userData = UserDefaults.getUserData()
+        //let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        params = ["userId" : userData?.UserId ?? "",
+        //params = ["user_id" : userData?.UserId ?? "",
+        //          "shortCode" : Code]
+        
+        params = ["user_id" : "3302",
                   "shortCode" : Code]
         
         print("params = \(params)")
@@ -284,17 +296,28 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             
             switch responseData.result {
             case .success:
+                
                 if let data = responseData.result.value {
+                    
                     let json = JSON(data)
                     print(json)
                     
-                    let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
-                    vc.img = #imageLiteral(resourceName: "successTick")
-                    vc.lbl = "Channel was added"
-                    vc.btn = ""
-                    vc.modalPresentationStyle = .overCurrentContext
-                    //vc.modalTransitionStyle = .crossDissolve
-                    self.present(vc, animated: true, completion: nil)
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                        vc.img = #imageLiteral(resourceName: "successTick")
+                        vc.lbl = "Channel was added"
+                        vc.btn = ""
+                        vc.modalPresentationStyle = .overCurrentContext
+                        //vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true, completion: nil)
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
                 }
                 
             case .failure(let error):

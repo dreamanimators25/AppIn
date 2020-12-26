@@ -69,22 +69,90 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         return UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.callUpdateNotificationWebService()
+    }
+    
     //MARK: Web Service
     func callNotificationWebService() {
         
+        //let userData = UserDefaults.getUserData()
+        
         var params = [String : String]()
-        params = ["user_id" : ""]
+        //params = ["user_id" : userData?.UserId ?? ""]
+        
+        params = ["user_id" : "3302"]
         
         print("params = \(params)")
         
         Alamofire.request(kGetAllNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            print(responseData)
+            
             switch responseData.result {
             case .success:
+                
                 if let data = responseData.result.value {
+                    
                     let json = JSON(data)
                     print(json)
                     
+                    let responsModal = GetAllNotifications.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+    }
+    
+    func callUpdateNotificationWebService() {
+        
+        //let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        //params = ["user_id" : userData?.UserId ?? ""]
+        
+        params = ["user_id" : "3302",
+                  "isRead" : "1",
+                  "notification_id" : "1",
+                  "isDeleted" : ""]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kUpdateNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = GetAllNotifications.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                    }
                     
                 }
                 

@@ -60,12 +60,22 @@ class ForgotPasswordVC: UIViewController {
             Alamofire.request(kForgetPasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                             
                 switch responseData.result {
+                    
                 case .success:
+                    
                     if let data = responseData.result.value {
+                        
                         let json = JSON(data)
                         print(json)
-                                
-                        self.txtFEmail.text = ""
+                        
+                        let responsModal = RegisterBaseClass.init(json: json)
+                        
+                        if responsModal.status == "success" {
+                                                        
+                        }else{
+                            Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        }
+                        
                     }
                 case .failure(let error):
                     

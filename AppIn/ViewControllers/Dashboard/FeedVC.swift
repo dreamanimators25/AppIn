@@ -10,6 +10,9 @@ import UIKit
 import HCVimeoVideoExtractor
 import AVFoundation
 import AVKit
+import Alamofire
+import SwiftyJSON
+
 
 var CVDropDownIndex : ((_ ind : Int) -> (Void))?
 var CVgoThereIndex : ((_ ind : Int) -> (Void))?

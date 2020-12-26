@@ -63,7 +63,7 @@ class CreateAccountVC: UIViewController {
         
         // Initialization code
         genderDropDown.anchorView = self.txtFieldBirthDate
-        genderDropDown.dataSource = ["Young","Adult","Young Adult","Old"]
+        genderDropDown.dataSource = ["Male","Female"]
         genderDropDown.cellConfiguration = { (index, item) in return "\(item)" }
     }
     
@@ -193,11 +193,10 @@ class CreateAccountVC: UIViewController {
         // 3) Set the format of the altered date.
         format.dateFormat = "yyyy-mm-dd"
         // 4) Set the current date, altered by timezone.
-        let dateString = format.string(from: currentDate)
-        
+        //let dateString = format.string(from: currentDate)
         
         //let locale = NSLocale.current.languageCode
-        let pre = Locale.preferredLanguages[0]
+        //let pre = Locale.preferredLanguages[0]
         
         var countryName = ""
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
@@ -216,11 +215,12 @@ class CreateAccountVC: UIViewController {
                   "gender" : self.txtFieldGender.text!,
                   "profileBio" : self.txtFieldProfileBio.text!,
                   "birthDate" : self.txtFieldBirthDate.text!,
-                  "deviceId" : UIDevice.current.identifierForVendor!.uuidString,
-                  "deviceMeta" : UIDevice.modelName,
-                  "os" : UIDevice.current.systemVersion,
-                  "timeZone" : dateString,
-                  "language" : pre
+                  "ageFeel" : self.txtFieldGender.text!,
+                  //"deviceId" : UIDevice.current.identifierForVendor!.uuidString,
+                  //"deviceMeta" : UIDevice.modelName,
+                  //"os" : UIDevice.current.systemVersion,
+                  //"timeZone" : dateString,
+                  //"language" : pre
                   ]
         
         print("params = \(params)")
@@ -262,37 +262,6 @@ class CreateAccountVC: UIViewController {
             }
             
         }
-        
-        
-        /*
-        UserManager.sharedInstance.registerWithUsername(params) { [weak self] (user, error, exist) in
-            
-            self?.overlay.isHidden = true
-            
-            guard let self = self else { return }
-            
-            if error != nil {
-                self.showErr(str: "Server error")
-            } else if exist {
-                self.showErr(str: "Email address already in use")
-            } else {
-                if user == nil {
-                    self.showErr(str: "Server error")
-                } else {
-                    AppDelegate.userId = user?.id
-                    
-                    self.updatePushToken()
-                    
-                    DispatchQueue.main.async(execute: {
-                        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                            appDelegate.navigateToDashboardScreen()
-                        }
-                    })
-                    
-                }
-            }
-            
-        }*/
         
     }
     
