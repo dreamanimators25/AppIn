@@ -16,24 +16,30 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var txtFName: UITextField!
-    @IBOutlet weak var txtFSurName: UITextField!
+    @IBOutlet weak var txtFContactNo: UITextField!
     @IBOutlet weak var txtFEmail: UITextField!
+    @IBOutlet weak var txtFAddress: UITextField!
+    @IBOutlet weak var txtFCountry: UITextField!
     @IBOutlet weak var txtFDate: UITextField!
-    @IBOutlet weak var txtFLabel: UITextField!
+    @IBOutlet weak var txtFAgeFeel: UITextField!
     @IBOutlet weak var txtFBiography: UITextField!
     
     @IBOutlet weak var lblNameError: UILabel!
-    @IBOutlet weak var lblSurNameError: UILabel!
+    @IBOutlet weak var lblContactNoError: UILabel!
     @IBOutlet weak var lblEmailError: UILabel!
+    @IBOutlet weak var lblAddressError: UILabel!
+    @IBOutlet weak var lblCountryError: UILabel!
     @IBOutlet weak var lblDateError: UILabel!
-    @IBOutlet weak var lblLabelError: UILabel!
+    @IBOutlet weak var lblAgeFeelError: UILabel!
     @IBOutlet weak var lblBiographyError: UILabel!
     
     @IBOutlet weak var nameView: UIView!
-    @IBOutlet weak var surNameView: UIView!
+    @IBOutlet weak var contactNoView: UIView!
     @IBOutlet weak var emailView: UIView!
+    @IBOutlet weak var addressView: UIView!
+    @IBOutlet weak var countryView: UIView!
     @IBOutlet weak var dateView: UIView!
-    @IBOutlet weak var labelView: UIView!
+    @IBOutlet weak var ageFeelView: UIView!
     @IBOutlet weak var biographyView: UIView!
     
     let labelDropDown = DropDown()
@@ -47,7 +53,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         self.callGetMyProfileWebService()
 
         self.txtFDate.addTarget(self, action: #selector(tapDateField), for: .allEditingEvents)
-        self.txtFLabel.addTarget(self, action: #selector(tapLabelField), for: .allEditingEvents)
+        self.txtFAgeFeel.addTarget(self, action: #selector(tapAgeFeelField), for: .allEditingEvents)
         self.txtFBiography.addTarget(self, action: #selector(tapBioField), for: .allEditingEvents)
     }
     
@@ -59,8 +65,13 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         NotificationCenter.default.addObserver(self, selector: #selector(CreateAccountVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         
         // Initialization code
-        labelDropDown.anchorView = self.txtFLabel
-        labelDropDown.dataSource = ["Male","Female"]
+        labelDropDown.backgroundColor = UIColor.white
+        //labelDropDown.layer.cornerRadius = 10.0
+        //labelDropDown.frame.size.width = self.txtFLabel.frame.size.width
+        //labelDropDown.clipsToBounds = true
+        
+        labelDropDown.anchorView = self.txtFAgeFeel
+        labelDropDown.dataSource = ["Youth", "Young Adult", "Middle Aged", "Senior"]
         labelDropDown.cellConfiguration = { (index, item) in return "\(item)" }
                 
     }
@@ -76,17 +87,21 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         if ((notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
             
             self.lblNameError.isHidden = true
-            self.lblSurNameError.isHidden = true
+            self.lblContactNoError.isHidden = true
             self.lblEmailError.isHidden = true
+            self.lblAddressError.isHidden = true
+            self.lblCountryError.isHidden = true
             self.lblDateError.isHidden = true
-            self.lblLabelError.isHidden = true
+            self.lblAgeFeelError.isHidden = true
             self.lblBiographyError.isHidden = true
             
             self.nameView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-            self.surNameView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.contactNoView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             self.emailView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.addressView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.countryView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             self.dateView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-            self.labelView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.ageFeelView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             self.biographyView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             
         }
@@ -110,16 +125,16 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         
     }
     
-    @objc func tapLabelField() {
+    @objc func tapAgeFeelField() {
         
         self.view.endEditing(true)
         
         labelDropDown.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txtFLabel.text = item
+            self.txtFAgeFeel.text = item
         }
 
-        labelDropDown.width = self.txtFLabel.bounds.width
+        labelDropDown.width = self.txtFAgeFeel.bounds.width
         labelDropDown.bottomOffset = CGPoint(x: 0, y:(labelDropDown.anchorView?.plainView.bounds.height)!)
         labelDropDown.show()
     
@@ -248,11 +263,11 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             self.lblNameError.isHidden = false
             return false
         }
-        else if txtFSurName.text!.isEmpty {
+        else if txtFContactNo.text!.isEmpty {
             
-            self.surNameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblSurNameError.text = "Please Enter Surname"
-            self.lblSurNameError.isHidden = false
+            self.contactNoView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblContactNoError.text = "Please Enter Contact No"
+            self.lblContactNoError.isHidden = false
             return false
         }
         else if txtFEmail.text!.isEmpty {
@@ -269,6 +284,20 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             self.lblEmailError.isHidden = false
             return false
         }
+        else if txtFAddress.text!.isEmpty {
+            
+            self.addressView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblAddressError.text = "Please Enter Address"
+            self.lblAddressError.isHidden = false
+            return false
+        }
+        else if txtFCountry.text!.isEmpty {
+            
+            self.countryView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblCountryError.text = "Please Enter Country"
+            self.lblCountryError.isHidden = false
+            return false
+        }
         else if txtFDate.text!.isEmpty {
             
             self.dateView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
@@ -276,14 +305,14 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             self.lblDateError.isHidden = false
             return false
         }
-        else if txtFLabel.text!.isEmpty {
+        else if txtFAgeFeel.text!.isEmpty {
             
-            self.labelView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblLabelError.text = "Please Select Label"
-            self.lblLabelError.isHidden = false
+            self.ageFeelView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+            self.lblAgeFeelError.text = "Please Select Age Feel"
+            self.lblAgeFeelError.isHidden = false
             return false
         }else if txtFBiography.text!.isEmpty {
-                        
+            
             self.biographyView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
             self.lblBiographyError.text = "Please Enter Biography"
             self.lblBiographyError.isHidden = false
@@ -296,11 +325,10 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     //MARK: Web Service
     func callGetMyProfileWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        params = ["user_id" : "3302"]
+        params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
         
@@ -321,11 +349,13 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                     if responsModal.status == "success" {
                         
                         if let profileData = responsModal.data {
-                            self.txtFName.text = profileData.userName
-                            self.txtFSurName.text = profileData.name
+                            self.txtFName.text = profileData.name
+                            self.txtFContactNo.text = profileData.contactNo
                             self.txtFEmail.text = profileData.email
+                            self.txtFAddress.text = profileData.address
+                            self.txtFCountry.text = profileData.country
                             self.txtFDate.text = profileData.birthDate
-                            self.txtFLabel.text = profileData.gender
+                            self.txtFAgeFeel.text = profileData.ageFeel
                             self.txtFBiography.text = profileData.profileBio
                             
                             if let url = URL(string: profileData.profileImage ?? "") {
@@ -355,17 +385,16 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     
     func callEditProfileWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        params = ["user_id" : "3302",
+        params = ["user_id" : userData?.UserId ?? "",
                   "name" : self.txtFName.text!,
-                  "username" : self.txtFName.text!,
-                  "contactNo" : "",
+                  "contactNo" : self.txtFContactNo.text!,
                   "email" : self.txtFEmail.text!,
-                  "address" : "",
-                  "country" : "",
-                  "gender" : self.txtFLabel.text!,
+                  "address" : self.txtFAddress.text!,
+                  "country" : self.txtFCountry.text!,
+                  "ageFeel" : self.txtFAgeFeel.text!,
                   "profileBio" : self.txtFBiography.text!,
                   "birthDate" : self.txtFDate.text!,
                   ]
@@ -385,10 +414,28 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                     
                     let responsModal = RegisterBaseClass.init(json: json)
                     
-                    if responsModal.status == "success" {
-                        
-                    }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    DispatchQueue.main.async {
+                        if responsModal.status == "success" {
+                                                        
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "successTick")
+                            vc.lbl = responsModal.msg ?? "Success"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }else{
+                            
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "errorClose")
+                            vc.lbl = responsModal.msg ?? "Error"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }
                     }
                     
                 }
@@ -409,11 +456,11 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     //MARK: Web Service
     func callChangeProfilePicWebService(imgStr : String) {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        params = ["user_id"     : "3302",
+        
+        params = ["user_id"     : userData?.UserId ?? "",
                   "profile_pic" : imgStr]
         
         //print("params = \(params)")
@@ -430,12 +477,32 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                     print(json)
                     
                     let responsModal = RegisterBaseClass.init(json: json)
-                    
-                    if responsModal.status == "success" {
-                        self.profileImageView.image = self.selectedImage
-                    }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
-                    }
+                        
+                    DispatchQueue.main.async {
+                            if responsModal.status == "success" {
+                                
+                                self.profileImageView.image = self.selectedImage
+                                
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                                vc.img = #imageLiteral(resourceName: "successTick")
+                                vc.lbl = responsModal.msg ?? "Success"
+                                vc.btn = ""
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                self.present(vc, animated: true, completion: nil)
+                                
+                            }else{
+                                
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                                vc.img = #imageLiteral(resourceName: "errorClose")
+                                vc.lbl = responsModal.msg ?? "Error"
+                                vc.btn = ""
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                self.present(vc, animated: true, completion: nil)
+                                
+                            }
+                        }
                     
                 }
                 

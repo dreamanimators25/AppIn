@@ -25,13 +25,25 @@ class BottomViewVC: UIViewController {
         self.titleLbl.text = lbl
         self.actionBtn.setTitle(btn, for: .normal)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             // code to remove your view
             self.dismiss(animated: true) {
                 
             }
         }
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: IBAction

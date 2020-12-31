@@ -644,8 +644,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="93"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vj-ob-STB">
-                                                    <rect key="frame" x="15" y="40" width="10" height="10"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vj-ob-STB">
+                                                    <rect key="frame" x="15" y="41" width="10" height="10"/>
                                                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.67843137249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="10" id="CtJ-rT-qd6"/>
@@ -661,7 +661,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uber" translatesAutoresizingMaskIntoConstraints="NO" id="eH2-uI-HjV">
-                                                    <rect key="frame" x="40" y="20" width="50" height="50"/>
+                                                    <rect key="frame" x="40" y="20" width="50" height="52"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="itQ-GV-sQZ"/>
                                                         <constraint firstAttribute="width" constant="50" id="mLO-YX-8oE"/>
@@ -673,7 +673,7 @@
                                                     <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Development . 2h ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqR-aX-Myj">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="30" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Development . 2h ago" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YqR-aX-Myj">
                                                     <rect key="frame" x="105" y="64" width="118" height="15"/>
                                                     <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="12"/>
                                                     <color key="textColor" red="0.70588235294117641" green="0.73725490196078436" blue="0.76470588235294112" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -700,8 +700,8 @@
                                                 <constraint firstAttribute="bottom" secondItem="9o7-ZH-4by" secondAttribute="bottom" id="RBL-yG-S8K"/>
                                                 <constraint firstItem="9o7-ZH-4by" firstAttribute="leading" secondItem="lyK-KZ-k8T" secondAttribute="leading" constant="15" id="Tev-xf-02r"/>
                                                 <constraint firstItem="nay-Q8-U4G" firstAttribute="top" secondItem="eH2-uI-HjV" secondAttribute="top" id="YW7-aC-QAh"/>
+                                                <constraint firstItem="9o7-ZH-4by" firstAttribute="top" secondItem="eH2-uI-HjV" secondAttribute="bottom" constant="20" id="cip-6S-fJR"/>
                                                 <constraint firstAttribute="trailing" secondItem="9o7-ZH-4by" secondAttribute="trailing" constant="15" id="g2S-A6-col"/>
-                                                <constraint firstItem="9o7-ZH-4by" firstAttribute="top" secondItem="YqR-aX-Myj" secondAttribute="bottom" constant="13" id="lDe-Ac-bAE"/>
                                                 <constraint firstItem="nay-Q8-U4G" firstAttribute="leading" secondItem="eH2-uI-HjV" secondAttribute="trailing" constant="15" id="vME-dX-GFa"/>
                                                 <constraint firstItem="7vj-ob-STB" firstAttribute="leading" secondItem="lyK-KZ-k8T" secondAttribute="leading" constant="15" id="y8h-MD-WhB"/>
                                             </constraints>

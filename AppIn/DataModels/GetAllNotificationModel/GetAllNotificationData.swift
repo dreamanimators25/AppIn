@@ -8,7 +8,7 @@
 import Foundation
 import SwiftyJSON
 
-public class NotiData: NSCoding {
+public class GetAllNotificationData: NSCoding {
 
   // MARK: Declaration for string constants to be used to decode and also serialize.
   private let kDataAddedDateKey: String = "addedDate"
@@ -20,6 +20,9 @@ public class NotiData: NSCoding {
   private let kDataUserIdKey: String = "userId"
   private let kDataModifiedDateKey: String = "modifiedDate"
   private let kDataTypeKey: String = "type"
+  private let kDataChannelIdKey: String = "channelId"
+  private let kDataTitleKey: String = "title"
+  private let kDataBrandIdKey: String = "brandId"
 
   // MARK: Properties
   public var addedDate: String?
@@ -31,6 +34,9 @@ public class NotiData: NSCoding {
   public var userId: String?
   public var modifiedDate: String?
   public var type: String?
+  public var channelId: String?
+  public var title: String?
+  public var brandId: String?
 
   // MARK: SwiftyJSON Initalizers
   /**
@@ -57,6 +63,9 @@ public class NotiData: NSCoding {
     userId = json[kDataUserIdKey].string
     modifiedDate = json[kDataModifiedDateKey].string
     type = json[kDataTypeKey].string
+    channelId = json[kDataChannelIdKey].string
+    title = json[kDataTitleKey].string
+    brandId = json[kDataBrandIdKey].string
   }
 
   /**
@@ -74,6 +83,9 @@ public class NotiData: NSCoding {
     if let value = userId { dictionary[kDataUserIdKey] = value }
     if let value = modifiedDate { dictionary[kDataModifiedDateKey] = value }
     if let value = type { dictionary[kDataTypeKey] = value }
+    if let value = type { dictionary[kDataChannelIdKey] = value }
+    if let value = type { dictionary[kDataTitleKey] = value }
+    if let value = type { dictionary[kDataBrandIdKey] = value }
     return dictionary
   }
 
@@ -88,6 +100,9 @@ public class NotiData: NSCoding {
     self.userId = aDecoder.decodeObject(forKey: kDataUserIdKey) as? String
     self.modifiedDate = aDecoder.decodeObject(forKey: kDataModifiedDateKey) as? String
     self.type = aDecoder.decodeObject(forKey: kDataTypeKey) as? String
+    self.channelId = aDecoder.decodeObject(forKey: kDataChannelIdKey) as? String
+    self.title = aDecoder.decodeObject(forKey: kDataTitleKey) as? String
+    self.brandId = aDecoder.decodeObject(forKey: kDataBrandIdKey) as? String
   }
 
   public func encode(with aCoder: NSCoder) {
@@ -100,6 +115,9 @@ public class NotiData: NSCoding {
     aCoder.encode(userId, forKey: kDataUserIdKey)
     aCoder.encode(modifiedDate, forKey: kDataModifiedDateKey)
     aCoder.encode(type, forKey: kDataTypeKey)
+    aCoder.encode(type, forKey: kDataChannelIdKey)
+    aCoder.encode(type, forKey: kDataTitleKey)
+    aCoder.encode(type, forKey: kDataBrandIdKey)
   }
 
 }

@@ -59,6 +59,8 @@ class ForgotPasswordVC: UIViewController {
             
             Alamofire.request(kForgetPasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                             
+                print(responseData)
+                
                 switch responseData.result {
                     
                 case .success:
@@ -70,10 +72,29 @@ class ForgotPasswordVC: UIViewController {
                         
                         let responsModal = RegisterBaseClass.init(json: json)
                         
-                        if responsModal.status == "success" {
-                                                        
-                        }else{
-                            Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        DispatchQueue.main.async {
+                            if responsModal.status == "success" {
+                                
+                                self.txtFEmail.text = ""
+                                
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                                vc.img = #imageLiteral(resourceName: "successTick")
+                                vc.lbl = responsModal.msg ?? "Success"
+                                vc.btn = ""
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                self.present(vc, animated: true, completion: nil)
+                                
+                            }else{
+                                
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                                vc.img = #imageLiteral(resourceName: "errorClose")
+                                vc.lbl = responsModal.msg ?? "Error"
+                                vc.btn = ""
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                self.present(vc, animated: true, completion: nil)
+                            }
                         }
                         
                     }
@@ -98,15 +119,23 @@ class ForgotPasswordVC: UIViewController {
         self.view.endEditing(true)
         
         if txtFEmail.text!.isEmpty {
-            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblEmailError.text = "Please Enter E-mail Address"
-            self.lblEmailError.isHidden = false
+            
+            DispatchQueue.main.async {
+                self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblEmailError.text = "Please Enter E-mail Address"
+                self.lblEmailError.isHidden = false
+            }
+            
             return false
         }
         else if(!Alert.isValidEmail(testStr: txtFEmail.text!)) {
-            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblEmailError.text = "Please Enter Valid E-mail Address"
-            self.lblEmailError.isHidden = false
+            
+            DispatchQueue.main.async {
+                self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblEmailError.text = "Please Enter Valid E-mail Address"
+                self.lblEmailError.isHidden = false
+            }
+            
             return false
         }
         

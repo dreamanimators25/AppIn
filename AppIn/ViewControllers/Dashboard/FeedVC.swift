@@ -21,9 +21,12 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     @IBOutlet weak var contentCollectionView: UICollectionView!
     
+    var arrFeedChannel : [AllFeedData]? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.callGetAllChannelWebService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +94,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        //return 3
+        return self.arrFeedChannel?[0].channels?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -108,7 +112,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         if let cell = cell as? MultiPageCell {
-            cell.content = 3
+            //cell.content = 3
+            cell.content = self.arrFeedChannel?[0].channels?[indexPath.item].pages?.count ?? 0
         }
         
     }
@@ -131,6 +136,54 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+    
+    //MARK: Web Service
+    func callGetAllChannelWebService() {
+        
+        let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        params = ["user_id" : userData?.UserId ?? ""]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kGetAllChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = AllFeedBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        self.arrFeedChannel = responsModal.data
+                        self.contentCollectionView.reloadData()
+                                                    
+                    }else{
+                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
     }
     
     // MARK: - Navigation

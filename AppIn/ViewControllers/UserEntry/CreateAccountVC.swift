@@ -19,8 +19,9 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var txtFieldName: UITextField!
     @IBOutlet weak var txtFieldEmail: UITextField!
     @IBOutlet weak var txtFieldPassword: UITextField!
-    @IBOutlet weak var txtFieldContactNo: UITextField!
-    @IBOutlet weak var txtFieldAddress: UITextField!
+    @IBOutlet weak var txtFieldConfirmPassword: UITextField!
+    @IBOutlet weak var txtFieldAgeFeel: UITextField!
+    
     @IBOutlet weak var txtFieldCountry: UITextField!
     @IBOutlet weak var txtFieldGender: UITextField!
     @IBOutlet weak var txtFieldProfileBio: UITextField!
@@ -29,8 +30,9 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var lblNameError: UILabel!
     @IBOutlet weak var lblEmailError: UILabel!
     @IBOutlet weak var lblPasswordError: UILabel!
-    @IBOutlet weak var lblContactNoError: UILabel!
-    @IBOutlet weak var lblAddressError: UILabel!
+    @IBOutlet weak var lblConfirmPasswordError: UILabel!
+    @IBOutlet weak var lblAgeFeelError: UILabel!
+    
     @IBOutlet weak var lblCountryError: UILabel!
     @IBOutlet weak var lblGenderError: UILabel!
     @IBOutlet weak var lblProfileBioError: UILabel!
@@ -39,8 +41,9 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var emailView: UIView!
     @IBOutlet weak var passwordView: UIView!
-    @IBOutlet weak var contactNoView: UIView!
-    @IBOutlet weak var addressView: UIView!
+    @IBOutlet weak var confirmPasswordView: UIView!
+    @IBOutlet weak var ageFeelView: UIView!
+    
     @IBOutlet weak var countryView: UIView!
     @IBOutlet weak var genderView: UIView!
     @IBOutlet weak var profileBioView: UIView!
@@ -48,7 +51,7 @@ class CreateAccountVC: UIViewController {
     
     @IBOutlet weak var overlay: UIView!
     
-    let genderDropDown = DropDown()
+    let ageFeelDropDown = DropDown()
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -57,14 +60,14 @@ class CreateAccountVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.txtFieldGender.addTarget(self, action: #selector(tapGenderField), for: .allEditingEvents)
+        self.txtFieldAgeFeel.addTarget(self, action: #selector(tapGenderField), for: .allEditingEvents)
         self.txtFieldProfileBio.addTarget(self, action: #selector(tapBioField), for: .allEditingEvents)
         self.txtFieldBirthDate.addTarget(self, action: #selector(tapDateField), for: .allEditingEvents)
         
         // Initialization code
-        genderDropDown.anchorView = self.txtFieldBirthDate
-        genderDropDown.dataSource = ["Male","Female"]
-        genderDropDown.cellConfiguration = { (index, item) in return "\(item)" }
+        ageFeelDropDown.anchorView = self.txtFieldAgeFeel
+        ageFeelDropDown.dataSource = ["Youth", "Young Adult", "Middle Aged", "Senior"]
+        ageFeelDropDown.cellConfiguration = { (index, item) in return "\(item)" }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,10 +83,12 @@ class CreateAccountVC: UIViewController {
             self.lblNameError.isHidden = true
             self.lblEmailError.isHidden = true
             self.lblPasswordError.isHidden = true
+            self.lblConfirmPasswordError.isHidden = true
             
             self.nameView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             self.emailView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             self.passwordView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+            self.confirmPasswordView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
             
         }
     }
@@ -111,14 +116,14 @@ class CreateAccountVC: UIViewController {
         
         self.view.endEditing(true)
         
-        genderDropDown.selectionAction = { (index: Int, item: String) in
+        ageFeelDropDown.selectionAction = { (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-            self.txtFieldGender.text = item
+            self.txtFieldAgeFeel.text = item
         }
 
-        genderDropDown.width = self.txtFieldGender.bounds.width
-        genderDropDown.bottomOffset = CGPoint(x: 0, y:(genderDropDown.anchorView?.plainView.bounds.height)!)
-        genderDropDown.show()
+        ageFeelDropDown.width = self.txtFieldAgeFeel.bounds.width
+        ageFeelDropDown.bottomOffset = CGPoint(x: 0, y:(ageFeelDropDown.anchorView?.plainView.bounds.height)!)
+        ageFeelDropDown.show()
     
     }
     
@@ -185,37 +190,37 @@ class CreateAccountVC: UIViewController {
         
         self.overlay.isHidden = false
         
-        let currentDate = Date()
+        //let currentDate = Date()
         // 1) Create a DateFormatter() object.
-        let format = DateFormatter()
+        //let format = DateFormatter()
         // 2) Set the current timezone to .current, or America/Chicago.
-        format.timeZone = .current
+        //format.timeZone = .current
         // 3) Set the format of the altered date.
-        format.dateFormat = "yyyy-mm-dd"
+        //format.dateFormat = "yyyy-mm-dd"
         // 4) Set the current date, altered by timezone.
         //let dateString = format.string(from: currentDate)
         
         //let locale = NSLocale.current.languageCode
         //let pre = Locale.preferredLanguages[0]
         
-        var countryName = ""
-        if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
-            print(countryCode)
-            countryName = countryCode
-        }
+        //var countryName = ""
+        //if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
+            //print(countryCode)
+            //countryName = countryCode
+        //}
                 
         var params = [String : Any]()
         params = ["name" : self.txtFieldName.text!,
                   "username" : self.txtFieldName.text!,
-                  "contactNo" : self.txtFieldContactNo.text!,
                   "email" : self.txtFieldEmail.text!,
                   "password" : self.txtFieldPassword.text!,
-                  "address" : self.txtFieldAddress.text!,
-                  "country" : self.txtFieldCountry.text ?? countryName,
-                  "gender" : self.txtFieldGender.text!,
-                  "profileBio" : self.txtFieldProfileBio.text!,
-                  "birthDate" : self.txtFieldBirthDate.text!,
-                  "ageFeel" : self.txtFieldGender.text!,
+                  "ageFeel" : self.txtFieldAgeFeel.text!,
+                  //"contactNo" : self.txtFieldContactNo.text!,
+                  //"address" : self.txtFieldAddress.text!,
+                  //"country" : self.txtFieldCountry.text ?? countryName,
+                  //"gender" : self.txtFieldGender.text!,
+                  //"profileBio" : self.txtFieldProfileBio.text!,
+                  //"birthDate" : self.txtFieldBirthDate.text!,
                   //"deviceId" : UIDevice.current.identifierForVendor!.uuidString,
                   //"deviceMeta" : UIDevice.modelName,
                   //"os" : UIDevice.current.systemVersion,
@@ -228,10 +233,12 @@ class CreateAccountVC: UIViewController {
         
         Alamofire.request(kRegisterURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: [:]).responseJSON { (responseData) in
             
+            print(responseData)
             self.overlay.isHidden = true
             
             switch responseData.result {
             case .success:
+                
                 if let data = responseData.result.value {
                     let json = JSON(data)
                     print(json)
@@ -293,43 +300,63 @@ class CreateAccountVC: UIViewController {
         self.view.endEditing(true)
         
         if txtFieldName.text!.isEmpty {
-            //Alert.showAlert(strTitle: "", strMessage: "Please Enter Name", Onview: self)
             
-            //self.txtFieldName.becomeFirstResponder()
+            DispatchQueue.main.async {
+                self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblNameError.text = "Please Enter Name"
+                self.lblNameError.isHidden = false
+            }
             
-            self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblNameError.text = "Please Enter Name"
-            self.lblNameError.isHidden = false
             return false
         }
         else if txtFieldEmail.text!.isEmpty {
-            //Alert.showAlert(strTitle: "", strMessage: "Please Enter E-mail Address", Onview: self)
             
-            //self.txtFieldEmail.becomeFirstResponder()
+            DispatchQueue.main.async {
+                self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblEmailError.text = "Please Enter E-mail Address"
+                self.lblEmailError.isHidden = false
+            }
             
-            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblEmailError.text = "Please Enter E-mail Address"
-            self.lblEmailError.isHidden = false
             return false
         }
         else if(!Alert.isValidEmail(testStr: txtFieldEmail.text!)) {
-            //Alert.showAlert(strTitle: "", strMessage: "Please Enter Valid E-mail Address", Onview: self)
             
-            //self.txtFieldEmail.becomeFirstResponder()
+            DispatchQueue.main.async {
+                self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblEmailError.text = "Please Enter Valid E-mail Address"
+                self.lblEmailError.isHidden = false
+            }
             
-            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblEmailError.text = "Please Enter Valid E-mail Address"
-            self.lblEmailError.isHidden = false
             return false
         }
         else if txtFieldPassword.text!.isEmpty {
-            //Alert.showAlert(strTitle: "", strMessage: "Please Verify E-mail Address", Onview: self)
             
-            //self.txtFieldPassword.becomeFirstResponder()
+            DispatchQueue.main.async {
+                self.passwordView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblPasswordError.text = "Please Enter Password"
+                self.lblPasswordError.isHidden = false
+            }
             
-            self.passwordView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblPasswordError.text = "Please Enter Password"
-            self.lblPasswordError.isHidden = false
+            return false
+        }
+        else if txtFieldConfirmPassword.text!.isEmpty {
+            
+            DispatchQueue.main.async {
+                self.confirmPasswordView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblConfirmPasswordError.text = "Please Enter Confirm Password"
+                self.lblConfirmPasswordError.isHidden = false
+            }
+            
+            return false
+        }
+        else if txtFieldPassword.text != txtFieldConfirmPassword.text {
+            
+            DispatchQueue.main.async {
+                self.confirmPasswordView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblConfirmPasswordError.text = "Password Doesn't Match"
+                self.lblConfirmPasswordError.isHidden = false
+            }
+            
             return false
         }
         else if !self.checkBoxBtn.isSelected {

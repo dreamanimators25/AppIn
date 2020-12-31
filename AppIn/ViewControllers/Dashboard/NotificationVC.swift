@@ -15,7 +15,8 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     @IBOutlet weak var notificationTableView: UITableView!
     @IBOutlet weak var ErrorView: UIView!
     
-    let arrRows = ["New information was added - Regulation 2020","New channel was added - Environment","New PDF was added - Human Resource 2020","HR channel was updated"]
+    //let arrNotification = ["New information was added - Regulation 2020","New channel was added - Environment","New PDF was added - Human Resource 2020","HR channel was updated"]
+    var arrNotification : [GetAllNotificationData]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,22 +41,36 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if arrRows.count == 0 {
+        if arrNotification?.count == 0 {
             self.ErrorView.isHidden = false
+            self.notificationTableView.isHidden = true
         }else {
             self.ErrorView.isHidden = true
+            self.notificationTableView.isHidden = false
         }
         
-        return arrRows.count
+        return arrNotification?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let notificationCell = tableView.dequeueReusableCell(withIdentifier: "notificationCell", for: indexPath)
+        
+        let readDotLbl : UILabel = notificationCell.viewWithTag(5) as! UILabel
         let notiImgView : UIImageView = notificationCell.viewWithTag(10) as! UIImageView
         let titelLbl : UILabel = notificationCell.viewWithTag(20) as! UILabel
+        let subTitelLbl : UILabel = notificationCell.viewWithTag(30) as! UILabel
         
-        titelLbl.text = arrRows[indexPath.row]
+        let data = arrNotification?[indexPath.row]
+        titelLbl.text = data?.title
+        subTitelLbl.text = data?.type
+        
+        if data?.isRead == "1" {
+            readDotLbl.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        }else {
+            readDotLbl.backgroundColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.6784313725, alpha: 1)
+        }
+        
         if indexPath.row % 2 == 0 {
             notiImgView.image = #imageLiteral(resourceName: "uber")
         }else {
@@ -70,18 +85,22 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.callUpdateNotificationWebService()
+        
+        guard let selNotiID = self.arrNotification?[indexPath.row].internalIdentifier else
+        {
+            return
+        }
+        
+        self.callUpdateNotificationWebService(notiID: selNotiID)
     }
     
     //MARK: Web Service
     func callNotificationWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        
-        params = ["user_id" : "3302"]
+        params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
         
@@ -100,9 +119,18 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                     let responsModal = GetAllNotifications.init(json: json)
                     
                     if responsModal.status == "success" {
+                                                
+                        self.arrNotification = responsModal.data
+                        self.notificationTableView.reloadData()
+                        
+                        self.ErrorView.isHidden = true
+                        self.notificationTableView.isHidden = false
                                                     
                     }else{
-                        Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                        //Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                        
+                        self.ErrorView.isHidden = false
+                        self.notificationTableView.isHidden = true
                     }
                     
                 }
@@ -120,17 +148,16 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         
     }
     
-    func callUpdateNotificationWebService() {
+    func callUpdateNotificationWebService(notiID : String) {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
         
-        params = ["user_id" : "3302",
+        params = ["user_id" : userData?.UserId ?? "",
                   "isRead" : "1",
-                  "notification_id" : "1",
-                  "isDeleted" : ""]
+                  "notification_id" : notiID,
+                  "isDeleted" : "0"]
         
         print("params = \(params)")
         
@@ -146,12 +173,31 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                     let json = JSON(data)
                     print(json)
                     
-                    let responsModal = GetAllNotifications.init(json: json)
+                    let responsModal = RegisterBaseClass.init(json: json)
                     
-                    if responsModal.status == "success" {
-                                                    
-                    }else{
-                        Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                    DispatchQueue.main.async {
+                        if responsModal.status == "success" {
+                            
+                            self.callNotificationWebService()
+                                                        
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "successTick")
+                            vc.lbl = responsModal.msg ?? "Success"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }else{
+                            
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "errorClose")
+                            vc.lbl = responsModal.msg ?? "Error"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                        }
                     }
                     
                 }

@@ -58,11 +58,8 @@ class SinglePageCell: UICollectionViewCell {
     
     //MARK: Web Service
     func callShareContentWebService() {
-        
-        //let userData = UserDefaults.getUserData()
-        
+                
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
         params = ["pageId" : "0"]
         
         print("params = \(params)")

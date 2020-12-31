@@ -29,6 +29,13 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: IBAction
@@ -115,11 +122,11 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //MARK: Web Service
     func callInviteUsersWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : Any]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        params = ["user_id" : "3302",
+        
+        params = ["user_id" : userData?.UserId ?? "",
                   "shortCode" : self.txtFAccessCode.text ?? "",
                   "email" : self.arrEmailInvited]
         
@@ -137,22 +144,27 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     
                     let responsModal = RegisterBaseClass.init(json: json)
                     
-                    if responsModal.status == "success" {
-                        
-                        self.arrEmailInvited = []
-                        self.emailTableView.reloadData()
-                        
-                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
-                        vc.img = #imageLiteral(resourceName: "successTick")
-                        vc.lbl = "Invites has been sent"
-                        vc.btn = ""
-                        
-                        vc.modalPresentationStyle = .overCurrentContext
-                        //vc.modalTransitionStyle = .crossDissolve
-                        self.present(vc, animated: true, completion: nil)
-                                                    
-                    }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    DispatchQueue.main.async {
+                        if responsModal.status == "success" {
+                                                        
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "successTick")
+                            vc.lbl = responsModal.msg ?? "Success"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                            
+                        }else{
+                            
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "errorClose")
+                            vc.lbl = responsModal.msg ?? "Error"
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
+                        }
                     }
                     
                 }

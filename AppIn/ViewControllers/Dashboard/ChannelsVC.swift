@@ -18,9 +18,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var channelTableView: UITableView!
     @IBOutlet weak var ErrorView: UIView!
     
-    var arrRows = ["SAS","Uber","Air bnb"]
-    
-    var arrSelectedSection = [Int]()
+    //var arrBrand = ["SAS","Uber","Air bnb"]
+    var arrBrand : [AllBrandData]? = nil
+    var arrBrandSelectedSection = [Int]()
     
     fileprivate let user = UserManager.sharedInstance.user
     fileprivate var ambassadorships: [Ambassadorship] = []
@@ -77,13 +77,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: UITableView DataSource & Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.arrRows.count
+        return self.arrBrand?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if arrSelectedSection.contains(section) {
-            return 3
+        if arrBrandSelectedSection.contains(section) {
+            //return 3
+            return (self.arrBrand?[section].channel?.count ?? 0) + 1
         }
         return 1
     }
@@ -99,14 +100,18 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             let seperatorLbl : UILabel = brandCell.viewWithTag(40) as! UILabel
             let countlLbl : UILabel = brandCell.viewWithTag(50) as! UILabel
             
-            titleLbl.text = self.arrRows[indexPath.section]
+            let brandData = self.arrBrand?[indexPath.section]
+            let channel = brandData?.channel
+            let channelData = channel?[indexPath.row]
             
-            if arrSelectedSection.contains(indexPath.section) {
+            titleLbl.text = channelData?.name
+            
+            if arrBrandSelectedSection.contains(indexPath.section) {
                 arrowImg.transform = arrowImg.transform.rotated(by: .pi)
                 seperatorLbl.isHidden = true
                 
-                countlLbl.text = "3"
-                countlLbl.isHidden = false
+                //countlLbl.text = "3"
+                countlLbl.isHidden = true
             }else {
                 arrowImg.transform = arrowImg.transform.rotated(by: .pi)
                 seperatorLbl.isHidden = false
@@ -122,21 +127,27 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             
             //let channelImg : UIImageView = channelCell.viewWithTag(10) as! UIImageView
             let subTitleLbl : UILabel = channelCell.viewWithTag(20) as! UILabel
-            //let titleLbl : UILabel = channelCell.viewWithTag(30) as! UILabel
+            let titleLbl : UILabel = channelCell.viewWithTag(30) as! UILabel
             //let arrowImg : UIImageView = channelCell.viewWithTag(40) as! UIImageView
             let seperatorlLbl : UILabel = channelCell.viewWithTag(50) as! UILabel
             let countlLbl : UILabel = channelCell.viewWithTag(60) as! UILabel
             
-            if indexPath.row == self.arrRows.count - 1 {
+            let brandData = self.arrBrand?[indexPath.section]
+            let channel = brandData?.channel
+            let channelData = channel?[indexPath.row - 1]
+            
+            titleLbl.text = channelData?.name
+            
+            if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
                 seperatorlLbl.isHidden = false
                 subTitleLbl.isHidden = false
                 subTitleLbl.text = "Partner"
                 
-                countlLbl.text = "3"
-                countlLbl.isHidden = false
+                //countlLbl.text = "3"
+                //countlLbl.isHidden = false
             }else {
                 seperatorlLbl.isHidden = true
-                subTitleLbl.isHidden = true
+                //subTitleLbl.isHidden = true
                 
                 countlLbl.text = ""
                 countlLbl.isHidden = true
@@ -155,14 +166,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         if indexPath.row == 0 {
             
-            if self.arrSelectedSection.contains(indexPath.section) {
+            if self.arrBrandSelectedSection.contains(indexPath.section) {
                 
-                if let index = self.arrSelectedSection.firstIndex(of: (indexPath.section)) {
-                    self.arrSelectedSection.remove(at: index)
+                if let index = self.arrBrandSelectedSection.firstIndex(of: (indexPath.section)) {
+                    self.arrBrandSelectedSection.remove(at: index)
                 }
                 
             }else {
-                self.arrSelectedSection.append(indexPath.section)
+                self.arrBrandSelectedSection.append(indexPath.section)
             }
             
             self.channelTableView.reloadData()
@@ -185,7 +196,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         headImgView.image = #imageLiteral(resourceName: "headSas")
         
         let titleLbl = UILabel.init(frame: CGRect.init(x: 80.0, y: 21.0, width: baseView.bounds.width - 90.0, height: 17.5))
-        titleLbl.text = self.arrRows[section]
+        
+        let data = self.arrBrand?[section]
+        titleLbl.text = data?.name
         
         let arrowImgView = UIImageView.init(frame: CGRect.init(x: baseView.bounds.width - 30.0, y: 24.5, width: 15.0, height: 10.0))
         arrowImgView.contentMode = .center
@@ -217,14 +230,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @objc func headerTapped(_ sender: UITapGestureRecognizer) {
         
-        if self.arrSelectedSection.contains(sender.view?.tag ?? -1) {
+        if self.arrBrandSelectedSection.contains(sender.view?.tag ?? -1) {
             
-            if let index = self.arrSelectedSection.firstIndex(of: (sender.view?.tag ?? -1)) {
-                self.arrSelectedSection.remove(at: index)
+            if let index = self.arrBrandSelectedSection.firstIndex(of: (sender.view?.tag ?? -1)) {
+                self.arrBrandSelectedSection.remove(at: index)
             }
             
         }else {
-            self.arrSelectedSection.append(sender.view?.tag ?? -1)
+            self.arrBrandSelectedSection.append(sender.view?.tag ?? -1)
         }
         
         self.channelTableView.reloadData()
@@ -238,16 +251,17 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //MARK: Web Service
     func callMyChannelWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        params = ["user_id" : "3302"]
+        params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
         
         Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+                 
+            print(responseData)
+            
             switch responseData.result {
             case .success:
                 
@@ -256,12 +270,20 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     let json = JSON(data)
                     print(json)
                     
-                    let responsModal = RegisterBaseClass.init(json: json)
+                    let responsModal = AllBrandBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {
+                        
+                        self.arrBrand = responsModal.data
+                        self.channelTableView.reloadData()
+                        
+                        self.ErrorView.isHidden = true
+                        self.channelTableView.isHidden = false
                                                     
                     }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        self.ErrorView.isHidden = false
+                        self.channelTableView.isHidden = true
                     }
                     
                 }
@@ -281,18 +303,18 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     private func addChannel(Code:String) {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? "",
-        //          "shortCode" : Code]
         
-        params = ["user_id" : "3302",
+        params = ["user_id" : userData?.UserId ?? "",
                   "shortCode" : Code]
-        
+                
         print("params = \(params)")
         
         Alamofire.request(kAddChannelWithCodeURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+            
+            print(responseData)
             
             switch responseData.result {
             case .success:

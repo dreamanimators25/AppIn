@@ -77,11 +77,8 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     
     //MARK: Web Service
     func callViewContentWebService() {
-        
-        //let userData = UserDefaults.getUserData()
-        
+                
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
         params = ["pageId" : "0"]
         
         print("params = \(params)")

@@ -30,6 +30,11 @@ public class RegisterData: NSCoding {
   private let kRegisterDataBackgroundImageKey: String = "backgroundImage"
   private let kRegisterDataCountryKey: String = "country"
   private let kRegisterDataUserIdKey: String = "id"
+  private let kRegisterDataBrandIdKey: String = "brandId"
+  private let kRegisterDataOver21Key: String = "over21"
+  private let kRegisterDataStatusKey: String = "status"
+  private let kRegisterDataIsDeletedKey: String = "isDeleted"
+  private let kRegisterDataAgeFeelKey: String = "ageFeel"
 
   // MARK: Properties
   public var name: String?
@@ -51,6 +56,11 @@ public class RegisterData: NSCoding {
   public var backgroundImage: String?
   public var country: String?
   public var UserId: String?
+  public var brandId: String?
+  public var over21: String?
+  public var status: String?
+  public var isDeleted: String?
+  public var ageFeel: String?
     
 
   // MARK: SwiftyJSON Initalizers
@@ -88,6 +98,11 @@ public class RegisterData: NSCoding {
     backgroundImage = json[kRegisterDataBackgroundImageKey].string
     country = json[kRegisterDataCountryKey].string
     UserId = json[kRegisterDataUserIdKey].string
+    brandId = json[kRegisterDataBrandIdKey].string
+    over21 = json[kRegisterDataOver21Key].string
+    status = json[kRegisterDataStatusKey].string
+    isDeleted = json[kRegisterDataIsDeletedKey].string
+    ageFeel = json[kRegisterDataAgeFeelKey].string
   }
 
   /**
@@ -115,6 +130,11 @@ public class RegisterData: NSCoding {
     if let value = backgroundImage { dictionary[kRegisterDataBackgroundImageKey] = value }
     if let value = country { dictionary[kRegisterDataCountryKey] = value }
     if let value = UserId { dictionary[kRegisterDataUserIdKey] = value }
+    if let value = brandId { dictionary[kRegisterDataBrandIdKey] = value }
+    if let value = over21 { dictionary[kRegisterDataOver21Key] = value }
+    if let value = status { dictionary[kRegisterDataStatusKey] = value }
+    if let value = isDeleted { dictionary[kRegisterDataIsDeletedKey] = value }
+    if let value = ageFeel { dictionary[kRegisterDataAgeFeelKey] = value }
     return dictionary
   }
 
@@ -139,6 +159,11 @@ public class RegisterData: NSCoding {
     self.backgroundImage = aDecoder.decodeObject(forKey: kRegisterDataBackgroundImageKey) as? String
     self.country = aDecoder.decodeObject(forKey: kRegisterDataCountryKey) as? String
     self.UserId = aDecoder.decodeObject(forKey: kRegisterDataUserIdKey) as? String
+    self.brandId = aDecoder.decodeObject(forKey: kRegisterDataBrandIdKey) as? String
+    self.over21 = aDecoder.decodeObject(forKey: kRegisterDataOver21Key) as? String
+    self.status = aDecoder.decodeObject(forKey: kRegisterDataStatusKey) as? String
+    self.isDeleted = aDecoder.decodeObject(forKey: kRegisterDataIsDeletedKey) as? String
+    self.ageFeel = aDecoder.decodeObject(forKey: kRegisterDataAgeFeelKey) as? String
   }
 
   public func encode(with aCoder: NSCoder) {
@@ -161,6 +186,11 @@ public class RegisterData: NSCoding {
     aCoder.encode(backgroundImage, forKey: kRegisterDataBackgroundImageKey)
     aCoder.encode(country, forKey: kRegisterDataCountryKey)
     aCoder.encode(UserId, forKey: kRegisterDataUserIdKey)
+    aCoder.encode(brandId, forKey: kRegisterDataBrandIdKey)
+    aCoder.encode(over21, forKey: kRegisterDataOver21Key)
+    aCoder.encode(status, forKey: kRegisterDataStatusKey)
+    aCoder.encode(isDeleted, forKey: kRegisterDataIsDeletedKey)
+    aCoder.encode(ageFeel, forKey: kRegisterDataAgeFeelKey)
   }
 
 }

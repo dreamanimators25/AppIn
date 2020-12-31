@@ -98,8 +98,11 @@ class ChangePasswordVC: UIViewController {
         }
         else {
             
+            let userData = UserDefaults.getUserData()
+                        
             var params = [String : String]()
-            params = ["user_id" : self.txtFNewPassword.text!,
+            
+            params = ["user_id" : userData?.UserId ?? "",
                       "oldPassword" : self.txtFCurrentPassword.text!,
                       "newPassword1" : self.txtFNewPassword.text!,
                       "newPassword2" : self.txtFRepeatPassword.text!
@@ -109,11 +112,7 @@ class ChangePasswordVC: UIViewController {
             
             Alamofire.request(kChangePasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                             
-                print(responseData)
-                
-                self.txtFCurrentPassword.text = ""
-                self.txtFNewPassword.text = ""
-                self.txtFRepeatPassword.text = ""
+                print(responseData)                
                 
                 switch responseData.result {
                 case .success:
@@ -123,18 +122,32 @@ class ChangePasswordVC: UIViewController {
                         
                         let responsModal = RegisterBaseClass.init(json: json)
                         
-                        if responsModal.status == "success" {
-                            
-                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
-                            vc.img = #imageLiteral(resourceName: "successTick")
-                            vc.lbl = "Success message"
-                            vc.btn = ""
-                            vc.modalPresentationStyle = .overCurrentContext
-                            //vc.modalTransitionStyle = .crossDissolve
-                            self.present(vc, animated: true, completion: nil)
-                            
-                        }else{
-                            Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        DispatchQueue.main.async {
+                            if responsModal.status == "success" {
+                                
+                                self.txtFCurrentPassword.text = ""
+                                self.txtFNewPassword.text = ""
+                                self.txtFRepeatPassword.text = ""
+                                
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                                vc.img = #imageLiteral(resourceName: "successTick")
+                                vc.lbl = responsModal.msg ?? "Success"
+                                vc.btn = ""
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                self.present(vc, animated: true, completion: nil)
+                                
+                            }else{
+                                
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                                vc.img = #imageLiteral(resourceName: "errorClose")
+                                vc.lbl = responsModal.msg ?? "Error"
+                                vc.btn = ""
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                self.present(vc, animated: true, completion: nil)
+                                
+                            }
                         }
                         
                     }

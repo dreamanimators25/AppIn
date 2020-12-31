@@ -17,9 +17,11 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var myChannelTableView: UITableView!
     
-    var arrSec1 = ["SAS","Development","McDonalds"]
-    var arrSec2 = ["Uber","Development"]
-    var arrSec3 = ["Air bnb","Marketing"]
+    //var arrSec1 = ["SAS","Development","McDonalds"]
+    //var arrSec2 = ["Uber","Development"]
+    //var arrSec3 = ["Air bnb","Marketing"]
+
+    var arrMyChannel: [AllBrandData]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,62 +76,22 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: UITableView DataSource & Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return self.arrMyChannel?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return arrSec1.count
-        case 1:
-            return arrSec2.count
-        default:
-            return arrSec3.count
-        }
+        return (self.arrMyChannel?[section].channel?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let MyChannelTVCell = tableView.dequeueReusableCell(withIdentifier: "MyChannelTVCell", for: indexPath) as! MyChannelTVCell
         
-        switch indexPath.section {
-        case 0:
-            MyChannelTVCell.channelNameLbl.text = arrSec1[indexPath.row]
-            
-            if indexPath.row == self.arrSec1.count - 1 {
-                MyChannelTVCell.seperatorLbl.isHidden = false
-                MyChannelTVCell.channelSubNameLbl.isHidden = false
-                MyChannelTVCell.channelSubNameLbl.text = "Partner"
-            }else {
-                MyChannelTVCell.seperatorLbl.isHidden = true
-                MyChannelTVCell.channelSubNameLbl.isHidden = true
-            }
-            
-        case 1:
-            MyChannelTVCell.channelNameLbl.text = arrSec2[indexPath.row]
-            
-            if indexPath.row == self.arrSec2.count - 1 {
-                MyChannelTVCell.seperatorLbl.isHidden = false
-                MyChannelTVCell.channelSubNameLbl.isHidden = false
-                MyChannelTVCell.channelSubNameLbl.text = "Partner"
-            }else {
-                MyChannelTVCell.seperatorLbl.isHidden = true
-                MyChannelTVCell.channelSubNameLbl.isHidden = true
-            }
-            
-        default:
-            MyChannelTVCell.channelNameLbl.text = arrSec3[indexPath.row]
-            
-            if indexPath.row == self.arrSec3.count - 1 {
-                MyChannelTVCell.seperatorLbl.isHidden = false
-                MyChannelTVCell.channelSubNameLbl.isHidden = false
-                MyChannelTVCell.channelSubNameLbl.text = "Partner"
-            }else {
-                MyChannelTVCell.seperatorLbl.isHidden = true
-                MyChannelTVCell.channelSubNameLbl.isHidden = true
-            }
-            
-        }
+        let brandData = self.arrMyChannel?[indexPath.section]
+        let channel = brandData?.channel
+        let channelData = channel?[indexPath.row]
+        
+        MyChannelTVCell.channelNameLbl.text = channelData?.name
         
         return MyChannelTVCell
     }
@@ -141,16 +103,17 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     //MARK: Web Service
     func callMyChannelWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        params = ["user_id" : "3302"]
+        params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
         
         Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            print(responseData)
+            
             switch responseData.result {
             case .success:
                 
@@ -159,12 +122,15 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     let json = JSON(data)
                     print(json)
                     
-                    let responsModal = RegisterBaseClass.init(json: json)
+                    let responsModal = AllBrandBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {
                                                     
+                        self.arrMyChannel = responsModal.data
+                        self.myChannelTableView.reloadData()
+                        
                     }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
                     }
                     
                 }
@@ -184,12 +150,11 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     func callUpdateChannelNotificationWebService(channelId : Int) {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : Any]()
-        //params = ["user_id" : userData?.UserId ?? ""]
         
-        params = ["user_id" : "3302",
+        params = ["user_id" : userData?.UserId ?? "",
                   "channel_id" : channelId,
                   "sendPush" : "1"]
         
@@ -230,11 +195,10 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     func callRemoveChannelWebService() {
         
-        //let userData = UserDefaults.getUserData()
+        let userData = UserDefaults.getUserData()
         
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
-        params = ["user_id" : "3302",
+        params = ["user_id" : userData?.UserId ?? "",
                   "channel_id" : "",
                   "isDeleted" : ""]
         
@@ -276,11 +240,8 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     }
     
     func callShareContentWebService() {
-        
-        //let userData = UserDefaults.getUserData()
-        
+                
         var params = [String : String]()
-        //params = ["user_id" : userData?.UserId ?? ""]
         params = ["pageId" : "0"]
         
         print("params = \(params)")

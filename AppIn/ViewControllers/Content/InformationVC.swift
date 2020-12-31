@@ -15,6 +15,18 @@ class InformationVC: UIViewController {
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
         _ = self.navigationController?.popViewController(animated: true)

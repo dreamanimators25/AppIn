@@ -10,7 +10,7 @@ import UIKit
 import SafariServices
 import WebKit
 
-class Extensions: NSObject {
+class AppExtensions: NSObject {
 
 }
 
@@ -71,18 +71,25 @@ extension UserDefaults {
     //MARK:- Save Data
     
     static func saveUserData(modal : RegisterData) {
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation())
+        
+        do {
+            let encodedData = try? NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation(), requiringSecureCoding: true)
+            UserDefaults.standard.set(encodedData, forKey: "UserData")
+            UserDefaults.standard.synchronize()
+        }
+                
+        //let encodedData = NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation())
         //let encodedData = NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation(), requiringSecureCoding: true)
-        UserDefaults.standard.set(encodedData, forKey: "UserData")
-        UserDefaults.standard.synchronize()
+        //let encodedData = NSKeyedArchiver.archivedData(withRootObject: modal.dictionaryRepresentation(), requiringSecureCoding: true)
+        
     }
         
     //MARK:- Get Data
     static func getUserData() -> RegisterData? {
         if let data = UserDefaults.standard.data(forKey: "UserData"),
             let myLoginData = NSKeyedUnarchiver.unarchiveObject(with: data) as? [String: Any] {
-            let loginData = RegisterData.init(object: myLoginData)
-            UserDefaults.standard.synchronize()
+                let loginData = RegisterData.init(object: myLoginData)
+                UserDefaults.standard.synchronize()
             return loginData
         } else {
             UserDefaults.standard.synchronize()
@@ -97,4 +104,18 @@ extension UserDefaults {
         UserDefaults.standard.synchronize()
     }
     
+}
+
+extension UIButton {
+    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
+        self.clipsToBounds = true  // add this to maintain corner radius
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setFillColor(color.cgColor)
+            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.setBackgroundImage(colorImage, for: forState)
+        }
+    }
 }

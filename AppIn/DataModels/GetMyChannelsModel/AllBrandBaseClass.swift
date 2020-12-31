@@ -1,22 +1,22 @@
 //
-//  GetAllNotifications.swift
+//  AllBrandBaseClass.swift
 //
-//  Created by sameer khan on 19/12/20
+//  Created by sameer khan on 30/12/20
 //  Copyright (c) . All rights reserved.
 //
 
 import Foundation
 import SwiftyJSON
 
-public class GetAllNotifications: NSCoding {
+public class AllBrandBaseClass: NSCoding {
 
   // MARK: Declaration for string constants to be used to decode and also serialize.
-  private let kGetAllNotificationsStatusKey: String = "status"
-  private let kGetAllNotificationsDataKey: String = "data"
+  private let kAllBrandBaseClassStatusKey: String = "status"
+  private let kAllBrandBaseClassDataKey: String = "data"
 
   // MARK: Properties
   public var status: String?
-  public var data: [GetAllNotificationData]?
+  public var data: [AllBrandData]?
 
   // MARK: SwiftyJSON Initalizers
   /**
@@ -34,8 +34,8 @@ public class GetAllNotifications: NSCoding {
    - returns: An initalized instance of the class.
   */
   public init(json: JSON) {
-    status = json[kGetAllNotificationsStatusKey].string
-    if let items = json[kGetAllNotificationsDataKey].array { data = items.map { GetAllNotificationData(json: $0) } }
+    status = json[kAllBrandBaseClassStatusKey].string
+    if let items = json[kAllBrandBaseClassDataKey].array { data = items.map { AllBrandData(json: $0) } }
   }
 
   /**
@@ -44,20 +44,20 @@ public class GetAllNotifications: NSCoding {
   */
   public func dictionaryRepresentation() -> [String: Any] {
     var dictionary: [String: Any] = [:]
-    if let value = status { dictionary[kGetAllNotificationsStatusKey] = value }
-    if let value = data { dictionary[kGetAllNotificationsDataKey] = value.map { $0.dictionaryRepresentation() } }
+    if let value = status { dictionary[kAllBrandBaseClassStatusKey] = value }
+    if let value = data { dictionary[kAllBrandBaseClassDataKey] = value.map { $0.dictionaryRepresentation() } }
     return dictionary
   }
 
   // MARK: NSCoding Protocol
   required public init(coder aDecoder: NSCoder) {
-    self.status = aDecoder.decodeObject(forKey: kGetAllNotificationsStatusKey) as? String
-    self.data = aDecoder.decodeObject(forKey: kGetAllNotificationsDataKey) as? [GetAllNotificationData]
+    self.status = aDecoder.decodeObject(forKey: kAllBrandBaseClassStatusKey) as? String
+    self.data = aDecoder.decodeObject(forKey: kAllBrandBaseClassDataKey) as? [AllBrandData]
   }
 
   public func encode(with aCoder: NSCoder) {
-    aCoder.encode(status, forKey: kGetAllNotificationsStatusKey)
-    aCoder.encode(data, forKey: kGetAllNotificationsDataKey)
+    aCoder.encode(status, forKey: kAllBrandBaseClassStatusKey)
+    aCoder.encode(data, forKey: kAllBrandBaseClassDataKey)
   }
 
 }

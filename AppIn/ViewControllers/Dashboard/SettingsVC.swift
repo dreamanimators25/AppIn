@@ -26,21 +26,17 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: Custom Methods
     fileprivate func logoutUser() {
-        UserManager.sharedInstance.logoutUserWithCompletion {
+        
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                
-                appDelegate.navigateToLoginScreen()
-                OAuth2Handler.sharedInstance.clearAccessToken()
-                
-                CustomUserDefault.removeUserId()
-                CustomUserDefault.removeLoginData()
-                CustomUserDefault.removeUserName()
-                CustomUserDefault.removeUserPassword()
-                CustomUserDefault.removeTokenTime()
-                
-                print(OAuth2Handler.hasAccessToken)
-            }
+            appDelegate.navigateToLoginScreen()
+            
+            CustomUserDefault.removeUserId()
+            CustomUserDefault.removeLoginData()
+            CustomUserDefault.removeUserName()
+            CustomUserDefault.removeUserPassword()
+            CustomUserDefault.removeTokenTime()
+            
         }
     }
     
