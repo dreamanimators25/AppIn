@@ -43,13 +43,15 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     @IBOutlet weak var biographyView: UIView!
     
     let labelDropDown = DropDown()
-    
     var strImageSendToServer = ""
-    var selectedImage:UIImage?
+    var selectedImage : UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2
+        
+        self.setStatusBarColor()
         self.callGetMyProfileWebService()
 
         self.txtFDate.addTarget(self, action: #selector(tapDateField), for: .allEditingEvents)
@@ -73,12 +75,10 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         labelDropDown.anchorView = self.txtFAgeFeel
         labelDropDown.dataSource = ["Youth", "Young Adult", "Middle Aged", "Senior"]
         labelDropDown.cellConfiguration = { (index, item) in return "\(item)" }
-                
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         self.tabBarController?.tabBar.isHidden = false
     }
     
@@ -172,7 +172,6 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         self.view.endEditing(true)
         
         if txtFName.text!.isEmpty {
-            
             self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
             self.lblNameError.text = "Please Enter Name"
             self.lblNameError.isHidden = false
@@ -236,14 +235,14 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         //self.profileImageView.image = image
         
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        let imageData:NSData = image.jpegData(compressionQuality: 0.50)! as NSData
-        let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
-        self.strImageSendToServer = strBase64
+        //let imageData:NSData = image.jpegData(compressionQuality: 0.50)! as NSData
+        //let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
+        //self.strImageSendToServer = strBase64
         
         self.selectedImage = image
         
         dismiss(animated: true) {
-            self.callChangeProfilePicWebService(imgStr: self.strImageSendToServer)
+            self.callChangeProfilePicWebService(imgdata: self.selectedImage ?? UIImage())
         }
     }
     
@@ -330,11 +329,11 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? ""]
         
-        print("params = \(params)")
+        //print("params = \(params)")
         
         Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
-            print(responseData)
+            //print(responseData)
             
             switch responseData.result {
             case .success:
@@ -342,7 +341,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
+                    //print(json)
                     
                     let responsModal = RegisterBaseClass.init(json: json)
                     
@@ -375,7 +374,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -399,18 +398,18 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                   "birthDate" : self.txtFDate.text!,
                   ]
         
-        print("params = \(params)")
+        //print("params = \(params)")
         
         Alamofire.request(kEditProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
-            print(responseData)
+            //print(responseData)
             
             switch responseData.result {
             case .success:
                 
                 if let data = responseData.result.value {
                     let json = JSON(data)
-                    print(json)
+                    //print(json)
                     
                     let responsModal = RegisterBaseClass.init(json: json)
                     
@@ -445,7 +444,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -454,17 +453,17 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     }
     
     //MARK: Web Service
-    func callChangeProfilePicWebService(imgStr : String) {
+    func callChangeProfilePicWebService(imgdata : UIImage) {
         
         let userData = UserDefaults.getUserData()
         
-        var params = [String : String]()
+        var params = [String : Any]()
         
-        params = ["user_id"     : userData?.UserId ?? "",
-                  "profile_pic" : imgStr]
+        params = ["user_id"     : userData?.UserId ?? ""]
         
         //print("params = \(params)")
         
+        /*
         Alamofire.request(kChangeProfilePictureURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
             print(responseData)
@@ -481,7 +480,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                     DispatchQueue.main.async {
                             if responsModal.status == "success" {
                                 
-                                self.profileImageView.image = self.selectedImage
+                                //self.profileImageView.image = self.selectedImage
                                 
                                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                                 vc.img = #imageLiteral(resourceName: "successTick")
@@ -511,25 +510,31 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
-        }
+        }*/
         
         
         
-        /*
-        let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
+        
+        //let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
+        let imageData = self.selectedImage?.jpegData(compressionQuality: 0.50) ?? Data()
         
         //To Upload MultiPart Data using Alamofire
         Alamofire.upload(
             multipartFormData: { multipartFormData in
-                multipartFormData.append(jsonData, withName: "json")
+                //multipartFormData.append(imageData as Data, withName: "json")
                 
-                if let image = self.selectedImage {
+                if self.selectedImage != nil {
                     
-                    multipartFormData.append(image.jpegData(compressionQuality: 1)!, withName: "file", fileName: "file.jpeg", mimeType: "image/jpeg")
+                    multipartFormData.append(imageData, withName: "profile_pic", fileName: "file.jpg", mimeType: "image/jpg")
+                    //multipartFormData.append(image.jpegData(compressionQuality: 1)!, withName: "file", fileName: "file.jpg", mimeType: "image/jpg")
+                    for (key, value) in params {
+                        multipartFormData.append((value as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+                    }
+                    
                 }
         },
             to: "\(kChangeProfilePictureURL)",
@@ -544,8 +549,9 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                         
                         if let data = response.result.value {
                             let json = JSON(data)
-                            print(json)
+                            //print(json)
                             
+                            self.profileImageView.image = self.selectedImage
                         }
                     }
                     
@@ -554,12 +560,12 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                     if encodingError.localizedDescription.contains("Internet connection appears to be offline"){
                         Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                     }else{
-                        Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                     }
                     
                 }
         }
-        )*/
+        )
         
     }
     

@@ -9,10 +9,21 @@
 import UIKit
 
 class InformationVC: UIViewController {
+    
+    @IBOutlet weak var lblContentTitle: UILabel!
+    @IBOutlet weak var lblContentData: UILabel!
+    
+    var strContentData: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
+        
+        if let str = self.strContentData {
+            self.lblContentData.text = str
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

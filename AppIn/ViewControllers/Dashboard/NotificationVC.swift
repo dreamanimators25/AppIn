@@ -20,6 +20,8 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarColor()
 
         self.callNotificationWebService()
     }
@@ -86,12 +88,38 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let selNotiID = self.arrNotification?[indexPath.row].internalIdentifier else
+        guard let selNotiID = self.arrNotification?[indexPath.row].channelId else
         {
             return
         }
         
         self.callUpdateNotificationWebService(notiID: selNotiID)
+        
+        
+        if let loadNoti = loadNotification {
+            
+            AppDelegate.sharedDelegate().selNotiChannelID = Int("\(self.arrNotification?[indexPath.row].channelId ?? "")") ?? 0
+            AppDelegate.sharedDelegate().selNotiPageID = Int("\(self.arrNotification?[indexPath.row].value ?? "")") ?? 0
+        
+            if let tabBarController = self.navigationController?.tabBarController {
+                tabBarController.selectedIndex = 1
+            }
+            
+            loadNoti()
+            
+        }else {
+            
+            AppDelegate.sharedDelegate().selNotiChannelID = Int("\(self.arrNotification?[indexPath.row].channelId ?? "")") ?? 0
+            AppDelegate.sharedDelegate().selNotiPageID = Int("\(self.arrNotification?[indexPath.row].value ?? "")") ?? 0
+        
+            if let tabBarController = self.navigationController?.tabBarController {
+                tabBarController.selectedIndex = 1
+            }
+            
+        }
+        
+        
+        
     }
     
     //MARK: Web Service
@@ -140,7 +168,7 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -207,7 +235,7 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             

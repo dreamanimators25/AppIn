@@ -22,6 +22,8 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         if let str = isComeFrom {
             self.titleLbl.text = str
         }

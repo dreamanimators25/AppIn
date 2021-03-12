@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import AVFoundation
 
 public class AllFeedPages: NSCoding {
 
@@ -105,6 +106,21 @@ public class AllFeedPages: NSCoding {
     endDate = json[kAllFeedPagesEndDateKey].string
     autoShare = json[kAllFeedPagesAutoShareKey].string
     channelId = json[kAllFeedPagesChannelIdKey].string
+    
+    //backgroundMeta = "https://www.learningcontainer.com/bfd_download/sample-mp4-file/"
+            
+    if backgroundType == "1" {
+        if backgroundMeta != "" {
+            if let videoUrl = URL(string: backgroundMeta ?? "") {
+                let item = AVPlayerItem.init(url: videoUrl)
+                let player = Player(playerItem: item)
+                player.isMuted = true
+                MPCacher.sharedInstance.setObjectForKey(player, key: backgroundMeta ?? "")
+            }
+        }
+    }
+    
+    
   }
 
   /**

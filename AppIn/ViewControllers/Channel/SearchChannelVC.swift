@@ -22,6 +22,8 @@ class SearchChannelVC: UIViewController,UITableViewDataSource,UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         self.txtFieldSearchChannel.addTarget(self, action: #selector(SearchChannelVC.textFieldDidChange(_:)),for: UIControl.Event.editingChanged)
 
     }

@@ -34,6 +34,7 @@ public class AllBrandChannel: NSCoding {
   private let kAllBrandChannelLongitudeKey: String = "longitude"
   private let kAllBrandChannelIsFeaturedKey: String = "isFeatured"
   private let kAllBrandChannelLogoKey: String = "logo"
+  private let kAllBrandSendPushKey: String = "sendPush"
 
   // MARK: Properties
   public var isActive: String?
@@ -43,6 +44,7 @@ public class AllBrandChannel: NSCoding {
   public var descriptionValue: String?
   public var disclaimer: String?
   public var userId: String?
+  public var sendPush: String?
   public var modifiedDate: String?
   public var over21: String?
   public var category: String?
@@ -79,6 +81,7 @@ public class AllBrandChannel: NSCoding {
     isActive = json[kAllBrandChannelIsActiveKey].string
     name = json[kAllBrandChannelNameKey].string
     brandId = json[kAllBrandChannelBrandIdKey].string
+    sendPush = json[kAllBrandSendPushKey].string
     createdDate = json[kAllBrandChannelCreatedDateKey].string
     descriptionValue = json[kAllBrandChannelDescriptionValueKey].string
     disclaimer = json[kAllBrandChannelDisclaimerKey].string
@@ -110,6 +113,7 @@ public class AllBrandChannel: NSCoding {
     if let value = isActive { dictionary[kAllBrandChannelIsActiveKey] = value }
     if let value = name { dictionary[kAllBrandChannelNameKey] = value }
     if let value = brandId { dictionary[kAllBrandChannelBrandIdKey] = value }
+    if let value = sendPush { dictionary[kAllBrandSendPushKey] = value }
     if let value = createdDate { dictionary[kAllBrandChannelCreatedDateKey] = value }
     if let value = descriptionValue { dictionary[kAllBrandChannelDescriptionValueKey] = value }
     if let value = disclaimer { dictionary[kAllBrandChannelDisclaimerKey] = value }
@@ -138,6 +142,7 @@ public class AllBrandChannel: NSCoding {
     self.isActive = aDecoder.decodeObject(forKey: kAllBrandChannelIsActiveKey) as? String
     self.name = aDecoder.decodeObject(forKey: kAllBrandChannelNameKey) as? String
     self.brandId = aDecoder.decodeObject(forKey: kAllBrandChannelBrandIdKey) as? String
+    self.sendPush = aDecoder.decodeObject(forKey: kAllBrandSendPushKey) as? String
     self.createdDate = aDecoder.decodeObject(forKey: kAllBrandChannelCreatedDateKey) as? String
     self.descriptionValue = aDecoder.decodeObject(forKey: kAllBrandChannelDescriptionValueKey) as? String
     self.disclaimer = aDecoder.decodeObject(forKey: kAllBrandChannelDisclaimerKey) as? String
@@ -164,6 +169,7 @@ public class AllBrandChannel: NSCoding {
     aCoder.encode(isActive, forKey: kAllBrandChannelIsActiveKey)
     aCoder.encode(name, forKey: kAllBrandChannelNameKey)
     aCoder.encode(brandId, forKey: kAllBrandChannelBrandIdKey)
+    aCoder.encode(sendPush, forKey: kAllBrandSendPushKey)
     aCoder.encode(createdDate, forKey: kAllBrandChannelCreatedDateKey)
     aCoder.encode(descriptionValue, forKey: kAllBrandChannelDescriptionValueKey)
     aCoder.encode(disclaimer, forKey: kAllBrandChannelDisclaimerKey)

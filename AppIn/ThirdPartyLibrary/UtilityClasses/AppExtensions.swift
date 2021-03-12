@@ -17,6 +17,32 @@ class AppExtensions: NSObject {
 //MARK: UIViewController
 extension UIViewController {
     
+    func setStatusBarColor() {
+        
+        if #available(iOS 13.0, *) {
+            let app = UIApplication.shared
+            let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+            
+            let statusbarView = UIView()
+            statusbarView.backgroundColor = AppThemeColor
+            view.addSubview(statusbarView)
+          
+            statusbarView.translatesAutoresizingMaskIntoConstraints = false
+            statusbarView.heightAnchor
+                .constraint(equalToConstant: statusBarHeight).isActive = true
+            statusbarView.widthAnchor
+                .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+            statusbarView.topAnchor
+                .constraint(equalTo: view.topAnchor).isActive = true
+            statusbarView.centerXAnchor
+                .constraint(equalTo: view.centerXAnchor).isActive = true
+          
+        } else {
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.backgroundColor = AppThemeColor
+        }
+    }
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -106,16 +132,3 @@ extension UserDefaults {
     
 }
 
-extension UIButton {
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        self.clipsToBounds = true  // add this to maintain corner radius
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(color.cgColor)
-            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.setBackgroundImage(colorImage, for: forState)
-        }
-    }
-}

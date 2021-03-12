@@ -105,6 +105,12 @@ public enum ContentPageBackgroundType: String {
     case Video = "video"
 }
 
+public enum ContentBackgroundPageType: String {
+    case Color = "0"
+    case Image = "1"
+    case Video = "2"
+}
+
 public enum ConnectionRequestAction: String {
     case View = "view"
     case Accept = "accept"

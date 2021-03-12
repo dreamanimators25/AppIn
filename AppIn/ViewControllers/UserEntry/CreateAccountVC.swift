@@ -59,6 +59,8 @@ class CreateAccountVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarColor()
 
         self.txtFieldAgeFeel.addTarget(self, action: #selector(tapGenderField), for: .allEditingEvents)
         self.txtFieldProfileBio.addTarget(self, action: #selector(tapBioField), for: .allEditingEvents)
@@ -155,18 +157,10 @@ class CreateAccountVC: UIViewController {
     @IBAction func tncBtnClicked(_ sender: UIButton) {
         
         DispatchQueue.main.async {
-            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DeleteAcPopUpVC") as! DeleteAcPopUpVC
-                        
-            vc.modalPresentationStyle = .overCurrentContext
-            //vc.modalTransitionStyle = .crossDissolve
-            
-            vc.strTitle = "Terms & Conditions"
-            vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
-            vc.btnTitle = "Yes, i understand"
-            
-            self.present(vc, animated: true) {
-                
-            }
+            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+            vc.isComeFrom = "Terms & Conditions"
+            vc.loadableUrlStr = "https://appin.se/privacysv"
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }
@@ -249,9 +243,14 @@ class CreateAccountVC: UIViewController {
                         UserDefaults.saveUserData(modal: responsModal.data!)
                         
                         DispatchQueue.main.async(execute: {
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                appDelegate.navigateToDashboardScreen()
-                            }
+                            //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                //appDelegate.navigateToDashboardScreen()
+                                
+                                let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+                                let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                                self.navigationController?.pushViewController(loginVC, animated: true)
+                                
+                            //}
                         })
                         
                     }else{
@@ -264,7 +263,7 @@ class CreateAccountVC: UIViewController {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
