@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    var over21Data : RegisterData? = nil
     @IBOutlet weak var settingTableView: UITableView!
     
     let arrAccount = ["ACCOUNT","Edit profile","Change password","My channels"]
@@ -22,14 +25,18 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
+        self.callOver21WebService()
     }
     
     //MARK: Custom Methods
     fileprivate func logoutUser() {
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
-            appDelegate.navigateToLoginScreen()
+            //appDelegate.navigateToLoginScreen()
+        
+            self.tabBarController?.tabBar.isHidden = true
             
             CustomUserDefault.removeUserId()
             CustomUserDefault.removeLoginData()
@@ -37,11 +44,117 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             CustomUserDefault.removeUserPassword()
             CustomUserDefault.removeTokenTime()
             
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "IntroSplashVC") as! IntroSplashVC
+            self.navigationController?.pushViewController(loginVC, animated: true)
+            
+        //}
+    }
+    
+    //MARK: Web Service
+    func callOver21WebService() {
+        
+        let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        params = ["user_id" : userData?.UserId ?? ""]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    //print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        if let profileData = responsModal.data {
+                            
+                            self.over21Data = profileData
+                            self.settingTableView.reloadData()
+                        }
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
+                }
+            }
+            
         }
+        
     }
     
     //MARK: IBAction
     @IBAction func allow21ContentBtnClicked(_ sender: UIButton) {
+        
+        let userData = UserDefaults.getUserData()
+        var params = [String : Any]()
+        
+        var over = 0
+        if sender.isSelected {
+            over = 0
+        }else {
+            over = 1
+        }
+        
+        params = ["over21" :  over,
+                  "user_id" : userData?.UserId ?? ""]
+        
+        print("params = \(params)")
+        
+        Alamofire.request(kUpdateOver21, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                        self.over21Data?.over21 = String(over)
+                        self.settingTableView.reloadData()
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
+                }
+            }
+            
+        }
         
     }
     
@@ -90,7 +203,14 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 case 1:
                     let settingSwitchCell = tableView.dequeueReusableCell(withIdentifier: "settingSwitchCell", for: indexPath)
                     let rowLbl : UILabel = settingSwitchCell.viewWithTag(10) as! UILabel
+                    let switchBtn : UIButton = settingSwitchCell.viewWithTag(20) as! UIButton
                     rowLbl.text = self.arrMore[indexPath.row]
+                    
+                    if self.over21Data?.over21 == "1" {
+                        switchBtn.isSelected = true
+                    }else{
+                        switchBtn.isSelected = false
+                    }
                     
                     return settingSwitchCell
                 case 2,3:

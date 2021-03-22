@@ -107,9 +107,14 @@ class LoginVC: UIViewController {
                             UserDefaults.saveUserData(modal: responsModal.data!)
                             
                             DispatchQueue.main.async(execute: {
-                                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                    appDelegate.navigateToDashboardScreen()
-                                }
+                                //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                    //appDelegate.navigateToDashboardScreen()
+                                    
+                                    let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+                                    let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                                    self.navigationController?.pushViewController(loginVC, animated: true)
+                                    
+                                //}
                             })
                             
                         }else{
@@ -122,7 +127,7 @@ class LoginVC: UIViewController {
                     if error.localizedDescription.contains("Internet connection appears to be offline"){
                         Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                     }else{
-                        Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                     }
                 }
                 
@@ -169,32 +174,6 @@ class LoginVC: UIViewController {
                 
             }
         })
-    }
-        
-    func setStatusBarColor() {
-        
-        if #available(iOS 13.0, *) {
-            let app = UIApplication.shared
-            let statusBarHeight: CGFloat = app.statusBarFrame.size.height
-            
-            let statusbarView = UIView()
-            statusbarView.backgroundColor = AppThemeColor
-            view.addSubview(statusbarView)
-          
-            statusbarView.translatesAutoresizingMaskIntoConstraints = false
-            statusbarView.heightAnchor
-                .constraint(equalToConstant: statusBarHeight).isActive = true
-            statusbarView.widthAnchor
-                .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
-            statusbarView.topAnchor
-                .constraint(equalTo: view.topAnchor).isActive = true
-            statusbarView.centerXAnchor
-                .constraint(equalTo: view.centerXAnchor).isActive = true
-          
-        } else {
-            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
-            statusBar?.backgroundColor = AppThemeColor
-        }
     }
     
     func Validation() -> Bool {

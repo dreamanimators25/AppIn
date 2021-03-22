@@ -128,6 +128,7 @@ PODS:
   - Protobuf (3.12.0)
   - SimpleKeychain (0.7.0)
   - SwiftyJSON (5.0.0)
+  - XCDYouTubeKit (2.15.2)
   - YouTubePlayer (0.7.1)
 
 DEPENDENCIES:
@@ -146,6 +147,7 @@ DEPENDENCIES:
   - Planet
   - SimpleKeychain (~> 0.7.0)
   - SwiftyJSON
+  - XCDYouTubeKit (~> 2.15)
   - YouTubePlayer
 
 SPEC REPOS:
@@ -180,6 +182,7 @@ SPEC REPOS:
     - Protobuf
     - SimpleKeychain
     - SwiftyJSON
+    - XCDYouTubeKit
     - YouTubePlayer
 
 SPEC CHECKSUMS:
@@ -213,8 +216,9 @@ SPEC CHECKSUMS:
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SimpleKeychain: b50cef3b87939d480ea1143425c00f5b4b70fe21
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  XCDYouTubeKit: b120aced3d8638ffb570c5450cddb5a1dac448c7
   YouTubePlayer: bd78e43a1fb0f98cbfc40864514f44924e177147
 
-PODFILE CHECKSUM: 214fd1c4b64f68e088416df37190399e484fe2f1
+PODFILE CHECKSUM: e7431eae076136c29ed1b2e823b4cd464121cceb
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.1

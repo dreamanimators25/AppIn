@@ -30,6 +30,7 @@ class ChangePasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {

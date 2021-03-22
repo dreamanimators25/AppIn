@@ -22,6 +22,8 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         if let str = isComeFrom {
             self.titleLbl.text = str
         }
@@ -53,7 +55,12 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webView.navigationDelegate = self
         let myURL = URL(string: loadableUrlStr ?? "")
         let myRequest = URLRequest(url: myURL!)
-        webView.load(myRequest)
+        
+        if isComeFrom == "" {
+            webView.loadHTMLString(loadableUrlStr ?? "", baseURL: nil)
+        }else {
+            webView.load(myRequest)
+        }
         
         //add observer to get estimated progress value
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)

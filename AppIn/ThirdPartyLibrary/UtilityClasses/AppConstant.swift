@@ -19,28 +19,30 @@ let contentCornerRadius = CGFloat(5.0)
 
 let kBaseURL = "https://dreamanimators.com/AppIn/api/v1/api.php?rquest="
 
-let kLoginURL = kBaseURL + "login"                                          // DONE
-let kRegisterURL = kBaseURL + "register"                                    // DONE
-let kChangePasswordURL = kBaseURL + "changePassword"                        // DONE
-let kGetMyChannelsURL = kBaseURL + "getMyChannels"                          // PARTIAL DONE
-let kGetMyProfileURL = kBaseURL + "getMyProfile"                            // PARTIAL DONE
-let kEditProfileURL = kBaseURL + "editProfile"                              // DONE
-let kGetChannelInfoURL = kBaseURL + "getChannelInfo"                        //
-let kGetBrandInfoURL = kBaseURL + "getBrandInfo"                            // Not used
-let kGetAllNotificationURL = kBaseURL + "getAllNotification"                // PARTIAL DONE
-let kUpdateNotificationURL = kBaseURL + "updateNotification"                // DONE
-let kViewContentURL = kBaseURL + "viewContent"                              //
-let kShareContentURL = kBaseURL + "shareContent"                            //
-let kRemoveChannelURL = kBaseURL + "removeChannel"                          //
-let kUpdateChannelNotificationURL = kBaseURL + "updateChannelNotification"  //
-let kChangeProfilePictureURL = kBaseURL + "changeProfilePicture"            // DONE
-let kAddChannelWithCodeURL = kBaseURL + "addChannelWithCode"                // PARTIAL DONE
-let kForgetPasswordURL = kBaseURL + "forgetPassword"                        // DONE
-let kInviteUsersURL = kBaseURL + "inviteUsers"                              // NOT WORKING
-let kGetPageURL = kBaseURL + "getPage"                                      // Not used
-let kGetContentsURL = kBaseURL + "getContents"                              // Not used
-let kGetAllChannelsURL = kBaseURL + "getAllChannels"                        // PARTIAL DONE
-let kGetFeaturedChannelURL = kBaseURL + "getFeaturedChannel"                // Not used
-let kGetAllChannelsOver21 = kBaseURL + "getAllChannelsOver21"               // Not used
+let kLoginURL = kBaseURL + "login"                                    // DONE
+let kRegisterURL = kBaseURL + "register"                               // DONE
+let kChangePasswordURL = kBaseURL + "changePassword"                     // DONE
+let kGetMyChannelsURL = kBaseURL + "getMyChannels"                       // DONE
+let kGetMyProfileURL = kBaseURL + "getMyProfile"                         // DONE
+let kEditProfileURL = kBaseURL + "editProfile"                           // DONE
+let kGetChannelInfoURL = kBaseURL + "getChannelInfo"                      // 
+let kGetBrandInfoURL = kBaseURL + "getBrandInfo"                         //
+let kGetAllNotificationURL = kBaseURL + "getAllNotification"               // DONE
+let kUpdateNotificationURL = kBaseURL + "updateNotification"               // DONE
+let kViewContentURL = kBaseURL + "viewContent"                           // DONE
+let kShareContentURL = kBaseURL + "shareContent"                         // DONE
+let kRemoveChannelURL = kBaseURL + "removeChannel"                       // DONE
+let kUpdateChannelNotificationURL = kBaseURL + "updateChannelNotification"  // Need to Test
+let kChangeProfilePictureURL = kBaseURL + "changeProfilePicture"           // DONE
+let kAddChannelWithCodeURL = kBaseURL + "addChannelWithCode"              // DONE
+let kForgetPasswordURL = kBaseURL + "forgetPassword"                     // DONE
+let kInviteUsersURL = kBaseURL + "inviteUsers"                          // DONE
+let kGetPageURL = kBaseURL + "getPage"                                 //
+let kGetContentsURL = kBaseURL + "getContents"                          //
+let kGetAllChannelsURL = kBaseURL + "getAllChannels"                    // DONE
+let kGetFeaturedChannelURL = kBaseURL + "getFeaturedChannel"             //
+let kGetAllChannelsOver21 = kBaseURL + "getAllChannelsOver21"           //
+let kDeleteMyAccount = kBaseURL + "deleteMyAccount"           // DONE
+let kUpdateOver21 = kBaseURL + "UpdateOver21"           // DONE
 
 

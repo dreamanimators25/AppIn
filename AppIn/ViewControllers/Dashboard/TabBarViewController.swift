@@ -17,6 +17,8 @@ class TabBarViewController: UITabBarController {
         self.tabBar.barTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         setTabBarItems()
+        
+        self.setStatusBarColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,18 +72,19 @@ class TabBarViewController: UITabBarController {
         myTabBarItem4.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)], for: .selected)
         myTabBarItem4.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)], for: .normal)
         
+        /*
         if let tabItems = tabBar.items {
             // In this case we want to modify the badge number of the third tab:
             let tabItem = tabItems[2]
             tabItem.badgeValue = "1"
             tabItem.badgeColor = AppThemeColor
         }
+        */
         
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let indexOfTab = tabBar.items?.firstIndex(of: item)
-        print(indexOfTab ?? 0)
     }
     
     // MARK: - Navigation
