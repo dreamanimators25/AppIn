@@ -105,8 +105,11 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
             strUrl = kGetBrandInfoURL
         }
         
+        self.showSpinner(onView: self.view)
+        
         Alamofire.request(strUrl, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            self.removeSpinner()
             //print(responseData)
             
             switch responseData.result {
@@ -120,7 +123,6 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
                     let responsModal = AboutBaseData.init(json: json)
 
                     if responsModal.status == "success" {
-                        
                         
 
                     }else{

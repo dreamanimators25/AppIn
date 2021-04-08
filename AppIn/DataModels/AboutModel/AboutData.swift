@@ -51,6 +51,10 @@ public class AboutData: NSCoding {
   private let kDataAmbaNeedApprovalKey: String = "ambaNeedApproval"
   private let kDataShortCodeKey: String = "shortCode"
   private let kDataCountryKey: String = "country"
+  private let kDataBrandNameKey: String = "brand_name"
+  private let kDataBrandDescriptionKey: String = "brand_description"
+    
+    
 
   // MARK: Properties
   public var state: String?
@@ -93,6 +97,9 @@ public class AboutData: NSCoding {
   public var ambaNeedApproval: String?
   public var shortCode: String?
   public var country: String?
+  public var brandName: String?
+  public var brandDescription: String?
+      
 
   // MARK: SwiftyJSON Initalizers
   /**
@@ -150,6 +157,9 @@ public class AboutData: NSCoding {
     ambaNeedApproval = json[kDataAmbaNeedApprovalKey].string
     shortCode = json[kDataShortCodeKey].string
     country = json[kDataCountryKey].string
+    brandName = json[kDataBrandNameKey].string
+    brandDescription = json[kDataBrandDescriptionKey].string
+    
   }
 
   /**
@@ -198,6 +208,8 @@ public class AboutData: NSCoding {
     if let value = ambaNeedApproval { dictionary[kDataAmbaNeedApprovalKey] = value }
     if let value = shortCode { dictionary[kDataShortCodeKey] = value }
     if let value = country { dictionary[kDataCountryKey] = value }
+    if let value = country { dictionary[kDataBrandNameKey] = value }
+    if let value = country { dictionary[kDataBrandDescriptionKey] = value }
     return dictionary
   }
 
@@ -243,6 +255,8 @@ public class AboutData: NSCoding {
     self.ambaNeedApproval = aDecoder.decodeObject(forKey: kDataAmbaNeedApprovalKey) as? String
     self.shortCode = aDecoder.decodeObject(forKey: kDataShortCodeKey) as? String
     self.country = aDecoder.decodeObject(forKey: kDataCountryKey) as? String
+    self.brandName = aDecoder.decodeObject(forKey: kDataBrandNameKey) as? String
+    self.brandDescription = aDecoder.decodeObject(forKey: kDataBrandDescriptionKey) as? String
   }
 
   public func encode(with aCoder: NSCoder) {
@@ -286,6 +300,8 @@ public class AboutData: NSCoding {
     aCoder.encode(ambaNeedApproval, forKey: kDataAmbaNeedApprovalKey)
     aCoder.encode(shortCode, forKey: kDataShortCodeKey)
     aCoder.encode(country, forKey: kDataCountryKey)
+    aCoder.encode(country, forKey: kDataBrandNameKey)
+    aCoder.encode(country, forKey: kDataBrandDescriptionKey)
   }
 
 }

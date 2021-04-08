@@ -60,9 +60,11 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -119,9 +121,11 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                   "user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kUpdateOver21, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {

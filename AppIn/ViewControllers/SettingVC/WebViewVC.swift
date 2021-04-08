@@ -53,12 +53,12 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webView = self.addWKWebView(viewForWeb: viewForWeb)
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        let myURL = URL(string: loadableUrlStr ?? "")
-        let myRequest = URLRequest(url: myURL!)
         
         if isComeFrom == "" {
             webView.loadHTMLString(loadableUrlStr ?? "", baseURL: nil)
         }else {
+            let myURL = URL(string: loadableUrlStr ?? "")
+            let myRequest = URLRequest(url: myURL!)
             webView.load(myRequest)
         }
         

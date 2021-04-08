@@ -108,6 +108,11 @@ public class AllFeedPages: NSCoding {
     channelId = json[kAllFeedPagesChannelIdKey].string
     
     //backgroundMeta = "https://www.learningcontainer.com/bfd_download/sample-mp4-file/"
+    // http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+    // http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4
+
+    // http://www.exit109.com/~dnn/clips/RW20seconds_2.mp4
+    // http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4
             
     if backgroundType == "1" {
         if backgroundMeta != "" {

@@ -382,9 +382,12 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                  
+            self.removeSpinner()
+            
             print(responseData)
             
             switch responseData.result {
@@ -436,9 +439,10 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                   "shortCode" : Code]
                 
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kAddChannelWithCodeURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-            
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {

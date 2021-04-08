@@ -23,11 +23,13 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         self.setStatusBarColor()
 
-        self.callNotificationWebService()
+        //self.callNotificationWebService()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.callNotificationWebService()
         
         if let tabItems = tabBarController?.tabBar.items {
             // In this case we want to modify the badge number of the third tab:
@@ -65,7 +67,13 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         let data = arrNotification?[indexPath.row]
         titelLbl.text = data?.title
-        subTitelLbl.text = data?.type
+        //subTitelLbl.text = data?.type
+        let dt = self.getDateFromString(data?.addedDate ?? "")
+        subTitelLbl.text = (data?.channelName ?? "") + "  " + dt.getElapsedInterval()
+        
+        if let url = URL.init(string: data?.icon ?? "") {
+            notiImgView.af_setImage(withURL: url)
+        }
         
         if data?.isRead == "1" {
             readDotLbl.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -73,11 +81,13 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
             readDotLbl.backgroundColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.6784313725, alpha: 1)
         }
         
+        /*
         if indexPath.row % 2 == 0 {
             notiImgView.image = #imageLiteral(resourceName: "uber")
         }else {
             notiImgView.image = #imageLiteral(resourceName: "headSas")
         }
+        */
         
         return notificationCell
     }
@@ -94,7 +104,6 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         }
         
         self.callUpdateNotificationWebService(notiID: selNotiID)
-        
         
         if let loadNoti = loadNotification {
             
@@ -118,8 +127,6 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
             
         }
         
-        
-        
     }
     
     //MARK: Web Service
@@ -131,9 +138,11 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kGetAllNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -188,9 +197,11 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                   "isDeleted" : "0"]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kUpdateNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -254,6 +265,20 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    }
+    
+    func getDateFromString(_ str : String) -> Date {
+    
+        // 1) Create a DateFormatter() object.
+        let format = DateFormatter()
+        // 2) Set the current timezone to .current, or America/Chicago.
+        format.timeZone = .current
+        // 3) Set the format of the altered date.
+        format.dateFormat = "yyyy-mm-dd HH:mm:ss"
+        // 4) Set the current date, altered by timezone.
+        let date = format.date(from: str) ?? Date()
+        
+        return date
     }
 
 }

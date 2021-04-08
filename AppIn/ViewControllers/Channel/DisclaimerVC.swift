@@ -18,6 +18,13 @@ class DisclaimerVC: UIViewController {
     var strContent : String?
     var strContentType : String?
     var strContentNo : String?
+    var strChannelName : String?
+    
+    var singleContent : AllFeedPages? {
+        didSet {
+     
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +62,7 @@ class DisclaimerVC: UIViewController {
     
     func goToFeedContent() {
         if let selectedIndex = CVgoThereIndex {
-            selectedIndex(self.strContentType ?? "", self.strContentNo ?? "")
+            selectedIndex(self.strContentType ?? "", self.strContentNo ?? "", self.singleContent, self.strChannelName ?? "")
         }
     }
     

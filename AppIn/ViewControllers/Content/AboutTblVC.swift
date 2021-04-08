@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AlamofireImage
 import SwiftyJSON
+import CoreLocation
 
 class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
    
@@ -67,32 +68,51 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
     
     @IBAction func backGoogleMapClicked(_ sender: UIButton) {
         
-        //let urlStr = "comgooglemaps://?saddr=&daddr=\("26.8549"),\("75.8243")&directionsmode=driving"
-        
+        self.aboutData?.latitude = "26.8549"
+        self.aboutData?.longitude = "75.8243"
+                
         if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
             
-            let urlStr = "comgooglemaps://?saddr=&daddr=\(self.aboutData?.latitude ?? ""),\(self.aboutData?.longitude ?? "")&directionsmode=driving"
-            
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(URL(string: urlStr)!)
+            if self.aboutData?.latitude != nil && self.aboutData?.latitude != "0" && self.aboutData?.longitude != nil && self.aboutData?.longitude != "0" {
+                
+                let urlStr = "comgooglemaps://?saddr=&daddr=\(self.aboutData?.latitude ?? ""),\(self.aboutData?.longitude ?? "")&directionsmode=driving"
+                
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(URL(string: urlStr)!)
+                }
+                
             }
             
         } else {
             NSLog("Can't use comgooglemaps://")
             
-            let urlStr = "http://maps.apple.com/maps?saddr=\(self.aboutData?.latitude ?? ""),\(self.aboutData?.longitude ?? "")"
-            //let urlStr = "http://maps.apple.com/maps?saddr=\(26.8549),\(75.8243)"
-            
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(URL(string: urlStr)!)
+            if self.aboutData?.latitude != nil && self.aboutData?.latitude != "0" && self.aboutData?.longitude != nil && self.aboutData?.longitude != "0" {
+                
+                /*
+                let urlStr = "http://maps.apple.com/maps?saddr=\(self.aboutData?.latitude ?? ""),\(self.aboutData?.longitude ?? "")"
+                
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(URL(string: urlStr)!)
+                }
+                */
+                
+                
+                let query = "?ll=\(self.aboutData?.latitude ?? ""),\(self.aboutData?.longitude ?? "")"
+                let urlString = "http://maps.apple.com/".appending(query)
+                
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(URL(string: urlString)!)
+                }
+                
             }
             
         }
-    
         
     }
     
@@ -158,9 +178,11 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
         }else {
             strUrl = kGetBrandInfoURL
         }
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(strUrl, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
+            self.removeSpinner()
             //print(responseData)
             
             switch responseData.result {
@@ -179,6 +201,8 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
                         
                         let arrStrImg = self.aboutData?.otherImages?.components(separatedBy: ",")
                         self.arrOtherImg = arrStrImg ?? []
+                        
+                        self.aboutPageControl.numberOfPages = self.arrOtherImg.count
                         
                         self.loadThisTable()
                         self.tableView.reloadData()
@@ -209,11 +233,19 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
             self.aboutCollectionView.reloadData()
         }
         
+        if let val = self.aboutData?.name {
+            self.lblChannelHead.text = val.htmlToString
+        }
+        
         if let val = self.aboutData?.descriptionValue {
             self.lblChannelDesc.text = val.htmlToString
         }
         
-        if let val = self.aboutData?.disclaimer {
+        if let val = self.aboutData?.brandName {
+            self.lblBrandHead.text = val.htmlToString
+        }
+        
+        if let val = self.aboutData?.brandDescription {
             self.lblBrandDesc.text = val.htmlToString
         }
         

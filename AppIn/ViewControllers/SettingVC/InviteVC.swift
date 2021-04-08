@@ -144,9 +144,11 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                   "invite_email" : formattedArray]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kInviteUsersURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
+            self.removeSpinner()
             print(responseData)
                         
             switch responseData.result {

@@ -58,8 +58,9 @@ class MyChannelTVCell: UITableViewCell {
         }
 
         cellDropDown.width = 130
-        cellDropDown.layer.cornerRadius = 20.0
+        cellDropDown.setupCornerRadius(10.0)
         cellDropDown.backgroundColor = UIColor.white
+        cellDropDown.selectionBackgroundColor = .white
         
         cellDropDown.bottomOffset = CGPoint(x: -110, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
         cellDropDown.show()

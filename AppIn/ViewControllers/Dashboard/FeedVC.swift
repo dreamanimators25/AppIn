@@ -17,11 +17,11 @@ import MessageUI
 import XCDYouTubeKit
 
 
-var CVChannelShare : (()->(Void))?
+var CVChannelShare : ((_ captureImg : UIImage)->(Void))?
 var CVChannelClick : ((_ pgID : String)->(Void))?
 var CVDropDownIndex : ((_ ind : Int, _ accessCode : String, _ qrCode : String,_ pgID : String) -> (Void))?
-var CVgoThereIndex : ((_ contentType : String, _ content : String) -> (Void))?
-var callDisclaimer : ((_ strDisclamer : String , _ contentType : String, _ content : String) -> (Void))?
+var CVgoThereIndex : ((_ contentType : String, _ content : String, _ singleContent : AllFeedPages?, _ name : String) -> (Void))?
+var callDisclaimer : ((_ strDisclamer : String , _ contentType : String, _ content : String, _ singleContent : AllFeedPages?, _ name : String) -> (Void))?
 //var loadNotification : ((_ channelId : Int, _ pageId : Int) -> (Void))?
 var loadNotification : (() -> (Void))?
 var loadChannel : (() -> (Void))?
@@ -72,8 +72,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         
         // MARK: To handle Share from channel
-        CVChannelShare = {
-            self.shareChannel()
+        CVChannelShare = { capturedImage in
+            self.shareChannel(img: capturedImage)
         }
         
         // MARK: To handle navigation on other viewcontrollers
@@ -97,7 +97,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         
         // MARK: To handle action on contentTypes on buttons
-        callDisclaimer = { (disclaimer, contType, content) in
+        callDisclaimer = { (disclaimer, contType, content, singlePageContent, channelName) in
             
             if disclaimer != "" {
                 
@@ -107,6 +107,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     vc.strContent = disclaimer
                     vc.strContentType = contType
                     vc.strContentNo = content
+                    vc.singleContent = singlePageContent
+                    vc.strChannelName = channelName
                     self.present(vc, animated: true) {
                         
                     }
@@ -115,14 +117,14 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             }else {
                 
                 if let selectedIndex = CVgoThereIndex {
-                    selectedIndex(contType, content)
+                    selectedIndex(contType, content, singlePageContent, channelName)
                 }
                 
             }
                         
         }
         
-        CVgoThereIndex = { (contType,content) in
+        CVgoThereIndex = { (contType, content, singleContent, channelName) in
             
             switch contType {
             case "0":
@@ -232,20 +234,24 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 break
             case "7":
                 print("content")
-                /*
+                
                 DispatchQueue.main.async {
                     let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "InformationVC") as! InformationVC
-                    vc.strContentData = content
+                    vc.isComeFrom = "Feed"
+                    vc.singleContent = singleContent
+                    vc.strChannelName = channelName
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
-                */
                 
+                
+                /*
                 DispatchQueue.main.async {
                     let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
                     vc.isComeFrom = ""
                     vc.loadableUrlStr = content
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
+                */
                                 
                 break
             case "8":
@@ -344,9 +350,11 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kGetAllChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -532,11 +540,11 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         })
     }
     
-    func shareChannel() {
+    func shareChannel(img : UIImage) {
         // text to share
-        let sharedText = "Shared via AppIn! Download AppIn Now from Apple App Store and Google Play Store!"
+        // let sharedText = "Shared via AppIn! Download AppIn Now from Apple App Store and Google Play Store!"
         
-        /*
+        //*
         //To Hide GoThereButton
         var btnStt = false
         let cells = contentCollectionView.visibleCells
@@ -548,7 +556,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         
         // image to share
-        let sharedImage = UIView().takeScreenshot(captureView: self.captureView)
+        //let sharedImage = UIView().takeScreenshot(captureView: self.contentCollectionView)
+        
         
         //To Show GoThereButton After capture image of whole view
         for cell in cells {
@@ -556,12 +565,13 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 cell.goThereBtn.isHidden = btnStt
             }
         }
-        */
+        //*/
         
         
         // set up activity view controller
         //let sharedData = [ sharedImage ?? UIImage() , sharedText] as [Any]
-        let sharedData = [sharedText] as [Any]
+        let sharedData = [img] as [Any]
+        //let sharedData = [sharedText] as [Any]
         let activityViewController = UIActivityViewController(activityItems: sharedData, applicationActivities: nil)
         
         // so that iPads won't crash

@@ -330,9 +330,10 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         params = ["user_id" : userData?.UserId ?? ""]
         
         //print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            self.removeSpinner()
             //print(responseData)
             
             switch responseData.result {
@@ -399,9 +400,11 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                   ]
         
         //print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kEditProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
             //print(responseData)
             
             switch responseData.result {
@@ -522,6 +525,8 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         //let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
         let imageData = self.selectedImage?.jpegData(compressionQuality: 0.50) ?? Data()
         
+        self.showSpinner(onView: self.view)
+        
         //To Upload MultiPart Data using Alamofire
         Alamofire.upload(
             multipartFormData: { multipartFormData in
@@ -541,6 +546,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             method: HTTPMethod.post,
             headers: nil,
             encodingCompletion: { encodingResult in
+                self.removeSpinner()
                 
                 switch encodingResult {
                     

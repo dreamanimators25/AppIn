@@ -54,6 +54,13 @@ class SinglePageCell: UICollectionViewCell {
                     self.backgroundUpdated(self.content)
                     
                     self.pageTitleLbl.text = self.content?.title
+                    
+                    if self.content?.actionButtonMeta == nil || self.content?.actionButtonMeta == "" {
+                        self.goThereBtn.setTitle("Read more", for: .normal)
+                    }else {
+                        self.goThereBtn.setTitle(self.content?.actionButtonMeta, for: .normal)
+                    }
+                   
                 }
             }
             
@@ -107,6 +114,19 @@ class SinglePageCell: UICollectionViewCell {
        
     }
     
+    func pauseMedia() {
+        backgroundVideoView?.reset()
+        
+        /*
+        for component in componentViews {
+            if let component = component as? ContentMusic {
+                component.reset()
+            } else if let component = component as? ContentVideo {
+                component.reset()
+            }
+        }*/
+    }
+    
     //MARK: IBActions on Cells
     @IBAction func channelNameBtnClicked(_ sender: UIButton) {
     
@@ -125,21 +145,42 @@ class SinglePageCell: UICollectionViewCell {
         }
 
         cellDropDown.width = 130
+        //cellDropDown.layer.cornerRadius = 20.0
+        cellDropDown.setupCornerRadius(10.0)
+        cellDropDown.backgroundColor = UIColor.white
+        cellDropDown.selectionBackgroundColor = .white
+        
         cellDropDown.bottomOffset = CGPoint(x: -100, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
         cellDropDown.show()
     }
     
     @IBAction func goThereBtnClicked(_ sender: UIButton) {
         if let selectedIndex = callDisclaimer {
-            selectedIndex(self.content?.disclaimer ?? "", self.content?.contentType ?? "", self.content?.content ?? "")
+            selectedIndex(self.content?.disclaimer ?? "", self.content?.contentType ?? "", self.content?.content ?? "", self.content, self.channelNameLbl.text ?? "")
         }
     }
     
     @IBAction func shareBtnClicked(_ sender: UIButton) {
         self.callShareContentWebService()
         
+        //if let share = CVChannelShare {
+            //share()
+        //}
+        
+        self.shareChannel()
+        
+    }
+    
+    func shareChannel() {
+        
+        self.goThereBtn.isHidden = true
+      
+        let sharedImage = UIView().takeScreenshot(captureView: self.contentView)
+      
+        self.goThereBtn.isHidden = false
+       
         if let share = CVChannelShare {
-            share()
+            share(sharedImage ?? UIImage())
         }
         
     }
@@ -204,6 +245,7 @@ extension SinglePageCell {
         switch self.content?.backgroundType {
         case "0":
             //if let fileurl = background.file_url {
+            //self.pauseMedia()
             setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
             //}
             //if let file = background.file {
@@ -221,6 +263,7 @@ extension SinglePageCell {
             }
                         
         case "2":
+            //self.pauseMedia()
             //if let meta = background.meta, let color = meta["color"] as? String {
                 pageBackgroundView.backgroundColor = UIColor(hexString: backgroundArg?.backgroundMeta ?? "")
             //}

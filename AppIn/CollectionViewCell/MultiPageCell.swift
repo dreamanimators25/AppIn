@@ -124,13 +124,13 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+       
         autoreleasepool {
+                                    
+            let SinglePageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageCell", for: indexPath) as! SinglePageCell
             
             //let page = self.content?.pages?[indexPath.row]
             let page = self.content?.pages?[indexPath.item]
-                        
-            let SinglePageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageCell", for: indexPath) as! SinglePageCell
             
             SinglePageCell.goThereBtn.tag = indexPath.row
             SinglePageCell.content = page
@@ -178,7 +178,11 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-                
+        
+//        if let cell = cell as? SinglePageCell {
+//            cell.pauseMedia()
+//        }
+                        
         if let cell = cell as? MultiPageCell {
             cell.reset()
         }

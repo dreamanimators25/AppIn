@@ -61,6 +61,8 @@ extension UIViewController {
     
     func addWKWebView(viewForWeb:UIView) -> WKWebView {
         let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        
         let webView = WKWebView(frame: viewForWeb.frame, configuration: webConfiguration)
         webView.frame.origin = CGPoint.init(x: 0, y: 0)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -132,3 +134,51 @@ extension UserDefaults {
     
 }
 
+extension Date {
+
+func getElapsedInterval() -> String {
+
+    let interval = Calendar.current.dateComponents([.year, .month, .day], from: self, to: Date())
+
+    if let year = interval.year, year > 0 {
+        return year == 1 ? "\(year)" + " " + "year ago" :
+            "\(year)" + " " + "years ago"
+    } else if let month = interval.month, month > 0 {
+        return month == 1 ? "\(month)" + " " + "month ago" :
+            "\(month)" + " " + "months ago"
+    } else if let day = interval.day, day > 0 {
+        return day == 1 ? "\(day)" + " " + "day ago" :
+            "\(day)" + " " + "days ago"
+    } else {
+        return "a moment ago"
+
+    }
+
+}
+}
+
+var vSpinner : UIView?
+
+extension UIViewController {
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        vSpinner = spinnerView
+    }
+    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+            vSpinner?.removeFromSuperview()
+            vSpinner = nil
+        }
+    }
+}
