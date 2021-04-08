@@ -26,6 +26,12 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         super.viewDidLoad()
 
         self.setStatusBarColor()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.callOver21WebService()
     }
     

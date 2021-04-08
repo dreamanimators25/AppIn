@@ -1,9 +1,9 @@
 //
-//  SinglePageCell.swift
+//  SinglePageImageCell.swift
 //  AppIn
 //
-//  Created by sameer khan on 01/11/20.
-//  Copyright © 2020 Sameer khan. All rights reserved.
+//  Created by Sameer Khan on 03/04/21.
+//  Copyright © 2021 Sameer khan. All rights reserved.
 //
 
 import UIKit
@@ -16,7 +16,7 @@ import AVFoundation
 import AVKit
 import MediaPlayer
 
-class SinglePageCell: UICollectionViewCell {
+class SinglePageImageCell: UICollectionViewCell {
     
     @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var goThereBtn: UIButton!
@@ -235,7 +235,7 @@ class SinglePageCell: UICollectionViewCell {
     
 }
 
-extension SinglePageCell {
+extension SinglePageImageCell {
     
     // MARK: - Set Backgrounds
     

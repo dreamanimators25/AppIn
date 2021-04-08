@@ -52,7 +52,6 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2
         
         self.setStatusBarColor()
-        self.callGetMyProfileWebService()
 
         self.txtFDate.addTarget(self, action: #selector(tapDateField), for: .allEditingEvents)
         self.txtFAgeFeel.addTarget(self, action: #selector(tapAgeFeelField), for: .allEditingEvents)
@@ -61,6 +60,8 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.callGetMyProfileWebService()
         
         self.tabBarController?.tabBar.isHidden = true
         

@@ -115,7 +115,7 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
             print(self.webView?.estimatedProgress ?? 0.0)
             //self.webViewProgress.progress = Float(self.webView.estimatedProgress)
         }
-    }
+    }    
 
     // MARK: - Navigation
 

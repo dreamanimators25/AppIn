@@ -49,6 +49,12 @@ extension String {
         return  dateFormatter.string(from: date)
     }
     
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+            Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890+-*=(),.:!_")
+        return String(text.filter {okayChars.contains($0) })
+    }
+    
     /*
     public func getHtml2AttributedString(font: UIFont?) -> NSAttributedString? {
         

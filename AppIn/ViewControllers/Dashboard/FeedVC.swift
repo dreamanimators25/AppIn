@@ -53,13 +53,17 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 //            self.callGetAllChannelWebService()
 //        }
  
-        
+        /*
         // MARK: To handle navigation to channel tab from feed tab
         CVChannelClick = { (pgID) in
             
+            self.contentCollectionView.scrollToItem(at: IndexPath.init(row: 0, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: true)
+            
+            /*
             if let tabBarController = self.navigationController?.tabBarController {
                 tabBarController.selectedIndex = 0
             }
+            */
             
             
             /*
@@ -70,6 +74,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             */
             
         }
+        */
         
         // MARK: To handle Share from channel
         CVChannelShare = { capturedImage in
@@ -302,6 +307,9 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         let multiPageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiPageCell", for: indexPath) as! MultiPageCell
         
+        //if let cell = cell as? MultiPageCell {
+            multiPageCell.content = self.arrFeedChannel?[0].channels?[indexPath.item]
+        //}
         
         return multiPageCell
     }
@@ -312,9 +320,9 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        if let cell = cell as? MultiPageCell {
-            cell.content = self.arrFeedChannel?[0].channels?[indexPath.item]
-        }
+//        if let cell = cell as? MultiPageCell {
+//            cell.content = self.arrFeedChannel?[0].channels?[indexPath.item]
+//        }
         
     }
     

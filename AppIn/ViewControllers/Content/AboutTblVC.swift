@@ -11,8 +11,9 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 import CoreLocation
+import MessageUI
 
-class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
    
     @IBOutlet weak var aboutCollectionView: UICollectionView!
     @IBOutlet weak var aboutPageControl: UIPageControl!
@@ -30,6 +31,12 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
     @IBOutlet weak var lblEmail: UILabel!
     @IBOutlet weak var lblWebsite: UILabel!
     @IBOutlet weak var lblFbLink: UILabel!
+    
+    @IBOutlet weak var WhatsAppNoView: UIView!
+    @IBOutlet weak var PrimaryNoView: UIView!
+    @IBOutlet weak var EmailView: UIView!
+    @IBOutlet weak var WebsiteView: UIView!
+    @IBOutlet weak var FbLinkView: UIView!
     
     var arrOtherImg = [String]()
     var aboutData : AboutData? = nil
@@ -68,8 +75,8 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
     
     @IBAction func backGoogleMapClicked(_ sender: UIButton) {
         
-        self.aboutData?.latitude = "26.8549"
-        self.aboutData?.longitude = "75.8243"
+        //self.aboutData?.latitude = "26.8549"
+        //self.aboutData?.longitude = "75.8243"
                 
         if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
             
@@ -83,6 +90,8 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
                     UIApplication.shared.openURL(URL(string: urlStr)!)
                 }
                 
+            }else {
+                Alert.showAlert(strTitle: "", strMessage: "Wrong co-ordinates", Onview: self)
             }
             
         } else {
@@ -110,6 +119,127 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
                     UIApplication.shared.openURL(URL(string: urlString)!)
                 }
                 
+            }else {
+                Alert.showAlert(strTitle: "", strMessage: "Wrong co-ordinates", Onview: self)
+            }
+            
+        }
+        
+    }
+    
+    //MARK: Check App Install or not
+    
+    func schemeAvailable(scheme: String) -> Bool {
+        if let url = URL(string: scheme) {
+            return UIApplication.shared.canOpenURL(url)
+        }
+        return false
+    }
+    
+    @IBAction func whatsAppNumBtnClicked(_ sender: UIButton) {
+        
+        let number = self.aboutData?.wASupportNumber ?? ""
+       
+        DispatchQueue.main.async {
+            
+            if self.schemeAvailable(scheme: "whatsapp://app")
+            {
+                if let url = NSURL(string: "https://api.whatsapp.com/send?phone=\(number)&text=") {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url as URL)
+                    } else {
+                        UIApplication.shared.openURL(url as URL)
+                    }
+                }
+            }
+            else
+            {
+                let urlStr = "https://itunes.apple.com/in/app/whatsapp-messenger/id310633997?mt=8"
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(URL(string: urlStr)!)
+                }
+            }
+            
+        }
+    
+    }
+    
+    @IBAction func primaryNumbtnClicked(_ sender: UIButton) {
+        
+        var number = ""
+        if let pNum = self.aboutData?.primaryNumber {
+            number = pNum
+        }else if let secNum = self.aboutData?.secondaryNumber {
+            number = secNum
+        }
+        
+        DispatchQueue.main.async {
+            guard let number = URL(string: "tel://\(number)") else { return }
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(number, options: [:], completionHandler: { (status) in })
+            } else {
+                UIApplication.shared.openURL(number)
+            }
+        }
+    }
+    
+    @IBAction func emailBtnClicked(_ sender: UIButton) {
+        
+        let email = self.aboutData?.email ?? ""
+        
+        DispatchQueue.main.async {
+            if MFMailComposeViewController.canSendMail() {
+                let mailComposerVC = MFMailComposeViewController()
+                mailComposerVC.mailComposeDelegate = self
+                mailComposerVC.setToRecipients([email])
+                
+                self.present(mailComposerVC, animated: true, completion: nil)
+            } else {
+                Alert.showAlert(strTitle: "", strMessage: "Email feature not support!", Onview: self)
+            }
+        }
+    }
+    
+    @IBAction func websiteBtnClicked(_ sender: UIButton) {
+        let webLink = self.aboutData?.website ?? ""
+        
+        guard let url = URL(string: webLink) else {
+          return //be safe
+        }
+
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(url)
+        }
+        
+    }
+    
+    @IBAction func fbLinkBtnClicked(_ sender: UIButton) {
+        let fbLink = self.aboutData?.fbLink ?? ""
+        
+        DispatchQueue.main.async {
+            
+            if self.schemeAvailable(scheme: "fb://")
+            {
+                if let url = NSURL(string: fbLink) {
+                    if #available(iOS 10, *) {
+                        UIApplication.shared.open(url as URL)
+                    } else {
+                        UIApplication.shared.openURL(url as URL)
+                    }
+                }
+            }
+            else
+            {
+                let urlStr = "https://itunes.apple.com/in/app/facebook/id284882215?mt=8"
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(URL(string: urlStr)!, options: [:], completionHandler: nil)
+                } else {
+                    UIApplication.shared.openURL(URL(string: urlStr)!)
+                }
             }
             
         }
@@ -229,28 +359,40 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
     // MARK: Custom Methods
     func loadThisTable() {
         
-        if (self.aboutData?.otherImages) != nil {
+        if (self.aboutData?.otherImages) != nil && (self.aboutData?.otherImages?.count != 0) {
             self.aboutCollectionView.reloadData()
         }
         
         if let val = self.aboutData?.name {
             self.lblChannelHead.text = val.htmlToString
+        }else {
+            self.lblChannelHead.text = ""
         }
         
         if let val = self.aboutData?.descriptionValue {
             self.lblChannelDesc.text = val.htmlToString
+        }else {
+            self.lblChannelDesc.text = ""
         }
         
         if let val = self.aboutData?.brandName {
             self.lblBrandHead.text = val.htmlToString
+        }else {
+            self.lblBrandHead.text = ""
         }
         
         if let val = self.aboutData?.brandDescription {
             self.lblBrandDesc.text = val.htmlToString
+        }else {
+            self.lblBrandDesc.text = ""
         }
         
         if let val = self.aboutData?.street {
-            self.lblStreet.text = val
+            if val != "" {
+                self.lblStreet.text = val
+            }else{
+                self.lblStreet.isHidden = true
+            }
         }else {
             self.lblStreet.isHidden = true
         }
@@ -297,35 +439,60 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
         
         
         if let pNum = self.aboutData?.primaryNumber {
-            self.lblPrimaryNo.text = pNum
+            if pNum != "" {
+                self.lblPrimaryNo.text = pNum
+            }else {
+                self.PrimaryNoView.isHidden = true
+            }
         }else if let secNum = self.aboutData?.secondaryNumber {
-            self.lblPrimaryNo.text = secNum
+            if secNum != "" {
+                self.lblPrimaryNo.text = secNum
+                self.PrimaryNoView.isHidden = false
+            }else {
+                self.PrimaryNoView.isHidden = true
+            }
         }else {
-            self.lblPrimaryNo.isHidden = true
+            self.PrimaryNoView.isHidden = true
         }
         
         if let wNum = self.aboutData?.wASupportNumber {
-            self.lblWhatsAppNo.text = wNum
+            if wNum != "" {
+                self.lblWhatsAppNo.text = wNum
+            }else {
+                self.WhatsAppNoView.isHidden = true
+            }
         }else {
-            self.lblWhatsAppNo.isHidden = true
+            self.WhatsAppNoView.isHidden = true
         }
         
         if let email = self.aboutData?.email {
-            self.lblEmail.text = email
+            if email != "" {
+                self.lblEmail.text = email
+            }else {
+                self.EmailView.isHidden = true
+            }
         }else {
-            self.lblEmail.isHidden = true
+            self.EmailView.isHidden = true
         }
         
         if let web = self.aboutData?.website {
-            self.lblWebsite.text = web
+            if web != "" {
+                self.lblWebsite.text = web
+            }else {
+                self.WebsiteView.isHidden = true
+            }
         }else {
-            self.lblWebsite.isHidden = true
+            self.WebsiteView.isHidden = true
         }
         
         if let fb = self.aboutData?.fbLink {
-            self.lblFbLink.text = fb
+            if fb != "" {
+                self.lblFbLink.text = fb
+            }else {
+                self.FbLinkView.isHidden = true
+            }
         }else {
-            self.lblFbLink.isHidden = true
+            self.FbLinkView.isHidden = true
         }
         
     }
@@ -512,6 +679,10 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
             
         }
     }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -559,3 +730,5 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
     */
 
 }
+
+

@@ -82,6 +82,8 @@
 		5969913825DD745100E3F436 /* AboutTblVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5969913725DD745100E3F436 /* AboutTblVC.swift */; };
 		596A7FE525DEC7D300507705 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596A7FE425DEC7D300507705 /* AboutVC.swift */; };
 		597EBD4A2540A80A0080B1F0 /* ChangePWPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */; };
+		5990BA1E2618CD0000417F02 /* SinglePageVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990BA1D2618CD0000417F02 /* SinglePageVideoCell.swift */; };
+		5990BA232618CD1200417F02 /* SinglePageImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990BA222618CD1200417F02 /* SinglePageImageCell.swift */; };
 		5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */; };
 		5997A1BD24A12C330091AC4A /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5997A1BC24A12C330091AC4A /* EditProfileVC.swift */; };
 		59991FD124B33DAC00E76898 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59991FCB24B33DAC00E76898 /* Player.swift */; };
@@ -290,6 +292,8 @@
 		5969913725DD745100E3F436 /* AboutTblVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTblVC.swift; sourceTree = "<group>"; };
 		596A7FE425DEC7D300507705 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWPopUpVC.swift; sourceTree = "<group>"; };
+		5990BA1D2618CD0000417F02 /* SinglePageVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageVideoCell.swift; sourceTree = "<group>"; };
+		5990BA222618CD1200417F02 /* SinglePageImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageImageCell.swift; sourceTree = "<group>"; };
 		5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelPopUpVC.swift; sourceTree = "<group>"; };
 		5997A1BC24A12C330091AC4A /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		59991FCB24B33DAC00E76898 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -488,6 +492,8 @@
 				5905098224A8BBEA008BF45F /* MultiPageCVCell.swift */,
 				592E9F5F254EE26000951754 /* MultiPageCell.swift */,
 				592E9F61254EE27C00951754 /* SinglePageCell.swift */,
+				5990BA1D2618CD0000417F02 /* SinglePageVideoCell.swift */,
+				5990BA222618CD1200417F02 /* SinglePageImageCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -1056,7 +1062,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = "Sameer khan";
+				ORGANIZATIONNAME = AppIn;
 				TargetAttributes = {
 					59DDC65024962CDF007D1A51 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -1182,6 +1188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5990BA232618CD1200417F02 /* SinglePageImageCell.swift in Sources */,
 				5999208C24B33E7F00E76898 /* PromoVideoView.swift in Sources */,
 				5905097B24A890BC008BF45F /* ContentVC.swift in Sources */,
 				59146C3524C996D8007F91E8 /* ContentTextCVCell.swift in Sources */,
@@ -1296,6 +1303,7 @@
 				590ABAFD249FC3E00053BCC7 /* WebViewVC.swift in Sources */,
 				5999206F24B33DC900E76898 /* BackgroundImageView.swift in Sources */,
 				5999205524B33DC900E76898 /* AmbassadorshipContentConsumeData.swift in Sources */,
+				5990BA1E2618CD0000417F02 /* SinglePageVideoCell.swift in Sources */,
 				59146C3124C996BA007F91E8 /* ContentImageCVCell.swift in Sources */,
 				5999207524B33DC900E76898 /* Localization.swift in Sources */,
 				5950EFE9254DA99D005CB112 /* AboutSasVC.swift in Sources */,
@@ -1525,7 +1533,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1533,7 +1541,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.09;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1552,7 +1560,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1560,7 +1568,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.09;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

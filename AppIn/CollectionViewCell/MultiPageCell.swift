@@ -87,6 +87,13 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             }
         }
         
+        // MARK: To handle navigation to channel tab from feed tab
+        CVChannelClick = { (pgID) in
+            
+            self.multiPageCollectionView.scrollToItem(at: IndexPath.init(row: 0, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: true)
+            
+        }
+        
     }
     
     //var content : Int = 0 {
@@ -124,13 +131,50 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
-        autoreleasepool {
-                                    
-            let SinglePageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageCell", for: indexPath) as! SinglePageCell
+        
+        let page = self.content?.pages?[indexPath.item]
+        
+        switch page?.backgroundType {
+        case "0":
+            let SinglePageImageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageImageCell", for: indexPath) as! SinglePageImageCell
             
-            //let page = self.content?.pages?[indexPath.row]
-            let page = self.content?.pages?[indexPath.item]
+            SinglePageImageCell.goThereBtn.tag = indexPath.row
+            SinglePageImageCell.content = page
+            
+            SinglePageImageCell.channelNameLbl.text = self.content?.name
+            
+            if let url = URL(string: self.content?.logo ?? "") {
+                SinglePageImageCell.channelImageView.af_setImage(withURL: url)
+            }
+            
+            SinglePageImageCell.accessCode = self.content?.shortCode ?? ""
+            SinglePageImageCell.QrCode = self.content?.qrCode ?? ""
+            SinglePageImageCell.pageID = self.content?.internalIdentifier ?? ""
+            
+            return SinglePageImageCell
+            
+            
+        case "1":
+            let SinglePageVideoCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageVideoCell", for: indexPath) as! SinglePageVideoCell
+            
+            SinglePageVideoCell.goThereBtn.tag = indexPath.row
+            SinglePageVideoCell.content = page
+            
+            SinglePageVideoCell.channelNameLbl.text = self.content?.name
+            
+            if let url = URL(string: self.content?.logo ?? "") {
+                SinglePageVideoCell.channelImageView.af_setImage(withURL: url)
+            }
+            
+            SinglePageVideoCell.accessCode = self.content?.shortCode ?? ""
+            SinglePageVideoCell.QrCode = self.content?.qrCode ?? ""
+            SinglePageVideoCell.pageID = self.content?.internalIdentifier ?? ""
+            
+            return SinglePageVideoCell
+            
+            
+        default:
+            let SinglePageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageCell", for: indexPath) as! SinglePageCell
             
             SinglePageCell.goThereBtn.tag = indexPath.row
             SinglePageCell.content = page
@@ -146,7 +190,32 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             SinglePageCell.pageID = self.content?.internalIdentifier ?? ""
             
             return SinglePageCell
+            
+            
         }
+       
+        /*
+        autoreleasepool {
+            
+            let page = self.content?.pages?[indexPath.item]
+                                    
+            let SinglePageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "SinglePageCell", for: indexPath) as! SinglePageCell
+            
+            SinglePageCell.goThereBtn.tag = indexPath.row
+            SinglePageCell.content = page
+            
+            SinglePageCell.channelNameLbl.text = self.content?.name
+            
+            if let url = URL(string: self.content?.logo ?? "") {
+                SinglePageCell.channelImageView.af_setImage(withURL: url)
+            }
+            
+            SinglePageCell.accessCode = self.content?.shortCode ?? ""
+            SinglePageCell.QrCode = self.content?.qrCode ?? ""
+            SinglePageCell.pageID = self.content?.internalIdentifier ?? ""
+            
+            return SinglePageCell
+        }*/
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -172,20 +241,41 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
+            
         let page = self.content?.pages?[indexPath.item]
+
+        /*
+        if let cell = cell as? SinglePageCell {
+            let page = self.content?.pages?[indexPath.item]
+            
+            cell.goThereBtn.tag = indexPath.row
+            cell.content = page
+            
+            cell.channelNameLbl.text = self.content?.name
+            
+            if let url = URL(string: self.content?.logo ?? "") {
+                cell.channelImageView.af_setImage(withURL: url)
+            }
+            
+            cell.accessCode = self.content?.shortCode ?? ""
+            cell.QrCode = self.content?.qrCode ?? ""
+            cell.pageID = self.content?.internalIdentifier ?? ""
+        }
+        */
+            
         self.callViewContentWebService(contID: self.content?.internalIdentifier ?? "",pageid: page?.pageId ?? "")
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-//        if let cell = cell as? SinglePageCell {
-//            cell.pauseMedia()
-//        }
-                        
-        if let cell = cell as? MultiPageCell {
-            cell.reset()
+        if let cell = cell as? SinglePageCell {
+            cell.pauseMedia()
         }
+                        
+//        if let cell = cell as? MultiPageCell {
+//            cell.reset()
+//        }
     }
     
     //MARK: Custom Methods

@@ -23,12 +23,13 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         super.viewDidLoad()
         
         self.setStatusBarColor()
-
-        self.callMyChannelWebService()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.callMyChannelWebService()
         
         self.tabBarController?.tabBar.isHidden = true
                         
