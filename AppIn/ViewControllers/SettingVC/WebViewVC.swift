@@ -54,6 +54,10 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webView.uiDelegate = self
         webView.navigationDelegate = self
         
+        guard loadableUrlStr != "" else {
+            return
+        }
+        
         if isComeFrom == "" {
             webView.loadHTMLString(loadableUrlStr ?? "", baseURL: nil)
         }else {

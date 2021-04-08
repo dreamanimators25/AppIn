@@ -30,7 +30,7 @@ class DisclaimerVC: UIViewController {
         super.viewDidLoad()
         
         if let strData = self.strContent {
-            self.contentLbl.text = strData.htmlToString
+            self.contentLbl.attributedText = strData.htmlToAttributedString
             //let str = strData.htmlToString.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
             //self.contentLbl.text = String(str ?? "").removingPercentEncoding
         }

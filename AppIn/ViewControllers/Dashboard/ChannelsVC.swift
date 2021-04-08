@@ -302,7 +302,6 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                     tabBarController.selectedIndex = 1
                 }
             }
-            
         
         }
         
@@ -366,7 +365,6 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         }
         
         self.channelTableView.reloadData()
-        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -382,10 +380,11 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        
         self.showSpinner(onView: self.view)
         
         Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                 
+            
             self.removeSpinner()
             
             print(responseData)
@@ -442,6 +441,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         self.showSpinner(onView: self.view)
         
         Alamofire.request(kAddChannelWithCodeURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+            
             self.removeSpinner()
             print(responseData)
             
@@ -457,7 +457,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                     
                     if responsModal.status == "success" {
                         
-                        self.callMyChannelWebService()
+                        //self.callMyChannelWebService()
                         
                         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                         vc.img = #imageLiteral(resourceName: "successTick")
@@ -465,7 +465,10 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                         vc.btn = ""
                         vc.modalPresentationStyle = .overCurrentContext
                         //vc.modalTransitionStyle = .crossDissolve
-                        self.present(vc, animated: true, completion: nil)
+                        //self.present(vc, animated: true, completion: nil)
+                        self.present(vc, animated: true) {
+                            self.callMyChannelWebService()
+                        }
                                                     
                     }else{
                         Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)

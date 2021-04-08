@@ -311,13 +311,16 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             self.lblAgeFeelError.text = "Please Select Age Feel"
             self.lblAgeFeelError.isHidden = false
             return false
-        }else if txtFBiography.text!.isEmpty {
+        }
+        /*
+        else if txtFBiography.text!.isEmpty {
             
             self.biographyView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
             self.lblBiographyError.text = "Please Enter Biography"
             self.lblBiographyError.isHidden = false
             return false
         }
+        */
         
         return true
     }
@@ -396,7 +399,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                   "address" : self.txtFAddress.text!,
                   "country" : self.txtFCountry.text!,
                   "ageFeel" : self.txtFAgeFeel.text!,
-                  "profileBio" : self.txtFBiography.text!,
+                  //"profileBio" : self.txtFBiography.text!,
                   "birthDate" : self.txtFDate.text!,
                   ]
         
