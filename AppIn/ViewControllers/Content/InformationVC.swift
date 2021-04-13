@@ -15,6 +15,7 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     @IBOutlet weak var lblChannelDesc: UILabel?
     //@IBOutlet weak var lblContentData: UILabel!
     
+    @IBOutlet weak var viewWebHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewForWeb: UIView?
     @IBOutlet weak var webViewProgress: UIProgressView?
     var webView: WKWebView?
@@ -50,6 +51,7 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         
         self.LoadWebView()
         
+        self.webView?.scrollView.addObserver(self, forKeyPath: "contentSize", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +62,8 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        self.webView?.scrollView.removeObserver(self, forKeyPath: "contentSize")
         
         self.tabBarController?.tabBar.isHidden = false
     }
@@ -95,14 +99,23 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
             }
             
             //add observer to get estimated progress value
-            self.webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+            //self.webView?.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+            
         }
         
     }
     
     //MARK: WKWebView Delegate
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        //self.webView?.frame.size.height = webView.scrollView.contentSize.height
         
+        //self.viewWebHeightConstraint.constant = webView.scrollView.contentSize.height
+        
+        webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
+            //self.viewWebHeightConstraint?.constant = height as! CGFloat
+        })
+                
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -111,10 +124,21 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     //MARK: Observe value
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
         if keyPath == "estimatedProgress" {
             print(self.webView?.estimatedProgress ?? 0.0)
             //self.webViewProgress.progress = Float(self.webView.estimatedProgress)
         }
+        
+        if object as? UIScrollView == self.webView?.scrollView && (keyPath == "contentSize") {
+            // we are here because the contentSize of the WebView's scrollview changed.
+
+            let scrollView = webView?.scrollView
+            print("New contentSize: \(scrollView?.contentSize.width ?? 0.0) x \(scrollView?.contentSize.height ?? 0.0)")
+            
+            self.viewWebHeightConstraint.constant = scrollView?.contentSize.height ?? 0.0
+        }
+        
     }    
 
     // MARK: - Navigation
@@ -147,7 +171,11 @@ extension InformationVC {
         case "0":
             //if let fileurl = background.file_url {
             //self.pauseMedia()
-            setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
+            
+            DispatchQueue.main.async {
+                self.setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
+            }
+                
             //}
             //if let file = background.file {
                 //setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
@@ -158,15 +186,20 @@ extension InformationVC {
                 //setBackgroundVideo(file)
             //}
             
-                
-            if let file = background.backgroundMeta {
-                setBackgroundVideo(file)
+            DispatchQueue.main.async {
+                if let file = background.backgroundMeta {
+                    self.setBackgroundVideo(file)
+                }
             }
                         
         case "2":
             //self.pauseMedia()
             //if let meta = background.meta, let color = meta["color"] as? String {
-            pageBackgroundView?.backgroundColor = UIColor(hexString: backgroundArg?.backgroundMeta ?? "")
+            
+            DispatchQueue.main.async {
+                self.pageBackgroundView?.backgroundColor = UIColor(hexString: backgroundArg?.backgroundMeta ?? "")
+            }
+            
             //}
 
         case .none:
@@ -186,6 +219,7 @@ extension InformationVC {
     
     // MARK: - Image Background
     func setBackgroundImage(_ file: String) {
+        
         if backgroundImageView == nil {
             //pageBackgroundView.addSubview(stickerImageView)
             //pageBackgroundView.bringSubviewToFront(stickerImageView)
@@ -207,8 +241,5 @@ extension InformationVC {
             backgroundVideoView?.play(muted: true)
         }
     }
-    
-    // MARK: - Background Zoom
-    
    
 }

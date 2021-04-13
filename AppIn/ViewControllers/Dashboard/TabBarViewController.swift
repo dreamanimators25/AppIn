@@ -8,6 +8,8 @@
 
 import UIKit
 
+var isFeedTabSelect = false
+
 class TabBarViewController: UITabBarController {
     
     var selecIndexTab = 0
@@ -85,6 +87,15 @@ class TabBarViewController: UITabBarController {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         let indexOfTab = tabBar.items?.firstIndex(of: item)
+        
+        print(indexOfTab ?? 100)
+        
+        if indexOfTab == 1 {
+            isFeedTabSelect = true
+        }else {
+            isFeedTabSelect = false
+        }
+
     }
     
     // MARK: - Navigation

@@ -225,11 +225,11 @@ class CreateAccountVC: UIViewController {
         print("params = \(params)")
         print("\(kRegisterURL)")
         
-        self.showSpinner(onView: self.view)
+        //self.showSpinner(onView: self.view)
         
         Alamofire.request(kRegisterURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: [:]).responseJSON { (responseData) in
             
-            self.removeSpinner()
+            //self.removeSpinner()
             
             print(responseData)
             self.overlay.isHidden = true

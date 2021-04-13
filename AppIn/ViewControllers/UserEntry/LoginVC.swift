@@ -88,11 +88,11 @@ class LoginVC: UIViewController {
                       ]
             
             print("params = \(params)")
-            self.showSpinner(onView: self.view)
+            //self.showSpinner(onView: self.view)
             
             Alamofire.request(kLoginURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                 
-                self.removeSpinner()
+                //self.removeSpinner()
                 
                 print(responseData)
                 self.overlay.isHidden = true

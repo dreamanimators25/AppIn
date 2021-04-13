@@ -2245,6 +2245,23 @@
             <point key="canvasLocation" x="-1344.375" y="785.91549295774644"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="WxV-eg-Zlh">
+            <size key="intrinsicContentSize" width="115" height="30"/>
+        </designable>
+        <designable name="YTi-sH-RxY">
+            <size key="intrinsicContentSize" width="34" height="30"/>
+        </designable>
+        <designable name="dIo-Qe-Add">
+            <size key="intrinsicContentSize" width="82" height="30"/>
+        </designable>
+        <designable name="vYh-jC-i63">
+            <size key="intrinsicContentSize" width="34" height="30"/>
+        </designable>
+        <designable name="wZx-rd-viL">
+            <size key="intrinsicContentSize" width="34" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Close" width="34" height="34"/>
         <image name="NotificationSelect" width="24" height="24"/>

@@ -16,6 +16,7 @@ var TVNotificationIndex : ((_ section : Int, _ sender : UIButton) -> (Void))?
 class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var myChannelTableView: UITableView!
+    var isShowLoader = true
     
     var arrMyChannel: [AllBrandData]?
 
@@ -153,11 +154,15 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         params = ["user_id" : userData?.UserId ?? ""]
         
         //print("params = \(params)")
-        self.showSpinner(onView: self.view)
+        if isShowLoader {
+            self.isShowLoader = true
+            self.showSpinner(onView: self.view)
+        }
         
         Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
             self.removeSpinner()
+            
             //print(responseData)
             
             switch responseData.result {
@@ -204,6 +209,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                   "sendPush" : isPush]
         
         //print("params = \(params)")
+        
         self.showSpinner(onView: self.view)
         
         Alamofire.request(kUpdateChannelNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
@@ -251,11 +257,15 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                   "isDeleted" : "1"]
         
         //print("params = \(params)")
+        
         self.showSpinner(onView: self.view)
         
         Alamofire.request(kRemoveChannelURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                      
-            self.removeSpinner()
+            //DispatchQueue.main.async {
+                //self.removeSpinner()
+            //}
+                        
             //print(responseData)
             
             switch responseData.result {
@@ -268,6 +278,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     let responsModal = RegisterBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {
+                        self.isShowLoader = false
                         self.callMyChannelWebService()
                     }else{
                         Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "Error", Onview: self)

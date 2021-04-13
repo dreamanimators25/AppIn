@@ -42,6 +42,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         //if AppDelegate.sharedDelegate().selChannelID == -1 {
             self.callGetAllChannelWebService()
+            isFeedTabSelect = false
         //}
         
     }
@@ -49,9 +50,16 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if isFeedTabSelect {
+            self.callGetAllChannelWebService()
+            isFeedTabSelect = false
+        }
+        
+        
 //        if AppDelegate.sharedDelegate().selChannelID == -1 && AppDelegate.sharedDelegate().selNotiChannelID == -1 {
 //            self.callGetAllChannelWebService()
 //        }
+        
  
         /*
         // MARK: To handle navigation to channel tab from feed tab
@@ -76,10 +84,12 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         */
         
+        
         // MARK: To handle Share from channel
         CVChannelShare = { capturedImage in
             self.shareChannel(img: capturedImage)
         }
+        
         
         // MARK: To handle navigation on other viewcontrollers
         CVDropDownIndex = { (index,accesCode,qrCode,pgID) in

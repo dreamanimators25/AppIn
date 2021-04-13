@@ -119,6 +119,9 @@ class SinglePageImageCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        self.backgroundImageView.image = nil
+        self.backgroundVideoView = nil
+        
     }
     
     func pauseMedia() {
@@ -255,8 +258,12 @@ extension SinglePageImageCell {
         case "0":
             //if let fileurl = background.file_url {
             //self.pauseMedia()
-            self.pageBackgroundView.willRemoveSubview(backgroundVideoView ?? UIView())
-            setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
+            
+            DispatchQueue.main.async {
+                //self.pageBackgroundView.willRemoveSubview(self.backgroundVideoView ?? UIView())
+                self.setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
+            }
+            
             //}
             //if let file = background.file {
                 //setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
@@ -267,9 +274,11 @@ extension SinglePageImageCell {
                 //setBackgroundVideo(file)
             //}
             
-            self.backgroundImageView.image = nil
-            if let file = backgroundArg?.backgroundMeta {
-                setBackgroundVideo(file)
+            DispatchQueue.main.async {
+                //self.backgroundImageView.image = nil
+                if let file = backgroundArg?.backgroundMeta {
+                    self.setBackgroundVideo(file)
+                }
             }
                         
         case "2":

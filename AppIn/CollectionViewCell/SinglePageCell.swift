@@ -57,6 +57,13 @@ class SinglePageCell: UICollectionViewCell {
                     
                     self.pageTitleLbl.text = self.content?.title
                     
+                    
+                    //let s = self.content?.title
+                    //let utf8View: String.UTF8View = (s ?? "").utf8
+                    //let newString = String(utf8View)
+                    //self.pageTitleLbl.text = newString
+                    
+                    
                     if self.content?.actionButtonMeta == nil || self.content?.actionButtonMeta == "" {
                         self.goThereBtn.setTitle("Read more", for: .normal)
                     }else {
@@ -118,6 +125,7 @@ class SinglePageCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         
     }
     
@@ -255,8 +263,12 @@ extension SinglePageCell {
         case "0":
             //if let fileurl = background.file_url {
             //self.pauseMedia()
-            self.pageBackgroundView.willRemoveSubview(backgroundVideoView ?? UIView())
-            setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
+            
+            DispatchQueue.main.async {
+                self.pageBackgroundView.willRemoveSubview(self.backgroundVideoView ?? UIView())
+                self.setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
+            }
+            
             //}
             //if let file = background.file {
                 //setBackgroundImage(backgroundArg?.backgroundMeta ?? "")
@@ -267,9 +279,11 @@ extension SinglePageCell {
                 //setBackgroundVideo(file)
             //}
             
-            self.backgroundImageView.image = nil
-            if let file = backgroundArg?.backgroundMeta {
-                setBackgroundVideo(file)
+            DispatchQueue.main.async {
+                self.backgroundImageView.image = nil
+                if let file = backgroundArg?.backgroundMeta {
+                    self.setBackgroundVideo(file)
+                }
             }
                         
         case "2":

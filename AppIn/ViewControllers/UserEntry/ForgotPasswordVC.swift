@@ -53,8 +53,7 @@ class ForgotPasswordVC: UIViewController {
         if Validation() {
         
             var params = [String : String]()
-            params = ["email" : self.txtFEmail.text!
-                      ]
+            params = ["email" : self.txtFEmail.text!]
             
             print("params = \(params)")
             self.showSpinner(onView: self.view)
