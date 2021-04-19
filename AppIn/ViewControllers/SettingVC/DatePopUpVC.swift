@@ -15,16 +15,20 @@ class DatePopUpVC: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     
     var setDate : ((_ date : String) -> (Void))?
-    let dateFormatter = DateFormatter()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateFormatter.dateFormat = "yyyy-mm-dd"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
         dateFormatter.dateStyle = DateFormatter.Style.short
-        let strDate = dateFormatter.string(from: datePicker.date)
-        txtFDate.text = strDate
+        
+        let datePickedStr = dateFormatter.string(from: Date())
+                
+        txtFDate.text = self.convertDateFormater(datePickedStr)
         datePicker.maximumDate = Date()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,8 +60,24 @@ class DatePopUpVC: UIViewController {
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
-        txtFDate.text = dateFormatter.string(from: sender.date)
+        let dt = sender.date
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+        let str = dateFormatter.string(from: dt)
+        
+        txtFDate.text = self.convertDateFormater(str)
+        //txtFDate.text = dateFormatter.string(from: sender.date)
         view.endEditing(true)
+    }
+    
+    func convertDateFormater(_ date: String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+        let date = dateFormatter.date(from: date)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date ?? Date())
     }
     
     // MARK: - Navigation

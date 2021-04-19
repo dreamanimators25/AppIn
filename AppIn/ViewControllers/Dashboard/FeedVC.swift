@@ -32,8 +32,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     var arrFeedChannel : [AllFeedData]? = nil
     
-    var actualChannelsID = [String]()
-    var actualPagesID = [[String]]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -183,17 +182,21 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 print("excel")
                 
                 DispatchQueue.main.async {
+                    self.showSpinner(onView: self.view)
                     Downloader.load(url: URL.init(string: content)!, to: Int(contType) ?? 0) { (msg) in
                         
                         DispatchQueue.main.async {
                             
-                            self.showAlertForIndexOnCell("", message: msg, alertButtonTitles: ["OK"], alertButtonStyles: [.default], vc: UIViewController(), completion: { (index) in
+                            self.removeSpinner()
+                            
+                            //self.showAlertForIndexOnCell("", message: msg, alertButtonTitles: ["OK"], alertButtonStyles: [.default], vc: UIViewController(), completion: { (index) in
                                 
-                                DispatchQueue.main.async {
+                                //DispatchQueue.main.async {
                                     self.openLinkInAppInWebView(link: content)
-                                }
+                                //}
                                 
-                            })
+                            //})
+                            
                         }
                     }
                 }
@@ -392,37 +395,38 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                         
                         //let allChannel = self.arrFeedChannel?[0].channels ?? []
                         
-                        // MARK: This case is handling the scrolling, when come from channelsVC
-                        if AppDelegate.sharedDelegate().selChannelID == -1 {
-                            
-                            loadChannel = {
+                        
+                            // MARK: This case is handling the scrolling, when come from channelsVC
+                            if AppDelegate.sharedDelegate().selChannelID == -1 {
+                                
+                                loadChannel = {
+                                    self.comeFromChannelVC()
+                                }
+                                
+                            }else {
                                 self.comeFromChannelVC()
+                                
+                                loadChannel = {
+                                    self.comeFromChannelVC()
+                                }
                             }
-                            
-                        }else {
-                            self.comeFromChannelVC()
-                            
-                            loadChannel = {
-                                self.comeFromChannelVC()
-                            }
-                        }
                         
                         
-                        // MARK: This case is handling the scrolling, when come from NotificationVC
-                        if AppDelegate.sharedDelegate().selNotiChannelID == -1 {
-                            
-                            loadNotification = {
+                        
+                            // MARK: This case is handling the scrolling, when come from NotificationVC
+                            if AppDelegate.sharedDelegate().selNotiChannelID == -1 {
+                                
+                                loadNotification = {
+                                    self.comeFromNotificationVC()
+                                }
+                                
+                            }else {
                                 self.comeFromNotificationVC()
+                                
+                                loadNotification = {
+                                    self.comeFromNotificationVC()
+                                }
                             }
-                            
-                        }else {
-                            self.comeFromNotificationVC()
-                            
-                            loadNotification = {
-                                self.comeFromNotificationVC()
-                            }
-
-                        }
       
                     }else{
                         //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
@@ -456,7 +460,13 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func comeFromNotificationVC() {
         
-        for (_,channel) in (self.arrFeedChannel?[0].channels ?? []).enumerated() {
+        var raw = 0
+        var sec = 0
+        
+        var actualChannelsID = [String]()
+        var actualPagesID = [[String]]()
+        
+        for (num,channel) in (self.arrFeedChannel?[0].channels ?? []).enumerated() {
             
             // MARK: To navigate on selected page of channel in notification
             var arrPg = [String]()
@@ -464,20 +474,21 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 arrPg.append(i.pageId ?? "")
             }
             
-            self.actualChannelsID.append(channel.internalIdentifier ?? "")
-            self.actualPagesID.append(arrPg)
+            actualChannelsID.append(channel.internalIdentifier ?? "")
+            actualPagesID.append(arrPg)
             
             //loadNotification = {
-                var raw = 0
-                var sec = 0
+            
+                //var raw = 0
+                //var sec = 0
                 
-                for (indax,i) in self.actualChannelsID.enumerated() {
+                for (indax,i) in actualChannelsID.enumerated() {
                     if Int(i) == AppDelegate.sharedDelegate().selNotiChannelID {
                         raw = indax
                     }
                 }
             
-                let arrPage = self.actualPagesID[raw]
+                let arrPage = actualPagesID[raw]
                 for (indax,p) in arrPage.enumerated() {
                     if Int(p) == AppDelegate.sharedDelegate().selNotiPageID {
                         sec = indax
@@ -485,11 +496,25 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                     }
                 }
             
+            /*
                 self.contentCollectionView.reloadData()
+            
                 if AppDelegate.sharedDelegate().selNotiChannelID != -1 {
                     self.contentCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
                     AppDelegate.sharedDelegate().selNotiChannelID = -1
                 }
+            */
+            
+            
+            if num == (self.arrFeedChannel?[0].channels?.count ?? 0) - 1 {
+                
+                self.contentCollectionView.reloadData()
+                
+                    if AppDelegate.sharedDelegate().selNotiChannelID != -1 {
+                        self.contentCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
+                        AppDelegate.sharedDelegate().selNotiChannelID = -1
+                    }
+            }
                 
             //}
             
@@ -512,11 +537,15 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 //Alert.showAlert(strTitle: "Error!!", strMessage: (error! as NSError) as! String, Onview: self)
                 return
             }
-            
-            AVPlayerViewControllerManager.shared.lowQualityMode = true
-            AVPlayerViewControllerManager.shared.video = video
-            self.present(AVPlayerViewControllerManager.shared.controller, animated: true) {
-                AVPlayerViewControllerManager.shared.controller.player?.play()
+         
+            DispatchQueue.main.async {
+                
+                AVPlayerViewControllerManager.shared.lowQualityMode = true
+                AVPlayerViewControllerManager.shared.video = video
+                self.present(AVPlayerViewControllerManager.shared.controller, animated: true) {
+                    AVPlayerViewControllerManager.shared.controller.player?.play()
+                }
+                
             }
         }
         

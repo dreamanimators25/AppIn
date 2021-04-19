@@ -111,9 +111,12 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             
             if AppDelegate.sharedDelegate().selNotiPageID != -1 {
                 
-                self.multiPageCollectionView.scrollToItem(at: IndexPath.init(row: AppDelegate.sharedDelegate().multiNotiPageID, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: true)
+                DispatchQueue.main.async {
+                    self.multiPageCollectionView.scrollToItem(at: IndexPath.init(row: AppDelegate.sharedDelegate().multiNotiPageID, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: true)
+                    
+                    AppDelegate.sharedDelegate().selNotiPageID = -1
+                }
                 
-                AppDelegate.sharedDelegate().selNotiPageID = -1
             }
                 
             

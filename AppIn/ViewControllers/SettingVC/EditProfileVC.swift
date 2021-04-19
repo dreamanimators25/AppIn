@@ -45,6 +45,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     let labelDropDown = DropDown()
     var strImageSendToServer = ""
     var selectedImage : UIImage?
+    var isOver21 = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -401,6 +402,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                   "ageFeel" : self.txtFAgeFeel.text!,
                   //"profileBio" : self.txtFBiography.text!,
                   "birthDate" : self.txtFDate.text!,
+                  "over21" : self.isOver21
                   ]
         
         //print("params = \(params)")

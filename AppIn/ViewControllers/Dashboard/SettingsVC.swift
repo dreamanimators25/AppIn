@@ -256,6 +256,7 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             switch indexPath.row {
             case 1:
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "EditProfileVC") as! EditProfileVC
+                vc.isOver21 = self.over21Data?.over21 ?? ""
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break

@@ -14,6 +14,7 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
 
     @IBOutlet weak var notificationTableView: UITableView!
     @IBOutlet weak var ErrorView: UIView!
+    var isShowLoader = true
     
     //let arrNotification = ["New information was added - Regulation 2020","New channel was added - Environment","New PDF was added - Human Resource 2020","HR channel was updated"]
     var arrNotification : [GetAllNotificationData]? = nil
@@ -98,7 +99,7 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        guard let selNotiID = self.arrNotification?[indexPath.row].channelId else
+        guard let selNotiID = self.arrNotification?[indexPath.row].internalIdentifier else
         {
             return
         }
@@ -138,7 +139,13 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
-        self.showSpinner(onView: self.view)
+        if isShowLoader {
+            self.isShowLoader = true
+            self.showSpinner(onView: self.view)
+        }else {
+            self.isShowLoader = true
+        }
+        
         
         Alamofire.request(kGetAllNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
@@ -197,11 +204,11 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                   "isDeleted" : "0"]
         
         print("params = \(params)")
-        self.showSpinner(onView: self.view)
+        //self.showSpinner(onView: self.view)
         
         Alamofire.request(kUpdateNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
-            self.removeSpinner()
+            //self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -217,6 +224,7 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                     DispatchQueue.main.async {
                         if responsModal.status == "success" {
                             
+                            self.isShowLoader = false
                             self.callNotificationWebService()
                                                         
                             /*

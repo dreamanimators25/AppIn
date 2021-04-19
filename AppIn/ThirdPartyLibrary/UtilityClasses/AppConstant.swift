@@ -17,7 +17,8 @@ let contentCornerRadius = CGFloat(5.0)
 //let newBaseURL = "http://104.42.144.12:5000/api/"  // Live Server Url
 //let newBaseURL = "http://40.112.131.121:5000/api/" // Test Server Url
 
-let kBaseURL = "https://dreamanimators.com/AppIn/api/v1/api.php?rquest="
+//let kBaseURL = "https://dreamanimators.com/AppIn/api/v1/api.php?rquest=" // OLD
+let kBaseURL = "http://40.112.131.121/AppInWeb/api/v1/api.php?rquest=" // NEW
 
 let kLoginURL = kBaseURL + "login"                                    // DONE
 let kRegisterURL = kBaseURL + "register"                               // DONE

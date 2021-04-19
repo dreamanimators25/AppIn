@@ -934,6 +934,7 @@ extension MultiPageCVCell : UIScrollViewDelegate {
 
 class Downloader {
     class func load(url: URL, to localFileName: Int, completion: @escaping (_ msg:String) -> ()) {
+        
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let request = try! URLRequest(url: url, method: .get)
@@ -959,7 +960,18 @@ class Downloader {
                     destinationURLForFile.appendPathComponent(String(describing: fileName))
                     
                     if fileManager.fileExists(atPath: destinationURLForFile.path) {
-                        completion("File Already Exist!")
+                        
+                        do {
+                            try fileManager.removeItem(atPath: destinationURLForFile.path)
+                            try fileManager.moveItem(at: tempLocalUrl ?? URL.init(string: "")!, to: destinationURLForFile)
+                            
+                            //completion("File Already Exist!")
+                            completion("File Download & Save!")
+                            
+                        }catch (let error) {
+                            print(error)
+                        }
+                        
                     }else {
                         
                         try fileManager.moveItem(at: tempLocalUrl ?? URL.init(string: "")!, to: destinationURLForFile)
