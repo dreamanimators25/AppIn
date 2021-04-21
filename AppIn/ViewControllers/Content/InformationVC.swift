@@ -86,12 +86,17 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         
         if self.loadableUrlStr != nil || self.loadableUrlStr != "" {
             if isComeFrom == "Feed" {
-                //webView?.loadHTMLString(loadableUrlStr ?? "", baseURL: nil)
                 
-                let str = "\(loadableUrlStr?.htmlToString ?? "")"
+                let str1 = "\(loadableUrlStr?.htmlToString ?? "")"
+                //let str = str1.htmlToString
+                let str = str1.decodingHTMLEntities()
                 webView?.loadHTMLString(str, baseURL: nil)
                 webView?.scrollView.isScrollEnabled = false
-   
+                
+                
+                //let str = loadableUrlStr?.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 15.0), csscolor: #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1).toHexString())
+                //webView?.loadHTMLString(str?.string ?? "", baseURL: nil)
+                
             }else {
                 let myURL = URL(string: loadableUrlStr ?? "")
                 let myRequest = URLRequest(url: myURL!)

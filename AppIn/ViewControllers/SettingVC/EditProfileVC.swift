@@ -258,12 +258,56 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         self.view.endEditing(true)
         
         if txtFName.text!.isEmpty {
-            
-            self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblNameError.text = "Please Enter Name"
-            self.lblNameError.isHidden = false
+            DispatchQueue.main.async {
+                self.nameView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblNameError.text = "Please Enter Name"
+                self.lblNameError.isHidden = false
+            }
             return false
         }
+        else if txtFEmail.text!.isEmpty {
+            DispatchQueue.main.async {
+                self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblEmailError.text = "Please Enter E-mail Address"
+                self.lblEmailError.isHidden = false
+            }
+            return false
+        }
+        else if (!Alert.isValidEmail(testStr: txtFEmail.text!)) {
+            DispatchQueue.main.async {
+                self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblEmailError.text = "Please Enter Valid E-mail Address"
+                self.lblEmailError.isHidden = false
+            }
+            return false
+        }
+        else if txtFCountry.text!.isEmpty {
+            DispatchQueue.main.async {
+                self.countryView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblCountryError.text = "Please Enter Country"
+                self.lblCountryError.isHidden = false
+            }
+            return false
+        }
+        else if txtFDate.text!.isEmpty {
+            DispatchQueue.main.async {
+                self.dateView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblDateError.text = "Please Select Date"
+                self.lblDateError.isHidden = false
+            }
+            return false
+        }
+        else if txtFAgeFeel.text!.isEmpty {
+            DispatchQueue.main.async {
+                self.ageFeelView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
+                self.lblAgeFeelError.text = "Please Select Age Feel"
+                self.lblAgeFeelError.isHidden = false
+            }
+            return false
+        }
+        
+        
+        /*
         else if txtFContactNo.text!.isEmpty {
             
             self.contactNoView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
@@ -271,48 +315,17 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             self.lblContactNoError.isHidden = false
             return false
         }
-        else if txtFEmail.text!.isEmpty {
-            
-            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblEmailError.text = "Please Enter E-mail Address"
-            self.lblEmailError.isHidden = false
-            return false
-        }
-        else if(!Alert.isValidEmail(testStr: txtFEmail.text!)) {
-            
-            self.emailView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblEmailError.text = "Please Enter Valid E-mail Address"
-            self.lblEmailError.isHidden = false
-            return false
-        }
+        */
+        
+        /*
         else if txtFAddress.text!.isEmpty {
             
             self.addressView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
             self.lblAddressError.text = "Please Enter Address"
             self.lblAddressError.isHidden = false
             return false
-        }
-        else if txtFCountry.text!.isEmpty {
-            
-            self.countryView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblCountryError.text = "Please Enter Country"
-            self.lblCountryError.isHidden = false
-            return false
-        }
-        else if txtFDate.text!.isEmpty {
-            
-            self.dateView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblDateError.text = "Please Select Date"
-            self.lblDateError.isHidden = false
-            return false
-        }
-        else if txtFAgeFeel.text!.isEmpty {
-            
-            self.ageFeelView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-            self.lblAgeFeelError.text = "Please Select Age Feel"
-            self.lblAgeFeelError.isHidden = false
-            return false
-        }
+        }*/
+        
         /*
         else if txtFBiography.text!.isEmpty {
             

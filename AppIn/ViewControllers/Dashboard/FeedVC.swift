@@ -183,22 +183,25 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 
                 DispatchQueue.main.async {
                     self.showSpinner(onView: self.view)
-                    Downloader.load(url: URL.init(string: content)!, to: Int(contType) ?? 0) { (msg) in
+                    
+                    if self.verifyUrl(urlString: content) {
                         
-                        DispatchQueue.main.async {
+                        Downloader.load(url: URL.init(string: content)!, to: Int(contType) ?? 0) { (msg) in
                             
-                            self.removeSpinner()
-                            
-                            //self.showAlertForIndexOnCell("", message: msg, alertButtonTitles: ["OK"], alertButtonStyles: [.default], vc: UIViewController(), completion: { (index) in
-                                
-                                //DispatchQueue.main.async {
-                                    self.openLinkInAppInWebView(link: content)
-                                //}
-                                
-                            //})
-                            
+                            DispatchQueue.main.async {
+                                self.removeSpinner()
+                                //self.showAlertForIndexOnCell("", message: msg, alertButtonTitles: ["OK"], alertButtonStyles: [.default], vc: UIViewController(), completion: { (index) in
+                                    //DispatchQueue.main.async {
+                                        self.openLinkInAppInWebView(link: content)
+                                    //}
+                                //})
+                            }
                         }
+                        
+                    }else {
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "Url is not valid!", Onview: self)
                     }
+                    
                 }
                                 
                 break
@@ -288,6 +291,16 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             
         }
         
+    }
+    
+    func verifyUrl (urlString: String?) -> Bool {
+        if let urlString = urlString {
+            if let url = URL(string: urlString) {
+                print(url)
+                return true
+            }
+        }
+        return false
     }
     
     //MARK: Check App Install or not
