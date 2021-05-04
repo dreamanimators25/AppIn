@@ -20,6 +20,7 @@ class SinglePageImageCell: UICollectionViewCell {
     
     @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var goThereBtn: UIButton!
+    @IBOutlet weak var shareBtn: UIButton!
     
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var channelImageView: UIImageView!

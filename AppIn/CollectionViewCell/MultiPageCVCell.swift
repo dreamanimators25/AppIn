@@ -263,6 +263,56 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        autoreleasepool {
+            
+            guard closeCell else {
+                closeCell = true
+                
+                return
+            }
+            
+            if let cell = cell as? ContentImageCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentTextCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentVideoCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentSoundCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentYoutubeCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentVimeoCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+        }
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         autoreleasepool {
@@ -317,56 +367,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        autoreleasepool {
-            
-            guard closeCell else {
-                closeCell = true
-                
-                return
-            }
-            
-            if let cell = cell as? ContentImageCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentTextCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentVideoCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentSoundCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentYoutubeCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentVimeoCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
     }

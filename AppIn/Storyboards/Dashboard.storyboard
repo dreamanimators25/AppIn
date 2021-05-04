@@ -211,6 +211,7 @@
                                                                 <outlet property="moreBtn" destination="bcH-Jn-hKh" id="odR-K8-xKy"/>
                                                                 <outlet property="pageBackgroundView" destination="589-mP-35h" id="T9V-Eg-FaZ"/>
                                                                 <outlet property="pageTitleLbl" destination="vjm-tY-jPQ" id="yD1-N5-UkD"/>
+                                                                <outlet property="shareBtn" destination="hRr-yK-H2a" id="48j-yK-lfV"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="SinglePageVideoCell" id="Nhn-Pu-c7J" customClass="SinglePageVideoCell" customModule="AppIn" customModuleProvider="target">
@@ -351,6 +352,7 @@
                                                                 <outlet property="moreBtn" destination="4f6-DQ-81A" id="AEV-4y-K8A"/>
                                                                 <outlet property="pageBackgroundView" destination="gEk-oJ-OEj" id="A7i-s4-eZ3"/>
                                                                 <outlet property="pageTitleLbl" destination="XqB-Ar-rzk" id="rv0-35-sTE"/>
+                                                                <outlet property="shareBtn" destination="rfy-7o-b6e" id="M3I-oU-GaA"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="SinglePageImageCell" id="aru-zV-Jdx" customClass="SinglePageImageCell" customModule="AppIn" customModuleProvider="target">
@@ -491,6 +493,7 @@
                                                                 <outlet property="moreBtn" destination="bx4-qv-1Vu" id="jVe-T9-gHO"/>
                                                                 <outlet property="pageBackgroundView" destination="RkU-ol-T2P" id="cOZ-bd-zkU"/>
                                                                 <outlet property="pageTitleLbl" destination="fXu-tD-Z6g" id="sQw-AV-jG2"/>
+                                                                <outlet property="shareBtn" destination="wT9-KK-Bfk" id="kJD-Mw-0nS"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -605,7 +608,7 @@
                                                         <constraint firstAttribute="height" constant="50" id="dhJ-jv-w6G"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbm-6t-AL6">
+                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="50" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbm-6t-AL6">
                                                     <rect key="frame" x="50" y="42" width="20" height="20"/>
                                                     <color key="backgroundColor" red="0.34901960780000002" green="0.062745098040000002" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -682,7 +685,7 @@
                                                         <constraint firstAttribute="height" constant="50" id="yWk-DL-Qd1"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="60" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RQ-LK-DEu">
+                                                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="60" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RQ-LK-DEu">
                                                     <rect key="frame" x="50" y="42" width="20" height="20"/>
                                                     <color key="backgroundColor" red="0.34901960780000002" green="0.062745098040000002" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>

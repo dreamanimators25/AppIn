@@ -20,6 +20,7 @@ class SinglePageCell: UICollectionViewCell {
     
     @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var goThereBtn: UIButton!
+    @IBOutlet weak var shareBtn: UIButton!
     
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var channelImageView: UIImageView!
@@ -49,6 +50,14 @@ class SinglePageCell: UICollectionViewCell {
             if (content != nil) {
                 //OperationQueue.main.addOperation {
                 DispatchQueue.main.async {
+                    
+                    if let third = self.content?.thirdParty {
+                        if third == "0" {
+                            self.shareBtn.isHidden = true
+                        }else {
+                            self.shareBtn.isHidden = false
+                        }
+                    }
                     
                     //self.backgroundImageView.image = nil
                     //self.backgroundVideoView = nil

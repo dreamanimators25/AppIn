@@ -153,17 +153,16 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? ""]
         
-        //print("params = \(params)")
+        print("params = \(params)")
         if isShowLoader {
             self.isShowLoader = true
             self.showSpinner(onView: self.view)
         }
         
-        Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
-            
-            //print(responseData)
+            print(responseData)
             
             switch responseData.result {
             case .success:
@@ -171,7 +170,6 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    
                     let responsModal = AllBrandBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {

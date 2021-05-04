@@ -236,14 +236,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             
             if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
                 seperatorlLbl.isHidden = false
-                subTitleLbl.isHidden = false
+                subTitleLbl.isHidden = true
                 //subTitleLbl.text = "Partner"
                 
                 //countlLbl.text = "3"
-                //countlLbl.isHidden = false
+                countlLbl.isHidden = true
             }else {
                 seperatorlLbl.isHidden = true
-                //subTitleLbl.isHidden = true
+                subTitleLbl.isHidden = true
                 
                 countlLbl.text = ""
                 countlLbl.isHidden = true
@@ -383,10 +383,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         
         self.showSpinner(onView: self.view)
         
-        Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
-            
             print(responseData)
             
             switch responseData.result {
@@ -395,7 +394,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
+                    //print(json)
                     
                     let responsModal = AllBrandBaseClass.init(json: json)
                     

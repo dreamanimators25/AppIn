@@ -238,6 +238,7 @@ class CreateAccountVC: UIViewController {
             case .success:
                 
                 if let data = responseData.result.value {
+                    
                     let json = JSON(data)
                     print(json)
                     
@@ -250,9 +251,13 @@ class CreateAccountVC: UIViewController {
                             //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                                 //appDelegate.navigateToDashboardScreen()
                                 
-                                let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
-                                let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
-                                self.navigationController?.pushViewController(loginVC, animated: true)
+                                //let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+                                //let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                                //self.navigationController?.pushViewController(loginVC, animated: true)
+                            
+                            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let verifyVC = mainStoryboard.instantiateViewController(withIdentifier: "VerifyEmailVC") as! VerifyEmailVC
+                            self.navigationController?.pushViewController(verifyVC, animated: true)
                                 
                             //}
                         })

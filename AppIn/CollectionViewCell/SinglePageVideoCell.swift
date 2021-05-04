@@ -20,6 +20,7 @@ class SinglePageVideoCell: UICollectionViewCell {
     
     @IBOutlet weak var moreBtn: UIButton!
     @IBOutlet weak var goThereBtn: UIButton!
+    @IBOutlet weak var shareBtn: UIButton!
     
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var channelImageView: UIImageView!
@@ -41,6 +42,63 @@ class SinglePageVideoCell: UICollectionViewCell {
     var accessCode : String = ""
     var QrCode : String = ""
     var pageID : String = ""
+    
+    //var avQueuePlayer   : AVQueuePlayer?
+    var avPlayerLayer   : AVPlayerLayer?
+    var avQueuePlayer : AVPlayer?
+
+    func addPlayer(for url: URL) {
+        
+        //DispatchQueue.main.async {
+            if self.avQueuePlayer != nil {
+                self.avQueuePlayer?.pause()
+                self.avPlayerLayer?.removeFromSuperlayer()
+            }
+        //}
+        
+        
+        self.avQueuePlayer = AVQueuePlayer(url: url)
+        self.avPlayerLayer = AVPlayerLayer(player: self.avQueuePlayer!)
+        self.avPlayerLayer?.frame = self.bounds
+        self.avPlayerLayer?.fillMode = .both
+        //self.avPlayerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
+        self.pageBackgroundView.layer.addSublayer(self.avPlayerLayer!)
+        self.avQueuePlayer?.isMuted = true
+        self.avQueuePlayer?.play()
+        
+        //NotificationCenter.default.addObserver(self, selector: #selector(playAgain(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.avQueuePlayer?.currentItem)
+    }
+    
+    @objc func playAgain(notification: Notification) {
+        if self.avQueuePlayer != nil {
+            
+            if let playItem = notification.object as? AVPlayerItem {
+                playItem.seek(to: CMTime.zero) { (true) in
+                    
+                }
+            }
+            
+            //player.seek(to: .zero)
+            //player.play()
+        }
+    }
+    
+    
+    func pauseAVPlayer() {
+        //self.avPlayerLayer?.removeFromSuperlayer()
+        //self.avQueuePlayer?.pause()
+        
+        //if let player = self.avQueuePlayer {
+            //player.pause()
+        //}
+        
+    }
+    
+    func playAVPlayer() {
+        //if let player = self.avQueuePlayer {
+            //player.play()
+        //}
+    }
         
     //var content:Content? {
     var content : AllFeedPages? {
@@ -277,7 +335,12 @@ extension SinglePageVideoCell {
                 //self.backgroundImageView.image = nil
                 
                 if let file = backgroundArg?.backgroundMeta {
-                    self.setBackgroundVideo(file)
+                    //self.setBackgroundVideo(file)
+                    
+                    if let url = URL.init(string: file) {
+                        self.addPlayer(for: url)
+                    }
+                    
                 }
             }
                         

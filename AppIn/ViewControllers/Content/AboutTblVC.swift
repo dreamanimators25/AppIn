@@ -313,7 +313,7 @@ class AboutTblVC: UITableViewController, UICollectionViewDataSource, UICollectio
         Alamofire.request(strUrl, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
             self.removeSpinner()
-            //print(responseData)
+            print(responseData)
             
             switch responseData.result {
             case .success:

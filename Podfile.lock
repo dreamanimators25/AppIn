@@ -123,6 +123,7 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - OTPFieldView (1.0.1)
   - Planet (0.3.1)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
@@ -144,6 +145,7 @@ DEPENDENCIES:
   - FontAwesomeKit (~> 2.2.0)
   - HCVimeoVideoExtractor
   - Locksmith (~> 3.0.0)
+  - OTPFieldView
   - Planet
   - SimpleKeychain (~> 0.7.0)
   - SwiftyJSON
@@ -177,6 +179,7 @@ SPEC REPOS:
     - HCVimeoVideoExtractor
     - Locksmith
     - nanopb
+    - OTPFieldView
     - Planet
     - PromisesObjC
     - Protobuf
@@ -211,6 +214,7 @@ SPEC CHECKSUMS:
   HCVimeoVideoExtractor: d3c251280f7027ffd324266e1930b3618e0adb46
   Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  OTPFieldView: 700a752fe62c41d1c4914c78aa500fb30d97c255
   Planet: 8366988beff4e7b86c7530f67ce0172738c6ea24
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
@@ -219,6 +223,6 @@ SPEC CHECKSUMS:
   XCDYouTubeKit: b120aced3d8638ffb570c5450cddb5a1dac448c7
   YouTubePlayer: bd78e43a1fb0f98cbfc40864514f44924e177147
 
-PODFILE CHECKSUM: e7431eae076136c29ed1b2e823b4cd464121cceb
+PODFILE CHECKSUM: 12356988e85f2cafaa8de98b664f143ae8ce9c25
 
 COCOAPODS: 1.10.1

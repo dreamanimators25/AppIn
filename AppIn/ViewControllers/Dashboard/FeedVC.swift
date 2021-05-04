@@ -17,8 +17,8 @@ import MessageUI
 import XCDYouTubeKit
 
 
-var CVChannelShare : ((_ captureImg : UIImage)->(Void))?
-var CVChannelClick : ((_ pgID : String)->(Void))?
+var CVChannelShare : ((_ captureImg : UIImage) -> (Void))?
+var CVChannelClick : ((_ pgID : String) -> (Void))?
 var CVDropDownIndex : ((_ ind : Int, _ accessCode : String, _ qrCode : String,_ pgID : String) -> (Void))?
 var CVgoThereIndex : ((_ contentType : String, _ content : String, _ singleContent : AllFeedPages?, _ name : String) -> (Void))?
 var callDisclaimer : ((_ strDisclamer : String , _ contentType : String, _ content : String, _ singleContent : AllFeedPages?, _ name : String) -> (Void))?
@@ -31,8 +31,6 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     @IBOutlet weak var contentCollectionView: UICollectionView!
     
     var arrFeedChannel : [AllFeedData]? = nil
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -386,7 +384,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         print("params = \(params)")
         self.showSpinner(onView: self.view)
         
-        Alamofire.request(kGetAllChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
             print(responseData)

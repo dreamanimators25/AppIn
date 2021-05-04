@@ -68,7 +68,7 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         print("params = \(params)")
         self.showSpinner(onView: self.view)
         
-        Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetUserURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
             self.removeSpinner()
             print(responseData)

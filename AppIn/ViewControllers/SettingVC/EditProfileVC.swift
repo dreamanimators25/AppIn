@@ -50,6 +50,8 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.callGetMyProfileWebService()
+        
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2
         
         self.setStatusBarColor()
@@ -61,8 +63,6 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.callGetMyProfileWebService()
         
         self.tabBarController?.tabBar.isHidden = true
         
@@ -117,7 +117,9 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DatePopUpVC") as! DatePopUpVC
             
             vc.setDate = { strDate in
-                self.txtFDate.text = strDate
+                //self.txtFDate.text = strDate
+                
+                self.txtFDate.text = self.convertDateFormater(strDate)
             }
             
             vc.modalPresentationStyle = .overCurrentContext
@@ -158,6 +160,24 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             self.present(vc, animated: true, completion: nil)
         }
         
+    }
+    
+    func convertDateFormater(_ date: String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: date)
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        return dateFormatter.string(from: date ?? Date())
+    }
+    
+    func convertDateFormaterForServer(_ date: String) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let date = dateFormatter.date(from: date)
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: date ?? Date())
     }
     
     //MARK: IBAction
@@ -350,7 +370,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         //print("params = \(params)")
         self.showSpinner(onView: self.view)
         
-        Alamofire.request(kGetMyProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetUserURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             self.removeSpinner()
             //print(responseData)
             
@@ -372,7 +392,12 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                             self.txtFEmail.text = profileData.email
                             self.txtFAddress.text = profileData.address
                             self.txtFCountry.text = profileData.country
-                            self.txtFDate.text = profileData.birthDate
+                            
+                            //self.txtFDate.text = profileData.birthDate
+                            if let date = profileData.birthDate {
+                                self.txtFDate.text = self.convertDateFormater(date)
+                            }
+                            
                             self.txtFAgeFeel.text = profileData.ageFeel
                             self.txtFBiography.text = profileData.profileBio
                             
@@ -405,6 +430,8 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         
         let userData = UserDefaults.getUserData()
         
+        let dt = self.convertDateFormaterForServer(self.txtFDate.text!)
+        
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? "",
                   "name" : self.txtFName.text!,
@@ -414,11 +441,11 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                   "country" : self.txtFCountry.text!,
                   "ageFeel" : self.txtFAgeFeel.text!,
                   //"profileBio" : self.txtFBiography.text!,
-                  "birthDate" : self.txtFDate.text!,
+                  "birthDate" : dt,
                   "over21" : self.isOver21
                   ]
         
-        //print("params = \(params)")
+        print("params = \(params)")
         self.showSpinner(onView: self.view)
         
         Alamofire.request(kEditProfileURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
@@ -463,7 +490,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                 
             case .failure(let error):
                 
-                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                if error.localizedDescription.contains("Internet connection appears to be offline") {
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
                     Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
@@ -478,9 +505,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
     func callChangeProfilePicWebService(imgdata : UIImage) {
         
         let userData = UserDefaults.getUserData()
-        
         var params = [String : Any]()
-        
         params = ["user_id"     : userData?.UserId ?? ""]
         
         //print("params = \(params)")
@@ -540,12 +565,13 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
         
         
         
-        
         //let jsonData = try! JSONSerialization.data(withJSONObject: params, options: [])
         let imageData = self.selectedImage?.jpegData(compressionQuality: 0.50) ?? Data()
         
-        self.showSpinner(onView: self.view)
-        
+        DispatchQueue.main.async {
+            self.showSpinner(onView: self.view)
+        }
+            
         //To Upload MultiPart Data using Alamofire
         Alamofire.upload(
             multipartFormData: { multipartFormData in
@@ -565,7 +591,10 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             method: HTTPMethod.post,
             headers: nil,
             encodingCompletion: { encodingResult in
-                self.removeSpinner()
+                
+                DispatchQueue.main.async {
+                    self.removeSpinner()
+                }
                 
                 switch encodingResult {
                     
@@ -574,9 +603,18 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                         
                         if let data = response.result.value {
                             let json = JSON(data)
-                            //print(json)
+                            print(json)
+                            
+                            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                            vc.img = #imageLiteral(resourceName: "successTick")
+                            vc.lbl = json["msg"].stringValue
+                            vc.btn = ""
+                            vc.modalPresentationStyle = .overCurrentContext
+                            //vc.modalTransitionStyle = .crossDissolve
+                            self.present(vc, animated: true, completion: nil)
                             
                             self.profileImageView.image = self.selectedImage
+                            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width/2
                         }
                     }
                     

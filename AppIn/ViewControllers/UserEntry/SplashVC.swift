@@ -26,6 +26,10 @@ class SplashVC: UIViewController {
                     let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
                     self.navigationController?.pushViewController(loginVC, animated: true)
             
+            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            //let verifyVC = mainStoryboard.instantiateViewController(withIdentifier: "VerifyEmailVC") as! VerifyEmailVC
+            //self.navigationController?.pushViewController(verifyVC, animated: true)
+            
                 //}
             //})
             

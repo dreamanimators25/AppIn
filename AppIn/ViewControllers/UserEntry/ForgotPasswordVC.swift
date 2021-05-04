@@ -73,32 +73,42 @@ class ForgotPasswordVC: UIViewController {
                         let json = JSON(data)
                         print(json)
                         
-                        //let responsModal = RegisterBaseClass.init(json: json)
+                        let responsModal = RegisterBaseClass.init(json: json)
                         
                         DispatchQueue.main.async {
-                            if json["info"].stringValue == "success" {
+                            
+                            if responsModal.status == "success" {
                                 
                                 self.txtFEmail.text = ""
                                 
                                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                                 vc.img = #imageLiteral(resourceName: "successTick")
-                                vc.lbl = json["msg"].stringValue 
+                                vc.lbl = json["msg"].stringValue
                                 vc.btn = ""
                                 vc.modalPresentationStyle = .overCurrentContext
                                 //vc.modalTransitionStyle = .crossDissolve
                                 self.present(vc, animated: true, completion: nil)
                                 
-                            }else{
+                            }
+                            else {
                                 
                                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                                 vc.img = #imageLiteral(resourceName: "errorClose")
-                                vc.lbl = json["msg"].stringValue 
+                                vc.lbl = json["msg"].stringValue
                                 vc.btn = ""
                                 vc.modalPresentationStyle = .overCurrentContext
                                 //vc.modalTransitionStyle = .crossDissolve
                                 self.present(vc, animated: true, completion: nil)
+                                
                             }
                         }
+                        
+                            if json["info"].stringValue == "success" {
+                                
+                            }else{
+                                
+                            }
+                        
                         
                     }
                 case .failure(let error):

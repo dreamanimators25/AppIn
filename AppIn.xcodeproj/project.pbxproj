@@ -25,6 +25,7 @@
 		590ABAFD249FC3E00053BCC7 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */; };
 		590ABAFF249FC4DF0053BCC7 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 590ABAFE249FC4DF0053BCC7 /* Setting.storyboard */; };
 		590AC07C24AB4CC60074572D /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590AC07B24AB4CC60074572D /* AppExtensions.swift */; };
+		590CE6FD263B0D41004DC0F7 /* VerifyEmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590CE6FC263B0D41004DC0F7 /* VerifyEmailVC.swift */; };
 		590E6628249CCBE3001443BF /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E6627249CCBE2001443BF /* Alert.swift */; };
 		590E662B249CCE3A001443BF /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590E662A249CCE3A001443BF /* AppConstant.swift */; };
 		590FD4A824A26EB7000C71E1 /* ForgotPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590FD4A724A26EB7000C71E1 /* ForgotPasswordVC.swift */; };
@@ -235,6 +236,7 @@
 		590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
 		590ABAFE249FC4DF0053BCC7 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		590AC07B24AB4CC60074572D /* AppExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
+		590CE6FC263B0D41004DC0F7 /* VerifyEmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailVC.swift; sourceTree = "<group>"; };
 		590E6627249CCBE2001443BF /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		590E662A249CCE3A001443BF /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		590FD4A724A26EB7000C71E1 /* ForgotPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordVC.swift; sourceTree = "<group>"; };
@@ -846,6 +848,7 @@
 				59DDC68D24963C9E007D1A51 /* LoginVC.swift */,
 				5905163B2496954A00092E98 /* CreateAccountVC.swift */,
 				590FD4A724A26EB7000C71E1 /* ForgotPasswordVC.swift */,
+				590CE6FC263B0D41004DC0F7 /* VerifyEmailVC.swift */,
 				5958441325BEBA4D00AB0BED /* EntryNavigationVC.swift */,
 			);
 			path = UserEntry;
@@ -1274,6 +1277,7 @@
 				59DDC68924962DE9007D1A51 /* OnboardingViewController.swift in Sources */,
 				5999208B24B33E7F00E76898 /* UIImage+Ext.swift in Sources */,
 				5999206E24B33DC900E76898 /* UICollectionView+Extensions.swift in Sources */,
+				590CE6FD263B0D41004DC0F7 /* VerifyEmailVC.swift in Sources */,
 				5999206824B33DC900E76898 /* UIAlertController+Extensions.swift in Sources */,
 				5999203F24B33DC900E76898 /* ProfileContentTransitionManager.swift in Sources */,
 				5999205424B33DC900E76898 /* AmbassadorshipContent.swift in Sources */,
@@ -1536,7 +1540,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1544,7 +1548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.16;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1564,7 +1568,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1572,7 +1576,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.14;
+				MARKETING_VERSION = 1.16;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -36,5 +36,7 @@ target 'AppIn' do
   pod 'SwiftyJSON'
   
   pod "XCDYouTubeKit", "~> 2.15"
+  pod 'OTPFieldView'
+  
 
 end

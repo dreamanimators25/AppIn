@@ -11,10 +11,14 @@ import Alamofire
 import AlamofireImage
 import AVFoundation
 import SwiftyJSON
+import AVKit
 
 class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var multiPageCollectionView: UICollectionView!
+    
+    //var avQueuePlayer   : AVQueuePlayer?
+    //var avPlayerLayer   : AVPlayerLayer?
         
     var delegate: MultiPageDelegate?
     
@@ -118,7 +122,6 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
                 }
                 
             }
-                
             
         }
     }
@@ -169,6 +172,13 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
                 SinglePageVideoCell.channelImageView.af_setImage(withURL: url)
             }
             
+            /*
+            if let videoUrl = page?.backgroundMeta {
+                if let url = URL.init(string: videoUrl) {
+                    self.addPlayer(for: url)
+                }
+            }*/
+            
             SinglePageVideoCell.accessCode = self.content?.shortCode ?? ""
             SinglePageVideoCell.QrCode = self.content?.qrCode ?? ""
             SinglePageVideoCell.pageID = self.content?.internalIdentifier ?? ""
@@ -194,7 +204,6 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             
             return SinglePageCell
             
-            
         }
        
         /*
@@ -219,7 +228,68 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             
             return SinglePageCell
         }*/
+        
     }
+    
+    /*
+    func addPlayer(for url: URL) {
+        self.avQueuePlayer = AVQueuePlayer(url: url)
+        self.avPlayerLayer = AVPlayerLayer(player: self.avQueuePlayer!)
+        self.avPlayerLayer?.frame = self.bounds
+        self.avPlayerLayer?.fillMode = .both
+        self.layer.addSublayer(self.avPlayerLayer!)
+        self.avQueuePlayer?.play()
+    }
+    */
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if let cell = cell as? SinglePageVideoCell {
+            cell.playAVPlayer()
+        }
+        
+
+        /*
+        if let cell = cell as? SinglePageCell {
+            let page = self.content?.pages?[indexPath.item]
+            
+            cell.goThereBtn.tag = indexPath.row
+            cell.content = page
+            
+            cell.channelNameLbl.text = self.content?.name
+            
+            if let url = URL(string: self.content?.logo ?? "") {
+                cell.channelImageView.af_setImage(withURL: url)
+            }
+            
+            cell.accessCode = self.content?.shortCode ?? ""
+            cell.QrCode = self.content?.qrCode ?? ""
+            cell.pageID = self.content?.internalIdentifier ?? ""
+        }
+        */
+        
+        let page = self.content?.pages?[indexPath.item]
+        self.callViewContentWebService(contID: self.content?.internalIdentifier ?? "",pageid: page?.pageId ?? "")
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if let cell = cell as? SinglePageCell {
+            cell.pauseMedia()
+        }
+        
+        if let cell = cell as? SinglePageVideoCell {
+            cell.pauseAVPlayer()
+        }
+        
+     
+                        
+//        if let cell = cell as? MultiPageCell {
+//            cell.reset()
+//        }
+    }
+
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
@@ -242,44 +312,6 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-            
-        let page = self.content?.pages?[indexPath.item]
-
-        /*
-        if let cell = cell as? SinglePageCell {
-            let page = self.content?.pages?[indexPath.item]
-            
-            cell.goThereBtn.tag = indexPath.row
-            cell.content = page
-            
-            cell.channelNameLbl.text = self.content?.name
-            
-            if let url = URL(string: self.content?.logo ?? "") {
-                cell.channelImageView.af_setImage(withURL: url)
-            }
-            
-            cell.accessCode = self.content?.shortCode ?? ""
-            cell.QrCode = self.content?.qrCode ?? ""
-            cell.pageID = self.content?.internalIdentifier ?? ""
-        }
-        */
-            
-        self.callViewContentWebService(contID: self.content?.internalIdentifier ?? "",pageid: page?.pageId ?? "")
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if let cell = cell as? SinglePageCell {
-            cell.pauseMedia()
-        }
-                        
-//        if let cell = cell as? MultiPageCell {
-//            cell.reset()
-//        }
-    }
     
     //MARK: Custom Methods
     
