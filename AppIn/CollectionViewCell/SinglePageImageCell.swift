@@ -48,7 +48,15 @@ class SinglePageImageCell: UICollectionViewCell {
         didSet {
             
             if (content != nil) {
-                //OperationQueue.main.addOperation {
+                
+                if let third = self.content?.thirdParty {
+                    if third == "0" {
+                        self.shareBtn.isHidden = true
+                    }else {
+                        self.shareBtn.isHidden = false
+                    }
+                }
+                
                 DispatchQueue.main.async {
                     
                     //self.backgroundImageView.image = nil

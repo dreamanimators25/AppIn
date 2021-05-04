@@ -67,7 +67,21 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         let subTitelLbl : UILabel = notificationCell.viewWithTag(30) as! UILabel
         
         let data = arrNotification?[indexPath.row]
-        titelLbl.text = data?.title
+        
+        //titelLbl.text = data?.title
+        /*
+        if let data = data?.title?.data(using: String.Encoding.isoLatin1) {
+            if let fixed = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
+                print(fixed) // Stavsnäs
+                titelLbl.text = fixed as String
+            }
+        }
+        */
+        
+        let str = data?.title?.decodingHTMLEntities()
+        titelLbl.text = str
+                
+        
         //subTitelLbl.text = data?.type
         let dt = self.getDateFromString(data?.addedDate ?? "")
         subTitelLbl.text = (data?.channelName ?? "") + "  " + dt.getElapsedInterval()
@@ -137,6 +151,7 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? ""]
+        //params = ["user_id" : "16"]
         
         print("params = \(params)")
         if isShowLoader {
@@ -280,9 +295,9 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
         // 1) Create a DateFormatter() object.
         let format = DateFormatter()
         // 2) Set the current timezone to .current, or America/Chicago.
-        format.timeZone = .current
+        //format.timeZone = .current
         // 3) Set the format of the altered date.
-        format.dateFormat = "yyyy-mm-dd HH:mm:ss"
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
         // 4) Set the current date, altered by timezone.
         let date = format.date(from: str) ?? Date()
         

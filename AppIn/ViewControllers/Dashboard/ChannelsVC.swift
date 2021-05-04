@@ -140,6 +140,13 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     func numberOfSections(in tableView: UITableView) -> Int {
         //return self.arrBrand?.count ?? 0
         
+        guard (self.arrBrand?.count ?? 0) > 0 else {
+            self.ErrorView.isHidden = false
+            return 0
+        }
+        
+        self.ErrorView.isHidden = true
+        
         if(searchActive){
             return arrSearchData.count
         } else {
@@ -148,7 +155,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+                
         if(searchActive){
             
             if arrBrandSelectedSection.contains(section) {
@@ -403,13 +410,13 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                         self.arrBrand = responsModal.data
                         self.channelTableView.reloadData()
                         
-                        self.ErrorView.isHidden = true
-                        self.channelTableView.isHidden = false
+                        //self.ErrorView.isHidden = true
+                        //self.channelTableView.isHidden = false
                                                     
                     }else{
-                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
-                        self.ErrorView.isHidden = false
-                        self.channelTableView.isHidden = true
+                        Alert.showAlert(strTitle: "", strMessage: json["msg"].stringValue, Onview: self)
+                        //self.ErrorView.isHidden = false
+                        //self.channelTableView.isHidden = true
                     }
                     
                 }
@@ -465,6 +472,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                         vc.modalPresentationStyle = .overCurrentContext
                         //vc.modalTransitionStyle = .crossDissolve
                         //self.present(vc, animated: true, completion: nil)
+                        
                         self.present(vc, animated: true) {
                             self.callMyChannelWebService()
                         }

@@ -29,6 +29,7 @@ var loadChannel : (() -> (Void))?
 class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var contentCollectionView: UICollectionView!
+    @IBOutlet weak var ErrorView: UIView!
     
     var arrFeedChannel : [AllFeedData]? = nil
     
@@ -323,7 +324,13 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.arrFeedChannel?[section].channels?.count ?? 0
+        if (self.arrFeedChannel?.count ?? 0) > 0 {
+            self.ErrorView.isHidden = true
+            return self.arrFeedChannel?[section].channels?.count ?? 0
+        }else {
+            self.ErrorView.isHidden = false
+            return 0
+        }
         //return self.arrFeedChannel?.count ?? 0
     }
     
