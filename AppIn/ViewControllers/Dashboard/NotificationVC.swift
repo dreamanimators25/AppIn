@@ -178,8 +178,17 @@ class NotificationVC: UIViewController,UITableViewDataSource,UITableViewDelegate
                     let responsModal = GetAllNotifications.init(json: json)
                     
                     if responsModal.status == "success" {
-                                                
-                        self.arrNotification = responsModal.data
+                        
+                        let convertedArray = responsModal.data ?? []
+                        
+                        let df = DateFormatter()
+                        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+                        let sortedArray = convertedArray.sorted {df.date(from: $0.addedDate ?? "")! > df.date(from: $1.addedDate ?? "")!}
+
+                        
+                        
+                        self.arrNotification = sortedArray
                         self.notificationTableView.reloadData()
                         
                         self.ErrorView.isHidden = true

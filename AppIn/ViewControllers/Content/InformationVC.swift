@@ -8,6 +8,8 @@
 
 import UIKit
 import WebKit
+import Alamofire
+import SwiftyJSON
 
 class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
@@ -28,9 +30,10 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     var backgroundVideoView: ContentVideo?
     var strChannelName: String?
     
+    var pageid : String?
     var singleContent : AllFeedPages? {
         didSet {
-            
+            self.pageid = singleContent?.pageId
         }
     }
 
@@ -87,11 +90,53 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         if self.loadableUrlStr != nil || self.loadableUrlStr != "" {
             if isComeFrom == "Feed" {
                 
+                //*
+                //let url = URL(string: "http://40.112.131.121/AppInWeb/Page/pageContent")
+                //let url = URL(string: "http://40.112.131.121/AppInWeb/api/mail_php/content.php")
+                let url = URL(string: "http://40.112.131.121/AppInWeb/api/mail_php/content.php?id=\(self.pageid ?? "")")
+                print(url!)
+                
+                let str1 = "\(loadableUrlStr ?? "")"
+                //let str = str1.decodingHTMLEntities()
+                let body = "content=\(str1)"
+                var request: URLRequest? = nil
+                if let url = url {
+                    request = URLRequest(url: url)
+                }
+                
+                request?.httpMethod = "POST"
+                request?.httpBody = body.data(using: .utf8)
+                
+                //if let request = request {
+                    //webView?.load(request as URLRequest)
+                //}
+                
+                URLSession.shared.dataTask(with: request!) { (data, response, error) in
+                    
+                    DispatchQueue.main.async {
+                        self.webView?.load(data ?? Data(), mimeType: "application/pdf", characterEncodingName: "UTF-8", baseURL: url!)
+                        self.webView?.contentMode = .left
+                    }
+                    
+                }.resume()
+                //*/
+                
+                
+                
+                // Actual 1
+                //let str1 = "\(loadableUrlStr?.htmlToString ?? "")"
+                //let str = str1.decodingHTMLEntities()
+                //webView?.loadHTMLString(str, baseURL: nil)
+                //webView?.scrollView.isScrollEnabled = false
+                
+                
+                /*// Actual 2
                 let str1 = "\(loadableUrlStr?.htmlToString ?? "")"
-                //let str = str1.htmlToString
                 let str = str1.decodingHTMLEntities()
-                webView?.loadHTMLString(str, baseURL: nil)
+                let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
+                webView?.loadHTMLString(headerString + (str), baseURL: nil)
                 webView?.scrollView.isScrollEnabled = false
+                */
                 
                 
                 //let str = loadableUrlStr?.convertHtmlToAttributedStringWithCSS(font: UIFont.systemFont(ofSize: 15.0), csscolor: #colorLiteral(red: 0.3333333433, green: 0.3333333433, blue: 0.3333333433, alpha: 1).toHexString())
@@ -120,7 +165,7 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
             //self.viewWebHeightConstraint?.constant = height as! CGFloat
         })
-                
+    
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -144,7 +189,10 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
             self.viewWebHeightConstraint.constant = scrollView?.contentSize.height ?? 0.0
         }
         
-    }    
+    }
+    
+    //MARK: WebService
+
 
     // MARK: - Navigation
 

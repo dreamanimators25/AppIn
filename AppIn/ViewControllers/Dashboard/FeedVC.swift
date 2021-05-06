@@ -387,6 +387,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? ""]
+        //params = ["user_id" : "16"]
         
         print("params = \(params)")
         self.showSpinner(onView: self.view)
@@ -394,7 +395,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
-            print(responseData)
+            //print(responseData)
             
             switch responseData.result {
             case .success:
@@ -402,7 +403,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    //print(json)
+                    print(json)
                     
                     let responsModal = AllFeedBaseClass.init(json: json)
                     
