@@ -301,6 +301,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             }
             return false
         }
+        /*
         else if txtFCountry.text!.isEmpty {
             DispatchQueue.main.async {
                 self.countryView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
@@ -317,10 +318,11 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             }
             return false
         }
+        */
         else if txtFAgeFeel.text!.isEmpty {
             DispatchQueue.main.async {
                 self.ageFeelView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
-                self.lblAgeFeelError.text = "Please Select Age Feel"
+                self.lblAgeFeelError.text = "Please Select Perceived Age"
                 self.lblAgeFeelError.isHidden = false
             }
             return false

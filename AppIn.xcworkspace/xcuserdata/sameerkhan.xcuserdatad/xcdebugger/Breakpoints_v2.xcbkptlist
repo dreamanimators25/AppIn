@@ -340,14 +340,14 @@
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - e922f19c209af28f"
+                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - 8ef40dede79e8b8d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "AppIn.ContentTextCVCell.mp3URL.didset : Swift.Optional&lt;Swift.String&gt;"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/5:5:21/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
+                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/7:5:21/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "170"
@@ -355,14 +355,14 @@
                   offsetFromSymbolStart = "1796">
                </Location>
                <Location
-                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - 65385cc870a53578"
+                  uuid = "20B4ABBE-916D-4452-ADA0-BD4031BEDCA1 - 2eea0b9b7a14c76"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #2 () -&gt; () in AppIn.ContentTextCVCell.mp3URL.didset : Swift.Optional&lt;Swift.String&gt;"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/5:5:21/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
+                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/7:5:21/AppIn/AppIn/CollectionViewCell/All%20Contents%20Cell/ContentTextCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "172"
@@ -724,14 +724,14 @@
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "0F98890D-D304-4C77-973D-E654F6DBB8DE - 3fdffd099208e0ba"
+                  uuid = "0F98890D-D304-4C77-973D-E654F6DBB8DE - 139621e435195238"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #8 (Swift.String) -&gt; () in AppIn.MultiPageCVCell.goThereButtonClicked(__C.UIButton) -&gt; ()"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/5:5:21/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/7:5:21/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "551"
@@ -739,14 +739,14 @@
                   offsetFromSymbolStart = "264">
                </Location>
                <Location
-                  uuid = "0F98890D-D304-4C77-973D-E654F6DBB8DE - 558706a2e10a07fb"
+                  uuid = "0F98890D-D304-4C77-973D-E654F6DBB8DE - 79ceda4f461bb675"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "closure #1 () -&gt; () in closure #8 (Swift.String) -&gt; () in AppIn.MultiPageCVCell.goThereButtonClicked(__C.UIButton) -&gt; ()"
                   moduleName = "AppIn"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/5:5:21/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
+                  urlString = "file:///Users/sameerkhan/Desktop/Dream%20Animators%20Projects/AppIn%20App/May-2021/7:5:21/AppIn/AppIn/CollectionViewCell/MultiPageCVCell.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "553"
@@ -894,8 +894,8 @@
             filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "616"
-            endingLineNumber = "616"
+            startingLineNumber = "618"
+            endingLineNumber = "618"
             landmarkName = "callChangeProfilePicWebService(imgdata:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -910,8 +910,8 @@
             filePath = "AppIn/ViewControllers/SettingVC/EditProfileVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
             landmarkName = "callEditProfileWebService()"
             landmarkType = "7">
          </BreakpointContent>
@@ -961,6 +961,150 @@
             startingLineNumber = "99"
             endingLineNumber = "99"
             landmarkName = "LoadWebView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E4A657E0-B511-4501-898F-DCE9F12CCA0C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE1F40DD-DCA4-4D08-AE61-3A1881F7AC1E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
+            landmarkName = "comeFromNotificationVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7A8E3CCB-E493-409F-BBA6-8E766E0D14D8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "516"
+            endingLineNumber = "516"
+            landmarkName = "comeFromNotificationVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "18BA4BDD-C1A6-4BF8-95A7-D921BEA3661A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
+            landmarkName = "comeFromNotificationVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B8AD117-6A39-49D4-8021-3C4BE5E60BC1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "544"
+            endingLineNumber = "544"
+            landmarkName = "comeFromNotificationVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "87C4FF1C-1A5D-4634-B71D-0683E06A4A2A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "comeFromNotificationVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D66473B9-3294-47AA-AC37-A8CAD9C675EF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
+            landmarkName = "comeFromNotificationVC()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "63FFCD61-F2B1-4593-A5E5-103597EE9101"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
+            landmarkName = "callGetAllChannelWebService()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C034A42E-F195-421E-AA1D-4FDA9A14FCFC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AppIn/ViewControllers/Dashboard/FeedVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
+            landmarkName = "callGetAllChannelWebService()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

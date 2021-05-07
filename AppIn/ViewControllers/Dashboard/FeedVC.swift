@@ -39,8 +39,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         self.setStatusBarColor()
         
         //if AppDelegate.sharedDelegate().selChannelID == -1 {
-            self.callGetAllChannelWebService()
-            isFeedTabSelect = false
+            //self.callGetAllChannelWebService()
+            //AppDelegate.sharedDelegate().isFeedTabSelect = false
         //}
         
     }
@@ -48,10 +48,10 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if isFeedTabSelect {
+        //if AppDelegate.sharedDelegate().isFeedTabSelect {
             self.callGetAllChannelWebService()
-            isFeedTabSelect = false
-        }
+            AppDelegate.sharedDelegate().isFeedTabSelect = false
+        //}
         
         
 //        if AppDelegate.sharedDelegate().selChannelID == -1 && AppDelegate.sharedDelegate().selNotiChannelID == -1 {
@@ -319,7 +319,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return self.arrFeedChannel?.count ?? 0
         //return self.arrFeedChannel?.count ?? 0
     }
     
@@ -339,7 +339,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         let multiPageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MultiPageCell", for: indexPath) as! MultiPageCell
         
         //if let cell = cell as? MultiPageCell {
-            multiPageCell.content = self.arrFeedChannel?[0].channels?[indexPath.item]
+        multiPageCell.content = self.arrFeedChannel?[indexPath.section].channels?[indexPath.item]
         //}
         
         return multiPageCell
@@ -411,10 +411,19 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                         
                         self.arrFeedChannel = responsModal.data
                         self.contentCollectionView.reloadData()
+                      
                         
-                        //let allChannel = self.arrFeedChannel?[0].channels ?? []
+                        // MARK: This case is handling the scrolling, when come from channelsVC
+                        if AppDelegate.sharedDelegate().selChannelID != -1 {
+                            self.comeFromChannelVC()
+                        }
                         
+                        // MARK: This case is handling the scrolling, when come from NotificationVC
+                        if AppDelegate.sharedDelegate().selNotiChannelID != -1 {
+                            self.comeFromNotificationVC()
+                        }
                         
+                        /*
                             // MARK: This case is handling the scrolling, when come from channelsVC
                             if AppDelegate.sharedDelegate().selChannelID == -1 {
                                 
@@ -429,9 +438,10 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                                     self.comeFromChannelVC()
                                 }
                             }
+                        */
                         
                         
-                        
+                        /*
                             // MARK: This case is handling the scrolling, when come from NotificationVC
                             if AppDelegate.sharedDelegate().selNotiChannelID == -1 {
                                 
@@ -446,6 +456,8 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                                     self.comeFromNotificationVC()
                                 }
                             }
+                        */
+                        
       
                     }else{
                         //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
@@ -468,12 +480,23 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     func comeFromChannelVC() {
         
+        for (secIndex,data) in (self.arrFeedChannel ?? []).enumerated() {
+            for (rawIndex,channel) in (data.channels ?? []).enumerated() {
+                if Int(channel.internalIdentifier ?? "0") == AppDelegate.sharedDelegate().selChannelID {
+                    self.contentCollectionView.scrollToItem(at: IndexPath.init(row: rawIndex, section: secIndex), at: [.centeredHorizontally,.centeredVertically], animated: true)
+                    AppDelegate.sharedDelegate().selChannelID = -1
+                }
+            }
+        }
+        
+        /*
         for (index,channel) in (self.arrFeedChannel?[0].channels ?? []).enumerated() {
             if Int(channel.internalIdentifier ?? "0") == AppDelegate.sharedDelegate().selChannelID {
                 self.contentCollectionView.scrollToItem(at: IndexPath.init(row: index, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: true)
                 AppDelegate.sharedDelegate().selChannelID = -1
             }
         }
+        */
         
     }
     
@@ -485,6 +508,51 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         var actualChannelsID = [String]()
         var actualPagesID = [[String]]()
         
+        
+        for (secIndex,data) in (self.arrFeedChannel ?? []).enumerated() {
+            
+            for (rawIndex,channel) in (data.channels ?? []).enumerated() {
+                if Int(channel.internalIdentifier ?? "0") ==  AppDelegate.sharedDelegate().selNotiChannelID {
+                    print(rawIndex)
+                    sec = secIndex
+                }
+            }
+            
+            
+            for (num,channel) in (data.channels ?? []).enumerated() {
+                
+                // MARK: To navigate on selected page of channel in notification
+                var arrPg = [String]()
+                for i in channel.pages ?? [] {
+                    arrPg.append(i.pageId ?? "")
+                }
+                
+                actualPagesID.append(arrPg)
+                
+                let arrPage = actualPagesID[0]
+                for (indax,p) in arrPage.enumerated() {
+                    if Int(p) == AppDelegate.sharedDelegate().selNotiPageID {
+                        raw = indax
+                        AppDelegate.sharedDelegate().multiNotiPageID = raw
+                    }
+                }
+                
+            }
+            
+            
+            if secIndex == (self.arrFeedChannel?.count ?? 0) - 1 {
+                self.contentCollectionView.reloadData()
+                
+                if AppDelegate.sharedDelegate().selNotiChannelID != -1 {
+                    self.contentCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: sec), at: [.centeredHorizontally,.centeredVertically], animated: false)
+                    AppDelegate.sharedDelegate().selNotiChannelID = -1
+                }
+            }
+            
+        }
+        
+        
+        /*
         for (num,channel) in (self.arrFeedChannel?[0].channels ?? []).enumerated() {
             
             // MARK: To navigate on selected page of channel in notification
@@ -496,48 +564,31 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
             actualChannelsID.append(channel.internalIdentifier ?? "")
             actualPagesID.append(arrPg)
             
-            //loadNotification = {
-            
-                //var raw = 0
-                //var sec = 0
-                
-                for (indax,i) in actualChannelsID.enumerated() {
-                    if Int(i) == AppDelegate.sharedDelegate().selNotiChannelID {
-                        raw = indax
-                    }
+            for (indax,i) in actualChannelsID.enumerated() {
+                if Int(i) == AppDelegate.sharedDelegate().selNotiChannelID {
+                    raw = indax
                 }
+            }
             
-                let arrPage = actualPagesID[raw]
-                for (indax,p) in arrPage.enumerated() {
-                    if Int(p) == AppDelegate.sharedDelegate().selNotiPageID {
-                        sec = indax
-                        AppDelegate.sharedDelegate().multiNotiPageID = sec
-                    }
+            let arrPage = actualPagesID[raw]
+            for (indax,p) in arrPage.enumerated() {
+                if Int(p) == AppDelegate.sharedDelegate().selNotiPageID {
+                    sec = indax
+                    AppDelegate.sharedDelegate().multiNotiPageID = sec
                 }
+            }
             
-            /*
+            if num == (self.arrFeedChannel?[0].channels?.count ?? 0) - 1 {
                 self.contentCollectionView.reloadData()
-            
+                
                 if AppDelegate.sharedDelegate().selNotiChannelID != -1 {
                     self.contentCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
                     AppDelegate.sharedDelegate().selNotiChannelID = -1
                 }
-            */
-            
-            
-            if num == (self.arrFeedChannel?[0].channels?.count ?? 0) - 1 {
-                
-                self.contentCollectionView.reloadData()
-                
-                    if AppDelegate.sharedDelegate().selNotiChannelID != -1 {
-                        self.contentCollectionView.scrollToItem(at: IndexPath.init(row: raw, section: 0), at: [.centeredHorizontally,.centeredVertically], animated: false)
-                        AppDelegate.sharedDelegate().selNotiChannelID = -1
-                    }
             }
-                
-            //}
             
         }
+        */
     
     }
     

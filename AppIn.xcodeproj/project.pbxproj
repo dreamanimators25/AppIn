@@ -20,6 +20,10 @@
 		590957DB254418850014E5E2 /* Channel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 590957DA254418850014E5E2 /* Channel.storyboard */; };
 		590957DE254426C70014E5E2 /* DeleteAcPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */; };
 		590957E02544521D0014E5E2 /* MyChannelTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590957DF2544521D0014E5E2 /* MyChannelTVCell.swift */; };
+		5909A2E0264411EA004F01C6 /* AllNewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909A2DC264411E3004F01C6 /* AllNewData.swift */; };
+		5909A2E1264411EA004F01C6 /* AllNewChannels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909A2DD264411E6004F01C6 /* AllNewChannels.swift */; };
+		5909A2E2264411EA004F01C6 /* AllNewFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909A2DE264411E8004F01C6 /* AllNewFeed.swift */; };
+		5909A2E3264411EA004F01C6 /* AllNewPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909A2DF264411EA004F01C6 /* AllNewPages.swift */; };
 		590ABAF9249F749B0053BCC7 /* LatestContentCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAF8249F749B0053BCC7 /* LatestContentCVCell.swift */; };
 		590ABAFB249F76830053BCC7 /* MyChannelCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */; };
 		590ABAFD249FC3E00053BCC7 /* WebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */; };
@@ -231,6 +235,10 @@
 		590957DA254418850014E5E2 /* Channel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Channel.storyboard; sourceTree = "<group>"; };
 		590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcPopUpVC.swift; sourceTree = "<group>"; };
 		590957DF2544521D0014E5E2 /* MyChannelTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelTVCell.swift; sourceTree = "<group>"; };
+		5909A2DC264411E3004F01C6 /* AllNewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllNewData.swift; sourceTree = "<group>"; };
+		5909A2DD264411E6004F01C6 /* AllNewChannels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllNewChannels.swift; sourceTree = "<group>"; };
+		5909A2DE264411E8004F01C6 /* AllNewFeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllNewFeed.swift; sourceTree = "<group>"; };
+		5909A2DF264411EA004F01C6 /* AllNewPages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllNewPages.swift; sourceTree = "<group>"; };
 		590ABAF8249F749B0053BCC7 /* LatestContentCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatestContentCVCell.swift; sourceTree = "<group>"; };
 		590ABAFA249F76830053BCC7 /* MyChannelCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyChannelCVCell.swift; sourceTree = "<group>"; };
 		590ABAFC249FC3E00053BCC7 /* WebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVC.swift; sourceTree = "<group>"; };
@@ -485,6 +493,17 @@
 			path = Channel;
 			sourceTree = "<group>";
 		};
+		5909A2DB264411CA004F01C6 /* NewFeedModel */ = {
+			isa = PBXGroup;
+			children = (
+				5909A2DD264411E6004F01C6 /* AllNewChannels.swift */,
+				5909A2DC264411E3004F01C6 /* AllNewData.swift */,
+				5909A2DE264411E8004F01C6 /* AllNewFeed.swift */,
+				5909A2DF264411EA004F01C6 /* AllNewPages.swift */,
+			);
+			path = NewFeedModel;
+			sourceTree = "<group>";
+		};
 		590ABAF5249F72CC0053BCC7 /* CollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,6 +583,7 @@
 		59278EB42572526A00546A07 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				5909A2DB264411CA004F01C6 /* NewFeedModel */,
 				595A9B2F25DC3BA100EADC28 /* AboutModel */,
 				591BF9B5259DFFFD00B9AF93 /* AllFeedModel */,
 				594073E4258E1B2B00C3CAE9 /* GetAllNotificationModel */,
@@ -1210,6 +1230,7 @@
 				592E9F62254EE27C00951754 /* SinglePageCell.swift in Sources */,
 				5999208124B33DC900E76898 /* Font.swift in Sources */,
 				59DDC69A2496404F007D1A51 /* TPKeyboardAvoidingTableView.m in Sources */,
+				5909A2E0264411EA004F01C6 /* AllNewData.swift in Sources */,
 				59991FD324B33DAC00E76898 /* BlurView.swift in Sources */,
 				5999206D24B33DC900E76898 /* DateHelper.swift in Sources */,
 				5999206524B33DC900E76898 /* UIButton+Extensions.swift in Sources */,
@@ -1234,12 +1255,14 @@
 				5999203D24B33DC900E76898 /* iListOAuthClientCredentials.swift in Sources */,
 				5929A6942546D38300E161F1 /* DatePopUpVC.swift in Sources */,
 				5999204824B33DC900E76898 /* BrandsRouter.swift in Sources */,
+				5909A2E1264411EA004F01C6 /* AllNewChannels.swift in Sources */,
 				5999206124B33DC900E76898 /* ContentPageComponent.swift in Sources */,
 				592E9F60254EE26000951754 /* MultiPageCell.swift in Sources */,
 				5999203724B33DC900E76898 /* ActivitiesManager.swift in Sources */,
 				59278EB8257252B300546A07 /* RegisterBaseClass.swift in Sources */,
 				5999205C24B33DC900E76898 /* Inbox.swift in Sources */,
 				5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */,
+				5909A2E2264411EA004F01C6 /* AllNewFeed.swift in Sources */,
 				5937E8302590B430005001D6 /* SplashVC.swift in Sources */,
 				5999207624B33DC900E76898 /* Definitions.swift in Sources */,
 				5965181C24A6643600264AE1 /* ChannelsVC.swift in Sources */,
@@ -1361,6 +1384,7 @@
 				5999207724B33DC900E76898 /* RoundCornerView.swift in Sources */,
 				5999206724B33DC900E76898 /* UIImage+Extensions.swift in Sources */,
 				59233C4624CDAE42009BBB8B /* ContentMusic.swift in Sources */,
+				5909A2E3264411EA004F01C6 /* AllNewPages.swift in Sources */,
 				5999203524B33DC900E76898 /* UserManager.swift in Sources */,
 				59DDC65724962CDF007D1A51 /* SceneDelegate.swift in Sources */,
 			);
@@ -1540,7 +1564,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1548,14 +1572,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18;
+				MARKETING_VERSION = 1.19;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AppIn/AppIn-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1568,7 +1592,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1576,13 +1600,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.18;
+				MARKETING_VERSION = 1.19;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AppIn/AppIn-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

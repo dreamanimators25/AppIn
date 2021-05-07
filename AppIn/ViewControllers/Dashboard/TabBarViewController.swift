@@ -8,8 +8,6 @@
 
 import UIKit
 
-var isFeedTabSelect = false
-
 class TabBarViewController: UITabBarController {
     
     var selecIndexTab = 0
@@ -91,9 +89,9 @@ class TabBarViewController: UITabBarController {
         print(indexOfTab ?? 100)
         
         if indexOfTab == 1 {
-            isFeedTabSelect = true
+            AppDelegate.sharedDelegate().isFeedTabSelect = true
         }else {
-            isFeedTabSelect = false
+            AppDelegate.sharedDelegate().isFeedTabSelect = false
         }
 
     }

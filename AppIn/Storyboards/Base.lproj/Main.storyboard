@@ -1049,7 +1049,7 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTU-Yn-Nyx">
                                                         <rect key="frame" x="0.0" y="0.0" width="260" height="75"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AGE-FEEL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz1-jZ-CP8">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PERCEIVED AGE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oz1-jZ-CP8">
                                                                 <rect key="frame" x="0.0" y="10" width="240" height="15"/>
                                                                 <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="12"/>
                                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1058,7 +1058,7 @@
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="udu-7z-EzC">
                                                                 <rect key="frame" x="0.0" y="35" width="260" height="40"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Age Feel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iRg-3q-eXG">
+                                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Perceived Age" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iRg-3q-eXG">
                                                                         <rect key="frame" x="7" y="0.0" width="253" height="40"/>
                                                                         <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
