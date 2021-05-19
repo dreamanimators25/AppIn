@@ -102,14 +102,7 @@ class ForgotPasswordVC: UIViewController {
                                 
                             }
                         }
-                        
-                            if json["info"].stringValue == "success" {
-                                
-                            }else{
-                                
-                            }
-                        
-                        
+                   
                     }
                 case .failure(let error):
                     

@@ -35,6 +35,7 @@ public class RegisterData: NSCoding {
   private let kRegisterDataStatusKey: String = "status"
   private let kRegisterDataIsDeletedKey: String = "isDeleted"
   private let kRegisterDataAgeFeelKey: String = "ageFeel"
+  private let kRegisterDataEmailVerifiedKey: String = "emailVerified"
 
   // MARK: Properties
   public var name: String?
@@ -61,6 +62,7 @@ public class RegisterData: NSCoding {
   public var status: String?
   public var isDeleted: String?
   public var ageFeel: String?
+  public var emailVerified: String?
     
 
   // MARK: SwiftyJSON Initalizers
@@ -103,6 +105,7 @@ public class RegisterData: NSCoding {
     status = json[kRegisterDataStatusKey].string
     isDeleted = json[kRegisterDataIsDeletedKey].string
     ageFeel = json[kRegisterDataAgeFeelKey].string
+    emailVerified = json[kRegisterDataEmailVerifiedKey].string
   }
 
   /**
@@ -135,6 +138,7 @@ public class RegisterData: NSCoding {
     if let value = status { dictionary[kRegisterDataStatusKey] = value }
     if let value = isDeleted { dictionary[kRegisterDataIsDeletedKey] = value }
     if let value = ageFeel { dictionary[kRegisterDataAgeFeelKey] = value }
+    if let value = emailVerified { dictionary[kRegisterDataEmailVerifiedKey] = value }
     return dictionary
   }
 
@@ -164,6 +168,7 @@ public class RegisterData: NSCoding {
     self.status = aDecoder.decodeObject(forKey: kRegisterDataStatusKey) as? String
     self.isDeleted = aDecoder.decodeObject(forKey: kRegisterDataIsDeletedKey) as? String
     self.ageFeel = aDecoder.decodeObject(forKey: kRegisterDataAgeFeelKey) as? String
+    self.emailVerified = aDecoder.decodeObject(forKey: kRegisterDataEmailVerifiedKey) as? String
   }
 
   public func encode(with aCoder: NSCoder) {
@@ -191,6 +196,8 @@ public class RegisterData: NSCoding {
     aCoder.encode(status, forKey: kRegisterDataStatusKey)
     aCoder.encode(isDeleted, forKey: kRegisterDataIsDeletedKey)
     aCoder.encode(ageFeel, forKey: kRegisterDataAgeFeelKey)
+    aCoder.encode(emailVerified, forKey: kRegisterDataEmailVerifiedKey)
+    
   }
 
 }

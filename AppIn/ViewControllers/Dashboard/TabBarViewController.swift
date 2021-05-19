@@ -91,7 +91,7 @@ class TabBarViewController: UITabBarController {
         if indexOfTab == 1 {
             AppDelegate.sharedDelegate().isFeedTabSelect = true
         }else {
-            AppDelegate.sharedDelegate().isFeedTabSelect = false
+            AppDelegate.sharedDelegate().isFeedTabSelect = true
         }
 
     }

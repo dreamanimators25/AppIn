@@ -25,6 +25,7 @@ var callDisclaimer : ((_ strDisclamer : String , _ contentType : String, _ conte
 //var loadNotification : ((_ channelId : Int, _ pageId : Int) -> (Void))?
 var loadNotification : (() -> (Void))?
 var loadChannel : (() -> (Void))?
+var pauseBackgroundAudio : (() -> (Void))?
 
 class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, MFMailComposeViewControllerDelegate {
     
@@ -48,10 +49,10 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //if AppDelegate.sharedDelegate().isFeedTabSelect {
+        if AppDelegate.sharedDelegate().isFeedTabSelect {
             self.callGetAllChannelWebService()
             AppDelegate.sharedDelegate().isFeedTabSelect = false
-        //}
+        }
         
         
 //        if AppDelegate.sharedDelegate().selChannelID == -1 && AppDelegate.sharedDelegate().selNotiChannelID == -1 {
@@ -292,6 +293,17 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tabBarController?.tabBar.isHidden = false
+        
+        if let audioPlay = pauseBackgroundAudio {
+            audioPlay()
+        }
+        
+    }
+    
     func verifyUrl (urlString: String?) -> Bool {
         if let urlString = urlString {
             if let url = URL(string: urlString) {
@@ -310,12 +322,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         }
         return false
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        self.tabBarController?.tabBar.isHidden = false
-    }
+
     
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {

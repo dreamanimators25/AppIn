@@ -46,6 +46,8 @@ class SinglePageVideoCell: UICollectionViewCell {
     //var avQueuePlayer   : AVQueuePlayer?
     var avPlayerLayer   : AVPlayerLayer?
     var avQueuePlayer : AVPlayer?
+    
+    var avAudionPlayer : AVPlayer?
 
     func addPlayer(for url: URL) {
         
@@ -64,9 +66,18 @@ class SinglePageVideoCell: UICollectionViewCell {
         //self.avPlayerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
         self.pageBackgroundView.layer.addSublayer(self.avPlayerLayer!)
         self.avQueuePlayer?.isMuted = true
+        self.avQueuePlayer?.actionAtItemEnd = .none
         self.avQueuePlayer?.play()
         
         //NotificationCenter.default.addObserver(self, selector: #selector(playAgain(notification:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: self.avQueuePlayer?.currentItem)
+        
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime,
+                                               object: nil,
+                                               queue: nil) { [weak self] note in
+            self?.avQueuePlayer?.seek(to: CMTime.zero)
+            self?.avQueuePlayer?.play()
+        }
+        
     }
     
     @objc func playAgain(notification: Notification) {
@@ -169,6 +180,34 @@ class SinglePageVideoCell: UICollectionViewCell {
                     
                 //}
             }
+        }
+    }
+    
+    var backgroundSound : String? {
+        didSet {
+            if let audioFile = backgroundSound {
+                
+                if let url = URL.init(string: audioFile) {
+                    print("the url = \(url)")
+                    
+                    let playerItem = AVPlayerItem(url: url)
+                    self.avAudionPlayer = AVPlayer.init(playerItem: playerItem)
+                    guard self.avAudionPlayer != nil else { return }
+                    self.avAudionPlayer?.play()
+                    
+                    pauseBackgroundAudio = {
+                        self.pauseAudio()
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    
+    func pauseAudio() {
+        if let player = self.avAudionPlayer {
+            player.pause()
         }
     }
     

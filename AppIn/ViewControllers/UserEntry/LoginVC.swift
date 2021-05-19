@@ -113,9 +113,19 @@ class LoginVC: UIViewController {
                                 //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
                                     //appDelegate.navigateToDashboardScreen()
                                     
+                                if responsModal.data?.emailVerified == "0" {
+                                    
+                                    let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                                    let verifyVC = mainStoryboard.instantiateViewController(withIdentifier: "VerifyEmailVC") as! VerifyEmailVC
+                                    self.navigationController?.pushViewController(verifyVC, animated: true)
+                                    
+                                }else {
+                                    
                                     let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
                                     let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
                                     self.navigationController?.pushViewController(loginVC, animated: true)
+                                    
+                                }
                                     
                                 //}
                             })

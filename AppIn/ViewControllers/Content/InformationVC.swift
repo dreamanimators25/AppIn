@@ -93,7 +93,9 @@ class InformationVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
                 //*
                 //let url = URL(string: "http://40.112.131.121/AppInWeb/Page/pageContent")
                 //let url = URL(string: "http://40.112.131.121/AppInWeb/api/mail_php/content.php")
-                let url = URL(string: "http://40.112.131.121/AppInWeb/api/mail_php/content.php?id=\(self.pageid ?? "")")
+                
+                //let url = URL(string: "http://40.112.131.121/AppInWeb/api/mail_php/content.php?id=\(self.pageid ?? "")")
+                let url = URL(string: kContentURL + "mail_php/content.php?id=\(self.pageid ?? "")")
                 print(url!)
                 
                 let str1 = "\(loadableUrlStr ?? "")"

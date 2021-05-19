@@ -156,7 +156,7 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             SinglePageImageCell.accessCode = self.content?.shortCode ?? ""
             SinglePageImageCell.QrCode = self.content?.qrCode ?? ""
             SinglePageImageCell.pageID = self.content?.internalIdentifier ?? ""
-            
+        
             return SinglePageImageCell
             
             
@@ -201,6 +201,7 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             SinglePageCell.accessCode = self.content?.shortCode ?? ""
             SinglePageCell.QrCode = self.content?.qrCode ?? ""
             SinglePageCell.pageID = self.content?.internalIdentifier ?? ""
+            
             
             return SinglePageCell
             
@@ -271,6 +272,26 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
         let page = self.content?.pages?[indexPath.item]
         self.callViewContentWebService(contID: self.content?.internalIdentifier ?? "",pageid: page?.pageId ?? "")
         
+        
+        //MARK: Handle the audio file play case
+        if let cell = cell as? SinglePageCell {
+            if let sound = page?.backgroundSound {
+                cell.backgroundSound = sound
+            }
+        }
+        
+        if let cell = cell as? SinglePageVideoCell {
+            if let sound = page?.backgroundSound {
+                cell.backgroundSound = sound
+            }
+        }
+        
+        if let cell = cell as? SinglePageImageCell {
+            if let sound = page?.backgroundSound {
+                cell.backgroundSound = sound
+            }
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -283,11 +304,20 @@ class MultiPageCell: UICollectionViewCell, UICollectionViewDataSource, UICollect
             cell.pauseAVPlayer()
         }
         
-     
-                        
-//        if let cell = cell as? MultiPageCell {
-//            cell.reset()
-//        }
+        
+        //MARK: Handle the audio file pause case
+        if let cell = cell as? SinglePageCell {
+            cell.pauseAudio()
+        }
+        
+        if let cell = cell as? SinglePageVideoCell {
+            cell.pauseAudio()
+        }
+        
+        if let cell = cell as? SinglePageImageCell {
+            cell.pauseAudio()
+        }
+        
     }
 
     

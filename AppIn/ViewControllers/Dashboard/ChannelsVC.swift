@@ -23,11 +23,15 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     
     //var arrBrand = ["SAS","Uber","Air bnb"]
     var searchActive : Bool = false
-    var arrSearchData = [AllBrandData]()
-    var arrBrand : [AllBrandData]? = nil
     var arrBrandSelectedSection = [Int]()
     
-    var brandData : AllBrandData? = nil
+    //var arrSearchData = [AllBrandData]()
+    //var arrBrand : [AllBrandData]? = nil
+    //var brandData : AllBrandData? = nil
+    
+    var arrSearchData = [AllFeedData]()
+    var arrBrand : [AllFeedData]? = nil
+    var brandData : AllFeedData? = nil
     
     fileprivate let user = UserManager.sharedInstance.user
     fileprivate var ambassadorships: [Ambassadorship] = []
@@ -159,14 +163,16 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         if(searchActive){
             
             if arrBrandSelectedSection.contains(section) {
-                return (self.arrSearchData[section].channel?.count ?? 0) + 1
+                //return (self.arrSearchData[section].channel?.count ?? 0) + 1
+                return (self.arrSearchData[section].channels?.count ?? 0) + 1
             }
             return 1
         
         }else {
             
             if arrBrandSelectedSection.contains(section) {
-                return (self.arrBrand?[section].channel?.count ?? 0) + 1
+                //return (self.arrBrand?[section].channel?.count ?? 0) + 1
+                return (self.arrBrand?[section].channels?.count ?? 0) + 1
             }
             return 1
             
@@ -178,6 +184,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
+            
             let brandCell = tableView.dequeueReusableCell(withIdentifier: "brandCell", for: indexPath)
             
             let brandImg : UIImageView = brandCell.viewWithTag(10) as! UIImageView
@@ -192,6 +199,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 brandData = self.arrBrand?[indexPath.section]
             }
             
+                        
             //let channel = brandData?.channel
             //let channelData = channel?[indexPath.row]
             
@@ -233,12 +241,21 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             }
             
             //let brandData = self.arrBrand?[indexPath.section]
-            let channel = brandData?.channel
+            let channel = brandData?.channels
             let channelData = channel?[indexPath.row - 1]
-            
+                        
             titleLbl.text = channelData?.name
+            
             if let url = URL.init(string: channelData?.logo ?? "") {
                 channelImg.af_setImage(withURL: url)
+            }
+            
+            if (channelData?.pages?.count ?? 0) > 0 {
+                channelImg.alpha = 1.0
+                titleLbl.alpha = 1.0
+            }else {
+                channelImg.alpha = 0.5
+                titleLbl.alpha = 0.5
             }
             
             if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
@@ -291,8 +308,12 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             }
             
             //let brandData = self.arrBrand?[indexPath.section]
-            let channel = brandData?.channel
+            let channel = brandData?.channels
             let channelData = channel?[indexPath.row - 1]
+            
+            guard (channelData?.pages?.count ?? 0) > 0 else {
+                return
+            }
                         
             if let load = loadChannel {
                 AppDelegate.sharedDelegate().selChannelID = Int("\(channelData?.internalIdentifier ?? "")") ?? 0
@@ -385,12 +406,13 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? ""]
+        //params = ["user_id" : "16"]
         
         print("params = \(params)")
         
         self.showSpinner(onView: self.view)
         
-        Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetChannelsFeedURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
             print(responseData)
@@ -403,7 +425,8 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                     let json = JSON(data)
                     //print(json)
                     
-                    let responsModal = AllBrandBaseClass.init(json: json)
+                    //let responsModal = AllBrandBaseClass.init(json: json)
+                    let responsModal = AllFeedBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {
                         

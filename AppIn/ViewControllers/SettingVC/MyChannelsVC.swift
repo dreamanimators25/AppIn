@@ -18,7 +18,8 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var myChannelTableView: UITableView!
     var isShowLoader = true
     
-    var arrMyChannel: [AllBrandData]?
+    //var arrMyChannel: [AllBrandData]?
+    var arrMyChannel: [MyChanneldata]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,21 +50,34 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             
             switch ind {
             case 0:
+                
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "InviteVC") as! InviteVC
-                vc.strAccessCode = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].shortCode ?? ""
-                vc.strQrCode = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].qrCode ?? ""
+                
+                //vc.strAccessCode = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].shortCode ?? ""
+                //vc.strQrCode = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].qrCode ?? ""
+                
+                vc.strAccessCode = self.arrMyChannel?[indexPath?.row ?? 0].shortCode ?? ""
+                //vc.strQrCode = self.arrMyChannel?[indexPath?.row ?? 0].qrCode ?? ""
+                
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
             case 1:
+                
                 let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "AboutVC") as! AboutVC
                 vc.isComeFrom = "Channel"
-                vc.isID = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? ""
+                //vc.isID = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? ""
+                
+                vc.isID = self.arrMyChannel?[indexPath?.row ?? 0].channelId ?? ""
+                
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
             case 2:
-                self.callRemoveChannelWebService(channelId: Int(self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? "-1") ?? -1)
+                
+                //self.callRemoveChannelWebService(channelId: Int(self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? "-1") ?? -1)
+                
+                self.callRemoveChannelWebService(channelId: Int(self.arrMyChannel?[indexPath?.row ?? 0].channelId ?? "-1") ?? -1)
                 
                 break
             default:
@@ -89,7 +103,9 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 senderStatus = "1"
             }
             
-            self.callUpdateChannelNotificationWebService(channelId: Int(self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? "-1") ?? -1, isPush: senderStatus)
+            //self.callUpdateChannelNotificationWebService(channelId: Int(self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? "-1") ?? -1, isPush: senderStatus)
+            
+            self.callUpdateChannelNotificationWebService(channelId: Int(self.arrMyChannel?[indexPath?.row ?? 0].channelId ?? "-1") ?? -1, isPush: senderStatus)
             
         }
         
@@ -108,20 +124,22 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: UITableView DataSource & Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.arrMyChannel?.count ?? 0
+        //return self.arrMyChannel?.count ?? 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.arrMyChannel?[section].channel?.count ?? 0)
+        //return (self.arrMyChannel?[section].channel?.count ?? 0)
+        return self.arrMyChannel?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let MyChannelTVCell = tableView.dequeueReusableCell(withIdentifier: "MyChannelTVCell", for: indexPath) as! MyChannelTVCell
         
-        let brandData = self.arrMyChannel?[indexPath.section]
-        let channel = brandData?.channel
-        let channelData = channel?[indexPath.row]
+        //let brandData = self.arrMyChannel?[indexPath.section]
+        //let channel = brandData?.channel
+        let channelData = self.arrMyChannel?[indexPath.row]
         
         if let url = URL.init(string: channelData?.logo ?? "") {
             MyChannelTVCell.channelImgView.af_setImage(withURL: url)
@@ -133,7 +151,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             MyChannelTVCell.notificationBtn.isSelected = false
         }
         
-        MyChannelTVCell.channelNameLbl.text = channelData?.name
+        MyChannelTVCell.channelNameLbl.text = channelData?.channelName
         MyChannelTVCell.moreBtn.tag = indexPath.section
         MyChannelTVCell.notificationBtn.tag = indexPath.section
         
@@ -162,7 +180,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
-            print(responseData)
+            //print(responseData)
             
             switch responseData.result {
             case .success:
@@ -170,11 +188,12 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    let responsModal = AllBrandBaseClass.init(json: json)
+                    print(json)
+                    let responsModal = MyChannelModel.init(json: json)
                     
                     if responsModal.status == "success" {
                                                     
-                        self.arrMyChannel = responsModal.data
+                        self.arrMyChannel = responsModal.myChanneldata
                         self.myChannelTableView.reloadData()
                         
                     }else{

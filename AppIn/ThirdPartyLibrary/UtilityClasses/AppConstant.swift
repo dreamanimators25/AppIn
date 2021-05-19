@@ -50,7 +50,10 @@ let kUpdateOver21 = kBaseURL + "UpdateOver21"           // DONE
 
 
 //let kBaseURL = "http://dreamanimators.com/AppIn/api/v2/" // NEW Url For Security Purpose
-let kBaseURL = "http://40.112.131.121/AppInWeb/api/v2/" // NEW Url For Security Purpose
+//let kBaseURL = "http://40.112.131.121/AppInWeb/api/v2/" // NEW Url For Security Purpose
+let kBaseURL = "https://appin.se/api/v2/"
+let kContentURL = "https://appin.se/api/"
+
 
 // Controller - Auth
 let kLoginURL = kBaseURL + "Auth/Login"
@@ -73,7 +76,9 @@ let kUpdateNotificationURL = kBaseURL + "Notification/UpdateNotification"
 let kUpdateChannelNotificationURL = kBaseURL + "Notification/UpdateChannelNotification"
 
 // Controller - Channel
-let kGetChannelsURL = kBaseURL + "Channel/GetChannels"
+let kGetChannelsFeedURL = kBaseURL + "Channel/GetChannelsFeed"
+//let kGetChannelsURL = kBaseURL + "Channel/GetChannels"
+let kGetChannelsURL = kBaseURL + "Channel/GetMyChannels"
 let kGetFeaturedChannelURL = kBaseURL + "Channel/GetFeaturedChannels"
 let kAddChannelWithCodeURL = kBaseURL + "Channel/AddChannelWithCode"
 let kSearchChannel = "Channel/SearchChannel"

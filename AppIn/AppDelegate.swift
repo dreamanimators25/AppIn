@@ -17,7 +17,7 @@ var selectedSection : Int? = -1
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var isFeedTabSelect = false
+    var isFeedTabSelect = true
     var selChannelID : Int = -1
     var selNotiChannelID : Int = -1
     var selNotiPageID : Int = -1

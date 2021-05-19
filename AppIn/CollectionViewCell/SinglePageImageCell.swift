@@ -42,7 +42,10 @@ class SinglePageImageCell: UICollectionViewCell {
     var accessCode : String = ""
     var QrCode : String = ""
     var pageID : String = ""
-        
+    
+    var avAudionPlayer : AVPlayer?
+    
+
     //var content:Content? {
     var content : AllFeedPages? {
         didSet {
@@ -112,6 +115,34 @@ class SinglePageImageCell: UICollectionViewCell {
                     
                 //}
             }
+        }
+    }
+    
+    var backgroundSound : String? {
+        didSet {
+            if let audioFile = backgroundSound {
+                
+                if let url = URL.init(string: audioFile) {
+                    print("the url = \(url)")
+                    
+                    let playerItem = AVPlayerItem(url: url)
+                    self.avAudionPlayer = AVPlayer.init(playerItem: playerItem)
+                    guard self.avAudionPlayer != nil else { return }
+                    self.avAudionPlayer?.play()
+                    
+                    pauseBackgroundAudio = {
+                        self.pauseAudio()
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    
+    func pauseAudio() {
+        if let player = self.avAudionPlayer {
+            player.pause()
         }
     }
     
