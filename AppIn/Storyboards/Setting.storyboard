@@ -50,7 +50,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="evF-P7-Veq">
-                                        <rect key="frame" x="55" y="12.5" width="31" height="19"/>
+                                        <rect key="frame" x="55" y="13.5" width="28.5" height="17.5"/>
                                         <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="15"/>
                                         <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1164,13 +1164,13 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Success message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTc-2l-kdu">
-                                                        <rect key="frame" x="55" y="17.5" width="161" height="25.5"/>
+                                                        <rect key="frame" x="55" y="18.5" width="163" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="20"/>
                                                         <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="X has been successfully x." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLA-6N-i70">
-                                                        <rect key="frame" x="15" y="63" width="240" height="18.5"/>
+                                                        <rect key="frame" x="15" y="62" width="240" height="17.5"/>
                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="15"/>
                                                         <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -1690,7 +1690,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Channels" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2H-XN-htJ">
-                                        <rect key="frame" x="50" y="12.5" width="91.5" height="19"/>
+                                        <rect key="frame" x="50" y="13.5" width="88" height="17.5"/>
                                         <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="15"/>
                                         <color key="textColor" red="0.12941176469999999" green="0.1960784314" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1736,7 +1736,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dfo-Nh-aPb">
-                                                    <rect key="frame" x="80" y="27.5" width="155" height="17"/>
+                                                    <rect key="frame" x="80" y="28" width="155" height="16.5"/>
                                                     <subviews>
                                                         <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAS" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojv-Z1-iDC">
                                                             <rect key="frame" x="0.0" y="0.0" width="155" height="0.0"/>
@@ -1745,7 +1745,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="20" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SAS" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ob1-ln-FnI">
-                                                            <rect key="frame" x="0.0" y="0.0" width="155" height="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="155" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -1982,10 +1982,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ESm-sE-J4j" customClass="CardView" customModule="AppIn" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="169" width="270" height="230.5"/>
+                                                <rect key="frame" x="25" y="171.5" width="270" height="225.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Delete account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R60-hI-1so">
-                                                        <rect key="frame" x="15" y="20" width="141" height="25.5"/>
+                                                        <rect key="frame" x="15" y="20" width="135" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="20"/>
                                                         <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -2005,14 +2005,14 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zP7-nF-gcn">
-                                                        <rect key="frame" x="15" y="65.5" width="240" height="85"/>
+                                                        <rect key="frame" x="15" y="63.5" width="240" height="82"/>
                                                         <string key="text">Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement.</string>
                                                         <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
                                                         <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OEA-oC-ir6">
-                                                        <rect key="frame" x="15" y="170.5" width="240" height="40"/>
+                                                        <rect key="frame" x="15" y="165.5" width="240" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="Ygm-YF-ES0"/>
                                                         </constraints>
@@ -2112,10 +2112,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZ3-GM-qv7" customClass="CardView" customModule="AppIn" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="78.5" width="270" height="411.5"/>
+                                                <rect key="frame" x="25" y="79.5" width="270" height="409.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Date of birth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OOs-Dn-TbG">
-                                                        <rect key="frame" x="15" y="20" width="117.5" height="25.5"/>
+                                                        <rect key="frame" x="15" y="20" width="111" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="20"/>
                                                         <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -2135,7 +2135,7 @@
                                                         </connections>
                                                     </button>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLY-nX-vgJ">
-                                                        <rect key="frame" x="15" y="65.5" width="240" height="40"/>
+                                                        <rect key="frame" x="15" y="63.5" width="240" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="8B4-c4-cHi"/>
                                                         </constraints>
@@ -2155,14 +2155,14 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <datePicker clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" translatesAutoresizingMaskIntoConstraints="NO" id="Pjh-OD-dfM">
-                                                        <rect key="frame" x="15" y="115.5" width="240" height="216"/>
+                                                        <rect key="frame" x="15" y="113.5" width="240" height="216"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <action selector="datePickerValueChanged:" destination="T1v-63-LR3" eventType="valueChanged" id="euF-n9-FkI"/>
                                                         </connections>
                                                     </datePicker>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iD-7C-6eu">
-                                                        <rect key="frame" x="15" y="351.5" width="240" height="40"/>
+                                                        <rect key="frame" x="15" y="349.5" width="240" height="40"/>
                                                         <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.67843137249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="yic-U0-S9o"/>
@@ -2243,6 +2243,136 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kav-ST-sco" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1344.375" y="785.91549295774644"/>
+        </scene>
+        <!--Delete Ac Final Pop UpVC-->
+        <scene sceneID="NFR-SQ-vRd">
+            <objects>
+                <viewController storyboardIdentifier="DeleteAcFinalPopUpVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="IrU-o3-oDQ" customClass="DeleteAcFinalPopUpVC" customModule="AppIn" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="85A-qK-fTT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="IwL-3S-ZEN" customClass="TPKeyboardAvoidingScrollView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBO-Rc-EkE">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <subviews>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wnO-Bc-b6C" customClass="CardView" customModule="AppIn" customModuleProvider="target">
+                                                <rect key="frame" x="25" y="169" width="270" height="230.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Delete account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YX0-Q9-wVr">
+                                                        <rect key="frame" x="15" y="20" width="141" height="25.5"/>
+                                                        <fontDescription key="fontDescription" name="CircularStd-Bold" family="Circular Std" pointSize="20"/>
+                                                        <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yni-0U-bIF">
+                                                        <rect key="frame" x="230" y="15" width="30" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="3HL-tm-78u"/>
+                                                            <constraint firstAttribute="width" constant="30" id="Adk-jv-irN"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                                        <state key="normal" image="Close">
+                                                            <color key="titleColor" red="0.29061779380000002" green="0.13657647370000001" blue="0.7277496457" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="dismissBtnClicked:" destination="IrU-o3-oDQ" eventType="touchUpInside" id="mm5-BS-gCB"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95E-mO-i0V">
+                                                        <rect key="frame" x="15" y="65.5" width="240" height="85"/>
+                                                        <string key="text">Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement.</string>
+                                                        <fontDescription key="fontDescription" name="CircularStd-Regular" family="Circular Std" pointSize="14"/>
+                                                        <color key="textColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JS2-7J-fBP">
+                                                        <rect key="frame" x="15" y="170.5" width="240" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="fGN-SY-eUe"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="14"/>
+                                                        <state key="normal" title="Yes, delete my account">
+                                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.67843137249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" red="0.70588235290000001" green="0.73725490199999999" blue="0.76470588240000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderSizer">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="20"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="deleteAcBtnClicked:" destination="IrU-o3-oDQ" eventType="touchUpInside" id="NN4-wV-bIK"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="95E-mO-i0V" secondAttribute="trailing" constant="15" id="4SM-KK-1zv"/>
+                                                    <constraint firstItem="95E-mO-i0V" firstAttribute="leading" secondItem="wnO-Bc-b6C" secondAttribute="leading" constant="15" id="8bP-iu-vfa"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Yni-0U-bIF" secondAttribute="trailing" constant="10" id="Fu1-OO-brV"/>
+                                                    <constraint firstItem="YX0-Q9-wVr" firstAttribute="leading" secondItem="wnO-Bc-b6C" secondAttribute="leading" constant="15" id="HNB-NJ-2bA"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="170" id="Oel-f8-jbw"/>
+                                                    <constraint firstItem="Yni-0U-bIF" firstAttribute="top" secondItem="wnO-Bc-b6C" secondAttribute="top" constant="15" id="PWx-i2-KeL"/>
+                                                    <constraint firstItem="JS2-7J-fBP" firstAttribute="leading" secondItem="wnO-Bc-b6C" secondAttribute="leading" constant="15" id="Wbq-7i-Hv1"/>
+                                                    <constraint firstAttribute="trailing" secondItem="JS2-7J-fBP" secondAttribute="trailing" constant="15" id="auk-20-sIU"/>
+                                                    <constraint firstItem="YX0-Q9-wVr" firstAttribute="top" secondItem="wnO-Bc-b6C" secondAttribute="top" constant="20" id="jM6-FT-1aL"/>
+                                                    <constraint firstItem="JS2-7J-fBP" firstAttribute="top" secondItem="95E-mO-i0V" secondAttribute="bottom" constant="20" id="w8D-zU-Jc0"/>
+                                                    <constraint firstItem="95E-mO-i0V" firstAttribute="top" secondItem="YX0-Q9-wVr" secondAttribute="bottom" constant="20" id="xGx-MR-8fm"/>
+                                                    <constraint firstAttribute="bottom" secondItem="JS2-7J-fBP" secondAttribute="bottom" constant="20" id="yHJ-Bi-exH"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="wnO-Bc-b6C" firstAttribute="centerY" secondItem="eBO-Rc-EkE" secondAttribute="centerY" id="A5H-eU-ext"/>
+                                            <constraint firstAttribute="trailing" secondItem="wnO-Bc-b6C" secondAttribute="trailing" constant="25" id="IVi-q9-Cgy"/>
+                                            <constraint firstItem="wnO-Bc-b6C" firstAttribute="leading" secondItem="eBO-Rc-EkE" secondAttribute="leading" constant="25" id="qtR-zG-1fw"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="eBO-Rc-EkE" secondAttribute="bottom" id="46n-yB-SZB"/>
+                                    <constraint firstItem="eBO-Rc-EkE" firstAttribute="centerX" secondItem="IwL-3S-ZEN" secondAttribute="centerX" id="Ors-3M-3wf"/>
+                                    <constraint firstItem="eBO-Rc-EkE" firstAttribute="leading" secondItem="IwL-3S-ZEN" secondAttribute="leading" id="ak4-IM-2pj"/>
+                                    <constraint firstAttribute="trailing" secondItem="eBO-Rc-EkE" secondAttribute="trailing" id="glf-Fd-rfs"/>
+                                    <constraint firstItem="eBO-Rc-EkE" firstAttribute="centerY" secondItem="IwL-3S-ZEN" secondAttribute="centerY" id="mRR-Hq-dfj"/>
+                                    <constraint firstItem="eBO-Rc-EkE" firstAttribute="top" secondItem="IwL-3S-ZEN" secondAttribute="top" id="vdQ-1v-1Mi"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="UIU-1Y-scp"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="IwL-3S-ZEN" firstAttribute="top" secondItem="UIU-1Y-scp" secondAttribute="top" id="FV8-Zd-hUy"/>
+                            <constraint firstItem="IwL-3S-ZEN" firstAttribute="trailing" secondItem="UIU-1Y-scp" secondAttribute="trailing" id="IEx-ji-Ku2"/>
+                            <constraint firstItem="IwL-3S-ZEN" firstAttribute="bottom" secondItem="UIU-1Y-scp" secondAttribute="bottom" id="gEb-mM-9wl"/>
+                            <constraint firstItem="IwL-3S-ZEN" firstAttribute="leading" secondItem="UIU-1Y-scp" secondAttribute="leading" id="qwE-xE-1Y7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lPc-qC-yhI"/>
+                    <connections>
+                        <outlet property="contentLblFinal" destination="95E-mO-i0V" id="MOC-ea-DCs"/>
+                        <outlet property="okBtnFinal" destination="JS2-7J-fBP" id="vvc-2P-4R2"/>
+                        <outlet property="titleLblFinal" destination="YX0-Q9-wVr" id="X5n-dN-9XX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zou-xf-Tck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="161" y="1488"/>
         </scene>
     </scenes>
     <designables>

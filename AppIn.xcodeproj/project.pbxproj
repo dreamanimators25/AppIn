@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		058A75CF7AA52D9D149C47DB /* Pods_AppIn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97705B021B410056DB189655 /* Pods_AppIn.framework */; };
+		590115D42663934F001A272C /* DeleteAcFinalPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590115D32663934F001A272C /* DeleteAcFinalPopUpVC.swift */; };
 		5905097824A89029008BF45F /* Content.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5905097724A89029008BF45F /* Content.storyboard */; };
 		5905097B24A890BC008BF45F /* ContentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905097A24A890BC008BF45F /* ContentVC.swift */; };
 		5905097D24A89663008BF45F /* ContentTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5905097C24A89663008BF45F /* ContentTVCell.swift */; };
@@ -225,6 +226,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		590115D32663934F001A272C /* DeleteAcFinalPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteAcFinalPopUpVC.swift; sourceTree = "<group>"; };
 		5905097724A89029008BF45F /* Content.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Content.storyboard; sourceTree = "<group>"; };
 		5905097A24A890BC008BF45F /* ContentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentVC.swift; sourceTree = "<group>"; };
 		5905097C24A89663008BF45F /* ContentTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTVCell.swift; sourceTree = "<group>"; };
@@ -899,6 +901,7 @@
 				5928535B25418B0700557420 /* InviteVC.swift */,
 				590957D8254413DB0014E5E2 /* EditBiographyVC.swift */,
 				590957DD254426C70014E5E2 /* DeleteAcPopUpVC.swift */,
+				590115D32663934F001A272C /* DeleteAcFinalPopUpVC.swift */,
 				5929A6932546D38300E161F1 /* DatePopUpVC.swift */,
 				5950EFE6254D72C2005CB112 /* BottomViewVC.swift */,
 			);
@@ -1306,6 +1309,7 @@
 				5999208524B33DC900E76898 /* ShadowLabel.swift in Sources */,
 				5922F45725739E4B0009F606 /* DeviceModel.swift in Sources */,
 				5999204524B33DC900E76898 /* AmbassadorshipRouter.swift in Sources */,
+				590115D42663934F001A272C /* DeleteAcFinalPopUpVC.swift in Sources */,
 				59165CC524CEDB8B004389D2 /* ContentVimeoCVCell.swift in Sources */,
 				5999207A24B33DC900E76898 /* PolygonBackgroundView.swift in Sources */,
 				5999207224B33DC900E76898 /* CircularImageView.swift in Sources */,
@@ -1580,7 +1584,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1588,7 +1592,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.21;
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1608,7 +1612,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1616,7 +1620,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.21;
+				MARKETING_VERSION = 1.22;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class DeleteAcPopUpVC: UIViewController {
     
+    var yesDelete : (()->(Void))?
+    
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var contentLbl: UILabel!
     @IBOutlet weak var okBtn: UIButton!
@@ -57,79 +59,18 @@ class DeleteAcPopUpVC: UIViewController {
     }
     
     @IBAction func deleteAcBtnClicked(_ sender: UIButton) {
+        
         self.dismiss(animated: true) {
-            self.callDeleteAccountWebService()
-        }
-    }
-    
-    //MARK: Web Service
-    func callDeleteAccountWebService() {
-        
-        let userData = UserDefaults.getUserData()
-        
-        var params = [String : String]()
-        params = ["user_id" : userData?.UserId ?? ""]
-        
-        print("params = \(params)")
-        self.showSpinner(onView: self.view)
-        
-        Alamofire.request(kDeleteMyAccount, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
-            self.removeSpinner()
-            print(responseData)
-            
-            switch responseData.result {
-            case .success:
-                
-                if let data = responseData.result.value {
-                    
-                    let json = JSON(data)
-                    //print(json)
-                    
-                    let responsModal = RegisterBaseClass.init(json: json)
-                    
-                    if responsModal.status == "success" {
-                        
-                        if responsModal.data != nil {
-                            
-                            self.goOutFromApp()
-                            
-                        }
-                                                    
-                    }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
-                    }
-                    
-                }
-                
-            case .failure(let error):
-                
-                if error.localizedDescription.contains("Internet connection appears to be offline"){
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
-                }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
-                }
+            if let sure = self.yesDelete {
+                sure()
             }
             
         }
         
     }
     
-    func goOutFromApp() {
-        
-        self.tabBarController?.tabBar.isHidden = true
-        
-        CustomUserDefault.removeUserId()
-        CustomUserDefault.removeLoginData()
-        CustomUserDefault.removeUserName()
-        CustomUserDefault.removeUserPassword()
-        CustomUserDefault.removeTokenTime()
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "IntroSplashVC") as! IntroSplashVC
-        self.navigationController?.pushViewController(loginVC, animated: true)
-    }
-
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

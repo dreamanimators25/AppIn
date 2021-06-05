@@ -297,8 +297,31 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                         //vc.modalTransitionStyle = .crossDissolve
                         
                         vc.strTitle = "Delete account"
-                        vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
-                        vc.btnTitle = "Yes, delete my account"
+                        //vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
+                        //vc.btnTitle = "Yes, delete my account"
+                        vc.strContent = "ARE YOU REALLY SURE"
+                        vc.btnTitle = "Yes"
+                        
+                        vc.yesDelete = {
+                            
+                            DispatchQueue.main.async {
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DeleteAcFinalPopUpVC") as! DeleteAcFinalPopUpVC
+                                
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                
+                                vc.strTitleFinal = "Delete account"
+                                //vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
+                                //vc.btnTitle = "Yes, delete my account"
+                                vc.strContentFinal = "ONE LAST TIME ARE YOU REALLY SURE"
+                                vc.btnTitleFinal = "Yes, delete my account"
+                                
+                                self.present(vc, animated: true) {
+                                    
+                                }
+                            }
+                            
+                        }
                         
                         self.present(vc, animated: true) {
                             

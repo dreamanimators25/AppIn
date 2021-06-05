@@ -59,6 +59,21 @@ class SinglePageCell: UICollectionViewCell {
                     }
                 }
                 
+                
+                if let contentType9 = self.content?.contentType {
+                    if contentType9 == "9" {
+                        self.pageTitleLbl.isHidden = true
+                        self.goThereBtn.isHidden = true
+                    }else {
+                        self.pageTitleLbl.isHidden = false
+                        self.goThereBtn.isHidden = false
+                    }
+                }else {
+                    self.pageTitleLbl.isHidden = false
+                    self.goThereBtn.isHidden = false
+                }
+                
+                
                 DispatchQueue.main.async {                    
                     
                     //self.backgroundImageView.image = nil

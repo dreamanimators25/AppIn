@@ -62,8 +62,8 @@ class SinglePageVideoCell: UICollectionViewCell {
         self.avQueuePlayer = AVQueuePlayer(url: url)
         self.avPlayerLayer = AVPlayerLayer(player: self.avQueuePlayer!)
         self.avPlayerLayer?.frame = self.bounds
-        self.avPlayerLayer?.fillMode = .both
-        //self.avPlayerLayer?.videoGravity = AVLayerVideoGravity.resizeAspect
+        //self.avPlayerLayer?.fillMode = .both
+        self.avPlayerLayer?.videoGravity = AVLayerVideoGravity.resize
         self.pageBackgroundView.layer.addSublayer(self.avPlayerLayer!)
         self.avQueuePlayer?.isMuted = true
         self.avQueuePlayer?.actionAtItemEnd = .none
@@ -124,6 +124,21 @@ class SinglePageVideoCell: UICollectionViewCell {
                         self.shareBtn.isHidden = false
                     }
                 }
+                
+                
+                if let contentType9 = self.content?.contentType {
+                    if contentType9 == "9" {
+                        self.pageTitleLbl.isHidden = true
+                        self.goThereBtn.isHidden = true
+                    }else {
+                        self.pageTitleLbl.isHidden = false
+                        self.goThereBtn.isHidden = false
+                    }
+                }else {
+                    self.pageTitleLbl.isHidden = false
+                    self.goThereBtn.isHidden = false
+                }
+                
                 
                 DispatchQueue.main.async {
                     
