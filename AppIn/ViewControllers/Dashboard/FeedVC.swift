@@ -283,6 +283,18 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                 }
                                 
                 break
+                
+            case "10":
+                print("Add Channel")
+                
+                DispatchQueue.main.async {
+                    //self.openLinkInAppInWebView(link: content)
+                    
+                    self.addChannelContentType10(Code: content)
+                }
+                                
+                break
+                
             default:
                 print("Nothing")
                 
@@ -713,6 +725,65 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
 
 
 extension FeedVC {
+    
+    private func addChannelContentType10(Code:String) {
+        
+        let userData = UserDefaults.getUserData()
+        var params = [String : String]()
+        
+        params = ["user_id" : userData?.UserId ?? "",
+                  "shortCode" : Code]
+                
+        print("params = \(params)")
+        self.showSpinner(onView: self.view)
+        
+        Alamofire.request(kAddChannelWithCodeURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+            
+            self.removeSpinner()
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        //*
+                        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
+                        vc.img = #imageLiteral(resourceName: "successTick")
+                        //vc.lbl = "Channel was added"
+                        vc.lbl = responsModal.msg ?? "Channel was added"
+                        vc.btn = ""
+                        vc.modalPresentationStyle = .overCurrentContext
+                        self.present(vc, animated: true) {
+                            
+                        }
+                        //*/
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
+                }
+            }
+            
+        }
+        
+    }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)

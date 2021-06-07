@@ -258,7 +258,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 titleLbl.alpha = 0.5
             }
             
-            if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
+            //if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
+            if indexPath.row == brandData?.channels?.count {
+                
                 seperatorlLbl.isHidden = false
                 subTitleLbl.isHidden = true
                 //subTitleLbl.text = "Partner"
