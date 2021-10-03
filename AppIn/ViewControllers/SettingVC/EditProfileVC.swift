@@ -318,7 +318,6 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             }
             return false
         }
-        */
         else if txtFAgeFeel.text!.isEmpty {
             DispatchQueue.main.async {
                 self.ageFeelView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.3411764706, blue: 0.3411764706, alpha: 1)
@@ -327,6 +326,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
             }
             return false
         }
+        */
         
         
         /*
@@ -400,7 +400,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                                 self.txtFDate.text = self.convertDateFormater(date)
                             }
                             
-                            self.txtFAgeFeel.text = profileData.ageFeel
+                            //self.txtFAgeFeel.text = profileData.ageFeel
                             self.txtFBiography.text = profileData.profileBio
                             
                             if let url = URL(string: profileData.profileImage ?? "") {
@@ -441,7 +441,7 @@ class EditProfileVC: UIViewController,UIImagePickerControllerDelegate,UINavigati
                   "email" : self.txtFEmail.text!,
                   "address" : self.txtFAddress.text!,
                   "country" : self.txtFCountry.text!,
-                  "ageFeel" : self.txtFAgeFeel.text!,
+                  //"ageFeel" : self.txtFAgeFeel.text!,
                   //"profileBio" : self.txtFBiography.text!,
                   "birthDate" : dt,
                   "over21" : self.isOver21

@@ -10,8 +10,9 @@ import UIKit
 import FirebaseInstanceID
 import Alamofire
 import SwiftyJSON
+import WebKit
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     @IBOutlet weak var txtFEmail: UITextField!
     @IBOutlet weak var txtFPassword: UITextField!
@@ -23,6 +24,10 @@ class LoginVC: UIViewController {
     @IBOutlet weak var emailView: UIView!
     @IBOutlet weak var passwordView: UIView!
     
+    @IBOutlet weak var baseWebView: UIView!
+    @IBOutlet weak var webviewHeightConstraint: NSLayoutConstraint!
+    var webView: WKWebView!
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -31,12 +36,114 @@ class LoginVC: UIViewController {
         super.viewDidLoad()
 
         self.setStatusBarColor()
+        
+        self.LoadWebView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(LoginVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    //MARK: Custom Methods
+    func LoadWebView() {
+        webView = self.addWKWebView(viewForWeb: self.baseWebView)
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+        
+        let html = "<html>By using the app you certify that you have read and understood and approve our <a href='https://appin.se/termssv'>General Terms,</a> <a href='https://appin.se/privacysv'>Privacy Policy</a>, <a href='https://appin.se/agreementsv'>App Agreement.</a></html>"
+                
+        
+        let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
+        
+        
+        let htmlString = """
+            <style>
+            @font-face
+            {
+                font-family: 'CircularStd';
+                font-weight: normal;
+                src: url(CircularStd-Regular.ttf);
+            }
+            </style>
+                        <span style="font-family: 'CircularStd'; font-weight: normal; font-size: 14; color: black">\(headerString + html)</span>
+            """
+                
+            webView.loadHTMLString(htmlString, baseURL: Bundle.main.bundleURL)
+        
+    }
+    
+    func addWKWebView(viewForWeb:UITextView) -> WKWebView {
+        let preferences = WKPreferences()
+        preferences.javaScriptEnabled = true
+    
+        
+        let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.preferences = preferences
+        
+        //let webView = WKWebView(frame: viewForWeb.frame, configuration: webConfiguration)
+        let webView = WKWebView(frame: CGRect.init(x: 10.0, y: 10.0, width: self.baseWebView.bounds.width - 20.0, height: self.baseWebView.bounds.height - 20.0), configuration: webConfiguration)
+        
+        //webView.frame.origin = CGPoint.init(x: 0, y: 0)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        ///webView.frame.size = viewForWeb.frame.size
+        //webView.center = viewForWeb.center
+        viewForWeb.addSubview(webView)
+        return webView
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard case .linkActivated = navigationAction.navigationType,
+              let url = navigationAction.request.url
+        else {
+            decisionHandler(.allow)
+            return
+        }
+        decisionHandler(.cancel)
+        
+        if navigationAction.request.url?.lastPathComponent == "termssv" {
+            
+            DispatchQueue.main.async {
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                vc.isComeFrom = "Terms & Conditions"
+                vc.loadableUrlStr = url.absoluteString
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }else if navigationAction.request.url?.lastPathComponent == "privacysv" {
+            
+            DispatchQueue.main.async {
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                vc.isComeFrom = "Privacy Policy"
+                vc.loadableUrlStr = url.absoluteString
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }else if navigationAction.request.url?.lastPathComponent == "agreementsv" {
+            
+            DispatchQueue.main.async {
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                vc.isComeFrom = "App Agreement"
+                vc.loadableUrlStr = url.absoluteString
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }else {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                // openURL(_:) is deprecated in iOS 10+.
+                UIApplication.shared.openURL(url)
+            }
+        }
+        
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
+            self.webviewHeightConstraint?.constant = height as! CGFloat
+        })
     }
     
     // MARK: Keyboard Notification methods

@@ -19,7 +19,9 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     let arrMore = ["MORE","Allow +21 content","GDPR","Privacy policy","Delete account","Logout"]
     let arrIcon = ["editProfile","changePassword","myChannel"]
     
-    let arrUrl = ["http://www.jokk.app/gdprsv","http://www.jokk.app/privacysv","http://www.jokk.app/agreementsv"]
+    
+    //let arrUrl = ["http://www.jokk.app/gdprsv","http://www.jokk.app/privacysv","http://www.jokk.app/agreementsv"]
+    let arrUrl = ["https://appin.se/gdprsv","https://appin.se/privacysv","https://appin.se/agreementsv"]
     let arrTitle = ["GDPR","Privacy policy","User agreement"]
 
     override func viewDidLoad() {

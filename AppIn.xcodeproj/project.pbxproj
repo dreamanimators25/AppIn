@@ -190,6 +190,7 @@
 		59A8483F249E402E00734157 /* roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59A8483C249E402E00734157 /* roboto_medium.ttf */; };
 		59A84840249E402E00734157 /* roboto_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59A8483D249E402E00734157 /* roboto_bold.ttf */; };
 		59A84841249E402E00734157 /* rubik_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59A8483E249E402E00734157 /* rubik_medium.ttf */; };
+		59CBB9EE26FB7413002033CC /* promo_bg.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 59CBB9ED26FB7413002033CC /* promo_bg.mp4 */; };
 		59DDC65524962CDF007D1A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDC65424962CDF007D1A51 /* AppDelegate.swift */; };
 		59DDC65724962CDF007D1A51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDC65624962CDF007D1A51 /* SceneDelegate.swift */; };
 		59DDC65924962CDF007D1A51 /* WalkThroughVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59DDC65824962CDF007D1A51 /* WalkThroughVC.swift */; };
@@ -409,6 +410,7 @@
 		59A8483C249E402E00734157 /* roboto_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_medium.ttf; sourceTree = "<group>"; };
 		59A8483D249E402E00734157 /* roboto_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = roboto_bold.ttf; sourceTree = "<group>"; };
 		59A8483E249E402E00734157 /* rubik_medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = rubik_medium.ttf; sourceTree = "<group>"; };
+		59CBB9ED26FB7413002033CC /* promo_bg.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = promo_bg.mp4; sourceTree = "<group>"; };
 		59DDC65124962CDF007D1A51 /* AppIn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppIn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		59DDC65424962CDF007D1A51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		59DDC65624962CDF007D1A51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 			isa = PBXGroup;
 			children = (
 				5999208924B33E7F00E76898 /* DTImageView.swift */,
+				59CBB9ED26FB7413002033CC /* promo_bg.mp4 */,
 				5999208A24B33E7F00E76898 /* promo.mp4 */,
 				5999208824B33E7E00E76898 /* PromoVideoView.swift */,
 				5999208724B33E7D00E76898 /* UIImage+Ext.swift */,
@@ -1104,7 +1107,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = AppIn;
+				ORGANIZATIONNAME = "Sameer khan";
 				TargetAttributes = {
 					59DDC65024962CDF007D1A51 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -1161,6 +1164,7 @@
 				59146C3E24C99763007F91E8 /* ContentSoundCVCell.xib in Resources */,
 				59240B9C253EBE340099DE3D /* CircularStd-Bold.ttf in Resources */,
 				59146C3224C996BA007F91E8 /* ContentImageCVCell.xib in Resources */,
+				59CBB9EE26FB7413002033CC /* promo_bg.mp4 in Resources */,
 				590957DB254418850014E5E2 /* Channel.storyboard in Resources */,
 				59A8483F249E402E00734157 /* roboto_medium.ttf in Resources */,
 				59146C3624C996D8007F91E8 /* ContentTextCVCell.xib in Resources */,
@@ -1584,7 +1588,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1592,14 +1596,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.23;
+				MARKETING_VERSION = 1.24;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AppIn/AppIn-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1612,7 +1616,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1620,13 +1624,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.23;
+				MARKETING_VERSION = 1.24;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "AppIn/AppIn-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

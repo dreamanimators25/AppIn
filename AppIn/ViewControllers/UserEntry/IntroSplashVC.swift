@@ -7,13 +7,50 @@
 //
 
 import UIKit
+import AVKit
 
 class IntroSplashVC: UIViewController {
+    
+    @IBOutlet weak var baseVideoView: UIView!
+    
+    var player : AVPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.setStatusBarColor()
+                
+        self.playVideo()
+    }
+    
+    private func playVideo() {
+        
+        guard let path = Bundle.main.path(forResource: "promo_bg", ofType: "mp4") else {
+            debugPrint("promo_bg.mp4 not found")
+            return
+        }
+        
+        player = AVPlayer(url: URL(fileURLWithPath: path))
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = self.view.frame
+        playerLayer.videoGravity = .resizeAspectFill
+        self.baseVideoView.layer.addSublayer(playerLayer)
+        //self.baseVideoView.layer.insertSublayer(playerLayer, at: 0)
+        player?.play()
+        
+        
+        player?.actionAtItemEnd = AVPlayer.ActionAtItemEnd.none
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(playerItemDidReachEnd(notification:)),
+                                               name: .AVPlayerItemDidPlayToEndTime,
+                                               object: self.player?.currentItem)
+        
+    }
+    
+    @objc func playerItemDidReachEnd(notification: Notification) {
+        if let playerItem = notification.object as? AVPlayerItem {
+            playerItem.seek(to: CMTime.zero, completionHandler: nil)
+        }
     }
     
     //MARK: IBAction
