@@ -14,6 +14,10 @@ import SwiftyJSON
 
 var enableTabBarItems : ((_ cod : String) -> (Void))?
 
+struct TestObject: Codable {
+    var test: String
+}
+
 class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate {
     
     @IBOutlet weak var channelTableView: UITableView!
@@ -36,6 +40,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     fileprivate let user = UserManager.sharedInstance.user
     fileprivate var ambassadorships: [Ambassadorship] = []
 
+    var arrSelectedSection = [Int]()
+    var selSection = -1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,6 +71,12 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             }
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.selSection = -1
     }
     
     // MARK: UITextField Delegates
@@ -151,10 +164,10 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         
         self.ErrorView.isHidden = true
         
-        if(searchActive){
-            return arrSearchData.count
+        if (searchActive){
+           return arrSearchData.count
         } else {
-            return self.arrBrand?.count ?? 0
+           return self.arrBrand?.count ?? 0
         }
     }
     
@@ -203,25 +216,49 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             //let channel = brandData?.channel
             //let channelData = channel?[indexPath.row]
             
+            
             titleLbl.text = brandData?.name
+            
+            /*
+            print(brandData?.name ?? "")
+            
+            //let str = "StavsnÃ¤s"
+            let str = brandData?.name
+            if let data = str?.data(using: .isoLatin1) {
+                if let fixed = String.init(data: data, encoding: .isoLatin1) {
+                    titleLbl.text = fixed
+                }
+            }
+            */
+            
+            
+            
             if let url = URL.init(string: brandData?.logo ?? "") {
                 brandImg.af_setImage(withURL: url)
             }
             
             if arrBrandSelectedSection.contains(indexPath.section) {
-                arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+                //arrowImg.transform = arrowImg.transform.rotated(by: .pi)
                 seperatorLbl.isHidden = true
                 
                 //countlLbl.text = "3"
                 countlLbl.isHidden = true
             }else {
-                arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+                //arrowImg.transform = arrowImg.transform.rotated(by: .pi)
                 seperatorLbl.isHidden = false
                 
                 countlLbl.text = ""
                 countlLbl.isHidden = true
             }
+                    
             
+            
+                if arrSelectedSection.contains(indexPath.section) && self.selSection == indexPath.section {
+                    arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+                }
+            
+            
+           
             return brandCell
         }else {
             
@@ -230,7 +267,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             let channelImg : UIImageView = channelCell.viewWithTag(10) as! UIImageView
             let subTitleLbl : UILabel = channelCell.viewWithTag(20) as! UILabel
             let titleLbl : UILabel = channelCell.viewWithTag(30) as! UILabel
-            //let arrowImg : UIImageView = channelCell.viewWithTag(40) as! UIImageView
+            let arrowImg : UIImageView = channelCell.viewWithTag(40) as! UIImageView
             let seperatorlLbl : UILabel = channelCell.viewWithTag(50) as! UILabel
             let countlLbl : UILabel = channelCell.viewWithTag(60) as! UILabel
             
@@ -253,9 +290,13 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             if (channelData?.pages?.count ?? 0) > 0 {
                 channelImg.alpha = 1.0
                 titleLbl.alpha = 1.0
+                
+                arrowImg.isHidden = false
             }else {
                 channelImg.alpha = 0.5
                 titleLbl.alpha = 0.5
+                
+                arrowImg.isHidden = true
             }
             
             //if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
@@ -288,6 +329,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         
         if indexPath.row == 0 {
             
+            self.selSection = indexPath.section
+            self.arrSelectedSection.append(indexPath.section)
+                        
             if self.arrBrandSelectedSection.contains(indexPath.section) {
                 
                 if let index = self.arrBrandSelectedSection.firstIndex(of: (indexPath.section)) {
@@ -298,7 +342,9 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 self.arrBrandSelectedSection.append(indexPath.section)
             }
             
+            //self.channelTableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
             self.channelTableView.reloadData()
+            
             
         }else {
             self.view.endEditing(true)
@@ -351,19 +397,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         let titleLbl = UILabel.init(frame: CGRect.init(x: 80.0, y: 21.0, width: baseView.bounds.width - 90.0, height: 17.5))
         
         let data = self.arrBrand?[section]
+        
         titleLbl.text = data?.name
         
         let arrowImgView = UIImageView.init(frame: CGRect.init(x: baseView.bounds.width - 30.0, y: 24.5, width: 15.0, height: 10.0))
         arrowImgView.contentMode = .center
         arrowImgView.image = #imageLiteral(resourceName: "downArrow")
         
-        /*
-        if arrSelectedSection.contains(section) {
-            arrowImgView.transform = arrowImgView.transform.rotated(by: .pi)
-        }else {
-            arrowImgView.transform = arrowImgView.transform.rotated(by: .pi)
-        }
-        */
+       
         
         let sepratLbl = UILabel.init(frame: CGRect.init(x: 15.0, y: 60.0, width: baseView.bounds.width - 30.0, height: 1.0))
         sepratLbl.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
@@ -400,6 +441,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
     }
+
     
     //MARK: Web Service
     func callMyChannelWebService() {

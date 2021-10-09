@@ -114,6 +114,7 @@ extension String {
     
 }
 
+
 extension String {
   /// Returns a new string made by replacing all HTML character entity references with the corresponding character.
   ///

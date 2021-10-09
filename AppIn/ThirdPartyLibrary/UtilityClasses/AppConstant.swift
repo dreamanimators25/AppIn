@@ -77,8 +77,8 @@ let kUpdateChannelNotificationURL = kBaseURL + "Notification/UpdateChannelNotifi
 
 // Controller - Channel
 let kGetChannelsFeedURL = kBaseURL + "Channel/GetChannelsFeed"
-//let kGetChannelsURL = kBaseURL + "Channel/GetChannels"
-let kGetChannelsURL = kBaseURL + "Channel/GetMyChannels"
+let kGetChannelsURL = kBaseURL + "Channel/GetChannels"
+let kGetMyChannelsURL = kBaseURL + "Channel/GetMyChannels"
 let kGetFeaturedChannelURL = kBaseURL + "Channel/GetFeaturedChannels"
 let kAddChannelWithCodeURL = kBaseURL + "Channel/AddChannelWithCode"
 let kSearchChannel = "Channel/SearchChannel"

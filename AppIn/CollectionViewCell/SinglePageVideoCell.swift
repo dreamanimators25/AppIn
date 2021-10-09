@@ -61,8 +61,8 @@ class SinglePageVideoCell: UICollectionViewCell {
         
         self.avQueuePlayer = AVQueuePlayer(url: url)
         self.avPlayerLayer = AVPlayerLayer(player: self.avQueuePlayer!)
-        self.avPlayerLayer?.frame = self.bounds
-        //self.avPlayerLayer?.fillMode = .both
+        self.avPlayerLayer?.frame = self.superview?.superview?.superview?.frame ?? self.bounds
+        self.avPlayerLayer?.fillMode = .both
         self.avPlayerLayer?.videoGravity = AVLayerVideoGravity.resize
         self.pageBackgroundView.layer.addSublayer(self.avPlayerLayer!)
         self.avQueuePlayer?.isMuted = true

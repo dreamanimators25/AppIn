@@ -14,6 +14,7 @@ import WebKit
 
 class LoginVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
+    @IBOutlet weak var logoImgView: UIImageView!
     @IBOutlet weak var txtFEmail: UITextField!
     @IBOutlet weak var txtFPassword: UITextField!
     
@@ -35,6 +36,7 @@ class LoginVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.logoImgView.layer.cornerRadius = 10.0
         self.setStatusBarColor()
         
         self.LoadWebView()

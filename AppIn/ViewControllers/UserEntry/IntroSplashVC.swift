@@ -19,6 +19,7 @@ class IntroSplashVC: UIViewController {
         super.viewDidLoad()
 
         self.setStatusBarColor()
+        self.tabBarController?.tabBar.isHidden = true
                 
         self.playVideo()
     }

@@ -339,13 +339,14 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.arrFeedChannel?.count ?? 0
-        //return self.arrFeedChannel?.count ?? 0
+        //return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if (self.arrFeedChannel?.count ?? 0) > 0 {
             self.ErrorView.isHidden = true
             return self.arrFeedChannel?[section].channels?.count ?? 0
+            //return self.arrFeedChannel?.count ?? 0
         }else {
             self.ErrorView.isHidden = false
             return 0
@@ -359,6 +360,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         
         //if let cell = cell as? MultiPageCell {
         multiPageCell.content = self.arrFeedChannel?[indexPath.section].channels?[indexPath.item]
+        
         //}
         
         return multiPageCell

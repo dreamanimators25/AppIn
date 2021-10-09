@@ -15,6 +15,7 @@ import WebKit
 
 class CreateAccountVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
+    @IBOutlet weak var logoImgView: UIImageView!
     @IBOutlet weak var checkBoxBtn: UIButton!
     
     @IBOutlet weak var txtFieldName: UITextField!
@@ -66,6 +67,7 @@ class CreateAccountVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         super.viewDidLoad()
         
         self.setStatusBarColor()
+        self.logoImgView.layer.cornerRadius = 10.0
 
         self.txtFieldAgeFeel.addTarget(self, action: #selector(tapGenderField), for: .allEditingEvents)
         self.txtFieldProfileBio.addTarget(self, action: #selector(tapBioField), for: .allEditingEvents)

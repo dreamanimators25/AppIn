@@ -88,6 +88,8 @@
 		5969913825DD745100E3F436 /* AboutTblVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5969913725DD745100E3F436 /* AboutTblVC.swift */; };
 		596A7FE525DEC7D300507705 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596A7FE425DEC7D300507705 /* AboutVC.swift */; };
 		597EBD4A2540A80A0080B1F0 /* ChangePWPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */; };
+		5980B505270F66CB00B7095F /* fdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5980B503270F66CB00B7095F /* fdData.swift */; };
+		5980B506270F66CB00B7095F /* FeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5980B504270F66CB00B7095F /* FeedData.swift */; };
 		598957AA265429550043DE5E /* MyChanneldata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598957A8265429550043DE5E /* MyChanneldata.swift */; };
 		598957AB265429550043DE5E /* MyChannelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 598957A9265429550043DE5E /* MyChannelModel.swift */; };
 		5990BA1E2618CD0000417F02 /* SinglePageVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5990BA1D2618CD0000417F02 /* SinglePageVideoCell.swift */; };
@@ -308,6 +310,8 @@
 		5969913725DD745100E3F436 /* AboutTblVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTblVC.swift; sourceTree = "<group>"; };
 		596A7FE425DEC7D300507705 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWPopUpVC.swift; sourceTree = "<group>"; };
+		5980B503270F66CB00B7095F /* fdData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fdData.swift; sourceTree = "<group>"; };
+		5980B504270F66CB00B7095F /* FeedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedData.swift; sourceTree = "<group>"; };
 		598957A8265429550043DE5E /* MyChanneldata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChanneldata.swift; sourceTree = "<group>"; };
 		598957A9265429550043DE5E /* MyChannelModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyChannelModel.swift; sourceTree = "<group>"; };
 		5990BA1D2618CD0000417F02 /* SinglePageVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageVideoCell.swift; sourceTree = "<group>"; };
@@ -591,6 +595,7 @@
 		59278EB42572526A00546A07 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				5980B502270F66CB00B7095F /* Feed */,
 				5989579D265428D70043DE5E /* MyChannelModel */,
 				5909A2DB264411CA004F01C6 /* NewFeedModel */,
 				595A9B2F25DC3BA100EADC28 /* AboutModel */,
@@ -651,6 +656,15 @@
 				5965181924A6643600264AE1 /* TabBarViewController.swift */,
 			);
 			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		5980B502270F66CB00B7095F /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				5980B503270F66CB00B7095F /* fdData.swift */,
+				5980B504270F66CB00B7095F /* FeedData.swift */,
+			);
+			path = Feed;
 			sourceTree = "<group>";
 		};
 		5989579D265428D70043DE5E /* MyChannelModel */ = {
@@ -1286,6 +1300,7 @@
 				5997A1BB24A1197E0091AC4A /* AddChannelPopUpVC.swift in Sources */,
 				5909A2E2264411EA004F01C6 /* AllNewFeed.swift in Sources */,
 				5937E8302590B430005001D6 /* SplashVC.swift in Sources */,
+				5980B506270F66CB00B7095F /* FeedData.swift in Sources */,
 				5999207624B33DC900E76898 /* Definitions.swift in Sources */,
 				5965181C24A6643600264AE1 /* ChannelsVC.swift in Sources */,
 				591F582D253C3BD4006AC73C /* NotificationVC.swift in Sources */,
@@ -1401,6 +1416,7 @@
 				5999204E24B33DC900E76898 /* ContentPage.swift in Sources */,
 				5999206024B33DC900E76898 /* Badge.swift in Sources */,
 				595A9B2B25DC3B9A00EADC28 /* AboutBaseData.swift in Sources */,
+				5980B505270F66CB00B7095F /* fdData.swift in Sources */,
 				5999204924B33DC900E76898 /* RewardList.swift in Sources */,
 				5999203A24B33DC900E76898 /* AmbassadorshipManager.swift in Sources */,
 				5999207D24B33DC900E76898 /* CircularProgress.swift in Sources */,
@@ -1588,7 +1604,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1596,7 +1612,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.26;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1616,7 +1632,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 25;
+				CURRENT_PROJECT_VERSION = 27;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1624,7 +1640,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.24;
+				MARKETING_VERSION = 1.26;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
