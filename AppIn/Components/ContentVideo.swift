@@ -91,8 +91,11 @@ class ContentVideo: UIView, ContentView {
             playerLayer = AVPlayerLayer(player: player)
             if let playerLayer = playerLayer {
                 playerLayer.frame = bounds
-                playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                //playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                playerLayer.videoGravity = AVLayerVideoGravity.resizeAspect
+                
                 layer.addSublayer(playerLayer)
+                
                 if let videoThumbView = videoThumbView {
                     bringSubviewToFront(videoThumbView)
                     if inlinePlayer {

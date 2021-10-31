@@ -20,12 +20,14 @@ class MyChannelTVCell: UITableViewCell {
     
     let cellDropDown = DropDown()
     
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
         // Initialization code
         cellDropDown.anchorView = self.moreBtn
-        cellDropDown.dataSource = ["Invite","About","Remove channel","Share"]
+        //cellDropDown.dataSource = ["Invite","About","Remove channel","Share"]
+        cellDropDown.dataSource = ["Invite","About","Remove channel"]
         cellDropDown.cellConfiguration = { (index, item) in return "\(item)" }
        
     }
@@ -37,28 +39,30 @@ class MyChannelTVCell: UITableViewCell {
     }
 
     @IBAction func notificationBtnClicked(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
+        //sender.isSelected = !sender.isSelected
         
         if let selectedIndex = TVNotificationIndex {
-            selectedIndex(sender.tag)
+            selectedIndex(sender.tag, sender)
+            
+            sender.isSelected = !sender.isSelected
         }
     }
     
     @IBAction func moreBtnClicked(_ sender: UIButton) {
         
         cellDropDown.selectionAction = { (index: Int, item: String) in
-            print("Selected item: \(item) at index: \(index)")
             
             if let selectedIndex = TVDropDownIndex {
-                selectedIndex(index)
+                selectedIndex(sender.tag, index, sender)
             }
         }
 
         cellDropDown.width = 130
-        cellDropDown.layer.cornerRadius = 5.0
+        cellDropDown.setupCornerRadius(10.0)
         cellDropDown.backgroundColor = UIColor.white
+        cellDropDown.selectionBackgroundColor = .white
         
-        cellDropDown.bottomOffset = CGPoint(x: -20, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
+        cellDropDown.bottomOffset = CGPoint(x: -110, y:(cellDropDown.anchorView?.plainView.bounds.height)!)
         cellDropDown.show()
         
     }

@@ -73,6 +73,8 @@ class ShowContentsVC: UIViewController, UICollectionViewDataSource, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         if let str = strTitle {
             self.lblContentTitle.text = str
         }
@@ -445,39 +447,28 @@ protocol ContentView {
 }
 
 extension ShowContentsVC: MultiPageDelegate {
+    func currentSubPage(_ page: Int) {
+        
+    }
     
-    func presentUseAlert(_ title: String, _ message: String) {
+    func currentPage(_ page: Int) {
+        
+    }
+    
+    func shareContent(_ id: Int) {
+        
+    }
+    
+    func shareContentOutbound(_ id: Int) {
         
     }
     
     func showAlertOnCell(_ title: String, _ message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        let ok = UIAlertAction(title: "OK", style: .default) { action in
-            
-        }
-        alert.addAction(ok)
-        present(alert, animated: true)
     }
     
     func showAlertForIndexOnCell(_ title: String, message: String, alertButtonTitles: [String], alertButtonStyles: [UIAlertAction.Style], vc: UIViewController, completion: @escaping (Int) -> Void) {
-        let alert = UIAlertController(title: title,message: message,preferredStyle: UIAlertController.Style.alert)
         
-        for title in alertButtonTitles {
-            let actionObj = UIAlertAction(title: title,style: alertButtonStyles[alertButtonTitles.firstIndex(of: title)!], handler: { action in
-                completion(alertButtonTitles.firstIndex(of: action.title!)!)
-            })
-            
-            alert.addAction(actionObj)
-        }
-        
-        //alert.view.tintColor = Utility.themeColor
-        
-        //vc will be the view controller on which you will present your alert as you cannot use self because this method is static.
-        //vc.present(alert, animated: true, completion: nil)
-        present(alert, animated: true, completion: nil)
-        
-        //UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
     func shareFacebook(_ imageView: UIImageView, isBack: Bool, page: Int) {
@@ -500,100 +491,33 @@ extension ShowContentsVC: MultiPageDelegate {
         
     }
     
-    func openEmailLink(link: String) {
-        if MFMailComposeViewController.canSendMail() {
-            let mailComposerVC = MFMailComposeViewController()
-            mailComposerVC.mailComposeDelegate = self
-            mailComposerVC.setToRecipients([link])
-            
-            self.present(mailComposerVC, animated: true, completion: nil)
-        } else {
-            let coded = "mailto:\(link)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+    func showDialog(_ message: String) {
         
-            if let emailURL = coded
-            {
-                self.openLinkInAppInWebView(link: emailURL)
-            }
-        }
-    }
-    
-    func openLinkInAppInWebView(link : String) {
-        let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
-        vc.isComeFrom = "APPIN"
-        vc.loadableUrlStr = link
-        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func showContentViewController(_ amb: Ambassadorship) {
         
-        let contentViewController = UIStoryboard(name: "Content", bundle: nil).instantiateViewController(withIdentifier: "ShowContentsVC") as! ShowContentsVC
+    }
+    
+    func showMessage(_ title: String, _ message: String) {
         
-        contentViewController.ambassadorship = amb
-        contentViewController.user = user
-        
-        self.navigationController?.pushViewController(contentViewController, animated: true)
     }
     
     func showGift(_ title: String, mess: String?, res: @escaping (Bool) -> ()) {
-        let alertController = UIAlertController(title: title, message: mess, preferredStyle: UIAlertController.Style.actionSheet)
-        
-        alertController.addAction(UIAlertAction(title:  "Yes", style: UIAlertAction.Style.destructive, handler: { (alertAction: UIAlertAction) in
-            res(true)
-        }))
-        
-        alertController.addAction(UIAlertAction(title:  "No", style: UIAlertAction.Style.cancel, handler: { (alertAction: UIAlertAction) in
-            res(false)
-            alertController.dismiss(animated: true, completion: nil)
-        }))
-        
-        present(alertController, animated: true, completion: nil)
-    }
-
-    func showMessage(_ title: String, _ message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func showDialog(_ message: String) {
-        let alert = UIAlertController(title: "Message", message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func currentSubPage(_ page: Int) {
-        currentSubPage = page
-        print("curr sub page = \(currentSubPage)")
-    }
-
-    func currentPage(_ page: Int) {
-        addDuration()
-        print("curr page = \(ShowContentsVC.currentPage)")
-        ShowContentsVC.currentPage = page
-    }
-    
-    func shareContent(_ id: Int) {
-        //showShare(id)
-    }
-    
-    func shareContentOutbound(_ id: Int) {
-        //showShareOutbound(id)
-    }
-    
-    func vertical(_ verticalPage: Int) {
         
     }
     
-    func retrieveImage(_ url: String) {
+    func openLinkInAppInWebView(link: String) {
         
     }
     
-    // TODO: Put this functionality in MultiPage, once done remove notifications. handleContentButtons func must switch delegate
-    
-    func shareButtons(_ contentNumber: Int?, _ subPageNumber: Int?) {
+    func openEmailLink(link: String) {
         
     }
- 
+    
+    func presentUseAlert(_ title: String, _ message: String) {
+        
+    }
 }
 
 extension ShowContentsVC : UIScrollViewDelegate {
@@ -640,7 +564,7 @@ extension ShowContentsVC : UIScrollViewDelegate {
         ShowContentsVC.currentContent = scroll.currentHorizontalPage()
         print("curr = \(ShowContentsVC.currentContent)")
         
-        shareButtons(ShowContentsVC.currentContent, 0)
+        //shareButtons(ShowContentsVC.currentContent, 0)
         if let contents = contents, !contents.isEmpty {
             leftButton.isHidden = ShowContentsVC.currentContent == 0
             rightButton.isHidden = contents.count - 1 == ShowContentsVC.currentContent

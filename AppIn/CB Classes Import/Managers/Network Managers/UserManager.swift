@@ -63,8 +63,8 @@ open class UserManager: BaseManager {
     }
     
     fileprivate func updatePushNotificationsInfo() {
-        let notificationSettings = UIUserNotificationSettings(types: [.sound, .badge, .alert], categories: nil)
-        UIApplication.shared.registerUserNotificationSettings(notificationSettings)
+        //let notificationSettings = UIUserNotificationSettings(types: [.sound, .badge, .alert], categories: nil)
+        //UIApplication.shared.registerUserNotificationSettings(notificationSettings)
     }
     
     func currentAuthorizedUser(_ completion: @escaping (_ user: User?) -> ()) {

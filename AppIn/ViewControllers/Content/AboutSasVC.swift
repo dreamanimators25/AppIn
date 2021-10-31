@@ -15,11 +15,19 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
     
     @IBOutlet weak var aboutCollectionView: UICollectionView!
     @IBOutlet weak var aboutPageControl: UIPageControl!
+    
+    var isComeFrom : String = ""
+    var isID : String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarColor()
 
-        self.callGetChannelInfoWebService()
+        if let id = self.isID {
+            self.callGetChannelInfoWebService(id: id)
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,16 +91,26 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
         return 0
     }
     
-    func callGetChannelInfoWebService() {
+    func callGetChannelInfoWebService(id : String) {
         
         var params = [String : String]()
-        params = ["id" : "0"]
+        params = ["id" : id]
         
         print("params = \(params)")
         
-        Alamofire.request(kGetChannelInfoURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        var strUrl = ""
+        if isComeFrom == "Channel" {
+            strUrl = kGetChannelInfoURL
+        }else {
+            strUrl = kGetBrandInfoURL
+        }
+        
+        self.showSpinner(onView: self.view)
+        
+        Alamofire.request(strUrl, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                         
-            print(responseData)
+            self.removeSpinner()
+            //print(responseData)
             
             switch responseData.result {
             case .success:
@@ -102,12 +120,13 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
                     let json = JSON(data)
                     print(json)
                     
-                    let responsModal = RegisterBaseClass.init(json: json)
-                    
+                    let responsModal = AboutBaseData.init(json: json)
+
                     if responsModal.status == "success" {
-                                                    
+                        
+
                     }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        Alert.showAlert(strTitle: "", strMessage: "Error", Onview: self)
                     }
                     
                 }
@@ -117,7 +136,7 @@ class AboutSasVC: UIViewController, UICollectionViewDataSource, UICollectionView
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftyJSON
+import AVFoundation
 
 public class AllFeedPages: NSCoding {
 
@@ -36,6 +37,7 @@ public class AllFeedPages: NSCoding {
   private let kAllFeedPagesEndDateKey: String = "endDate"
   private let kAllFeedPagesAutoShareKey: String = "autoShare"
   private let kAllFeedPagesChannelIdKey: String = "channelId"
+  private let kAllFeedPagesThirdPartyKey: String = "third_party"
 
   // MARK: Properties
   public var backgroundType: String?
@@ -63,6 +65,7 @@ public class AllFeedPages: NSCoding {
   public var endDate: String?
   public var autoShare: String?
   public var channelId: String?
+  public var thirdParty: String?
 
   // MARK: SwiftyJSON Initalizers
   /**
@@ -105,6 +108,27 @@ public class AllFeedPages: NSCoding {
     endDate = json[kAllFeedPagesEndDateKey].string
     autoShare = json[kAllFeedPagesAutoShareKey].string
     channelId = json[kAllFeedPagesChannelIdKey].string
+    thirdParty = json[kAllFeedPagesThirdPartyKey].string
+    
+    //backgroundMeta = "https://www.learningcontainer.com/bfd_download/sample-mp4-file/"
+    // http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4
+    // http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4
+
+    // http://www.exit109.com/~dnn/clips/RW20seconds_2.mp4
+    // http://www.exit109.com/~dnn/clips/RW20seconds_1.mp4
+            
+    if backgroundType == "1" {
+        if backgroundMeta != "" {
+            if let videoUrl = URL(string: backgroundMeta ?? "") {
+                let item = AVPlayerItem.init(url: videoUrl)
+                let player = Player(playerItem: item)
+                player.isMuted = true
+                MPCacher.sharedInstance.setObjectForKey(player, key: backgroundMeta ?? "")
+            }
+        }
+    }
+    
+    
   }
 
   /**
@@ -138,6 +162,8 @@ public class AllFeedPages: NSCoding {
     if let value = endDate { dictionary[kAllFeedPagesEndDateKey] = value }
     if let value = autoShare { dictionary[kAllFeedPagesAutoShareKey] = value }
     if let value = channelId { dictionary[kAllFeedPagesChannelIdKey] = value }
+    if let value = thirdParty { dictionary[kAllFeedPagesThirdPartyKey] = value }
+    
     return dictionary
   }
 
@@ -168,6 +194,8 @@ public class AllFeedPages: NSCoding {
     self.endDate = aDecoder.decodeObject(forKey: kAllFeedPagesEndDateKey) as? String
     self.autoShare = aDecoder.decodeObject(forKey: kAllFeedPagesAutoShareKey) as? String
     self.channelId = aDecoder.decodeObject(forKey: kAllFeedPagesChannelIdKey) as? String
+    self.thirdParty = aDecoder.decodeObject(forKey: kAllFeedPagesThirdPartyKey) as? String
+    
   }
 
   public func encode(with aCoder: NSCoder) {
@@ -196,6 +224,8 @@ public class AllFeedPages: NSCoding {
     aCoder.encode(endDate, forKey: kAllFeedPagesEndDateKey)
     aCoder.encode(autoShare, forKey: kAllFeedPagesAutoShareKey)
     aCoder.encode(channelId, forKey: kAllFeedPagesChannelIdKey)
+    aCoder.encode(thirdParty, forKey: kAllFeedPagesThirdPartyKey)
+    
   }
 
 }

@@ -23,6 +23,7 @@ class ForgotPasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,13 +53,15 @@ class ForgotPasswordVC: UIViewController {
         if Validation() {
         
             var params = [String : String]()
-            params = ["username" : self.txtFEmail.text!
-                      ]
+            params = ["email" : self.txtFEmail.text!]
             
             print("params = \(params)")
+            self.showSpinner(onView: self.view)
             
             Alamofire.request(kForgetPasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                             
+                self.removeSpinner()
+                
                 print(responseData)
                 
                 switch responseData.result {
@@ -73,37 +76,40 @@ class ForgotPasswordVC: UIViewController {
                         let responsModal = RegisterBaseClass.init(json: json)
                         
                         DispatchQueue.main.async {
+                            
                             if responsModal.status == "success" {
                                 
                                 self.txtFEmail.text = ""
                                 
                                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                                 vc.img = #imageLiteral(resourceName: "successTick")
-                                vc.lbl = responsModal.msg ?? "Success"
+                                vc.lbl = json["msg"].stringValue
                                 vc.btn = ""
                                 vc.modalPresentationStyle = .overCurrentContext
                                 //vc.modalTransitionStyle = .crossDissolve
                                 self.present(vc, animated: true, completion: nil)
                                 
-                            }else{
+                            }
+                            else {
                                 
                                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                                 vc.img = #imageLiteral(resourceName: "errorClose")
-                                vc.lbl = responsModal.msg ?? "Error"
+                                vc.lbl = json["msg"].stringValue
                                 vc.btn = ""
                                 vc.modalPresentationStyle = .overCurrentContext
                                 //vc.modalTransitionStyle = .crossDissolve
                                 self.present(vc, animated: true, completion: nil)
+                                
                             }
                         }
-                        
+                   
                     }
                 case .failure(let error):
                     
                     if error.localizedDescription.contains("Internet connection appears to be offline"){
                         Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                     }else{
-                        Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                        Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                     }
                 }
                 

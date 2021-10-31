@@ -9,25 +9,47 @@
 import UIKit
 import Crashlytics
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
 var enableTabBarItems : ((_ cod : String) -> (Void))?
 
-class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
+struct TestObject: Codable {
+    var test: String
+}
+
+class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate {
     
     @IBOutlet weak var channelTableView: UITableView!
     @IBOutlet weak var ErrorView: UIView!
+    @IBOutlet weak var txtFSearch: UITextField!
+    @IBOutlet weak var lblChannel: UILabel!
     
     //var arrBrand = ["SAS","Uber","Air bnb"]
-    var arrBrand : [AllBrandData]? = nil
+    var searchActive : Bool = false
     var arrBrandSelectedSection = [Int]()
+    
+    //var arrSearchData = [AllBrandData]()
+    //var arrBrand : [AllBrandData]? = nil
+    //var brandData : AllBrandData? = nil
+    
+    var arrSearchData = [AllFeedData]()
+    var arrBrand : [AllFeedData]? = nil
+    var brandData : AllFeedData? = nil
     
     fileprivate let user = UserManager.sharedInstance.user
     fileprivate var ambassadorships: [Ambassadorship] = []
 
+    var arrSelectedSection = [Int]()
+    var selSection = -1
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
+        self.txtFSearch.addTarget(self, action: #selector(ChannelsVC.textFieldDidChange(_:)),
+                                  for: UIControl.Event.editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,10 +73,66 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.selSection = -1
+    }
+    
+    // MARK: UITextField Delegates
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        // filter tableViewData with textField.text
+        
+        let searchText  = textField.text
+        
+        //self.arrSearchData = (searchText?.isEmpty ?? false) ? self.arrCityData : self.arrCityData.filter { $0.strStateName?.range(of: searchText ?? "", options: .caseInsensitive) != nil
+        //}
+        
+        self.arrSearchData = ((searchText?.isEmpty ?? false) ? self.arrBrand : self.arrBrand?.filter {
+            $0.name?.range(of: searchText ?? "", options: .caseInsensitive) != nil
+        }) ?? []
+        
+//        for item in self.arrBrand ?? [] {
+//            let data = item.channel
+//
+//            self.arrSearchData = ((searchText?.isEmpty ?? false) ? data : data.filter {
+//                $0.name?.range(of: searchText ?? "", options: .caseInsensitive) != nil
+//            }) ?? []
+//        }
+                
+        if(arrSearchData.count == 0){
+            searchActive = false
+            
+            //self.ErrorView.isHidden = false
+            //self.channelTableView.isHidden = true
+        } else {
+            searchActive = true
+            
+            //self.ErrorView.isHidden = true
+            //self.channelTableView.isHidden = false
+        }
+        
+        self.channelTableView.reloadData()
+    }
+    
     //MARK: IBAction
     @IBAction func searchBtnClicked(_ sender: UIButton) {
-        let vc = DesignManager.loadViewControllerFromChannelStoryBoard(identifier: "SearchChannelVC") as! SearchChannelVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        //let vc = DesignManager.loadViewControllerFromChannelStoryBoard(identifier: "SearchChannelVC") as! SearchChannelVC
+        //self.navigationController?.pushViewController(vc, animated: true)
+        
+        if sender.isSelected {
+            sender.isSelected = !sender.isSelected
+            self.lblChannel.isHidden = false
+            self.txtFSearch.isHidden = true
+            
+            self.view.endEditing(true)
+        }else {
+            sender.isSelected = !sender.isSelected
+            self.lblChannel.isHidden = true
+            self.txtFSearch.isHidden = false
+            
+        }
+        
     }
     
     @IBAction func addChannelBtnClicked(_ sender: UIButton) {
@@ -77,77 +155,170 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: UITableView DataSource & Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.arrBrand?.count ?? 0
+        //return self.arrBrand?.count ?? 0
+        
+        guard (self.arrBrand?.count ?? 0) > 0 else {
+            self.ErrorView.isHidden = false
+            return 0
+        }
+        
+        self.ErrorView.isHidden = true
+        
+        if (searchActive){
+           return arrSearchData.count
+        } else {
+           return self.arrBrand?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+                
+        if(searchActive){
+            
+            if arrBrandSelectedSection.contains(section) {
+                //return (self.arrSearchData[section].channel?.count ?? 0) + 1
+                return (self.arrSearchData[section].channels?.count ?? 0) + 1
+            }
+            return 1
         
-        if arrBrandSelectedSection.contains(section) {
-            //return 3
-            return (self.arrBrand?[section].channel?.count ?? 0) + 1
+        }else {
+            
+            if arrBrandSelectedSection.contains(section) {
+                //return (self.arrBrand?[section].channel?.count ?? 0) + 1
+                return (self.arrBrand?[section].channels?.count ?? 0) + 1
+            }
+            return 1
+            
         }
-        return 1
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
+            
             let brandCell = tableView.dequeueReusableCell(withIdentifier: "brandCell", for: indexPath)
             
-            //let brandImg : UIImageView = brandCell.viewWithTag(10) as! UIImageView
+            let brandImg : UIImageView = brandCell.viewWithTag(10) as! UIImageView
             let titleLbl : UILabel = brandCell.viewWithTag(20) as! UILabel
             let arrowImg : UIImageView = brandCell.viewWithTag(30) as! UIImageView
             let seperatorLbl : UILabel = brandCell.viewWithTag(40) as! UILabel
             let countlLbl : UILabel = brandCell.viewWithTag(50) as! UILabel
+                        
+            if(searchActive){
+                brandData = self.arrSearchData[indexPath.section]
+            }else {
+                brandData = self.arrBrand?[indexPath.section]
+            }
             
-            let brandData = self.arrBrand?[indexPath.section]
-            let channel = brandData?.channel
-            let channelData = channel?[indexPath.row]
+                        
+            //let channel = brandData?.channel
+            //let channelData = channel?[indexPath.row]
             
-            titleLbl.text = channelData?.name
+            
+            titleLbl.text = brandData?.name
+            
+            /*
+            print(brandData?.name ?? "")
+            
+            //let str = "StavsnÃ¤s"
+            let str = brandData?.name
+            if let data = str?.data(using: .isoLatin1) {
+                if let fixed = String.init(data: data, encoding: .isoLatin1) {
+                    titleLbl.text = fixed
+                }
+            }
+            */
+            
+            
+            
+            if let url = URL.init(string: brandData?.logo ?? "") {
+                brandImg.af_setImage(withURL: url)
+            }
             
             if arrBrandSelectedSection.contains(indexPath.section) {
-                arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+                //arrowImg.transform = arrowImg.transform.rotated(by: .pi)
                 seperatorLbl.isHidden = true
                 
                 //countlLbl.text = "3"
                 countlLbl.isHidden = true
             }else {
-                arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+                //arrowImg.transform = arrowImg.transform.rotated(by: .pi)
                 seperatorLbl.isHidden = false
                 
                 countlLbl.text = ""
                 countlLbl.isHidden = true
             }
+                    
+            if self.arrSelectedSection.contains(indexPath.section) {
+                //arrowImg.transform = brandCell.arrowImg.transform.rotated(by: .pi)
+                arrowImg.image = UIImage.init(named: "upArrow")
+            }else {
+                //arrowImg.transform = brandCell.arrowImg.transform.rotated(by: 0)
+                arrowImg.image = UIImage.init(named: "downArrow")
+            }
+            
+            
+            /*
+             if arrSelectedSection.contains(indexPath.section) && self.selSection == indexPath.section {
+             arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+             }*/
+            
+            
             
             return brandCell
         }else {
             
             let channelCell = tableView.dequeueReusableCell(withIdentifier: "channelCell", for: indexPath)
             
-            //let channelImg : UIImageView = channelCell.viewWithTag(10) as! UIImageView
+            let channelImg : UIImageView = channelCell.viewWithTag(10) as! UIImageView
             let subTitleLbl : UILabel = channelCell.viewWithTag(20) as! UILabel
             let titleLbl : UILabel = channelCell.viewWithTag(30) as! UILabel
-            //let arrowImg : UIImageView = channelCell.viewWithTag(40) as! UIImageView
+            let arrowImg : UIImageView = channelCell.viewWithTag(40) as! UIImageView
             let seperatorlLbl : UILabel = channelCell.viewWithTag(50) as! UILabel
             let countlLbl : UILabel = channelCell.viewWithTag(60) as! UILabel
             
-            let brandData = self.arrBrand?[indexPath.section]
-            let channel = brandData?.channel
-            let channelData = channel?[indexPath.row - 1]
+            if(searchActive){
+                brandData = self.arrSearchData[indexPath.section]
+            }else {
+                brandData = self.arrBrand?[indexPath.section]
+            }
             
+            //let brandData = self.arrBrand?[indexPath.section]
+            let channel = brandData?.channels
+            let channelData = channel?[indexPath.row - 1]
+                        
             titleLbl.text = channelData?.name
             
-            if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
+            if let url = URL.init(string: channelData?.logo ?? "") {
+                channelImg.af_setImage(withURL: url)
+            }
+            
+            if (channelData?.pages?.count ?? 0) > 0 {
+                channelImg.alpha = 1.0
+                titleLbl.alpha = 1.0
+                
+                arrowImg.isHidden = false
+            }else {
+                channelImg.alpha = 0.5
+                titleLbl.alpha = 0.5
+                
+                arrowImg.isHidden = true
+            }
+            
+            //if indexPath.row == (self.arrBrand?.count ?? 0) - 1 {
+            if indexPath.row == brandData?.channels?.count {
+                
                 seperatorlLbl.isHidden = false
-                subTitleLbl.isHidden = false
-                subTitleLbl.text = "Partner"
+                subTitleLbl.isHidden = true
+                //subTitleLbl.text = "Partner"
                 
                 //countlLbl.text = "3"
-                //countlLbl.isHidden = false
+                countlLbl.isHidden = true
             }else {
                 seperatorlLbl.isHidden = true
-                //subTitleLbl.isHidden = true
+                subTitleLbl.isHidden = true
                 
                 countlLbl.text = ""
                 countlLbl.isHidden = true
@@ -166,6 +337,20 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         if indexPath.row == 0 {
             
+            self.selSection = indexPath.section
+            //self.arrSelectedSection.append(indexPath.section)
+            
+            if self.arrSelectedSection.contains(indexPath.section) {
+                
+                if let index = self.arrSelectedSection.firstIndex(of: (indexPath.section)) {
+                    self.arrSelectedSection.remove(at: index)
+                }
+                
+            }else {
+                self.arrSelectedSection.append(indexPath.section)
+            }
+            
+                        
             if self.arrBrandSelectedSection.contains(indexPath.section) {
                 
                 if let index = self.arrBrandSelectedSection.firstIndex(of: (indexPath.section)) {
@@ -176,10 +361,43 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 self.arrBrandSelectedSection.append(indexPath.section)
             }
             
+            //self.channelTableView.reloadSections(IndexSet.init(integer: indexPath.section), with: .automatic)
             self.channelTableView.reloadData()
             
-        }else {
             
+        }else {
+            self.view.endEditing(true)
+            
+            if (searchActive) {
+                brandData = self.arrSearchData[indexPath.section]
+            }else {
+                brandData = self.arrBrand?[indexPath.section]
+            }
+            
+            //let brandData = self.arrBrand?[indexPath.section]
+            let channel = brandData?.channels
+            let channelData = channel?[indexPath.row - 1]
+            
+            guard (channelData?.pages?.count ?? 0) > 0 else {
+                return
+            }
+                        
+            if let load = loadChannel {
+                AppDelegate.sharedDelegate().selChannelID = Int("\(channelData?.internalIdentifier ?? "")") ?? 0
+                
+                if let tabBarController = self.navigationController?.tabBarController {
+                    tabBarController.selectedIndex = 1
+                }
+                
+                load()
+            }else {
+                AppDelegate.sharedDelegate().selChannelID = Int("\(channelData?.internalIdentifier ?? "")") ?? 0
+                
+                if let tabBarController = self.navigationController?.tabBarController {
+                    tabBarController.selectedIndex = 1
+                }
+            }
+        
         }
         
     }
@@ -198,18 +416,14 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         let titleLbl = UILabel.init(frame: CGRect.init(x: 80.0, y: 21.0, width: baseView.bounds.width - 90.0, height: 17.5))
         
         let data = self.arrBrand?[section]
+        
         titleLbl.text = data?.name
         
         let arrowImgView = UIImageView.init(frame: CGRect.init(x: baseView.bounds.width - 30.0, y: 24.5, width: 15.0, height: 10.0))
         arrowImgView.contentMode = .center
         arrowImgView.image = #imageLiteral(resourceName: "downArrow")
         
-        /*
-        if arrSelectedSection.contains(section) {
-            arrowImgView.transform = arrowImgView.transform.rotated(by: .pi)
-        }else {
-            arrowImgView.transform = arrowImgView.transform.rotated(by: .pi)
-        }*/
+       
         
         let sepratLbl = UILabel.init(frame: CGRect.init(x: 15.0, y: 60.0, width: baseView.bounds.width - 30.0, height: 1.0))
         sepratLbl.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.2)
@@ -241,12 +455,12 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         }
         
         self.channelTableView.reloadData()
-        
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
     }
+
     
     //MARK: Web Service
     func callMyChannelWebService() {
@@ -255,11 +469,15 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         var params = [String : String]()
         params = ["user_id" : userData?.UserId ?? ""]
+        //params = ["user_id" : "16"]
         
         print("params = \(params)")
         
-        Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                 
+        self.showSpinner(onView: self.view)
+        
+        Alamofire.request(kGetChannelsFeedURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+            
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -268,22 +486,23 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
+                    //print(json)
                     
-                    let responsModal = AllBrandBaseClass.init(json: json)
+                    //let responsModal = AllBrandBaseClass.init(json: json)
+                    let responsModal = AllFeedBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {
                         
                         self.arrBrand = responsModal.data
                         self.channelTableView.reloadData()
                         
-                        self.ErrorView.isHidden = true
-                        self.channelTableView.isHidden = false
+                        //self.ErrorView.isHidden = true
+                        //self.channelTableView.isHidden = false
                                                     
                     }else{
-                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
-                        self.ErrorView.isHidden = false
-                        self.channelTableView.isHidden = true
+                        Alert.showAlert(strTitle: "", strMessage: json["msg"].stringValue, Onview: self)
+                        //self.ErrorView.isHidden = false
+                        //self.channelTableView.isHidden = true
                     }
                     
                 }
@@ -293,7 +512,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -311,9 +530,11 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                   "shortCode" : Code]
                 
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kAddChannelWithCodeURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -328,13 +549,19 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     
                     if responsModal.status == "success" {
                         
+                        //self.callMyChannelWebService()
+                        
                         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "BottomViewVC") as! BottomViewVC
                         vc.img = #imageLiteral(resourceName: "successTick")
                         vc.lbl = "Channel was added"
                         vc.btn = ""
                         vc.modalPresentationStyle = .overCurrentContext
                         //vc.modalTransitionStyle = .crossDissolve
-                        self.present(vc, animated: true, completion: nil)
+                        //self.present(vc, animated: true, completion: nil)
+                        
+                        self.present(vc, animated: true) {
+                            self.callMyChannelWebService()
+                        }
                                                     
                     }else{
                         Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
@@ -347,7 +574,7 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             

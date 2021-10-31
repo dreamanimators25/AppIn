@@ -263,6 +263,56 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        autoreleasepool {
+            
+            guard closeCell else {
+                closeCell = true
+                
+                return
+            }
+            
+            if let cell = cell as? ContentImageCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentTextCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentVideoCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentSoundCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentYoutubeCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+            if let cell = cell as? ContentVimeoCVCell {
+                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
+                    cell.mp3URL = mp3
+                }
+            }
+            
+        }
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
         autoreleasepool {
@@ -317,56 +367,7 @@ class MultiPageCVCell: UICollectionViewCell, UICollectionViewDataSource, UIColle
             
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        autoreleasepool {
-            
-            guard closeCell else {
-                closeCell = true
-                
-                return
-            }
-            
-            if let cell = cell as? ContentImageCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentTextCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentVideoCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentSoundCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentYoutubeCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-            if let cell = cell as? ContentVimeoCVCell {
-                if let mp3 = self.content?.pages[indexPath.row].BackSoundUrl {
-                    cell.mp3URL = mp3
-                }
-            }
-            
-        }
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
     }
@@ -934,6 +935,7 @@ extension MultiPageCVCell : UIScrollViewDelegate {
 
 class Downloader {
     class func load(url: URL, to localFileName: Int, completion: @escaping (_ msg:String) -> ()) {
+        
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let request = try! URLRequest(url: url, method: .get)
@@ -959,7 +961,18 @@ class Downloader {
                     destinationURLForFile.appendPathComponent(String(describing: fileName))
                     
                     if fileManager.fileExists(atPath: destinationURLForFile.path) {
-                        completion("File Already Exist!")
+                        
+                        do {
+                            try fileManager.removeItem(atPath: destinationURLForFile.path)
+                            try fileManager.moveItem(at: tempLocalUrl ?? URL.init(string: "")!, to: destinationURLForFile)
+                            
+                            //completion("File Already Exist!")
+                            completion("File Download & Save!")
+                            
+                        }catch (let error) {
+                            print(error)
+                        }
+                        
                     }else {
                         
                         try fileManager.moveItem(at: tempLocalUrl ?? URL.init(string: "")!, to: destinationURLForFile)

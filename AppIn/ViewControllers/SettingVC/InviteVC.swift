@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    @IBOutlet weak var qrCodeImageView: UIImageView!
     @IBOutlet weak var txtFAccessCode: UITextField!
     @IBOutlet weak var txtFAddEmail: UITextField!
     @IBOutlet weak var emailTableView: UITableView!
@@ -20,9 +21,19 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     @IBOutlet weak var inviteBtnHeight: NSLayoutConstraint!
     
     var arrEmailInvited = [String]()
+    var strAccessCode : String = ""
+    var strQrCode : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarColor()
+        
+        self.txtFAccessCode.text = self.strAccessCode
+        
+        if let url = URL(string: self.strQrCode) {
+            self.qrCodeImageView.af_setImage(withURL: url)
+        }
 
     }
     
@@ -126,13 +137,19 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         var params = [String : Any]()
         
+        let formattedArray = (self.arrEmailInvited.map{String($0)}).joined(separator: ",")
+        
         params = ["user_id" : userData?.UserId ?? "",
                   "shortCode" : self.txtFAccessCode.text ?? "",
-                  "email" : self.arrEmailInvited]
+                  "invite_email" : formattedArray]
         
         print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kInviteUsersURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+            
+            self.removeSpinner()
+            print(responseData)
                         
             switch responseData.result {
             case .success:
@@ -174,7 +191,7 @@ class InviteVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             

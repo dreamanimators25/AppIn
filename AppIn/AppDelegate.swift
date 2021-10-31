@@ -9,15 +9,22 @@
 import UIKit
 
 var isComeFromPush = false
-var contentIdPush = 0
-var channelIdPush = 0
-var selectedRaw : Int?
-var selectedSection : Int?
+//var contentIdPush : Int? = -1
+//var channelIdPush : Int? = -1
+var selectedRaw : Int? = -1
+var selectedSection : Int? = -1
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    var isFeedTabSelect = true
+    var selChannelID : Int = -1
+    var selNotiChannelID : Int = -1
+    var selNotiPageID : Int = -1
+    var multiNotiPageID : Int = -1
 
     var window: UIWindow?
+    var nav : UINavigationController?
     
     fileprivate let kFlurryKey = "B53YVH8X7K994Y2GFK79"
     static var userId: Int?
@@ -52,15 +59,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     //MARK: Custom Methods
-    func navigateToHomeScreen() {
-        let  story = UIStoryboard.init(name: "Main", bundle: nil)
-        //self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Home_Nav")
-        self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Login_Nav")
-    }
     
     func navigateToLoginScreen() {
-        let  story = UIStoryboard.init(name: "Main", bundle: nil)
-        self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Login_Nav")
+        DispatchQueue.main.async {
+            let  story = UIStoryboard.init(name: "Main", bundle: nil)
+            self.window?.rootViewController = story.instantiateViewController(withIdentifier: "Login_Nav")
+        }
     }
     
     func navigateToDashboardScreen() {
@@ -86,6 +90,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    class func sharedDelegate() -> AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
 
 }
 

@@ -18,9 +18,12 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     var webView: WKWebView!
     var isComeFrom: String?
     var loadableUrlStr: String?
+    var isPresent = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarColor()
         
         if let str = isComeFrom {
             self.titleLbl.text = str
@@ -43,7 +46,13 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
-        _ = self.navigationController?.popViewController(animated: true)
+        
+        if isPresent {
+            self.dismiss(animated: true, completion: nil)
+        }else {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     //MARK: Custom Methods
@@ -51,9 +60,18 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
         webView = self.addWKWebView(viewForWeb: viewForWeb)
         webView.uiDelegate = self
         webView.navigationDelegate = self
-        let myURL = URL(string: loadableUrlStr ?? "")
-        let myRequest = URLRequest(url: myURL!)
-        webView.load(myRequest)
+        
+        guard loadableUrlStr != "" else {
+            return
+        }
+        
+        if isComeFrom == "" {
+            webView.loadHTMLString(loadableUrlStr ?? "", baseURL: nil)
+        }else {
+            let myURL = URL(string: loadableUrlStr ?? "")
+            let myRequest = URLRequest(url: myURL!)
+            webView.load(myRequest)
+        }
         
         //add observer to get estimated progress value
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)

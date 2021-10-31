@@ -17,6 +17,32 @@ class AppExtensions: NSObject {
 //MARK: UIViewController
 extension UIViewController {
     
+    func setStatusBarColor() {
+        
+        if #available(iOS 13.0, *) {
+            let app = UIApplication.shared
+            let statusBarHeight: CGFloat = app.statusBarFrame.size.height
+            
+            let statusbarView = UIView()
+            statusbarView.backgroundColor = AppThemeColor
+            view.addSubview(statusbarView)
+          
+            statusbarView.translatesAutoresizingMaskIntoConstraints = false
+            statusbarView.heightAnchor
+                .constraint(equalToConstant: statusBarHeight).isActive = true
+            statusbarView.widthAnchor
+                .constraint(equalTo: view.widthAnchor, multiplier: 1.0).isActive = true
+            statusbarView.topAnchor
+                .constraint(equalTo: view.topAnchor).isActive = true
+            statusbarView.centerXAnchor
+                .constraint(equalTo: view.centerXAnchor).isActive = true
+          
+        } else {
+            let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView
+            statusBar?.backgroundColor = AppThemeColor
+        }
+    }
+    
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -35,6 +61,8 @@ extension UIViewController {
     
     func addWKWebView(viewForWeb:UIView) -> WKWebView {
         let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        
         let webView = WKWebView(frame: viewForWeb.frame, configuration: webConfiguration)
         webView.frame.origin = CGPoint.init(x: 0, y: 0)
         webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -106,16 +134,51 @@ extension UserDefaults {
     
 }
 
-extension UIButton {
-    func setBackgroundColor(color: UIColor, forState: UIControl.State) {
-        self.clipsToBounds = true  // add this to maintain corner radius
-        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
-        if let context = UIGraphicsGetCurrentContext() {
-            context.setFillColor(color.cgColor)
-            context.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
-            let colorImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            self.setBackgroundImage(colorImage, for: forState)
+extension Date {
+
+func getElapsedInterval() -> String {
+
+    let interval = Calendar.current.dateComponents([.year, .month, .day], from: self, to: Date())
+
+    if let year = interval.year, year > 0 {
+        return year == 1 ? "\(year)" + " " + "year ago" :
+            "\(year)" + " " + "years ago"
+    } else if let month = interval.month, month > 0 {
+        return month == 1 ? "\(month)" + " " + "month ago" :
+            "\(month)" + " " + "months ago"
+    } else if let day = interval.day, day > 0 {
+        return day == 1 ? "\(day)" + " " + "day ago" :
+            "\(day)" + " " + "days ago"
+    } else {
+        return "a moment ago"
+
+    }
+
+}
+}
+
+var vSpinner : UIView?
+
+extension UIViewController {
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        vSpinner = spinnerView
+    }
+    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+            vSpinner?.removeFromSuperview()
+            vSpinner = nil
         }
     }
 }

@@ -13,23 +13,37 @@ class SplashVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         let userData = UserDefaults.getUserData()
         if userData != nil {
             
-            DispatchQueue.main.async(execute: {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                    appDelegate.navigateToDashboardScreen()
-                }
-            })
+            //DispatchQueue.main.async(execute: {
+                //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                //appDelegate.navigateToDashboardScreen()
+            
+                    let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+                    let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                    self.navigationController?.pushViewController(loginVC, animated: true)
+            
+            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            //let verifyVC = mainStoryboard.instantiateViewController(withIdentifier: "VerifyEmailVC") as! VerifyEmailVC
+            //self.navigationController?.pushViewController(verifyVC, animated: true)
+            
+                //}
+            //})
             
         }else {
             
-            DispatchQueue.main.async(execute: {
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                    appDelegate.navigateToLoginScreen()
-                }
-            })
-        
+            //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                //appDelegate.navigateToLoginScreen()
+                
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "IntroSplashVC") as! IntroSplashVC
+                self.navigationController?.pushViewController(loginVC, animated: true)
+                
+            //}
+            
         }
 
     }

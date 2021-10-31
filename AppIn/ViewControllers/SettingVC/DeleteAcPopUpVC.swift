@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class DeleteAcPopUpVC: UIViewController {
+    
+    var yesDelete : (()->(Void))?
     
     @IBOutlet weak var titleLbl: UILabel!
     @IBOutlet weak var contentLbl: UILabel!
@@ -55,11 +59,18 @@ class DeleteAcPopUpVC: UIViewController {
     }
     
     @IBAction func deleteAcBtnClicked(_ sender: UIButton) {
+        
         self.dismiss(animated: true) {
             
+            if let sure = self.yesDelete {
+                sure()
+            }
+            
         }
+        
     }
-
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation

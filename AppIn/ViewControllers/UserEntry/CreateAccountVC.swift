@@ -11,9 +11,11 @@ import FirebaseInstanceID
 import Alamofire
 import SwiftyJSON
 import DropDown
+import WebKit
 
-class CreateAccountVC: UIViewController {
+class CreateAccountVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
+    @IBOutlet weak var logoImgView: UIImageView!
     @IBOutlet weak var checkBoxBtn: UIButton!
     
     @IBOutlet weak var txtFieldName: UITextField!
@@ -51,6 +53,10 @@ class CreateAccountVC: UIViewController {
     
     @IBOutlet weak var overlay: UIView!
     
+    @IBOutlet weak var baseWebView: UIView!
+    @IBOutlet weak var webviewHeightConstraint: NSLayoutConstraint!
+    var webView: WKWebView!
+    
     let ageFeelDropDown = DropDown()
     
     deinit {
@@ -59,6 +65,9 @@ class CreateAccountVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setStatusBarColor()
+        self.logoImgView.layer.cornerRadius = 10.0
 
         self.txtFieldAgeFeel.addTarget(self, action: #selector(tapGenderField), for: .allEditingEvents)
         self.txtFieldProfileBio.addTarget(self, action: #selector(tapBioField), for: .allEditingEvents)
@@ -68,6 +77,134 @@ class CreateAccountVC: UIViewController {
         ageFeelDropDown.anchorView = self.txtFieldAgeFeel
         ageFeelDropDown.dataSource = ["Youth", "Young Adult", "Middle Aged", "Senior"]
         ageFeelDropDown.cellConfiguration = { (index, item) in return "\(item)" }
+        
+        //self.setHTML()
+        self.LoadWebView()
+        
+    }
+    
+    func setHTML() {
+        
+        let html = "<html>By using the app you certify that you have read and understood and approve our <a href=\"https://www.w3schools.com/\">General Terms,</a> <a href=\"https://www.w3schools.com/\">Privacy Policy</a>, <a href=\"https://www.w3schools.com/\">App Agreement.</a></html>"
+        
+        let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
+        
+        
+        let htmlString = """
+            <style>
+            @font-face
+            {
+                font-family: 'CircularStd';
+                font-weight: normal;
+                src: url(CircularStd-Regular.ttf);
+            }
+            </style>
+                        <span style="font-family: 'CircularStd'; font-weight: normal; font-size: 14; color: black">\(headerString + html)</span>
+            """
+        
+        print(htmlString)
+        //self.htmlTextView.attributedText = htmlString.htmlToAttributedString
+        
+    }
+    
+    //MARK: Custom Methods
+    func LoadWebView() {
+        webView = self.addWKWebView(viewForWeb: self.baseWebView)
+        webView.uiDelegate = self
+        webView.navigationDelegate = self
+                
+        let html = "<html>By signing up you certify that you have read and understood and approve our <a href='https://appin.se/termssv'>General Terms,</a> <a href='https://appin.se/privacysv'>Privacy Policy</a>, <a href='https://appin.se/agreementsv'>App Agreement.</a></html>"
+        
+        
+        let headerString = "<head><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></head>"
+        
+        
+        let htmlString = """
+            <style>
+            @font-face
+            {
+                font-family: 'CircularStd';
+                font-weight: normal;
+                src: url(CircularStd-Regular.ttf);
+            }
+            </style>
+                        <span style="font-family: 'CircularStd'; font-weight: normal; font-size: 14; color: black">\(headerString + html)</span>
+            """
+                
+            webView.loadHTMLString(htmlString, baseURL: Bundle.main.bundleURL)
+        
+    }
+    
+    func addWKWebView(viewForWeb:UITextView) -> WKWebView {
+        let preferences = WKPreferences()
+        preferences.javaScriptEnabled = true
+    
+        
+        let webConfiguration = WKWebViewConfiguration()
+        webConfiguration.preferences = preferences
+        
+        //let webView = WKWebView(frame: viewForWeb.frame, configuration: webConfiguration)
+        let webView = WKWebView(frame: CGRect.init(x: 10.0, y: 10.0, width: self.baseWebView.bounds.width - 20.0, height: self.baseWebView.bounds.height - 20.0), configuration: webConfiguration)
+        
+        //webView.frame.origin = CGPoint.init(x: 0, y: 0)
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        ///webView.frame.size = viewForWeb.frame.size
+        //webView.center = viewForWeb.center
+        viewForWeb.addSubview(webView)
+        return webView
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard case .linkActivated = navigationAction.navigationType,
+              let url = navigationAction.request.url
+        else {
+            decisionHandler(.allow)
+            return
+        }
+        decisionHandler(.cancel)
+        
+        if navigationAction.request.url?.lastPathComponent == "termssv" {
+            
+            DispatchQueue.main.async {
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                vc.isComeFrom = "Terms & Conditions"
+                vc.loadableUrlStr = url.absoluteString
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }else if navigationAction.request.url?.lastPathComponent == "privacysv" {
+            
+            DispatchQueue.main.async {
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                vc.isComeFrom = "Privacy Policy"
+                vc.loadableUrlStr = url.absoluteString
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }else if navigationAction.request.url?.lastPathComponent == "agreementsv" {
+            
+            DispatchQueue.main.async {
+                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+                vc.isComeFrom = "App Agreement"
+                vc.loadableUrlStr = url.absoluteString
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }else {
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                // openURL(_:) is deprecated in iOS 10+.
+                UIApplication.shared.openURL(url)
+            }
+        }
+        
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
+            self.webviewHeightConstraint?.constant = height as! CGFloat
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,18 +292,10 @@ class CreateAccountVC: UIViewController {
     @IBAction func tncBtnClicked(_ sender: UIButton) {
         
         DispatchQueue.main.async {
-            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DeleteAcPopUpVC") as! DeleteAcPopUpVC
-                        
-            vc.modalPresentationStyle = .overCurrentContext
-            //vc.modalTransitionStyle = .crossDissolve
-            
-            vc.strTitle = "Terms & Conditions"
-            vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
-            vc.btnTitle = "Yes, i understand"
-            
-            self.present(vc, animated: true) {
-                
-            }
+            let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
+            vc.isComeFrom = "Terms & Conditions"
+            vc.loadableUrlStr = "https://appin.se/privacysv"
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         
     }
@@ -214,7 +343,7 @@ class CreateAccountVC: UIViewController {
                   "username" : self.txtFieldName.text!,
                   "email" : self.txtFieldEmail.text!,
                   "password" : self.txtFieldPassword.text!,
-                  "ageFeel" : self.txtFieldAgeFeel.text!,
+                  //"ageFeel" : self.txtFieldAgeFeel.text!,
                   //"contactNo" : self.txtFieldContactNo.text!,
                   //"address" : self.txtFieldAddress.text!,
                   //"country" : self.txtFieldCountry.text ?? countryName,
@@ -231,7 +360,11 @@ class CreateAccountVC: UIViewController {
         print("params = \(params)")
         print("\(kRegisterURL)")
         
+        //self.showSpinner(onView: self.view)
+        
         Alamofire.request(kRegisterURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: [:]).responseJSON { (responseData) in
+            
+            //self.removeSpinner()
             
             print(responseData)
             self.overlay.isHidden = true
@@ -240,6 +373,7 @@ class CreateAccountVC: UIViewController {
             case .success:
                 
                 if let data = responseData.result.value {
+                    
                     let json = JSON(data)
                     print(json)
                     
@@ -249,9 +383,18 @@ class CreateAccountVC: UIViewController {
                         UserDefaults.saveUserData(modal: responsModal.data!)
                         
                         DispatchQueue.main.async(execute: {
-                            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                                appDelegate.navigateToDashboardScreen()
-                            }
+                            //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                                //appDelegate.navigateToDashboardScreen()
+                                
+                                //let mainStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+                                //let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "TabBarViewController") as! TabBarViewController
+                                //self.navigationController?.pushViewController(loginVC, animated: true)
+                            
+                            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                            let verifyVC = mainStoryboard.instantiateViewController(withIdentifier: "VerifyEmailVC") as! VerifyEmailVC
+                            self.navigationController?.pushViewController(verifyVC, animated: true)
+                                
+                            //}
                         })
                         
                     }else{
@@ -264,7 +407,7 @@ class CreateAccountVC: UIViewController {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -275,7 +418,8 @@ class CreateAccountVC: UIViewController {
     @IBAction func userAgreementBtnClicked(_ sender: UIButton) {
         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - User Agreement"
-        vc.loadableUrlStr = "http://www.jokk.app/agreementsv"
+        vc.loadableUrlStr = "https://appin.se/agreementsv"
+        //vc.loadableUrlStr = "http://www.jokk.app/agreementsv"
         //vc.loadableUrlStr = "http://haldidhana.com/chinabasin.html"
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -283,14 +427,16 @@ class CreateAccountVC: UIViewController {
     @IBAction func privacyPolicyBtnClicked(_ sender: UIButton) {
         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - Privacy Policy"
-        vc.loadableUrlStr = "http://www.jokk.app/privacysv"
+        vc.loadableUrlStr = "https://appin.se/privacysv"
+        //vc.loadableUrlStr = "http://www.jokk.app/privacysv"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func GDPRAgreementBtnClicked(_ sender: UIButton) {
         let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "WebViewVC") as! WebViewVC
         vc.isComeFrom = "APPIN - GDPR"
-        vc.loadableUrlStr = "http://www.jokk.app/gdprsv"
+        vc.loadableUrlStr = "https://appin.se/gdprsv"
+        //vc.loadableUrlStr = "http://www.jokk.app/gdprsv"
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -359,6 +505,7 @@ class CreateAccountVC: UIViewController {
             
             return false
         }
+        /*
         else if !self.checkBoxBtn.isSelected {
             Alert.showAlert(strTitle: "", strMessage: "You Need To Agree With The Terms & Conditions", Onview: self)
             
@@ -366,6 +513,7 @@ class CreateAccountVC: UIViewController {
             //self.lblNameError.isHidden = false
             return false
         }
+        */
         
         return true
     }

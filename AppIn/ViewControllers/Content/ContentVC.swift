@@ -48,6 +48,8 @@ class ContentVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         if let str = strTitle {
             self.lblChannelTitle.text = str
         }

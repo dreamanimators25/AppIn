@@ -7,29 +7,44 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
+    var over21Data : RegisterData? = nil
     @IBOutlet weak var settingTableView: UITableView!
     
     let arrAccount = ["ACCOUNT","Edit profile","Change password","My channels"]
     let arrMore = ["MORE","Allow +21 content","GDPR","Privacy policy","Delete account","Logout"]
     let arrIcon = ["editProfile","changePassword","myChannel"]
     
-    let arrUrl = ["http://www.jokk.app/gdprsv","http://www.jokk.app/privacysv","http://www.jokk.app/agreementsv"]
+    
+    //let arrUrl = ["http://www.jokk.app/gdprsv","http://www.jokk.app/privacysv","http://www.jokk.app/agreementsv"]
+    let arrUrl = ["https://appin.se/gdprsv","https://appin.se/privacysv","https://appin.se/agreementsv"]
     let arrTitle = ["GDPR","Privacy policy","User agreement"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.callOver21WebService()
     }
     
     //MARK: Custom Methods
     fileprivate func logoutUser() {
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        //if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
-            appDelegate.navigateToLoginScreen()
+            //appDelegate.navigateToLoginScreen()
+        
+            self.tabBarController?.tabBar.isHidden = true
             
             CustomUserDefault.removeUserId()
             CustomUserDefault.removeLoginData()
@@ -37,11 +52,121 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             CustomUserDefault.removeUserPassword()
             CustomUserDefault.removeTokenTime()
             
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = mainStoryboard.instantiateViewController(withIdentifier: "IntroSplashVC") as! IntroSplashVC
+            self.navigationController?.pushViewController(loginVC, animated: true)
+            
+        //}
+    }
+    
+    //MARK: Web Service
+    func callOver21WebService() {
+        
+        let userData = UserDefaults.getUserData()
+        
+        var params = [String : String]()
+        params = ["user_id" : userData?.UserId ?? ""]
+        
+        print("params = \(params)")
+        self.showSpinner(onView: self.view)
+        
+        Alamofire.request(kGetUserURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            self.removeSpinner()
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    //print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                        
+                        if let profileData = responsModal.data {
+                            
+                            self.over21Data = profileData
+                            self.settingTableView.reloadData()
+                        }
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
+                }
+            }
+            
         }
+        
     }
     
     //MARK: IBAction
     @IBAction func allow21ContentBtnClicked(_ sender: UIButton) {
+        
+        let userData = UserDefaults.getUserData()
+        var params = [String : Any]()
+        
+        var over = 0
+        if sender.isSelected {
+            over = 0
+        }else {
+            over = 1
+        }
+        
+        params = ["over21" :  over,
+                  "user_id" : userData?.UserId ?? ""]
+        
+        print("params = \(params)")
+        self.showSpinner(onView: self.view)
+        
+        Alamofire.request(kUpdateOver21, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                        
+            self.removeSpinner()
+            print(responseData)
+            
+            switch responseData.result {
+            case .success:
+                
+                if let data = responseData.result.value {
+                    
+                    let json = JSON(data)
+                    print(json)
+                    
+                    let responsModal = RegisterBaseClass.init(json: json)
+                    
+                    if responsModal.status == "success" {
+                                                    
+                        self.over21Data?.over21 = String(over)
+                        self.settingTableView.reloadData()
+                                                    
+                    }else{
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                    }
+                    
+                }
+                
+            case .failure(let error):
+                
+                if error.localizedDescription.contains("Internet connection appears to be offline"){
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
+                }else{
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
+                }
+            }
+            
+        }
         
     }
     
@@ -90,7 +215,14 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 case 1:
                     let settingSwitchCell = tableView.dequeueReusableCell(withIdentifier: "settingSwitchCell", for: indexPath)
                     let rowLbl : UILabel = settingSwitchCell.viewWithTag(10) as! UILabel
+                    let switchBtn : UIButton = settingSwitchCell.viewWithTag(20) as! UIButton
                     rowLbl.text = self.arrMore[indexPath.row]
+                    
+                    if self.over21Data?.over21 == "1" {
+                        switchBtn.isSelected = true
+                    }else{
+                        switchBtn.isSelected = false
+                    }
                     
                     return settingSwitchCell
                 case 2,3:
@@ -126,6 +258,7 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             switch indexPath.row {
             case 1:
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "EditProfileVC") as! EditProfileVC
+                vc.isOver21 = self.over21Data?.over21 ?? ""
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
@@ -166,8 +299,31 @@ class SettingsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                         //vc.modalTransitionStyle = .crossDissolve
                         
                         vc.strTitle = "Delete account"
-                        vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
-                        vc.btnTitle = "Yes, delete my account"
+                        //vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
+                        //vc.btnTitle = "Yes, delete my account"
+                        vc.strContent = "ARE YOU REALLY SURE"
+                        vc.btnTitle = "Yes"
+                        
+                        vc.yesDelete = {
+                            
+                            DispatchQueue.main.async {
+                                let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "DeleteAcFinalPopUpVC") as! DeleteAcFinalPopUpVC
+                                
+                                vc.modalPresentationStyle = .overCurrentContext
+                                //vc.modalTransitionStyle = .crossDissolve
+                                
+                                vc.strTitleFinal = "Delete account"
+                                //vc.strContent = "Opting out will delete your profile and make all data generated in the system anonymized in agreement with the appin privacy policy and user agreement."
+                                //vc.btnTitle = "Yes, delete my account"
+                                vc.strContentFinal = "ONE LAST TIME ARE YOU REALLY SURE"
+                                vc.btnTitleFinal = "Yes, delete my account"
+                                
+                                self.present(vc, animated: true) {
+                                    
+                                }
+                            }
+                            
+                        }
                         
                         self.present(vc, animated: true) {
                             

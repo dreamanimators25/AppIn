@@ -17,6 +17,8 @@ class EditBiographyVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setStatusBarColor()
+        
         self.txtViewBiography.becomeFirstResponder()
 
     }

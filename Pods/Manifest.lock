@@ -123,11 +123,13 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - OTPFieldView (1.0.1)
   - Planet (0.3.1)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
   - SimpleKeychain (0.7.0)
   - SwiftyJSON (5.0.0)
+  - XCDYouTubeKit (2.15.2)
   - YouTubePlayer (0.7.1)
 
 DEPENDENCIES:
@@ -143,9 +145,11 @@ DEPENDENCIES:
   - FontAwesomeKit (~> 2.2.0)
   - HCVimeoVideoExtractor
   - Locksmith (~> 3.0.0)
+  - OTPFieldView
   - Planet
   - SimpleKeychain (~> 0.7.0)
   - SwiftyJSON
+  - XCDYouTubeKit (~> 2.15)
   - YouTubePlayer
 
 SPEC REPOS:
@@ -175,11 +179,13 @@ SPEC REPOS:
     - HCVimeoVideoExtractor
     - Locksmith
     - nanopb
+    - OTPFieldView
     - Planet
     - PromisesObjC
     - Protobuf
     - SimpleKeychain
     - SwiftyJSON
+    - XCDYouTubeKit
     - YouTubePlayer
 
 SPEC CHECKSUMS:
@@ -208,13 +214,15 @@ SPEC CHECKSUMS:
   HCVimeoVideoExtractor: d3c251280f7027ffd324266e1930b3618e0adb46
   Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  OTPFieldView: 700a752fe62c41d1c4914c78aa500fb30d97c255
   Planet: 8366988beff4e7b86c7530f67ce0172738c6ea24
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   SimpleKeychain: b50cef3b87939d480ea1143425c00f5b4b70fe21
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  XCDYouTubeKit: b120aced3d8638ffb570c5450cddb5a1dac448c7
   YouTubePlayer: bd78e43a1fb0f98cbfc40864514f44924e177147
 
-PODFILE CHECKSUM: 214fd1c4b64f68e088416df37190399e484fe2f1
+PODFILE CHECKSUM: 12356988e85f2cafaa8de98b664f143ae8ce9c25
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.10.1

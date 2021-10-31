@@ -30,6 +30,7 @@ class ChangePasswordVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setStatusBarColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,9 +110,11 @@ class ChangePasswordVC: UIViewController {
                       ]
             
             print("params = \(params)")
+            self.showSpinner(onView: self.view)
             
             Alamofire.request(kChangePasswordURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
                             
+                self.removeSpinner()
                 print(responseData)                
                 
                 switch responseData.result {

@@ -42,8 +42,9 @@ public class AllBrandData: NSCoding {
   private let kAllBrandDataSecondaryNumberKey: String = "secondaryNumber"
   private let kAllBrandDataPrimaryNumberKey: String = "primaryNumber"
   private let kAllBrandDataOtherImagesKey: String = "otherImages"
-  private let kAllBrandDataChannelKey: String = "channel"
+  private let kAllBrandDataChannelKey: String = "channels"
   private let kAllBrandDataCountryKey: String = "country"
+  private let kAllBrandDataover21Key: String = "over21"
 
   // MARK: Properties
   public var state: String?
@@ -79,6 +80,8 @@ public class AllBrandData: NSCoding {
   public var otherImages: String?
   public var channel: [AllBrandChannel]?
   public var country: String?
+  public var over21: String?
+    
 
   // MARK: SwiftyJSON Initalizers
   /**
@@ -129,6 +132,8 @@ public class AllBrandData: NSCoding {
     otherImages = json[kAllBrandDataOtherImagesKey].string
     if let items = json[kAllBrandDataChannelKey].array { channel = items.map { AllBrandChannel(json: $0) } }
     country = json[kAllBrandDataCountryKey].string
+    over21 = json[kAllBrandDataover21Key].string
+    
   }
 
   /**
@@ -170,6 +175,8 @@ public class AllBrandData: NSCoding {
     if let value = otherImages { dictionary[kAllBrandDataOtherImagesKey] = value }
     if let value = channel { dictionary[kAllBrandDataChannelKey] = value.map { $0.dictionaryRepresentation() } }
     if let value = country { dictionary[kAllBrandDataCountryKey] = value }
+    if let value = over21 { dictionary[kAllBrandDataover21Key] = value }
+    
     return dictionary
   }
 
@@ -208,6 +215,8 @@ public class AllBrandData: NSCoding {
     self.otherImages = aDecoder.decodeObject(forKey: kAllBrandDataOtherImagesKey) as? String
     self.channel = aDecoder.decodeObject(forKey: kAllBrandDataChannelKey) as? [AllBrandChannel]
     self.country = aDecoder.decodeObject(forKey: kAllBrandDataCountryKey) as? String
+    self.over21 = aDecoder.decodeObject(forKey: kAllBrandDataover21Key) as? String
+    
   }
 
   public func encode(with aCoder: NSCoder) {
@@ -244,6 +253,8 @@ public class AllBrandData: NSCoding {
     aCoder.encode(otherImages, forKey: kAllBrandDataOtherImagesKey)
     aCoder.encode(channel, forKey: kAllBrandDataChannelKey)
     aCoder.encode(country, forKey: kAllBrandDataCountryKey)
+    aCoder.encode(over21, forKey: kAllBrandDataover21Key)
+    
   }
 
 }

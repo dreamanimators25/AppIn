@@ -10,55 +10,103 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-var TVDropDownIndex : ((_ ind : Int) -> (Void))?
-var TVNotificationIndex : ((_ ind : Int) -> (Void))?
+var TVDropDownIndex : ((_ section : Int, _ index : Int, _ sender : UIButton) -> (Void))?
+var TVNotificationIndex : ((_ section : Int, _ sender : UIButton) -> (Void))?
 
 class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     @IBOutlet weak var myChannelTableView: UITableView!
+    var isShowLoader = true
     
-    //var arrSec1 = ["SAS","Development","McDonalds"]
-    //var arrSec2 = ["Uber","Development"]
-    //var arrSec3 = ["Air bnb","Marketing"]
-
-    var arrMyChannel: [AllBrandData]?
+    //var arrMyChannel: [AllBrandData]?
+    var arrMyChannel: [MyChanneldata]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.callMyChannelWebService()
+        
+        self.setStatusBarColor()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.callMyChannelWebService()
+        
         self.tabBarController?.tabBar.isHidden = true
                         
-        TVDropDownIndex = { index in
-            switch index {
+        TVDropDownIndex = { (section, ind, sender) in
+            
+            /*
+            guard let cell = sender.superview?.superview as? MyChannelTVCell else {
+                return
+            }
+            let indexPath = itemTable.indexPath(for: cell)
+            */
+            
+            let buttonPosition = sender.convert(CGPoint.zero, to: self.myChannelTableView)
+            let indexPath = self.myChannelTableView.indexPathForRow(at:buttonPosition)
+            print(indexPath?.row ?? 0)
+            
+            switch ind {
             case 0:
+                
                 let vc = DesignManager.loadViewControllerFromSettingStoryBoard(identifier: "InviteVC") as! InviteVC
+                
+                //vc.strAccessCode = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].shortCode ?? ""
+                //vc.strQrCode = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].qrCode ?? ""
+                
+                vc.strAccessCode = self.arrMyChannel?[indexPath?.row ?? 0].shortCode ?? ""
+                //vc.strQrCode = self.arrMyChannel?[indexPath?.row ?? 0].qrCode ?? ""
+                
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
             case 1:
-                let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "AboutSasVC") as! AboutSasVC
+                
+                let vc = DesignManager.loadViewControllerFromContentStoryBoard(identifier: "AboutVC") as! AboutVC
+                vc.isComeFrom = "Channel"
+                //vc.isID = self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? ""
+                
+                vc.isID = self.arrMyChannel?[indexPath?.row ?? 0].channelId ?? ""
+                
                 self.navigationController?.pushViewController(vc, animated: true)
                 
                 break
             case 2:
-                self.callRemoveChannelWebService()
+                
+                //self.callRemoveChannelWebService(channelId: Int(self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? "-1") ?? -1)
+                
+                self.callRemoveChannelWebService(channelId: Int(self.arrMyChannel?[indexPath?.row ?? 0].channelId ?? "-1") ?? -1)
                 
                 break
             default:
                 self.callShareContentWebService()
                 
+                //self.arrMyChannel?[0].channel?[tagInd].internalIdentifier ?? ""
+                //self.arrMyChannel?[0].channel?[tagInd]
+                
                 break
             }
         }
         
-        TVNotificationIndex = { index in
-            self.callUpdateChannelNotificationWebService(channelId: index)
+        TVNotificationIndex = { (section, sender) in
+            
+            let buttonPosition = sender.convert(CGPoint.zero, to: self.myChannelTableView)
+            let indexPath = self.myChannelTableView.indexPathForRow(at:buttonPosition)
+            print(indexPath?.row ?? 0)
+            
+            var senderStatus = ""
+            if sender.isSelected {
+                senderStatus = "0"
+            }else {
+                senderStatus = "1"
+            }
+            
+            //self.callUpdateChannelNotificationWebService(channelId: Int(self.arrMyChannel?[section].channel?[indexPath?.row ?? 0].internalIdentifier ?? "-1") ?? -1, isPush: senderStatus)
+            
+            self.callUpdateChannelNotificationWebService(channelId: Int(self.arrMyChannel?[indexPath?.row ?? 0].channelId ?? "-1") ?? -1, isPush: senderStatus)
+            
         }
         
     }
@@ -76,22 +124,37 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
     //MARK: UITableView DataSource & Delegates
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.arrMyChannel?.count ?? 0
+        //return self.arrMyChannel?.count ?? 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.arrMyChannel?[section].channel?.count ?? 0)
+        //return (self.arrMyChannel?[section].channel?.count ?? 0)
+        return self.arrMyChannel?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let MyChannelTVCell = tableView.dequeueReusableCell(withIdentifier: "MyChannelTVCell", for: indexPath) as! MyChannelTVCell
         
-        let brandData = self.arrMyChannel?[indexPath.section]
-        let channel = brandData?.channel
-        let channelData = channel?[indexPath.row]
+        //let brandData = self.arrMyChannel?[indexPath.section]
+        //let channel = brandData?.channel
+        let channelData = self.arrMyChannel?[indexPath.row]
         
-        MyChannelTVCell.channelNameLbl.text = channelData?.name
+        if let url = URL.init(string: channelData?.logo ?? "") {
+            MyChannelTVCell.channelImgView.af_setImage(withURL: url)
+        }
+        
+        if channelData?.sendPush == "1" {
+            MyChannelTVCell.notificationBtn.isSelected = true
+        }else {
+            MyChannelTVCell.notificationBtn.isSelected = false
+        }
+        
+        MyChannelTVCell.channelNameLbl.text = channelData?.channelName
+        MyChannelTVCell.moreBtn.tag = indexPath.section
+        MyChannelTVCell.notificationBtn.tag = indexPath.section
+        
         
         return MyChannelTVCell
     }
@@ -109,9 +172,14 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         params = ["user_id" : userData?.UserId ?? ""]
         
         print("params = \(params)")
+        if isShowLoader {
+            self.isShowLoader = true
+            self.showSpinner(onView: self.view)
+        }
         
         Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
             print(responseData)
             
             switch responseData.result {
@@ -120,17 +188,16 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
-                    
-                    let responsModal = AllBrandBaseClass.init(json: json)
+                    //print(json)
+                    let responsModal = MyChannelModel.init(json: json)
                     
                     if responsModal.status == "success" {
                                                     
-                        self.arrMyChannel = responsModal.data
+                        self.arrMyChannel = responsModal.myChanneldata
                         self.myChannelTableView.reloadData()
                         
                     }else{
-                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        Alert.showAlert(strTitle: "Error", strMessage: "", Onview: self)
                     }
                     
                 }
@@ -140,7 +207,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -148,7 +215,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
     }
     
-    func callUpdateChannelNotificationWebService(channelId : Int) {
+    func callUpdateChannelNotificationWebService(channelId : Int, isPush : String) {
         
         let userData = UserDefaults.getUserData()
         
@@ -156,26 +223,30 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
         params = ["user_id" : userData?.UserId ?? "",
                   "channel_id" : channelId,
-                  "sendPush" : "1"]
+                  "sendPush" : isPush]
         
-        print("params = \(params)")
+        //print("params = \(params)")
+        
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kUpdateChannelNotificationURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
+            //print(responseData)
+            
             switch responseData.result {
             case .success:
                 
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
                     
                     let responsModal = GetAllNotifications.init(json: json)
                     
                     if responsModal.status == "success" {
                                      
                     }else{
-                        Alert.showAlert(strTitle: "", strMessage: "", Onview: self)
+                        Alert.showAlert(strTitle: "Error", strMessage: "", Onview: self)
                     }
                     
                 }
@@ -185,7 +256,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -193,18 +264,24 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
         
     }
     
-    func callRemoveChannelWebService() {
+    func callRemoveChannelWebService(channelId : Int) {
         
         let userData = UserDefaults.getUserData()
         
-        var params = [String : String]()
+        var params = [String : Any]()
         params = ["user_id" : userData?.UserId ?? "",
-                  "channel_id" : "",
-                  "isDeleted" : ""]
+                  "channel_id" : channelId,
+                  "isDeleted" : "1"]
         
         print("params = \(params)")
         
+        self.showSpinner(onView: self.view)
+        
         Alamofire.request(kRemoveChannelURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+                     
+            //DispatchQueue.main.async {
+                //self.removeSpinner()
+            //}
                         
             print(responseData)
             
@@ -214,14 +291,14 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
                     
                     let responsModal = RegisterBaseClass.init(json: json)
                     
                     if responsModal.status == "success" {
-                                                    
+                        self.isShowLoader = false
+                        self.callMyChannelWebService()
                     }else{
-                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
+                        Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "Error", Onview: self)
                     }
                     
                 }
@@ -231,7 +308,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
@@ -240,14 +317,26 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
     }
     
     func callShareContentWebService() {
+        
+        let userData = UserDefaults.getUserData()
                 
         var params = [String : String]()
-        params = ["pageId" : "0"]
+        params = ["user_id" : userData?.UserId ?? ""]
         
-        print("params = \(params)")
+        /*
+        params = ["contentId" : self.content?.channelId ?? 0,
+                  "user_id" : userData?.UserId ?? "",
+                  "pageId" : self.content?.pageId ?? ""]
+        */
+        
+        //print("params = \(params)")
+        self.showSpinner(onView: self.view)
         
         Alamofire.request(kShareContentURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
-                        
+            
+            self.removeSpinner()
+            //print(responseData)
+            
             switch responseData.result {
             case .success:
                 
@@ -256,14 +345,6 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                     let json = JSON(data)
                     print(json)
                     
-                    let responsModal = RegisterBaseClass.init(json: json)
-                    
-                    if responsModal.status == "success" {
-                                                    
-                    }else{
-                        //Alert.showAlert(strTitle: "", strMessage: responsModal.msg ?? "", Onview: self)
-                    }
-                    
                 }
                 
             case .failure(let error):
@@ -271,7 +352,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if error.localizedDescription.contains("Internet connection appears to be offline"){
                     //Alert.showAlert(strTitle: "Error!!", strMessage: "Internet connection appears to be offline", Onview: self)
                 }else{
-                    //Alert.showAlert(strTitle: "Error!!", strMessage: "Somthing went wrong", Onview: self)
+                    //Alert.showAlert(strTitle: "Error!!", strMessage: "something went wrong", Onview: self)
                 }
             }
             
