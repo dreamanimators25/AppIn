@@ -251,14 +251,22 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
                 countlLbl.isHidden = true
             }
                     
+            if self.arrSelectedSection.contains(indexPath.section) {
+                //arrowImg.transform = brandCell.arrowImg.transform.rotated(by: .pi)
+                arrowImg.image = UIImage.init(named: "upArrow")
+            }else {
+                //arrowImg.transform = brandCell.arrowImg.transform.rotated(by: 0)
+                arrowImg.image = UIImage.init(named: "downArrow")
+            }
             
             
-                if arrSelectedSection.contains(indexPath.section) && self.selSection == indexPath.section {
-                    arrowImg.transform = arrowImg.transform.rotated(by: .pi)
-                }
+            /*
+             if arrSelectedSection.contains(indexPath.section) && self.selSection == indexPath.section {
+             arrowImg.transform = arrowImg.transform.rotated(by: .pi)
+             }*/
             
             
-           
+            
             return brandCell
         }else {
             
@@ -330,7 +338,18 @@ class ChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         if indexPath.row == 0 {
             
             self.selSection = indexPath.section
-            self.arrSelectedSection.append(indexPath.section)
+            //self.arrSelectedSection.append(indexPath.section)
+            
+            if self.arrSelectedSection.contains(indexPath.section) {
+                
+                if let index = self.arrSelectedSection.firstIndex(of: (indexPath.section)) {
+                    self.arrSelectedSection.remove(at: index)
+                }
+                
+            }else {
+                self.arrSelectedSection.append(indexPath.section)
+            }
+            
                         
             if self.arrBrandSelectedSection.contains(indexPath.section) {
                 

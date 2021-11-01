@@ -18,6 +18,7 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     var webView: WKWebView!
     var isComeFrom: String?
     var loadableUrlStr: String?
+    var isPresent = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +46,13 @@ class WebViewVC: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     //MARK: IBAction
     @IBAction func backBtnClicked(_ sender: UIButton) {
-        _ = self.navigationController?.popViewController(animated: true)
+        
+        if isPresent {
+            self.dismiss(animated: true, completion: nil)
+        }else {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     //MARK: Custom Methods

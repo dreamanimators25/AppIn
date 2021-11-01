@@ -87,6 +87,7 @@
 		596574A025370FC400FD9822 /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5965749F25370FC400FD9822 /* RoundButton.swift */; };
 		5969913825DD745100E3F436 /* AboutTblVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5969913725DD745100E3F436 /* AboutTblVC.swift */; };
 		596A7FE525DEC7D300507705 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 596A7FE425DEC7D300507705 /* AboutVC.swift */; };
+		59772AED272B183E00F3AADB /* BusinessCardPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59772AEC272B183C00F3AADB /* BusinessCardPopUpVC.swift */; };
 		597EBD4A2540A80A0080B1F0 /* ChangePWPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */; };
 		5980B505270F66CB00B7095F /* fdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5980B503270F66CB00B7095F /* fdData.swift */; };
 		5980B506270F66CB00B7095F /* FeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5980B504270F66CB00B7095F /* FeedData.swift */; };
@@ -309,6 +310,7 @@
 		5965749F25370FC400FD9822 /* RoundButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
 		5969913725DD745100E3F436 /* AboutTblVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTblVC.swift; sourceTree = "<group>"; };
 		596A7FE425DEC7D300507705 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		59772AEC272B183C00F3AADB /* BusinessCardPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessCardPopUpVC.swift; sourceTree = "<group>"; };
 		597EBD492540A80A0080B1F0 /* ChangePWPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWPopUpVC.swift; sourceTree = "<group>"; };
 		5980B503270F66CB00B7095F /* fdData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fdData.swift; sourceTree = "<group>"; };
 		5980B504270F66CB00B7095F /* FeedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedData.swift; sourceTree = "<group>"; };
@@ -498,6 +500,7 @@
 		590957DC2544264F0014E5E2 /* Channel */ = {
 			isa = PBXGroup;
 			children = (
+				59772AEC272B183C00F3AADB /* BusinessCardPopUpVC.swift */,
 				592DC4F3253F2BBB00779130 /* SearchChannelVC.swift */,
 				5997A1BA24A1197E0091AC4A /* AddChannelPopUpVC.swift */,
 				595F977225E55A3500A46C7C /* DisclaimerVC.swift */,
@@ -1121,7 +1124,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = "Sameer khan";
+				ORGANIZATIONNAME = AppIn;
 				TargetAttributes = {
 					59DDC65024962CDF007D1A51 = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -1347,6 +1350,7 @@
 				5999208224B33DC900E76898 /* GradientView.swift in Sources */,
 				5999204224B33DC900E76898 /* NotificationsRouter.swift in Sources */,
 				5999204324B33DC900E76898 /* StatisticsRouter.swift in Sources */,
+				59772AED272B183E00F3AADB /* BusinessCardPopUpVC.swift in Sources */,
 				590E662B249CCE3A001443BF /* AppConstant.swift in Sources */,
 				5999205024B33DC900E76898 /* Rewards.swift in Sources */,
 				5999207C24B33DC900E76898 /* TextField.swift in Sources */,
@@ -1604,7 +1608,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1612,7 +1616,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.26;
+				MARKETING_VERSION = 1.27;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1632,7 +1636,7 @@
 				CODE_SIGN_ENTITLEMENTS = AppIn/AppIn.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = D5WZGXXYX2;
 				INFOPLIST_FILE = AppIn/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1640,7 +1644,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.26;
+				MARKETING_VERSION = 1.27;
 				PRODUCT_BUNDLE_IDENTIFIER = se.AppIn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

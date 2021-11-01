@@ -10,7 +10,7 @@ import UIKit
 
 let apdel = UIApplication.shared.delegate as! AppDelegate
 
-let AppThemeColor = #colorLiteral(red: 0.2, green: 0.2, blue: 0.6784313725, alpha: 1)
+let AppThemeColor = #colorLiteral(red: 0.261883378, green: 0.2925514281, blue: 0.7345846295, alpha: 1)
 let btnCornerRadius = CGFloat(5.0)
 let contentCornerRadius = CGFloat(5.0)
 

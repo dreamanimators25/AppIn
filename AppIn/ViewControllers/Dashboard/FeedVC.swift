@@ -295,6 +295,39 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
                                 
                 break
                 
+            case "11":
+                print("Business Card")
+                                
+                DispatchQueue.main.async {
+                    
+                    var dictonary:NSDictionary?
+                    
+                    if let data = content.data(using: String.Encoding.utf8) {
+                        
+                        do {
+                            dictonary = try JSONSerialization.jsonObject(with: data, options: []) as? [String:AnyObject] as NSDictionary?
+                            
+                            if let myDictionary = dictonary
+                            {
+                                print(" First name is: \(myDictionary["cardName"] ?? "")")
+                                
+                                let vc = DesignManager.loadViewControllerFromChannelStoryBoard(identifier: "BusinessCardPopUpVC") as! BusinessCardPopUpVC
+                                vc.businessDict = dictonary
+                                vc.modalPresentationStyle = .overCurrentContext
+                                self.present(vc, animated: true, completion: nil)
+                                
+                            }
+                            
+                        } catch let error as NSError {
+                            print(error)
+                        }
+                    }
+                    
+                }
+                                
+                break
+
+                
             default:
                 print("Nothing")
                 
@@ -338,8 +371,16 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
     
     //MARK: UICollectionView DataSource & Delegates
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return self.arrFeedChannel?.count ?? 0
+        
         //return 1
+        
+        if (self.arrFeedChannel?.count ?? 0) > 0 {
+            self.ErrorView.isHidden = true
+            return self.arrFeedChannel?.count ?? 0
+        }else {
+            self.ErrorView.isHidden = false
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -416,7 +457,7 @@ class FeedVC: UIViewController, UICollectionViewDataSource, UICollectionViewDele
         Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
-            //print(responseData)
+            print(responseData)
             
             switch responseData.result {
             case .success:

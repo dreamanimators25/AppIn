@@ -177,10 +177,10 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
             self.showSpinner(onView: self.view)
         }
         
-        Alamofire.request(kGetChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
+        Alamofire.request(kGetMyChannelsURL, method: .post, parameters: params, encoding: URLEncoding.httpBody, headers: nil).responseJSON { (responseData) in
             
             self.removeSpinner()
-            //print(responseData)
+            print(responseData)
             
             switch responseData.result {
             case .success:
@@ -188,7 +188,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 if let data = responseData.result.value {
                     
                     let json = JSON(data)
-                    print(json)
+                    //print(json)
                     let responsModal = MyChannelModel.init(json: json)
                     
                     if responsModal.status == "success" {
@@ -273,7 +273,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                   "channel_id" : channelId,
                   "isDeleted" : "1"]
         
-        //print("params = \(params)")
+        print("params = \(params)")
         
         self.showSpinner(onView: self.view)
         
@@ -283,7 +283,7 @@ class MyChannelsVC: UIViewController,UITableViewDataSource,UITableViewDelegate {
                 //self.removeSpinner()
             //}
                         
-            //print(responseData)
+            print(responseData)
             
             switch responseData.result {
             case .success:
